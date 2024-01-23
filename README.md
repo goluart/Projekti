@@ -1,14 +1,14 @@
 # Projekti
 Tiimi 4 - Ohjelmistoprojekti
 
-# Scrum-syklin yleiskuvaus
+## Scrum-syklin yleiskuvaus
 
-# Sprintit
+## Sprintit
 
-# Työjonot
+## Työjonot
 
-# Roolit
+## Roolit
 
-# Kokoukset
+## Kokoukset
 
-# Miksi Scrum toimii?
+## Miksi Scrum toimii?
