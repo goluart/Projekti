@@ -5,8 +5,7 @@ Tiimi 4 - Ohjelmistoprojekti
 
 ## Sprintit
 
-Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittuihin tehtäviin. Sprintiti on yleensä 1-4 viikon mittainen aikaraja, jonka sisällä tuotetaan
-"valmiin" määritelmän täyttävä, käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio.
+Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittuihin tehtäviin. Sprintiti on yleensä 1-4 viikon mittainen aikaraja, jonka sisällä tuotetaan "valmiin" määritelmän täyttävä, käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio.
 
 ## Työjonot
 
