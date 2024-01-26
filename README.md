@@ -15,4 +15,4 @@ Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittu
 
 ## Miksi Scrum toimii?
 
-Testi 3
+Testi3
