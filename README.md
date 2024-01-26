@@ -11,8 +11,12 @@ Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittu
 
 ## Roolit
 
+1. **Scrum Master**
+
+2. **Tuoteomistaja**
+
+3. **Kehitystiimi**
+
 ## Kokoukset
 
 ## Miksi Scrum toimii?
-
-Testi3
