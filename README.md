@@ -3,16 +3,18 @@ Tiimi 4 - Ohjelmistoprojekti
 
 ## Scrum-syklin yleiskuvaus
 
-Scrum on ketterän kehityksen malli, jossa projekti kulkee 1-4 viikon sykleissä eli sprinteissä. Sykli alkaa valitsemalla kehitysjonosta (backlog) sprintin aikana kehitettävä tuotteen ominaisuus. Ominaisuudet on järjestetty sprintin kehitysjonossa tärkeysjärjestykseen ja ominaisuudet kehitetään tässä järjestyksessä. Sprintin aikana tuote kehitetään valmiiksi tuoteversioksi, jonka jälkeen pidetään sprintin katselmointi. Sen aikana tuotetta tarkastellaan ja seurataan tavoitteiden edistymistä. Tämän jälkeen pidetään vielä retrospektiivi, jonka aikana on tarkoitus tarkastella sprintin toimivuutta, yhteistyötä, työnkukua jne. Tarkastelusta huomattuja muutosideoita tehokkuuden parantamiseksi otetaan seuraavissa sprinteissä käyttöön ja sykli alkaa alusta.
+Scrum on ketterän kehityksen malli, jossa projekti kulkee 1-4 viikon sykleissä eli sprinteissä. Sykli alkaa valitsemalla kehitysjonosta (backlog) sprintin aikana kehitettävä tuotteen ominaisuus. Ominaisuudet on järjestetty sprintin kehitysjonossa tärkeysjärjestykseen ja ominaisuudet kehitetään tässä järjestyksessä. Sprintin aikana tuote kehitetään valmiiksi tuoteversioksi, jonka jälkeen pidetään sprintin katselmointi. Sen aikana tuotetta tarkastellaan ja seurataan tavoitteiden edistymistä.
+
+Tämän jälkeen pidetään vielä retrospektiivi, jonka aikana on tarkoitus tarkastella sprintin toimivuutta, yhteistyötä, työnkulkua jne. Tarkastelusta huomattuja muutosideoita tehokkuuden parantamiseksi otetaan seuraavissa sprinteissä käyttöön ja sykli alkaa alusta.
 
 ## Sprintit
 
-Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittuihin tehtäviin. Sprintiti on yleensä 1-4 viikon mittainen aikaraja, jonka sisällä tuotetaan "valmiin" määritelmän täyttävä, käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio.
+Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittuihin tehtäviin. Sprintit ovat yleensä 1-4 viikon mittaisia ajanjaksoja. Niiden aikana tuotetaan valittu ominaisuus, joka on vaatimusten mukainen, käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio. Tavoite on, että sprintin lopputuote on valmis ja vaatimusmäärittelyn mukainen. 
 
 ## Työjonot
 
 Product Backlog: Koko tuotteen ominaisuuslista, joka sisältää kaikki tulevaisuudessa toteutettavat toiminnot, korjaukset ja parannukset. Tuoteomistaja priorisoi product backlogin.
-Sprint Backlog: Valikoima tehtäviä product backlogista, jotka tiimi on sitoutunut toteuttamaan tulevan sprintin aikana. Sprint backlog muodostetaan sprintin suunnittelukokouksessa.git 
+Sprint Backlog: Valikoima tehtäviä product backlogista, jotka tiimi on sitoutunut toteuttamaan tulevan sprintin aikana. Sprint backlog muodostetaan sprintin suunnittelukokouksessa. 
 
 ## Roolit
 
