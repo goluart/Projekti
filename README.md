@@ -24,12 +24,19 @@ Scrum-tiimi sisältää erilaisia rooleja, muttei kuitenkaan hierarkioita tai al
 
     Scrum master vastaa siitä, että
     - Scrum-oppeja noudatetaan
-    - tiimin tehokkuudesta
-    
+    - tiimin tehokkuudesta    
 
 2. **Tuoteomistaja**
 
+    Tuoteomistaja vastaa 
+    - tuotteen vision määrittelystä ja 
+    - product backlogin ylläpidosta. 
+    
+    Tuoteomistaja priorisoi backlogin tehtävät ja on vastuussa siitä, että tiimi ymmärtää tehtävien tavoitteet ja vaatimukset.
+
 3. **Kehitystiimi**
+
+    Kehitystiimi on itsenäinen, moniammatillinen ryhmä, joka suunnittelee, toteuttaa ja testaa tuotteen ominaisuuksia. Kehitystiimi tekee yhteistyötä saavuttaakseen sprintin tavoitteet.
 
 ## Kokoukset
 
