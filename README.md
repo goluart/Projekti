@@ -15,6 +15,11 @@ Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittu
 
 1. **Scrum Master**
 
+    Scrum master vastaa siitä, että
+    - Scrum-oppeja noudatetaan
+    - tiimin tehokkuudesta
+    
+
 2. **Tuoteomistaja**
 
 3. **Kehitystiimi**
