@@ -13,6 +13,8 @@ Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittu
 
 ## Roolit
 
+Scrum-tiimi sisältää erilaisia rooleja, muttei kuitenkaan hierarkioita tai alaryhmiä. Koko tiimi on vastuussa projektin toteutumisesta, mutta muutamia vastuualueita on jaettu nimettyihin rooleihin. 
+
 1. **Scrum Master**
 
     Scrum master vastaa siitä, että
