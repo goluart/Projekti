@@ -9,6 +9,7 @@ Scrum on ketterän kehityksen malli, jossa projekti kulkee 1-4 viikon sykleissä
 
 Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittuihin tehtäviin. Sprintti on yleensä 1-4 viikon mittainen aikaraja, jonka aikana tuotetaan "valmiin" määritelmän täyttävä, käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio.
 
+![Alt text](https://www.projectwidgets.com/wp-content/uploads/2023/11/istockphoto-1336228211-612x612-1.jpg)
 
 ## Työjonot
 
