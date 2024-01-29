@@ -7,12 +7,12 @@ Scrum on ketterän kehityksen malli, jossa projekti kulkee 1-4 viikon sykleissä
 
 ## Sprintit
 
-Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittuihin tehtäviin. Sprintiti on yleensä 1-4 viikon mittainen aikaraja, jonka sisällä tuotetaan "valmiin" määritelmän täyttävä, käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio.
+Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittuihin tehtäviin. Sprintti on yleensä 1-4 viikon mittainen aikaraja, jonka aikana tuotetaan "valmiin" määritelmän täyttävä, käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio.
 
 ## Työjonot
 
 Product Backlog: Koko tuotteen ominaisuuslista, joka sisältää kaikki tulevaisuudessa toteutettavat toiminnot, korjaukset ja parannukset. Tuoteomistaja priorisoi product backlogin.
-Sprint Backlog: Valikoima tehtäviä product backlogista, jotka tiimi on sitoutunut toteuttamaan tulevan sprintin aikana. Sprint backlog muodostetaan sprintin suunnittelukokouksessa.git 
+Sprint Backlog: Valikoima tehtäviä product backlogista, jotka tiimi on sitoutunut toteuttamaan tulevan sprintin aikana. Sprint backlog muodostetaan sprintin suunnittelukokouksessa.
 
 ## Roolit
 
@@ -38,9 +38,9 @@ Scrum-tiimi sisältää erilaisia rooleja, muttei kuitenkaan hierarkioita tai al
 
 ## Kokoukset
 
-Sprintin suunnittelukokous: Määritellään sprintin tavoitteet ja valitaan sprint backlog. Kokoukset tiistaisin klo 14 - 17 luennon jälkeen joustavasti. 
+Sprintin suunnittelukokous: Määritellään sprintin tavoitteet ja valitaan sprint backlog. Kokoukset pidetään tiistaisin klo 14 - 17 luennon jälkeen joustavasti. 
 Päivittäinen scrum (Daily Stand-up): Tiimi koordinoi päivän/viikon tehtäviä Teams-kanavan kautta ja tunnistaa mahdolliset esteet. Tiimi voi sopia viikolle tarvittaessa lyhyitä 15 minuutin tapaamisia.
-Sprintin katselmointi: Sunnuktaisin klo 18 esitellään sprintin aikana valmistuneet työt ja kerätään palautetta muilta tiimin jäseniltä (norm. sidosryhmiltä).
+Sprintin katselmointi: Sunnuntaisin klo 18 esitellään sprintin aikana valmistuneet työt ja kerätään palautetta muilta tiimin jäseniltä (norm. sidosryhmiltä).
 Retrospektiivi: Tiistaisin klo 14 arvioidaan menneen sprintin prosesseja ja työskentelytapoja sekä suunnitellaan parannuksia seuraavaan sprinttiin.
 
 ## Miksi Scrum toimii?
