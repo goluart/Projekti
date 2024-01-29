@@ -20,6 +20,7 @@ Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittu
 Sprintin tavoite on tuottaa "valmis", käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio.
 
 ![Alt text](https://www.projectwidgets.com/wp-content/uploads/2023/11/istockphoto-1336228211-612x612-1.jpg)
+
 Kuva 1. Kuva sprintin vaiheista. (Project Widgets s.a.)
 
 ## Työjonot
