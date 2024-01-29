@@ -9,6 +9,10 @@ Scrum on ketterän kehityksen malli, jossa projekti kulkee 1-4 viikon sykleissä
 
 Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittuihin tehtäviin. Sprintti on yleensä 1-4 viikon mittainen aikaraja, jonka aikana tuotetaan "valmiin" määritelmän täyttävä, käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio.
 
+![Sprint-kuva] [sprint_prosessi]
+
+[sprint_prosessi]: https://web-static.wrike.com/cdn-cgi/image/format=auto,quality=80,width=1016,dpr=1/tp/storage/uploads/92025823-45d4-4b1c-bcef-6dffd4727344/scrum-cycle-resized.png
+
 ## Työjonot
 
 Product Backlog: Koko tuotteen ominaisuuslista, joka sisältää kaikki tulevaisuudessa toteutettavat toiminnot, korjaukset ja parannukset. Tuoteomistaja priorisoi product backlogin.
