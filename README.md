@@ -1,72 +1,111 @@
-# Projekti
-Tiimi 4 - Ohjelmistoprojekti
+# TicketGuru - Lipputoimiston lippujärjestelmä
 
-## Scrum-syklin yleiskuvaus
+Tiimi: Huovinen Mia,  Tuomela Jouni, Varpanen Hilda-Maija, Golubev Artur
+~~Tiimi: Etunimi Sukunimi, Etunimi Sukunimi~~
 
-Scrum on ketterän kehityksen malli, jossa projekti kulkee 1-4 viikon sykleissä eli sprinteissä. 
+## Johdanto
 
-Sykli alkaa valitsemalla kehitysjonosta (product backlog) sprintin aikana tuotteelle kehitettävä ominaisuus. Ominaisuudet on organisoitu sprintin kehitysjonossa tuoteomistajan valitsemaan tärkeysjärjestykseen. Ominaisuudet kehitetään poikkeuksetta tässä järjestyksessä.
+Asiakkaanamme toimii lipputoimisto, joka haluaa uudistaa lippujärjestelmänsä vastaamaan nykypäivän vaatimuksia ja tarpeita.  TicketGuru järjestelmän tavoitteena on mahdollistaa lippujen myynti sekä myyntipisteessä ja myöhemmin myös verkkokaupassa. Lippujen myynti tapahtuu ensisijaisesti myyntipisteessä, jossa lipunmyyjä myy ja tulostaa asiakkaille. Kun ennakkomyynnin aika päättyy, jäljellä jäävät liput tulostetaan myyntipisteen sijaan ovella myytäväksi. Jokaisessa lipussa on selkeästi tarkastettava koodi, joka mahdollistaa nopean ja vaivattoman pääsyn tapahtumaan.
 
-Sprintin aikana tuote kehitetään valmiiksi tuoteversioksi, jonka jälkeen pidetään sprintin katselmointi. Sen aikana tuotetta tarkastellaan ja seurataan sunnitelmien mukaisten tavoitteiden edistymistä. 
+Johdantoon kirjoitetaan lyhyt, ytimekäs kuvaus siitä, mikä on projektin aihe,
+kuka on asiakas (käyttäjä), mitä hän haluaa ja saa järjestelmältä, mitä
+tekniikoita käytetään ja mitä konkreettisesti on valmiina, kun projekti päättyy.
 
-Tämän jälkeen pidetään vielä retrospektiivi, jonka aikana tarkastellaan sprintin toimivuutta, yhteistyötä, työnkulkua jne. 
+-   Järjestelmän tarkoitus ja tiivis kuvaus siitä, mistä on kyse ja kenelle järjestelmä on tarkoitettu.
+-   Toteutus- ja toimintaympäristö lyhyesti:  
+    -   Palvelinpuolen ratkaisut ja teknologiat (esim. palvelinteknologia, mikä tietokantajärjestelmä on käytössä)
+    -   Käyttöliittymäratkaisut ja teknologiat (esim. päätelaitteet: puhelin,
+    täppäri, desktop)
 
-Tarkastelussa sovittuja muutosideoita otetaan käyttöön tehokkuuden parantamiseksi seuraavissa sprinteissä, jonka jälkeen sykli alkaa alusta.
+## Järjestelmän määrittely
 
-## Sprintit
+Määrittelyssä järjestelmää tarkastellaan käyttäjän näkökulmasta. Järjestelmän
+toiminnot hahmotellaan käyttötapausten tai käyttäjätarinoiden kautta, ja kuvataan järjestelmän
+käyttäjäryhmät.
 
-Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittuihin tehtäviin. Sprintti kestää yleensä 1-4 viikkoa. Sprintin pituus on vakio ja se määritellään projektin alussa.
+-   Lyhyt kuvaus käyttäjäryhmistä (rooleista)
+-   Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
+    (use case diagram) tai käyttäjätarinoina.
+-   Lyhyt kuvaus käyttötapauksista tai käyttäjätarinat
 
-Sprintin tavoite on tuottaa "valmis", käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio.
+Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
+tietoa ja keskittyä siihen.
 
-![Alt text](https://www.projectwidgets.com/wp-content/uploads/2023/11/istockphoto-1336228211-612x612-1.jpg)
+## Käyttöliittymä
 
-Kuva 1. Kuva sprintin vaiheista. (Project Widgets s.a.)
+Esitetään käyttöliittymän tärkeimmät (vain ne!) näkymät sekä niiden väliset siirtymät käyttöliittymäkaaviona. 
 
-## Työjonot
+Jos näkymän tarkoitus ei ole itsestään selvä, se pitää kuvata lyhyesti.
 
-Product Backlog: Koko tuotteen ominaisuuslista, joka sisältää kaikki tulevaisuudessa toteutettavat toiminnot, korjaukset ja parannukset. Tuoteomistaja priorisoi product backlogin.
+## Tietokanta
 
-Sprint Backlog: Valikoima tehtäviä product backlogista, jotka tiimi on sitoutunut toteuttamaan tulevan sprintin aikana. Sprint backlog muodostetaan sprintin suunnittelukokouksessa.
+Järjestelmään säilöttävä ja siinä käsiteltävät tiedot ja niiden väliset suhteet
+kuvataan käsitekaaviolla. Käsitemalliin sisältyy myös taulujen välisten viiteyhteyksien ja avainten
+määritykset. Tietokanta kuvataan käyttäen jotain kuvausmenetelmää, joko ER-kaaviota ja UML-luokkakaaviota.
 
-## Roolit
+Lisäksi kukin järjestelmän tietoelementti ja sen attribuutit kuvataan
+tietohakemistossa. Tietohakemisto tarkoittaa yksinkertaisesti vain jokaisen elementin (taulun) ja niiden
+attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän tyyliin:
 
-Scrum-tiimi sisältää erilaisia rooleja, muttei kuitenkaan hierarkioita tai alaryhmiä. Koko tiimi on vastuussa projektin toteutumisesta, mutta muutamia vastuualueita on jaettu nimettyihin rooleihin. 
+> ### _Tilit_
+> _Tilit-taulu sisältää käyttäjätilit. Käyttäjällä voi olla monta tiliä. Tili kuuluu aina vain yhdelle käyttäjälle._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> id | int PK | Tilin id
+> nimimerkki | varchar(30) |  Tilin nimimerkki
+> avatar | int FK | Tilin avatar, viittaus [avatar](#Avatar)-tauluun
+> kayttaja | int FK | Viittaus käyttäjään [käyttäjä](#Kayttaja)-taulussa
 
-1. **Scrum Master**
+## Tekninen kuvaus
 
-    Scrum master vastaa
-    - Scrum-oppien noudattamisesta
-    - tiimin tehokkuudesta    
+Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
+ratkaisut, esim.
 
-2. **Tuoteomistaja**
+-   Missä mikäkin järjestelmän komponentti ajetaan (tietokone, palvelinohjelma)
+    ja komponenttien väliset yhteydet (vaikkapa tähän tyyliin:
+    https://security.ufl.edu/it-workers/risk-assessment/creating-an-information-systemdata-flow-diagram/)
+-   Palvelintoteutuksen yleiskuvaus: teknologiat, deployment-ratkaisut yms.
+-   Keskeisten rajapintojen kuvaukset, esimerkit REST-rajapinta. Tarvittaessa voidaan rajapinnan käyttöä täsmentää
+    UML-sekvenssikaavioilla.
+-   Toteutuksen yleisiä ratkaisuja, esim. turvallisuus.
 
-    Tuoteomistaja vastaa 
-    - tuotteen vision määrittelystä
-    - product backlogin ylläpidosta 
-    
-    Tuoteomistaja priorisoi backlogin tehtävät ja on vastuussa siitä, että tiimi ymmärtää tehtävien tavoitteet ja vaatimukset.
+Tämän lisäksi
 
-3. **Kehitystiimi**
+-   ohjelmakoodin tulee olla kommentoitua
+-   luokkien, metodien ja muuttujien tulee olla kuvaavasti nimettyjä ja noudattaa
+    johdonmukaisia nimeämiskäytäntöjä
+-   ohjelmiston pitää olla organisoitu komponentteihin niin, että turhalta toistolta
+    vältytään
 
-    Kehitystiimi on itsenäinen, moniammatillinen ryhmä, joka suunnittelee, toteuttaa ja testaa tuotteen ominaisuuksia. Kehitystiimi tekee yhteistyötä saavuttaakseen sprintin tavoitteet.
+## Testaus
 
-## Kokoukset
+Tässä kohdin selvitetään, miten ohjelmiston oikea toiminta varmistetaan
+testaamalla projektin aikana: millaisia testauksia tehdään ja missä vaiheessa.
+Testauksen tarkemmat sisällöt ja testisuoritusten tulosten raportit kirjataan
+erillisiin dokumentteihin.
 
-Sprintin suunnittelukokous: Määritellään sprintin tavoitteet ja valitaan sprint backlog. Kokoukset pidetään tiistaisin klo 14 - 17 luennon jälkeen joustavasti. 
+Tänne kirjataan myös lopuksi järjestelmän tunnetut ongelmat, joita ei ole korjattu.
 
-Päivittäinen Scrum (Daily Stand-up): Tiimi koordinoi päivän/viikon tehtäviä Teams-kanavan kautta ja tunnistaa mahdolliset esteet. Tiimi voi sopia viikolle tarvittaessa lyhyitä 15 minuutin tapaamisia.
+## Asennustiedot
 
-Sprintin katselmointi: Sunnuntaisin klo 18 esitellään sprintin aikana valmistuneet työt ja kerätään palautetta muilta tiimin jäseniltä (norm. sidosryhmiltä).
+Järjestelmän asennus on syytä dokumentoida kahdesta näkökulmasta:
 
-Retrospektiivi: Tiistaisin klo 14 arvioidaan menneen sprintin prosesseja ja työskentelytapoja sekä suunnitellaan parannuksia seuraavaan sprinttiin.
+-   järjestelmän kehitysympäristö: miten järjestelmän kehitysympäristön saisi
+    rakennettua johonkin toiseen koneeseen
 
-## Miksi Scrum toimii?
+-   järjestelmän asentaminen tuotantoympäristöön: miten järjestelmän saisi
+    asennettua johonkin uuteen ympäristöön.
 
-Scrum on iteratiivinen projektinhallintamalli, jonka tarkoitus on mahdollistaa tuotteen kehityksen joustavuus ja parantaa yhteistyötä. 
+Asennusohjeesta tulisi ainakin käydä ilmi, miten käytettävä tietokanta ja
+käyttäjät tulee ohjelmistoa asentaessa määritellä (käytettävä tietokanta,
+käyttäjätunnus, salasana, tietokannan luonti yms.).
 
-Pakolliset mutta lyhyinä pidettävät palaverit kehittävät käytettyjä menetelmiä ja projektin etenemistä tarkastellaan säännöllisesti. Näin yllättäviin muutoksiin pystytään paremmin vastaamaan ja turhaan tehty työ vähenee, kun muutoksia voidaan tehdä tuotekehityksen aikana. 
+## Käynnistys- ja käyttöohje
 
-Ominaisuuksien asettaminen tärkeysjärjestykseen varmistaa, että kriittisimmät ominaisuudet valmistuvat ensin.
+Tyypillisesti tässä riittää kertoa ohjelman käynnistykseen tarvittava URL sekä
+mahdolliset kirjautumiseen tarvittavat tunnukset. Jos järjestelmän
+käynnistämiseen tai käyttöön liittyy joitain muita toimenpiteitä tai toimintajärjestykseen liittyviä asioita, nekin kerrotaan tässä yhteydessä.
 
-Scrumille ominaista on pienet ja ketterät Scrum-tiimit. On havaittu, että pienet tiimit kommunikoivat suuria tiimejä paremmin. Hyvä kommunikaatio antaa mahdollisuuden toimia tuottavammin ja saavuttaa sitä myötä asetetut tavoitteet.
+Usko tai älä, tulet tarvitsemaan tätä itsekin, kun tauon jälkeen palaat
+järjestelmän pariin !
