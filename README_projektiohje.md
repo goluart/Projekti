@@ -21,8 +21,13 @@ toiminnot hahmotellaan käyttötapausten tai käyttäjätarinoiden kautta, ja ku
 käyttäjäryhmät.
 
 -   Lyhyt kuvaus käyttäjäryhmistä (rooleista)
+    Sovelluksen käyttäjäryhmät lipunmyyjä, lipuntarkastaja ja tapahtumanperustaja. 
 -   Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
     (use case diagram) tai käyttäjätarinoina.
+    ![Käyttötapauskaavio](pictures/kayttotapauskaavio.jpg)
+
+
+
 -   Lyhyt kuvaus käyttötapauksista tai käyttäjätarinat
 
 Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
