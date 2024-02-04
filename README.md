@@ -20,9 +20,41 @@ tekniikoita käytetään ja mitä konkreettisesti on valmiina, kun projekti pä�
 
 ## Järjestelmän määrittely
 
+
+### Käyttäjäroolit
 Asiakas
 Myyjä
 Järjestelmänvalvoja
+
+### Käyttäjätarinat
+
+- Lipuntarkastajana haluan pystyä varmistamaan lipun aitouden, jotta vain aidoilla lipuilla pääsee sisään
+
+- Palveluntarjoajana haluan lisätä tapahtumia, jotta sidosryhmät voivat löytää tapahtumien tiedot
+    
+    - Palveluntarjoajana haluan tallennuspaikan tapahtumien ja lippujen tiedoille, jotta ne ovat tallessa
+    
+    - Palveluntarjoajana haluan saada tallennettua tapahtumatietoja, jotta niitä voidaan käyttää lipunmyynnissä
+    
+    - Palveluntarjoajana haluan pystyä hakemaan tapahtumatietoja, jotta voin nähdä tiedot
+    
+    - Palveluntarjoajana haluan pystyä muokkaamaan tallennettuja tietoja, jotta voin päivittää muutoksia tapahtumiin
+
+- Palveluntarjoajana haluan saada tiedon myydyistä lipuista, jotta tiedän myytyjen lippujen määrän ja summan
+
+- Palveluntarjoajana haluan saada tiedon koko kuukauden ja vuoden myytyjen lippujen tiedot, jotta voin seurata lipunmyyntiä pidemmällä aikavälillä
+
+- Palveluntarjoajana haluan pystyä vertaamaan eri kuukausien myyntitietoja toisiinsa, jotta voin seurata myynnissä tapahtuvia muutoksia
+
+- Palveluntarjoajana haluan käyttöliittymän, jonka kautta voin tehdä tapahtumatallennuksia
+
+- Myyjänä haluan käyttöliittymän, jonka kautta voin myydä lippuja
+
+- Myyjänä haluan tulostaa lipun, jotta asiakas saa lipun
+
+
+- Asiakkaana haluan käyttöliittymän, jossa voin selata tapahtumia
+
 
 Määrittelyssä järjestelmää tarkastellaan käyttäjän näkökulmasta. Järjestelmän
 toiminnot hahmotellaan käyttötapausten tai käyttäjätarinoiden kautta, ja kuvataan järjestelmän
