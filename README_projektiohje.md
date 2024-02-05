@@ -13,7 +13,13 @@ Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena, jok
 
 ### Käyttäjäryhmät
 
-Sovelluksen käyttäjäryhmät ovat lipunmyyjä, lipuntarkastaja ja palveluntarjoaja
+**Sovelluksen käyttäjäryhmät:**
+
+1. **Lipunmyyjä:** Työskentelee lipputoimistossa ja vastaa lippujen myynnistä asiakkaille. Lipunmyyjät käyttävät järjestelmää lippujen myymiseen ja tulostamiseen.
+
+2. **Lipuntarkastaja:** Tarkistaa lipun aitouden tapahtuman sisäänkäynnillä. Lipuntarkastajat käyttävät järjestelmää lipun tarkistamiseen ja varmistavat, että vain oikeilla lipuilla henkilöt pääsevät tapahtumaan.
+
+3. **Palveluntarjoaja:** Henkilö tai organisaatio, joka järjestää tapahtumia ja tarjoaa niitä myytäväksi lipputoimistolle. Palveluntarjoajat käyttävät järjestelmää tapahtumien lisäämiseen, hallinnoimiseen ja seuraamiseen sekä lipunmyynnin tietojen tarkastelemiseen.
 
 ### Käyttäjätarinat
 
