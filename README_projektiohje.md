@@ -1,12 +1,14 @@
 # TicketGuru - Lipputoimiston lippujärjestelmä
 
-Tiimi: Huovinen Mia,  Tuomela Jouni, Varpanen Hilda-Maija, Golubev Artur
-~~Tiimi: Etunimi Sukunimi, Etunimi Sukunimi~~
+Tiimi 4: Golubev Artur, Huovinen Mia, Tuomela Jouni, Varpanen Hilda-Maija, 
 
 ## Johdanto
 
-Asiakkaanamme toimii lipputoimisto, joka haluaa uudistaa lippujärjestelmänsä vastaamaan nykypäivän vaatimuksia ja tarpeita.  TicketGuru-järjestelmän tavoitteena on mahdollistaa lippujen myynti myyntipisteessä sekä myöhemmin myös verkkokaupassa. Lippujen myynti tapahtuu ensisijaisesti myyntipisteessä, jossa lipunmyyjä myy ja tulostaa liput asiakkaille. Kun ennakkomyynti päättyy, jäljellä jäävät liput tulostetaan myyntipisteen sijaan ovella myytäväksi. Jokaisessa lipussa on selkeästi tarkastettava koodi, joka mahdollistaa nopean ja vaivattoman pääsyn tapahtumaan.
+Asiakkaanamme toimii lipputoimisto, joka haluaa uudistaa lippujärjestelmänsä vastaamaan nykypäivän vaatimuksia ja tarpeita. TicketGuru-järjestelmän tavoitteena on mahdollistaa lippujen myynti myyntipisteessä sekä myöhemmin myös verkkokaupassa. Lippujen myynti tapahtuu ensisijaisesti myyntipisteessä, jossa lipunmyyjä myy ja tulostaa liput asiakkaille. 
 
+Kun ennakkomyynti päättyy, jäljellä jäävät liput tulostetaan myyntipisteen sijaan ovella myytäväksi. Jokaisessa lipussa on selkeästi tarkastettava koodi, joka mahdollistaa nopean ja vaivattoman pääsyn tapahtumaan.
+
+Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena läppärillä tai pöytäkoneella.
 
 Johdantoon kirjoitetaan lyhyt, ytimekäs kuvaus siitä, mikä on projektin aihe,
 kuka on asiakas (käyttäjä), mitä hän haluaa ja saa järjestelmältä, mitä
@@ -20,24 +22,22 @@ tekniikoita käytetään ja mitä konkreettisesti on valmiina, kun projekti pä�
 
 ## Järjestelmän määrittely
 
+### Käyttäjäryhmät
 
-### Käyttäjäroolit
-Asiakas
-Myyjä
-Järjestelmänvalvoja
+Sovelluksen käyttäjäryhmät ovat lipunmyyjä, lipuntarkastaja ja palveluntarjoaja
 
 ### Käyttäjätarinat
 
 - Lipuntarkastajana haluan pystyä varmistamaan lipun aitouden, jotta vain aidoilla lipuilla pääsee sisään
 
 - Palveluntarjoajana haluan lisätä tapahtumia, jotta sidosryhmät voivat löytää tapahtumien tiedot
-    
+
     - Palveluntarjoajana haluan tallennuspaikan tapahtumien ja lippujen tiedoille, jotta ne ovat tallessa
-    
+
     - Palveluntarjoajana haluan saada tallennettua tapahtumatietoja, jotta niitä voidaan käyttää lipunmyynnissä
-    
+
     - Palveluntarjoajana haluan pystyä hakemaan tapahtumatietoja, jotta voin nähdä tiedot
-    
+
     - Palveluntarjoajana haluan pystyä muokkaamaan tallennettuja tietoja, jotta voin päivittää muutoksia tapahtumiin
 
 - Palveluntarjoajana haluan saada tiedon myydyistä lipuista, jotta tiedän myytyjen lippujen määrän ja summan
@@ -52,21 +52,40 @@ Järjestelmänvalvoja
 
 - Myyjänä haluan tulostaa lipun, jotta asiakas saa lipun
 
-
 - Asiakkaana haluan käyttöliittymän, jossa voin selata tapahtumia
 
+### Käyttötapauskaavio
+
+-   Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
+    (use case diagram) tai käyttäjätarinoina.
+
+    ![Käyttötapauskaavio](pictures/ticketguru_usecase_final.png)
+
+#### Lyhyt kuvaus käyttötapauksista
+
+-   Lyhyt kuvaus käyttötapauksista tai käyttäjätarinat
+
+##### Tapahtuman vieminen järjestelmään
+
+1. Tapahtumann järjestäjä ottaa yhteyttä lipputoimistoon ja sopii tapahtuman lipunmyynnistä.
+2. Lipputoimiston vastaava tallentaa järjestelmään tapahtumaan nimen, paikan, ajankohdan, lippujen määrän sekä lipputyypit (eri asiakasryhmille) ja niiden hinnat.
+3. Lipputoimiston vastaava tulostaa raportin lipunmyynnistä ja toimittaa sen tapahtumanjärjestäjälle tapahtuman jälkeen.
+
+##### Lipunmyynti tapahtumaan
+
+1. Asiakas valitsee tapahtuman, johon hän haluaa ostaa lippuja ja asioi lipunmyyntipisteessä.
+2. Lipunmyyjä valitsee tapahtuman lipputyypit järjestelmästä asiakkaan mukaisesti, kirjaa ne myydyiksi ja tulostaa asiakkaalle liput. 
+3. Asiakas osallistuu tapahtumaan ja antaa liput lipuntarkastajalle ovella.
+4. Lipuntarkastaja merkitsee liput käytetyiksi järjestelmään.    
+
+Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
+tietoa ja keskittyä siihen.
 
 Määrittelyssä järjestelmää tarkastellaan käyttäjän näkökulmasta. Järjestelmän
 toiminnot hahmotellaan käyttötapausten tai käyttäjätarinoiden kautta, ja kuvataan järjestelmän
 käyttäjäryhmät.
 
 -   Lyhyt kuvaus käyttäjäryhmistä (rooleista)
--   Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
-    (use case diagram) tai käyttäjätarinoina.
--   Lyhyt kuvaus käyttötapauksista tai käyttäjätarinat
-
-Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
-tietoa ja keskittyä siihen.
 
 ## Käyttöliittymä
 
