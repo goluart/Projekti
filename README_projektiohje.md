@@ -28,7 +28,7 @@ käyttäjäryhmät.
 
 ### Käyttäjäryhmät
 
-    Sovelluksen käyttäjäryhmät ovat lipunmyyjä, lipuntarkastaja ja palveluntarjoaja
+Sovelluksen käyttäjäryhmät ovat lipunmyyjä, lipuntarkastaja ja palveluntarjoaja
 
 ### Käyttötapauskaavio
 -   Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
@@ -40,16 +40,16 @@ käyttäjäryhmät.
 
 ##### Tapahtuman vieminen järjestelmään
 
-    1. Tapahtumann järjestäjä ottaa yhteyttä lipputoimistoon ja sopii tapahtuman lipunmyynnistä.
-    2. Lipputoimiston vastaava tallentaa järjestelmään tapahtumaan nimen, paikan, ajankohdan, lippujen määrän sekä lipputyypit (eri asiakasryhmille) ja niiden hinnat.
-    3. Lipputoimiston vastaava tulostaa raportin lipunmyynnistä ja toimittaa sen tapahtumanjärjestäjälle tapahtuman jälkeen.
+1. Tapahtumann järjestäjä ottaa yhteyttä lipputoimistoon ja sopii tapahtuman lipunmyynnistä.
+2. Lipputoimiston vastaava tallentaa järjestelmään tapahtumaan nimen, paikan, ajankohdan, lippujen määrän sekä lipputyypit (eri asiakasryhmille) ja niiden hinnat.
+3. Lipputoimiston vastaava tulostaa raportin lipunmyynnistä ja toimittaa sen tapahtumanjärjestäjälle tapahtuman jälkeen.
 
 ##### Lipunmyynti tapahtumaan
 
-    1. Asiakas valitsee tapahtuman, johon hän haluaa ostaa lippuja ja asioi lipunmyyntipisteessä.
-    2. Lipunmyyjä valitsee tapahtuman lipputyypit järjestelmästä asiakkaan mukaisesti, kirjaa ne myydyiksi ja tulostaa asiakkaalle liput. 
-    3. Asiakas osallistuu tapahtumaan ja antaa liput lipuntarkastajalle ovella.
-    4. Lipuntarkastaja merkitsee liput käytetyiksi järjestelmään.    
+1. Asiakas valitsee tapahtuman, johon hän haluaa ostaa lippuja ja asioi lipunmyyntipisteessä.
+2. Lipunmyyjä valitsee tapahtuman lipputyypit järjestelmästä asiakkaan mukaisesti, kirjaa ne myydyiksi ja tulostaa asiakkaalle liput. 
+3. Asiakas osallistuu tapahtumaan ja antaa liput lipuntarkastajalle ovella.
+4. Lipuntarkastaja merkitsee liput käytetyiksi järjestelmään.    
 
 Kuvauksissa kannattaa harkita, mikä on toteuttajalle ja asiakkaalle oleellista
 tietoa ja keskittyä siihen.
