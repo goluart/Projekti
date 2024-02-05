@@ -1,72 +1,138 @@
-# Projekti
-Tiimi 4 - Ohjelmistoprojekti
+# TicketGuru - Lipputoimiston lippujärjestelmä
 
-## Scrum-syklin yleiskuvaus
+Tiimi 4: Golubev Artur, Huovinen Mia, Tuomela Jouni, Varpanen Hilda-Maija. 
 
-Scrum on ketterän kehityksen malli, jossa projekti kulkee 1-4 viikon sykleissä eli sprinteissä. 
+## Johdanto
 
-Sykli alkaa valitsemalla kehitysjonosta (product backlog) sprintin aikana tuotteelle kehitettävä ominaisuus. Ominaisuudet on organisoitu sprintin kehitysjonossa tuoteomistajan valitsemaan tärkeysjärjestykseen. Ominaisuudet kehitetään poikkeuksetta tässä järjestyksessä.
+Asiakkaanamme toimii lipputoimisto, joka haluaa uudistaa lippujärjestelmänsä vastaamaan nykypäivän vaatimuksia ja tarpeita. TicketGuru-järjestelmän tavoitteena on mahdollistaa lippujen myynti myyntipisteessä sekä myöhemmin myös verkkokaupassa. Lippujen myynti tapahtuu ensisijaisesti myyntipisteessä, jossa lipunmyyjä myy ja tulostaa liput asiakkaille. Kun ennakkomyynti päättyy, jäljellä jäävät liput tulostetaan myyntipisteen sijaan ovella myytäväksi. Jokaisessa lipussa on selkeästi tarkastettava koodi, joka mahdollistaa nopean ja vaivattoman pääsyn tapahtumaan.
 
-Sprintin aikana tuote kehitetään valmiiksi tuoteversioksi, jonka jälkeen pidetään sprintin katselmointi. Sen aikana tuotetta tarkastellaan ja seurataan sunnitelmien mukaisten tavoitteiden edistymistä. 
+Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena, joka on optimoitu käytettäväksi läppärillä tai pöytäkoneella.
 
-Tämän jälkeen pidetään vielä retrospektiivi, jonka aikana tarkastellaan sprintin toimivuutta, yhteistyötä, työnkulkua jne. 
 
-Tarkastelussa sovittuja muutosideoita otetaan käyttöön tehokkuuden parantamiseksi seuraavissa sprinteissä, jonka jälkeen sykli alkaa alusta.
+## Järjestelmän määrittely
 
-## Sprintit
+### Käyttäjäryhmät
 
-Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittuihin tehtäviin. Sprintti kestää yleensä 1-4 viikkoa. Sprintin pituus on vakio ja se määritellään projektin alussa.
+**Sovelluksen käyttäjäryhmät:**
 
-Sprintin tavoite on tuottaa "valmis", käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio.
+1. **Lipunmyyjä:** Lipunmyyjä työskentelee lipputoimistossa ja vastaa lippujen myynnistä asiakkaille. Lipunmyyjät käyttävät järjestelmää lippujen myymiseen ja tulostamiseen.
 
-![Alt text](https://www.projectwidgets.com/wp-content/uploads/2023/11/istockphoto-1336228211-612x612-1.jpg)
+2. **Lipuntarkastaja:** Lipuntarkastaja tarkistaa lipun aitouden tapahtuman sisäänkäynnillä. Lipuntarkastajat käyttävät järjestelmää lipun tarkistamiseen ja varmistavat, että vain oikeilla lipuilla henkilöt pääsevät tapahtumaan.
 
-Kuva 1. Kuva sprintin vaiheista. (Project Widgets s.a.)
+3. **Palveluntarjoaja:** Palveluntarjoaja käyttää järjestelmää tapahtumien lisäämiseen, hallinoimiseen ja seuraamiseen sekä lipunmyynnin tietojen tarkastelemiseen. Palveluntarjoaja saa toimeksiannot tapahtumien lisäämisestä ja myymisestä tapahtumajärjestäjiltä, keikkamyyjiltä sekä muilta organisaatioilta.
 
-## Työjonot
+### Käyttäjätarinat
 
-Product Backlog: Koko tuotteen ominaisuuslista, joka sisältää kaikki tulevaisuudessa toteutettavat toiminnot, korjaukset ja parannukset. Tuoteomistaja priorisoi product backlogin.
+- Lipuntarkastajana haluan pystyä varmistamaan lipun aitouden, jotta vain aidoilla lipuilla pääsee sisään
 
-Sprint Backlog: Valikoima tehtäviä product backlogista, jotka tiimi on sitoutunut toteuttamaan tulevan sprintin aikana. Sprint backlog muodostetaan sprintin suunnittelukokouksessa.
+- Palveluntarjoajana haluan lisätä tapahtumia, jotta sidosryhmät voivat löytää tapahtumien tiedot
 
-## Roolit
+    - Palveluntarjoajana haluan tallennuspaikan tapahtumien ja lippujen tiedoille, jotta ne ovat tallessa
 
-Scrum-tiimi sisältää erilaisia rooleja, muttei kuitenkaan hierarkioita tai alaryhmiä. Koko tiimi on vastuussa projektin toteutumisesta, mutta muutamia vastuualueita on jaettu nimettyihin rooleihin. 
+    - Palveluntarjoajana haluan saada tallennettua tapahtumatietoja, jotta niitä voidaan käyttää lipunmyynnissä
 
-1. **Scrum Master**
+    - Palveluntarjoajana haluan pystyä hakemaan tapahtumatietoja, jotta voin nähdä tiedot
 
-    Scrum master vastaa
-    - Scrum-oppien noudattamisesta
-    - tiimin tehokkuudesta    
+    - Palveluntarjoajana haluan pystyä muokkaamaan tallennettuja tietoja, jotta voin päivittää muutoksia tapahtumiin
 
-2. **Tuoteomistaja**
+- Palveluntarjoajana haluan saada tiedon myydyistä lipuista, jotta tiedän myytyjen lippujen määrän ja summan
 
-    Tuoteomistaja vastaa 
-    - tuotteen vision määrittelystä
-    - product backlogin ylläpidosta 
-    
-    Tuoteomistaja priorisoi backlogin tehtävät ja on vastuussa siitä, että tiimi ymmärtää tehtävien tavoitteet ja vaatimukset.
+- Palveluntarjoajana haluan saada tiedon koko kuukauden ja vuoden myytyjen lippujen tiedot, jotta voin seurata lipunmyyntiä pidemmällä aikavälillä
 
-3. **Kehitystiimi**
+- Palveluntarjoajana haluan pystyä vertaamaan eri kuukausien myyntitietoja toisiinsa, jotta voin seurata myynnissä tapahtuvia muutoksia
 
-    Kehitystiimi on itsenäinen, moniammatillinen ryhmä, joka suunnittelee, toteuttaa ja testaa tuotteen ominaisuuksia. Kehitystiimi tekee yhteistyötä saavuttaakseen sprintin tavoitteet.
+- Palveluntarjoajana haluan käyttöliittymän, jonka kautta voin tehdä tapahtumatallennuksia
 
-## Kokoukset
+- Myyjänä haluan käyttöliittymän, jonka kautta voin myydä lippuja
 
-Sprintin suunnittelukokous: Määritellään sprintin tavoitteet ja valitaan sprint backlog. Kokoukset pidetään tiistaisin klo 14 - 17 luennon jälkeen joustavasti. 
+- Myyjänä haluan tulostaa lipun, jotta asiakas saa lipun
 
-Päivittäinen Scrum (Daily Stand-up): Tiimi koordinoi päivän/viikon tehtäviä Teams-kanavan kautta ja tunnistaa mahdolliset esteet. Tiimi voi sopia viikolle tarvittaessa lyhyitä 15 minuutin tapaamisia.
+- Asiakkaana haluan käyttöliittymän, jossa voin selata tapahtumia
 
-Sprintin katselmointi: Sunnuntaisin klo 18 esitellään sprintin aikana valmistuneet työt ja kerätään palautetta muilta tiimin jäseniltä (norm. sidosryhmiltä).
+### Käyttötapauskaavio
 
-Retrospektiivi: Tiistaisin klo 14 arvioidaan menneen sprintin prosesseja ja työskentelytapoja sekä suunnitellaan parannuksia seuraavaan sprinttiin.
+-   Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
+    (use case diagram) tai käyttäjätarinoina.
 
-## Miksi Scrum toimii?
+    ![Käyttötapauskaavio](pictures/ticketguru_usecase_final.png)
 
-Scrum on iteratiivinen projektinhallintamalli, jonka tarkoitus on mahdollistaa tuotteen kehityksen joustavuus ja parantaa yhteistyötä. 
+## Käyttöliittymä
 
-Pakolliset mutta lyhyinä pidettävät palaverit kehittävät käytettyjä menetelmiä ja projektin etenemistä tarkastellaan säännöllisesti. Näin yllättäviin muutoksiin pystytään paremmin vastaamaan ja turhaan tehty työ vähenee, kun muutoksia voidaan tehdä tuotekehityksen aikana. 
+### **(Käyttöliittymän suunnitteluun käytetään Figmaa ja siihen palataan, kun projekti etenee)!**
 
-Ominaisuuksien asettaminen tärkeysjärjestykseen varmistaa, että kriittisimmät ominaisuudet valmistuvat ensin.
+Esitetään käyttöliittymän tärkeimmät (vain ne!) näkymät sekä niiden väliset siirtymät käyttöliittymäkaaviona. 
 
-Scrumille ominaista on pienet ja ketterät Scrum-tiimit. On havaittu, että pienet tiimit kommunikoivat suuria tiimejä paremmin. Hyvä kommunikaatio antaa mahdollisuuden toimia tuottavammin ja saavuttaa sitä myötä asetetut tavoitteet.
+Jos näkymän tarkoitus ei ole itsestään selvä, se pitää kuvata lyhyesti.
+
+## Tietokanta
+
+Järjestelmään säilöttävä ja siinä käsiteltävät tiedot ja niiden väliset suhteet
+kuvataan käsitekaaviolla. Käsitemalliin sisältyy myös taulujen välisten viiteyhteyksien ja avainten
+määritykset. Tietokanta kuvataan käyttäen jotain kuvausmenetelmää, joko ER-kaaviota ja UML-luokkakaaviota.
+
+Lisäksi kukin järjestelmän tietoelementti ja sen attribuutit kuvataan
+tietohakemistossa. Tietohakemisto tarkoittaa yksinkertaisesti vain jokaisen elementin (taulun) ja niiden
+attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän tyyliin:
+
+> ### _Tilit_
+> _Tilit-taulu sisältää käyttäjätilit. Käyttäjällä voi olla monta tiliä. Tili kuuluu aina vain yhdelle käyttäjälle._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> id | int PK | Tilin id
+> nimimerkki | varchar(30) |  Tilin nimimerkki
+> avatar | int FK | Tilin avatar, viittaus [avatar](#Avatar)-tauluun
+> kayttaja | int FK | Viittaus käyttäjään [käyttäjä](#Kayttaja)-taulussa
+
+## Tekninen kuvaus
+
+Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
+ratkaisut, esim.
+
+-   Missä mikäkin järjestelmän komponentti ajetaan (tietokone, palvelinohjelma)
+    ja komponenttien väliset yhteydet (vaikkapa tähän tyyliin:
+    https://security.ufl.edu/it-workers/risk-assessment/creating-an-information-systemdata-flow-diagram/)
+-   Palvelintoteutuksen yleiskuvaus: teknologiat, deployment-ratkaisut yms.
+-   Keskeisten rajapintojen kuvaukset, esimerkit REST-rajapinta. Tarvittaessa voidaan rajapinnan käyttöä täsmentää
+    UML-sekvenssikaavioilla.
+-   Toteutuksen yleisiä ratkaisuja, esim. turvallisuus.
+
+Tämän lisäksi
+
+-   ohjelmakoodin tulee olla kommentoitua
+-   luokkien, metodien ja muuttujien tulee olla kuvaavasti nimettyjä ja noudattaa
+    johdonmukaisia nimeämiskäytäntöjä
+-   ohjelmiston pitää olla organisoitu komponentteihin niin, että turhalta toistolta
+    vältytään
+
+## Testaus
+
+Tässä kohdin selvitetään, miten ohjelmiston oikea toiminta varmistetaan
+testaamalla projektin aikana: millaisia testauksia tehdään ja missä vaiheessa.
+Testauksen tarkemmat sisällöt ja testisuoritusten tulosten raportit kirjataan
+erillisiin dokumentteihin.
+
+Tänne kirjataan myös lopuksi järjestelmän tunnetut ongelmat, joita ei ole korjattu.
+
+## Asennustiedot
+
+Järjestelmän asennus on syytä dokumentoida kahdesta näkökulmasta:
+
+-   järjestelmän kehitysympäristö: miten järjestelmän kehitysympäristön saisi
+    rakennettua johonkin toiseen koneeseen
+
+-   järjestelmän asentaminen tuotantoympäristöön: miten järjestelmän saisi
+    asennettua johonkin uuteen ympäristöön.
+
+Asennusohjeesta tulisi ainakin käydä ilmi, miten käytettävä tietokanta ja
+käyttäjät tulee ohjelmistoa asentaessa määritellä (käytettävä tietokanta,
+käyttäjätunnus, salasana, tietokannan luonti yms.).
+
+## Käynnistys- ja käyttöohje
+
+Tyypillisesti tässä riittää kertoa ohjelman käynnistykseen tarvittava URL sekä
+mahdolliset kirjautumiseen tarvittavat tunnukset. Jos järjestelmän
+käynnistämiseen tai käyttöön liittyy joitain muita toimenpiteitä tai toimintajärjestykseen liittyviä asioita, nekin kerrotaan tässä yhteydessä.
+
+Usko tai älä, tulet tarvitsemaan tätä itsekin, kun tauon jälkeen palaat
+järjestelmän pariin !
