@@ -55,11 +55,14 @@ Sovelluksen käyttäjäryhmät ovat lipunmyyjä, lipuntarkastaja ja palveluntarj
 - Asiakkaana haluan käyttöliittymän, jossa voin selata tapahtumia
 
 ### Käyttötapauskaavio
+
 -   Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
     (use case diagram) tai käyttäjätarinoina.
+
     ![Käyttötapauskaavio](pictures/ticketguru_usecase_final.png)
 
 #### Lyhyt kuvaus käyttötapauksista
+
 -   Lyhyt kuvaus käyttötapauksista tai käyttäjätarinat
 
 ##### Tapahtuman vieminen järjestelmään
