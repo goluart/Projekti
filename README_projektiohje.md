@@ -1,8 +1,12 @@
-# Projektin nimi
+# TicketGuru - Lipputoimiston lippujärjestelmä
 
-Tiimi: Etunimi Sukunimi, Etunimi Sukunimi
+Tiimi 4: Golubev Artur, Huovinen Mia, Tuomela Jouni, Varpanen Hilda-Maija, 
 
 ## Johdanto
+
+Asiakkaanamme toimii lipputoimisto, joka haluaa uudistaa lippujärjestelmänsä vastaamaan nykypäivän vaatimuksia ja tarpeita. TicketGuru-järjestelmän tavoitteena on mahdollistaa lippujen myynti myyntipisteessä sekä myöhemmin myös verkkokaupassa. Lippujen myynti tapahtuu ensisijaisesti myyntipisteessä, jossa lipunmyyjä myy ja tulostaa liput asiakkaille. Kun ennakkomyynti päättyy, jäljellä jäävät liput tulostetaan myyntipisteen sijaan ovella myytäväksi. Jokaisessa lipussa on selkeästi tarkastettava koodi, joka mahdollistaa nopean ja vaivattoman pääsyn tapahtumaan.
+
+Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena läppärille tai pöytäkoneelle.
 
 Johdantoon kirjoitetaan lyhyt, ytimekäs kuvaus siitä, mikä on projektin aihe,
 kuka on asiakas (käyttäjä), mitä hän haluaa ja saa järjestelmältä, mitä
@@ -23,12 +27,12 @@ käyttäjäryhmät.
 -   Lyhyt kuvaus käyttäjäryhmistä (rooleista)
 
 ### Käyttäjäryhmät
-    Sovelluksen käyttäjäryhmät ovat lipunmyyjä, lipuntarkastaja ja toimistovastaava. 
+    Sovelluksen käyttäjäryhmät ovat lipunmyyjä, lipuntarkastaja ja palveluntarjoaja
 
 ### Käyttötapauskaavio
 -   Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
     (use case diagram) tai käyttäjätarinoina.
-    ![Käyttötapauskaavio](pictures/kayttotapauskaavio.png)
+    ![Käyttötapauskaavio](pictures/ticketguru_usecase_final.png)
 
 #### Lyhyt kuvaus käyttötapauksista
 -   Lyhyt kuvaus käyttötapauksista tai käyttäjätarinat
