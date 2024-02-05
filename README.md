@@ -58,6 +58,8 @@ Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena, jok
 
 ## Käyttöliittymä
 
+### **(Käyttöliittymän suunnitteluun käytetään Figmaa ja siihen palataan, kun projekti etenee)!**
+
 Esitetään käyttöliittymän tärkeimmät (vain ne!) näkymät sekä niiden väliset siirtymät käyttöliittymäkaaviona. 
 
 Jos näkymän tarkoitus ei ole itsestään selvä, se pitää kuvata lyhyesti.
