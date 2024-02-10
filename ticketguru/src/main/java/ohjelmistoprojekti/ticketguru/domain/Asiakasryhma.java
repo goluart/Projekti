@@ -15,6 +15,7 @@ public class Asiakasryhma {
     private String kuvaus;
     private boolean tarkista;
 
+    // Konstruktori
     public Asiakasryhma(Long id, String nimi, String kuvaus, boolean tarkista) {
         this.id = id;
         this.nimi = nimi;
@@ -22,6 +23,7 @@ public class Asiakasryhma {
         this.tarkista = tarkista;
     }
 
+    // get+set
     public Long getId() {
         return id;
     }
@@ -54,6 +56,7 @@ public class Asiakasryhma {
         this.tarkista = tarkista;
     }
 
+    // toString
     @Override
     public String toString() {
         return "Asiakasryhma [id=" + id + ", nimi=" + nimi + ", kuvaus=" + kuvaus + ", tarkista=" + tarkista + "]";
