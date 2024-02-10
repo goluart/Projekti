@@ -21,7 +21,7 @@ public class Jarjestaja {
     // Myöhemmin Jarjestaja OneToMany Tapahtuma
     // Liittyy luokkiin Jarjestaja ja Yhteyshenkilo
 
-    public Jarjestaja(Long id, String nimi, String ytunnus, String osoite, String paikkakunta, String postinumero,
+    public Jarjestaja(String nimi, String ytunnus, String osoite, String paikkakunta, String postinumero,
             int yhteyshenkiloid) {
         super();
         this.nimi = nimi;
