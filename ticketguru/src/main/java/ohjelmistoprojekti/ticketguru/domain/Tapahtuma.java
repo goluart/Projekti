@@ -1,9 +1,7 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Date;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,9 +29,9 @@ public class Tapahtuma {
     @Column(name = "luonti_pvm")
     private ZonedDateTime luontiPvm;
     @Column(name = "alkaa_pvm")
-    private LocalDateTime alkaaPvm;
+    private ZonedDateTime alkaaPvm;
     @Column(name = "paattyy_pvm")
-    private LocalDateTime paattyyPvm;
+    private ZonedDateTime paattyyPvm;
     private String kuvaus;
     private double perushinta;
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
@@ -75,19 +73,19 @@ public class Tapahtuma {
         this.luontiPvm = luontiPvm;
     }
 
-    public LocalDateTime getAlkaaPvm() {
+    public ZonedDateTime getAlkaaPvm() {
         return alkaaPvm;
     }
 
-    public void setAlkaaPvm(LocalDateTime alkaaPvm) {
+    public void setAlkaaPvm(ZonedDateTime alkaaPvm) {
         this.alkaaPvm = alkaaPvm;
     }
 
-    public LocalDateTime getPaattyyPvm() {
+    public ZonedDateTime getPaattyyPvm() {
         return paattyyPvm;
     }
 
-    public void setPaattyyPvm(LocalDateTime paattyyPvm) {
+    public void setPaattyyPvm(ZonedDateTime paattyyPvm) {
         this.paattyyPvm = paattyyPvm;
     }
 
