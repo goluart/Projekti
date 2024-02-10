@@ -15,8 +15,6 @@ public class Asiakasryhma {
     private String kuvaus;
     private boolean tarkista;
 
-    // Viedään lipputyyppi luokkaan
-
     public Asiakasryhma(Long id, String nimi, String kuvaus, boolean tarkista) {
         this.id = id;
         this.nimi = nimi;

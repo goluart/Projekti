@@ -6,24 +6,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Lipputyyppi {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    // Myöhemmin lisätään asiakasryhmä
-
-    /*
-     * Asiakasryhmä luokka liittyy tähän myös
-     * 
-     * @JoinColumn(name = "asiakasryhmaId")
-     * private Asiakasryhma asiakasryhma;
-     */
-
     private Long id;
     private String nimi;
     private Date hintamuutos;
+
+    // Tuodaan Asiakasryhmä luokka tänne
+    @OneToOne
+    @JoinColumn(name = "asryh_id")
+    private Asiakasryhma asiakasryhma;
 
     public Lipputyyppi(Long id, String nimi, Date hintamuutos) {
         this.id = id;

@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Lippu {
@@ -19,14 +21,11 @@ public class Lippu {
     private Date kayttoPvm;
     private int tarkistuskoodi;
 
-    // Myöhemmin lisätään @ManyToOne
+    // Tuodaan lipputyyppi tänne
+    @ManyToOne
+    @JoinColumn(name = "lipputyyppi_id")
+    private Lipputyyppi lippuTyyppi;
 
-    /*
-     * Lipputyyppi luokka liittyy tähän myös
-     * 
-     * @JoinColumn(name = "lipputyyppiid")
-     * private Lipputyyppi lipputyyppi;
-     */
 
     public Lippu(Long id, Date ostoPvm, Date alkuPvm, Date loppuPvm, Date kayttoPvm, int tarkistuskoodi) {
         this.id = id;
