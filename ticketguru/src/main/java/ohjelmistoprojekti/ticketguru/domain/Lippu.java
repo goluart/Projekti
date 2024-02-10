@@ -26,16 +26,19 @@ public class Lippu {
     @JoinColumn(name = "lipputyyppi_id")
     private Lipputyyppi lippuTyyppi;
 
-
-    public Lippu(Long id, Date ostoPvm, Date alkuPvm, Date loppuPvm, Date kayttoPvm, int tarkistuskoodi) {
+    // Konstruktori
+    public Lippu(Long id, Date ostoPvm, Date alkuPvm, Date loppuPvm, Date kayttoPvm, int tarkistuskoodi,
+            Lipputyyppi lippuTyyppi) {
         this.id = id;
         this.ostoPvm = ostoPvm;
         this.alkuPvm = alkuPvm;
         this.loppuPvm = loppuPvm;
         this.kayttoPvm = kayttoPvm;
         this.tarkistuskoodi = tarkistuskoodi;
+        this.lippuTyyppi = lippuTyyppi;
     }
 
+    // get+set
     public Long getId() {
         return id;
     }
@@ -84,10 +87,19 @@ public class Lippu {
         this.tarkistuskoodi = tarkistuskoodi;
     }
 
+    public Lipputyyppi getLippuTyyppi() {
+        return lippuTyyppi;
+    }
+
+    public void setLippuTyyppi(Lipputyyppi lippuTyyppi) {
+        this.lippuTyyppi = lippuTyyppi;
+    }
+    // toString
     @Override
     public String toString() {
         return "Lippu [id=" + id + ", ostoPvm=" + ostoPvm + ", alkuPvm=" + alkuPvm + ", loppuPvm=" + loppuPvm
-                + ", kayttoPvm=" + kayttoPvm + ", tarkistuskoodi=" + tarkistuskoodi + "]";
+                + ", kayttoPvm=" + kayttoPvm + ", tarkistuskoodi=" + tarkistuskoodi + ", lippuTyyppi=" + lippuTyyppi
+                + "]";
     }
 
 }

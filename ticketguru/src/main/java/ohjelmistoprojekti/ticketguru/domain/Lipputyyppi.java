@@ -23,18 +23,29 @@ public class Lipputyyppi {
     @JoinColumn(name = "asryh_id")
     private Asiakasryhma asiakasryhma;
 
-    public Lipputyyppi(Long id, String nimi, Date hintamuutos) {
+    // Konstruktori
+    public Lipputyyppi(Long id, String nimi, Date hintamuutos, Asiakasryhma asiakasryhma) {
         this.id = id;
         this.nimi = nimi;
         this.hintamuutos = hintamuutos;
+        this.asiakasryhma = asiakasryhma;
     }
 
+    // get+set
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Asiakasryhma getAsiakasryhma() {
+        return asiakasryhma;
+    }
+
+    public void setAsiakasryhma(Asiakasryhma asiakasryhma) {
+        this.asiakasryhma = asiakasryhma;
     }
 
     public String getNimi() {
@@ -53,9 +64,11 @@ public class Lipputyyppi {
         this.hintamuutos = hintamuutos;
     }
 
+    // toString
     @Override
     public String toString() {
-        return "Lipputyyppi [id=" + id + ", nimi=" + nimi + ", hintamuutos=" + hintamuutos + "]";
+        return "Lipputyyppi [id=" + id + ", nimi=" + nimi + ", hintamuutos=" + hintamuutos + ", asiakasryhma="
+                + asiakasryhma + "]";
     }
 
 }
