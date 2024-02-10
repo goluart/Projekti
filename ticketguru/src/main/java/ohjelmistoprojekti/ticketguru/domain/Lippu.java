@@ -19,7 +19,7 @@ public class Lippu {
     private Date alkuPvm;
     private Date loppuPvm;
     private Date kayttoPvm;
-    private int tarkistuskoodi;
+    private Long tarkistuskoodi;
 
     // Tuodaan lipputyyppi tänne
     @ManyToOne
@@ -27,7 +27,7 @@ public class Lippu {
     private Lipputyyppi lippuTyyppi;
 
     // Konstruktori
-    public Lippu(Long id, Date ostoPvm, Date alkuPvm, Date loppuPvm, Date kayttoPvm, int tarkistuskoodi,
+    public Lippu(Long id, Date ostoPvm, Date alkuPvm, Date loppuPvm, Date kayttoPvm, Long tarkistuskoodi,
             Lipputyyppi lippuTyyppi) {
         this.id = id;
         this.ostoPvm = ostoPvm;
@@ -79,11 +79,11 @@ public class Lippu {
         this.kayttoPvm = kayttoPvm;
     }
 
-    public int getTarkistuskoodi() {
+    public Long getTarkistuskoodi() {
         return tarkistuskoodi;
     }
 
-    public void setTarkistuskoodi(int tarkistuskoodi) {
+    public void setTarkistuskoodi(Long tarkistuskoodi) {
         this.tarkistuskoodi = tarkistuskoodi;
     }
 
@@ -94,6 +94,7 @@ public class Lippu {
     public void setLippuTyyppi(Lipputyyppi lippuTyyppi) {
         this.lippuTyyppi = lippuTyyppi;
     }
+
     // toString
     @Override
     public String toString() {
@@ -101,5 +102,4 @@ public class Lippu {
                 + ", kayttoPvm=" + kayttoPvm + ", tarkistuskoodi=" + tarkistuskoodi + ", lippuTyyppi=" + lippuTyyppi
                 + "]";
     }
-
 }
