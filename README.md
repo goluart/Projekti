@@ -84,6 +84,33 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > avatar | int FK | Tilin avatar, viittaus [avatar](#Avatar)-tauluun
 > kayttaja | int FK | Viittaus käyttäjään [käyttäjä](#Kayttaja)-taulussa
 
+> ### Tapahtuma
+> _Tapahtuma-taulu sisältää tapahtumat. Tapahtumalla on yksi tapahtumapaikka ja yksi järjestäjä. Tapahtumapaikalla ja järjestäjällä voi olla monta tapahtumaa._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> tapahtuma_id | int PK | Tapahtuman yksilöllinen tunniste
+> tapahtuma_nimi | varchar(100) | Tapahtuman nimi
+> luonti_pvm | timestamp with zone | Tapahtuman  UTC-luontipäivämäärä
+> alkaa_pvm | timestamp with zone | UTC-tiedon sisältävä tapahtuman alkamispäivä ja kellonaika
+> paattyy_pvm | timestamp with zone | UTC-tiedon sisältävä tapahtuman päättymispäivä ja kellonaika
+> tapaikka_id | int FK | Tapahtuman järjestämispaikka, viittaus [tapahtumapaikka](#Tapahtumapaikka)-tauluun
+> kuvaus | varchar(700) | Kuvaus tapahtumasta
+> jarjestaja_id | int FK | Tapahtuman järjestäjä, viittaus [jarjestaja](#Jarjestaja)-tauluun.
+> perushinta | decimal | Tapahtumalipun perushinta, kiinteä liukuluku
+
+> ### Tapahtumapaikka
+> _Tapahtumapaikka-taulu sisältää tiedot paikasta, jossa tapahtuma järjestetään. Tapahtumalla on yksi tapahtumapaikka, tapahtumapaikalla voi olla monta tapahtumaa. Tapahtumalla on yksi postinumero ja yhteyshenkilö. Postinumerolla voi olla useita tapahtumapaikkoja. Yhteyshenkilöllä on vain yksi tapahtumapaikka._
+>
+> tapaikka_id | int PK | Tapahtumapaikan yksillöllinen tunniste
+> osoite | varchar(100) | Tapahtumapaikan osoite
+> postinro | int FK | Tapahtumapaikan postitoimipaikka, viittaus [postinumero](#Postinumero)-tauluun
+> kuvaus | varchar(700) | Kuvaus tapahtumapaikasta
+> yht_hlo_id | int FK | Tapahtumapaikan yhteyshenkilö, viittaus [yhteyshenkilo](#Yhteyshenkilo)-tauluun
+> ytunnus | char(9) | Tapahtumapaikan y-tunnus
+> sposti | varchar(100) | Tapahtumapaikan sähköpostiosoite markkinointitarkoituksiin
+> lisatiedot | varchar(700) | Lisätietoja tapahtumapaikasta
+
 ## Tekninen kuvaus
 
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
