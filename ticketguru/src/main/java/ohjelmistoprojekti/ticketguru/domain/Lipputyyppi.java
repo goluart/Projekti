@@ -2,6 +2,7 @@ package ohjelmistoprojekti.ticketguru.domain;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,9 +13,11 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Lipputyyppi {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long id;
+    @Column(name = "lipputyyppi_id")
+    private Long lipputyyppiId;
+
     private String nimi;
     private Date hintamuutos;
 
@@ -25,7 +28,7 @@ public class Lipputyyppi {
 
     // Konstruktori
     public Lipputyyppi(Long id, String nimi, Date hintamuutos, Asiakasryhma asiakasryhma) {
-        this.id = id;
+        this.lipputyyppiId = id;
         this.nimi = nimi;
         this.hintamuutos = hintamuutos;
         this.asiakasryhma = asiakasryhma;
@@ -33,11 +36,11 @@ public class Lipputyyppi {
 
     // get+set
     public Long getId() {
-        return id;
+        return lipputyyppiId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.lipputyyppiId = id;
     }
 
     public Asiakasryhma getAsiakasryhma() {
@@ -67,7 +70,8 @@ public class Lipputyyppi {
     // toString
     @Override
     public String toString() {
-        return "Lipputyyppi [id=" + id + ", nimi=" + nimi + ", hintamuutos=" + hintamuutos + ", asiakasryhma="
+        return "Lipputyyppi [id=" + lipputyyppiId + ", nimi=" + nimi + ", hintamuutos=" + hintamuutos
+                + ", asiakasryhma="
                 + asiakasryhma + "]";
     }
 
