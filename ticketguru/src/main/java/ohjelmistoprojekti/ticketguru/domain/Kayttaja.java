@@ -1,5 +1,6 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,7 +12,8 @@ import jakarta.persistence.ManyToOne;
 public class Kayttaja {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "hlo_id")
 	private Long hloId;
 	private String salasana;
 	private String snimi;
@@ -19,7 +21,7 @@ public class Kayttaja {
 	private String lisatiedot;
 	
 	@ManyToOne
-	@JoinColumn(name = "rooliId")
+	@JoinColumn(name = "rooli_id")
 	private Rooli rooli;
 
 	public Kayttaja() {
