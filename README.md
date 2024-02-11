@@ -30,7 +30,7 @@ Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena, jok
 
 ## Käyttöliittymä
 
-Käyttöliittymä tarkoitus toteuttaa alustavasti Thymeleafillä. Käyttöliittymäsivu aukeaa kirjautumissivulle, jonka kautta pääsee käyttäjän oikeuksien mukaiselle työpöydälle.
+Käyttöliittymä tarkoitus toteuttaa alustavasti Reactilla. Käyttöliittymäsivu aukeaa kirjautumissivulle, jonka kautta pääsee käyttäjän oikeuksien mukaiselle työpöydälle.
 
 - Pääkäyttäjälle avautuu listaus tapahtumista nykyhetkestä eteenpäin ja valinnat mm. lisätä ja muokata tapahtumia.
 - Myyjälle avautuu listaus tapahtumista nykyhetkestä eteenpäin ja mahdollisuus hakea ja myydä tapahtumia.
@@ -41,6 +41,30 @@ Käyttöliittymä tarkoitus toteuttaa alustavasti Thymeleafillä. Käyttöliitty
 ![Käyttöliittymän rautalankamalli](pictures/kayttoliittymaWireframe.png)
 
 ## Tietokanta
+
+
+> ### _Kayttaja_
+> _Kayttaja-taulu sisältää käyttäjien kirjautumistiedot ja yhdellä käyttäjällä voi olla vain yksi käyttäjä._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> hlo_id | INT PK | Käyttäjän ID
+> salasana | VARCHAR(700) | Käyttäjän salasana
+> snimi | VARCHAR(50) | Käyttäjän sukunimi
+> enimi | VARCHAR(20) | Käyttäjän etunimi
+> lisatiedot | VARCHAR(700) | Mahdollisia lisätietoja käyttäjästä
+> rooli_id | INT FK | Viittaus käyttäjän rooliin rooli-taulussa
+>
+>
+> ### _Rooli_
+> _Rooli-taulu sisältää roolin, joka määrittää käyttäjän oikeudet käyttöliittymän kautta tehtäviin hakuihin ja muutoksiin_
+> 
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> rooli_id | INT PK | Roolin ID
+> rooli_nimi | VARCHAR(20) | Roolin nimi
+>
+>
 
 Järjestelmään säilöttävä ja siinä käsiteltävät tiedot ja niiden väliset suhteet
 kuvataan käsitekaaviolla. Käsitemalliin sisältyy myös taulujen välisten viiteyhteyksien ja avainten
