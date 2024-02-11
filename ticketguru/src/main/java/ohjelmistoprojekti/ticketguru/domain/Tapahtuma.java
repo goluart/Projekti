@@ -47,6 +47,19 @@ public class Tapahtuma {
     public Tapahtuma() {
         super();
         luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
+    }    
+
+    public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm,
+            String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka, Jarjestaja jarjestaja,
+            Set<Lippu> liput) {
+        this.tapahtumaNimi = tapahtumaNimi;
+        this.alkaaPvm = alkaaPvm;
+        this.paattyyPvm = paattyyPvm;
+        this.kuvaus = kuvaus;
+        this.perushinta = perushinta;
+        this.tapahtumapaikka = tapahtumapaikka;
+        this.jarjestaja = jarjestaja;
+        this.liput = liput;
     }
 
     public Long getTapahtumaId() {
