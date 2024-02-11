@@ -30,11 +30,15 @@ Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena, jok
 
 ## Käyttöliittymä
 
-### **(Käyttöliittymän suunnitteluun käytetään Figmaa ja siihen palataan, kun projekti etenee)!**
+Käyttöliittymä tarkoitus toteuttaa alustavasti Thymeleafillä. Käyttöliittymäsivu aukeaa kirjautumissivulle, jonka kautta pääsee käyttäjän oikeuksien mukaiselle työpöydälle.
 
-Esitetään käyttöliittymän tärkeimmät (vain ne!) näkymät sekä niiden väliset siirtymät käyttöliittymäkaaviona. 
+- Pääkäyttäjälle avautuu listaus tapahtumista nykyhetkestä eteenpäin ja valinnat mm. lisätä ja muokata tapahtumia.
+- Myyjälle avautuu listaus tapahtumista nykyhetkestä eteenpäin ja mahdollisuus hakea ja myydä tapahtumia.
+- Lipuntarkastajalle avautuu näkymä lippujen tarkastukseen ja myyntiin jo tulostetuille lipuille.
 
-Jos näkymän tarkoitus ei ole itsestään selvä, se pitää kuvata lyhyesti.
+![Käyttöliittymäkaavio](pictures/kayttoliittymakaavio.png)
+
+![Käyttöliittymän rautalankamalli](pictures/kayttoliittymaWireframe.png)
 
 ## Tietokanta
 
