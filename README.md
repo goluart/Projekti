@@ -42,6 +42,24 @@ Käyttöliittymä tarkoitus toteuttaa alustavasti Reactilla. Käyttöliittymäsi
 
 ## Tietokanta
 
+Järjestelmään säilöttävä ja siinä käsiteltävät tiedot ja niiden väliset suhteet
+kuvataan käsitekaaviolla. Käsitemalliin sisältyy myös taulujen välisten viiteyhteyksien ja avainten
+määritykset. Tietokanta kuvataan käyttäen jotain kuvausmenetelmää, joko ER-kaaviota ja UML-luokkakaaviota.
+
+Lisäksi kukin järjestelmän tietoelementti ja sen attribuutit kuvataan
+tietohakemistossa. Tietohakemisto tarkoittaa yksinkertaisesti vain jokaisen elementin (taulun) ja niiden
+attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän tyyliin:
+
+>> ### _Tilit_
+>> _Tilit-taulu sisältää käyttäjätilit. Käyttäjällä voi olla monta tiliä. Tili kuuluu aina vain yhdelle käyttäjälle._
+>>
+>> Kenttä | Tyyppi | Kuvaus
+>> ------ | ------ | ------
+>> id | int PK | Tilin id
+>> nimimerkki | varchar(30) |  Tilin nimimerkki
+>> avatar | int FK | Tilin avatar, viittaus [avatar](#Avatar)-tauluun
+>> kayttaja | int FK | Viittaus käyttäjään [käyttäjä](#Kayttaja)-taulussa
+
 
 > ### _Kayttaja_
 > _Kayttaja-taulu sisältää käyttäjien kirjautumistiedot ja yhdellä käyttäjällä voi olla vain yksi käyttäjä._
@@ -65,26 +83,7 @@ Käyttöliittymä tarkoitus toteuttaa alustavasti Reactilla. Käyttöliittymäsi
 > rooli_nimi | VARCHAR(20) | Roolin nimi
 >
 >
-
-Järjestelmään säilöttävä ja siinä käsiteltävät tiedot ja niiden väliset suhteet
-kuvataan käsitekaaviolla. Käsitemalliin sisältyy myös taulujen välisten viiteyhteyksien ja avainten
-määritykset. Tietokanta kuvataan käyttäen jotain kuvausmenetelmää, joko ER-kaaviota ja UML-luokkakaaviota.
-
-Lisäksi kukin järjestelmän tietoelementti ja sen attribuutit kuvataan
-tietohakemistossa. Tietohakemisto tarkoittaa yksinkertaisesti vain jokaisen elementin (taulun) ja niiden
-attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän tyyliin:
-
-> ### _Tilit_
-> _Tilit-taulu sisältää käyttäjätilit. Käyttäjällä voi olla monta tiliä. Tili kuuluu aina vain yhdelle käyttäjälle._
->
-> Kenttä | Tyyppi | Kuvaus
-> ------ | ------ | ------
-> id | int PK | Tilin id
-> nimimerkki | varchar(30) |  Tilin nimimerkki
-> avatar | int FK | Tilin avatar, viittaus [avatar](#Avatar)-tauluun
-> kayttaja | int FK | Viittaus käyttäjään [käyttäjä](#Kayttaja)-taulussa
-
-> ### Tapahtuma
+> ### _Tapahtuma_
 > _Tapahtuma-taulu sisältää tapahtumat. Tapahtumalla on yksi tapahtumapaikka ja yksi järjestäjä. Tapahtumapaikalla ja järjestäjällä voi olla monta tapahtumaa._
 >
 > Kenttä | Tyyppi | Kuvaus
@@ -98,8 +97,8 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > kuvaus | varchar(700) | Kuvaus tapahtumasta
 > jarjestaja_id | int FK | Tapahtuman järjestäjä, viittaus [jarjestaja](#Jarjestaja)-tauluun.
 > perushinta | decimal | Tapahtumalipun perushinta, kiinteä liukuluku
-
-> ### Tapahtumapaikka
+>
+> ### _Tapahtumapaikka_
 > _Tapahtumapaikka-taulu sisältää tiedot paikasta, jossa tapahtuma järjestetään. Tapahtumalla on yksi tapahtumapaikka, tapahtumapaikalla voi olla monta tapahtumaa. Tapahtumalla on yksi postinumero ja yhteyshenkilö. Postinumerolla voi olla useita tapahtumapaikkoja. Yhteyshenkilöllä on vain yksi tapahtumapaikka._
 >
 > Kenttä | Tyyppi | Kuvaus
