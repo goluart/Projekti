@@ -2,6 +2,7 @@ package ohjelmistoprojekti.ticketguru.domain;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,9 +13,11 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Lippu {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long id;
+    @Column(name = "lippu_id")
+    private Long lippuId;
+
     private Date ostoPvm;
     private Date alkuPvm;
     private Date loppuPvm;
@@ -29,7 +32,7 @@ public class Lippu {
     // Konstruktori
     public Lippu(Long id, Date ostoPvm, Date alkuPvm, Date loppuPvm, Date kayttoPvm, Long tarkistuskoodi,
             Lipputyyppi lippuTyyppi) {
-        this.id = id;
+        this.lippuId = id;
         this.ostoPvm = ostoPvm;
         this.alkuPvm = alkuPvm;
         this.loppuPvm = loppuPvm;
@@ -40,11 +43,11 @@ public class Lippu {
 
     // get+set
     public Long getId() {
-        return id;
+        return lippuId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.lippuId = id;
     }
 
     public Date getOstoPvm() {
@@ -98,7 +101,7 @@ public class Lippu {
     // toString
     @Override
     public String toString() {
-        return "Lippu [id=" + id + ", ostoPvm=" + ostoPvm + ", alkuPvm=" + alkuPvm + ", loppuPvm=" + loppuPvm
+        return "Lippu [id=" + lippuId + ", ostoPvm=" + ostoPvm + ", alkuPvm=" + alkuPvm + ", loppuPvm=" + loppuPvm
                 + ", kayttoPvm=" + kayttoPvm + ", tarkistuskoodi=" + tarkistuskoodi + ", lippuTyyppi=" + lippuTyyppi
                 + "]";
     }
