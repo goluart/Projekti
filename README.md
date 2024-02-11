@@ -102,6 +102,8 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > ### Tapahtumapaikka
 > _Tapahtumapaikka-taulu sisältää tiedot paikasta, jossa tapahtuma järjestetään. Tapahtumalla on yksi tapahtumapaikka, tapahtumapaikalla voi olla monta tapahtumaa. Tapahtumalla on yksi postinumero ja yhteyshenkilö. Postinumerolla voi olla useita tapahtumapaikkoja. Yhteyshenkilöllä on vain yksi tapahtumapaikka._
 >
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
 > tapaikka_id | int PK | Tapahtumapaikan yksillöllinen tunniste
 > osoite | varchar(100) | Tapahtumapaikan osoite
 > postinro | int FK | Tapahtumapaikan postitoimipaikka, viittaus [postinumero](#Postinumero)-tauluun
