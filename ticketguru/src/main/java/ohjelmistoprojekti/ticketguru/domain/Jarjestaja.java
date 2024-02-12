@@ -2,6 +2,7 @@ package ohjelmistoprojekti.ticketguru.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Jarjestaja {
@@ -27,6 +30,10 @@ public class Jarjestaja {
     @JsonIgnoreProperties("jarjestajat")
     @JoinColumn(name = "yht_hlo_id")
     private Yhteyshenkilo yhtHloId;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jarjestaja")
+    @JsonIgnoreProperties("jarjestaja")
+    private List<Tapahtuma> tapahtumat;
 
     // Myöhemmin Jarjestaja ManyToOne Tapahtuma
     // Liittyy luokkiin Tapahtumapaikka, Yhteyshenkilo ja Postitoimipaikka
@@ -107,6 +114,14 @@ public class Jarjestaja {
 
     public void setYhtHloId(Yhteyshenkilo yhtHloId) {
         this.yhtHloId = yhtHloId;
+    }
+
+    public List<Tapahtuma> getTapahtumat() {
+        return tapahtumat;
+    }
+
+    public void setTapahtumat(List<Tapahtuma> tapahtumat) {
+        this.tapahtumat = tapahtumat;
     }
 
     @Override
