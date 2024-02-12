@@ -21,7 +21,7 @@ public class Tapahtumapaikka {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tapaikka_id")
     private Long tapaikkaId;
-    private String osoite, paikkakunta, postinumero, kuvaus, ytunnus, sposti, lisatiedot;
+    private String osoite, kuvaus, ytunnus, sposti, lisatiedot;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumapaikka")
     private List<Yhteyshenkilo> yhteyshenkilo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumapaikka")
@@ -34,19 +34,18 @@ public class Tapahtumapaikka {
 
     public Tapahtumapaikka() {
         super();
-    }
+    }   
 
-    public Tapahtumapaikka(String osoite, String paikkakunta, String postinumero, String kuvaus, String ytunnus,
-            String sposti, String lisatiedot, List<Yhteyshenkilo> yhteyshenkilo, List<Tapahtuma> tapahtuma) {
+    public Tapahtumapaikka(String osoite, String kuvaus, String ytunnus, String sposti, String lisatiedot,
+            List<Yhteyshenkilo> yhteyshenkilo, List<Tapahtuma> tapahtuma, Postitoimipaikka postitoimipaikka) {
         this.osoite = osoite;
-        this.paikkakunta = paikkakunta;
-        this.postinumero = postinumero;
         this.kuvaus = kuvaus;
         this.ytunnus = ytunnus;
         this.sposti = sposti;
         this.lisatiedot = lisatiedot;
         this.yhteyshenkilo = yhteyshenkilo;
         this.tapahtuma = tapahtuma;
+        this.postitoimipaikka = postitoimipaikka;
     }
 
     public Long getTapaikkaId() {
@@ -63,22 +62,6 @@ public class Tapahtumapaikka {
 
     public void setOsoite(String osoite) {
         this.osoite = osoite;
-    }
-
-    public String getPaikkakunta() {
-        return paikkakunta;
-    }
-
-    public void setPaikkakunta(String paikkakunta) {
-        this.paikkakunta = paikkakunta;
-    }
-
-    public String getPostinumero() {
-        return postinumero;
-    }
-
-    public void setPostinumero(String postinumero) {
-        this.postinumero = postinumero;
     }
 
     public String getKuvaus() {
@@ -139,9 +122,9 @@ public class Tapahtumapaikka {
 
     @Override
     public String toString() {
-        return "Tapahtumapaikka [tapaikkaId=" + tapaikkaId + ", osoite=" + osoite + ", paikkakunta=" + paikkakunta
-                + ", postinumero=" + postinumero + ", kuvaus=" + kuvaus + ", ytunnus=" + ytunnus + ", sposti=" + sposti
-                + ", lisatiedot=" + lisatiedot + ", postitoimipaikka=" + this.getPostitoimipaikka() + "]";
+        return "Tapahtumapaikka [tapaikkaId=" + tapaikkaId + ", osoite=" + osoite + ", kuvaus=" + kuvaus + ", ytunnus="
+                + ytunnus + ", sposti=" + sposti + ", lisatiedot=" + lisatiedot + ", postitoimipaikka="
+                + postitoimipaikka + "]";
     }
-
+    
 }
