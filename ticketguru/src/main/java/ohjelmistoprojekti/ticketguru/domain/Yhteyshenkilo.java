@@ -1,10 +1,17 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Yhteyshenkilo {
@@ -19,7 +26,16 @@ public class Yhteyshenkilo {
     private String puhelin;
     private String lisatieto;
 
-    // Myöhemmin Yhteyshenkilo ManyToOne Tapahtumapaikka
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "yhteyshenkilo")
+    @JsonIgnoreProperties("yhteyshenkilo")
+    private List<Jarjestaja> jarjestajat;
+
+    @ManyToOne
+    @JsonIgnoreProperties("yhteyshenkilo")
+    @JoinColumn(name = "tapaikkaId")
+    private Tapahtumapaikka tapahtumapaikka;
+
+    // Myöhemmin Yhteyshenkilo OneToMany Tapahtumapaikka
     // Liittyy luokkiin Tapahtumapaikka ja Jarjestaja
 
     public Yhteyshenkilo(String etunimi, String sukunimi, String sahkoposti, String puhelin, String lisatieto) {
@@ -87,6 +103,14 @@ public class Yhteyshenkilo {
 
     public void setLisatieto(String lisatieto) {
         this.lisatieto = lisatieto;
+    }
+
+    public List<Jarjestaja> getJarjestajat() {
+        return jarjestajat;
+    }
+
+    public void setJarjestajat(List<Jarjestaja> jarjestajat) {
+        this.jarjestajat = jarjestajat;
     }
 
     @Override

@@ -1,10 +1,14 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Jarjestaja {
@@ -18,14 +22,17 @@ public class Jarjestaja {
     private String osoite;
     private String paikkakunta;
     private String postinumero;
-    @Column(name = "yht_hlo_id")
-    private int yhtHloId;
 
-    // Myöhemmin Jarjestaja OneToMany Tapahtuma
+    @ManyToOne
+    @JsonIgnoreProperties("jarjestajat")
+    @JoinColumn(name = "yht_hlo_id")
+    private Yhteyshenkilo yhtHloId;
+
+    // Myöhemmin Jarjestaja ManyToOne Tapahtuma
     // Liittyy luokkiin Tapahtumapaikka, Yhteyshenkilo ja Postitoimipaikka
 
     public Jarjestaja(String nimi, String ytunnus, String osoite, String paikkakunta, String postinumero,
-            int yhtHloId) {
+            Yhteyshenkilo yhtHloId) {
         super();
         this.nimi = nimi;
         this.ytunnus = ytunnus;
@@ -42,7 +49,7 @@ public class Jarjestaja {
         this.osoite = null;
         this.paikkakunta = null;
         this.postinumero = null;
-        this.yhtHloId = 0;
+        this.yhtHloId = null;
 
     }
 
@@ -94,11 +101,11 @@ public class Jarjestaja {
         this.postinumero = postinumero;
     }
 
-    public int getYhtHloId() {
+    public Yhteyshenkilo getYhtHloId() {
         return yhtHloId;
     }
 
-    public void setYhtHloId(int yhtHloId) {
+    public void setYhtHloId(Yhteyshenkilo yhtHloId) {
         this.yhtHloId = yhtHloId;
     }
 
