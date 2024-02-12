@@ -150,6 +150,42 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > lisatieto | varchar (700) | Yleisiä muistiinpanoja liittyen yhteyshenkilöön
 >
 >
+>### _Lippu_
+>_Lippu-taulu tallentaa tiedot tapahtuman myydyistä lipuista. Jokaisella lipulla on oma yksilöinen tunniste ja se liittyy yhteen tapahtumaan ja asiakkaaseen. Lisäksi lipulla on lipputyyppi (esim. normaali, opiskelija, eläkeläinen) mikä määrittää sen hinnan ja ominaisuudet._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> lippu_id | int PK | Lipun yksilöivä tunniste
+> lipputyyppi_id | int FK | Viittaus lipputyypin tunnisteeseen, määrittää lipun tyypin ja hinnan
+> osto_pvm | date | Lipun ostoajankohta
+> alku_pvm | date | Lipun voimassaolon alkamispäivä
+> loppu_pvm | date | Lipun voimassaolon päättymispäivä
+> kaytto_pvm | date | Lipun käyttöpäivämäärä, kun se on käytetty
+> tarkistuskoodi | int | Lipun tarkistuskoodi, onko lippu käytetty vai ei
+>
+>
+>### _Lipputyyppi_
+>_Lipputyyppi-taulu sisäkltää erilaisia lipputyyppejä, jotka voivat vaihdella esimerkiksi hinnoittelun, pääsyoikeuksien tai muiden ominasuuksien suhteen. Jokaisella lipputyypillä on oma yksilöllinen tunniste ja se määrittelee lipun hinnan ja erikoisoikeudet._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> lipputyyppi_id | int PK | Lipputyypin yksilöivä tunniste
+> asryh_id | int FK | Viittaus asiakasryhmän tunnisteeseen, joka määrittelee erikoishinnan tai oikeudet
+> nimi | varchar (20) | Lipun ostoajankohta
+> hintamuutos | decimal | Mahdollinen hintamuutos verrattuna perushintaan, esim. alennusprosentti
+>
+>
+>### _Asiakasryhmä_
+>_Asiakasryhmä-taulu sisältää erilaisia asiakasryhmiä, jotka voivat saada erikoishintoja tai muita etuja. Tämä mahdollistaa segmentoinnin asiakkaiden välillä ja erilaisten tarjousten tekemisen eri ryhmille._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> asryh_id | int PK | Asiakasryhmän yksilöivä tunniste
+> nimi | varchar (20) | Asiakasryhmän nimi
+> kuvaus | varchar (100) | Lyhyt kuvaus asiakasryhmästä ja sen erityisoikeuksista
+> tarkista | boolean | Kenttä, joka määrittää, onko asiakasryhmä tarkistettava
+>
+>
 ## Tekninen kuvaus
 
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
