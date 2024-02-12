@@ -50,17 +50,7 @@ Lisäksi kukin järjestelmän tietoelementti ja sen attribuutit kuvataan
 tietohakemistossa. Tietohakemisto tarkoittaa yksinkertaisesti vain jokaisen elementin (taulun) ja niiden
 attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän tyyliin:
 
->> ### _Tilit_
->> _Tilit-taulu sisältää käyttäjätilit. Käyttäjällä voi olla monta tiliä. Tili kuuluu aina vain yhdelle käyttäjälle._
->>
->> Kenttä | Tyyppi | Kuvaus
->> ------ | ------ | ------
->> id | int PK | Tilin id
->> nimimerkki | varchar(30) |  Tilin nimimerkki
->> avatar | int FK | Tilin avatar, viittaus [avatar](#Avatar)-tauluun
->> kayttaja | int FK | Viittaus käyttäjään [käyttäjä](#Kayttaja)-taulussa
-
-
+![Tietokantakaavio](pictures/tietokantakaavio.png)
 > ### _Jarjestaja_
 > _Jarjestaja-taulu sisältää tiedot tapahtuman organisoivasta tahosta, eli tapahtuman järjestäjästä. Tapahtumalla on yksi järjestäjä, mutta järjestäjällä voi olla monta tapahtumaa. Järjestäjä liittyy Yhteyshenkilo-, Tapahtuma- ja Postitoimipaikka -tauluihin. Järjestäjällä voi olla monta yhteyhenkilöä ja vain yksi postitoimipaikka._
 > 
@@ -118,8 +108,9 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > paattyy_pvm | timestamp with zone | UTC-tiedon sisältävä tapahtuman päättymispäivä ja kellonaika
 > tapaikka_id | int FK | Tapahtuman järjestämispaikka, viittaus [tapahtumapaikka](#Tapahtumapaikka)-tauluun
 > kuvaus | varchar(700) | Kuvaus tapahtumasta
-> jarjestaja_id | int FK | Tapahtuman järjestäjä, viittaus [jarjestaja](#Jarjestaja)-tauluun.
+> jarjestaja_id | int FK | Tapahtuman järjestäjä, viittaus [jarjestaja](#Jarjestaja)-tauluun
 > perushinta | decimal | Tapahtumalipun perushinta, kiinteä liukuluku
+> lippu_id | int FK | Tapahtuman lippu, viittaus [lippu](#lippu)-tauluun
 >
 >
 > ### _Tapahtumapaikka_
@@ -156,7 +147,7 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > lippu_id | int PK | Lipun yksilöivä tunniste
-> lipputyyppi_id | int FK | Viittaus lipputyypin tunnisteeseen, määrittää lipun tyypin ja hinnan
+> lipputyyppi_id | int FK | Lipputyypin tunniste, viittaus [lipputyyppi](#lipputyyppi)-tauluun
 > osto_pvm | date | Lipun ostoajankohta
 > alku_pvm | date | Lipun voimassaolon alkamispäivä
 > loppu_pvm | date | Lipun voimassaolon päättymispäivä
@@ -170,7 +161,7 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > lipputyyppi_id | int PK | Lipputyypin yksilöivä tunniste
-> asryh_id | int FK | Viittaus asiakasryhmän tunnisteeseen, joka määrittelee erikoishinnan tai oikeudet
+> asryh_id | int FK | Lipputyypin asiakasryhmä, viittaus [asiakasryhmä](#asiakasryhmä)-tauluun
 > nimi | varchar (20) | Lipun ostoajankohta
 > hintamuutos | decimal | Mahdollinen hintamuutos verrattuna perushintaan, esim. alennusprosentti
 >
