@@ -38,6 +38,7 @@ public class Postitoimipaikka {
     }
 
     public Postitoimipaikka() {
+        super();
         this.postinumero = 0;
         this.kaupunki = null;
 

@@ -105,13 +105,46 @@ attribuuttien (kentät/sarakkeet) listausta ja lyhyttä kuvausta esim. tähän t
 > ------ | ------ | ------
 > tapaikka_id | int PK | Tapahtumapaikan yksillöllinen tunniste
 > osoite | varchar(100) | Tapahtumapaikan osoite
-> postinro | int FK | Tapahtumapaikan postitoimipaikka, viittaus [postinumero](#Postinumero)-tauluun
+> postinro | int FK | Tapahtumapaikan postitoimipaikka, viittaus [postitoimipaikka](#Postitoimipaikka)-tauluun
 > kuvaus | varchar(700) | Kuvaus tapahtumapaikasta
 > yht_hlo_id | int FK | Tapahtumapaikan yhteyshenkilö, viittaus [yhteyshenkilo](#Yhteyshenkilo)-tauluun
 > ytunnus | char(9) | Tapahtumapaikan y-tunnus
 > sposti | varchar(100) | Tapahtumapaikan sähköpostiosoite markkinointitarkoituksiin
 > lisatiedot | varchar(700) | Lisätietoja tapahtumapaikasta
-
+>
+> ### _Jarjestaja_
+> _Jarjestaja-taulu sisältää tiedot tapahtuman organisoivasta tahosta, eli tapahtuman järjestäjästä. Tapahtumalla on yksi järjestäjä, mutta järjestäjällä voi olla monta tapahtumaa. Järjestäjä liittyy Yhteyshenkilo-, Tapahtuma- ja Postitoimipaikka -tauluihin. Järjestäjällä voi olla monta yhteyhenkilöä ja vain yksi postitoimipaikka._
+> 
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> jarjestaja_id | int PK | Järjestäjän yksilöivä tunniste
+> nimi | varhcar(50) | Järjestäjän nimi
+> ytunnus | varchar(9) | Järjestävän yrityksen y-tunnus
+> osoite | varchar (100) | Järjestäjän osoite
+> postinro | int | Osoitteen oikeaan alueeseen liittävä identifioiva tunnus
+> yht_hlo_id | int FK |Järjestäjän yhteyshenkilö, viittaus [yhteyshenkilo](#Yhteyshenkilo)-tauluun
+>
+> ### _Yhteyshenkilo_
+> _Yhteyshenkilo-taulu sisältää tiedot henkilöstä, joka edustaa tapahtumapaikkaa. Yhteyshenkilö on taho johon järjestäjä voi olla tarvittaessa yhteydessä. Yhteyshenkilöllä on vain yksi tapahtumapaikka. Yhteyshenkilö voi olla yhteydessä moneen järjestäjään_
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> yht_hlo_id | int PK | Yhteyshenkilön yksilöivä tunniste
+> snimi | varchar (50) | Yhteyshenkilön sukunimi
+> enimi | varchar (20) | Yhteyshenkilön etunimi
+> sposti | varchar (100) | Yhteyshenkilön sähköpostiosoite
+> puhelin | varchar (20) | Yhteyshenkilön puhelinnumero
+> lisatieto | varchar (700) | Yleisiä muistiinpanoja liittyen yhteyshenkilöön
+>
+> ### _Postitoimipaikka_
+> _Postitoimipaikka-taulu, sisältää tiedot postinumerosta sekä kapungista, johon määrätty postinumero liittyy. Postinumeron avulla saman nimiset osoitteet erotetaan toisistaan ja sijoitetaan oikeisiin kuntiin tai kaupunkeihin. Postinumerolla voi olla monta osoitetta, mutta vain yksi kaupunki tai kunta. Postitoimipaikka liittyy Jarjestaja-tauluun ja Tapahtumapaikka-tauluun._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> postinumeroId | int PK | Postitoimipaikan yksilöivä tunnus
+> postinumero | int | Postitoimipaikan postinumero
+> kaupunki | varchar (50) | Paikkakunta, johon postinumero liittää osoitteen
+> 
 ## Tekninen kuvaus
 
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
