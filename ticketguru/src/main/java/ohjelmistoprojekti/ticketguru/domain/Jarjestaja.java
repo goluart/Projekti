@@ -1,5 +1,6 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,28 +9,30 @@ import jakarta.persistence.Id;
 @Entity
 public class Jarjestaja {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long id;
+    @Column(name = "jarjestaja_id")
+    private Long jarjestajaId;
     private String nimi;
     private String ytunnus;
     private String osoite;
     private String paikkakunta;
     private String postinumero;
-    private int yhteyshenkiloid;
+    @Column(name = "yht_hlo_id")
+    private int yhtHloId;
 
     // Myöhemmin Jarjestaja OneToMany Tapahtuma
-    // Liittyy luokkiin Jarjestaja ja Yhteyshenkilo
+    // Liittyy luokkiin Tapahtumapaikka, Yhteyshenkilo ja Postitoimipaikka
 
     public Jarjestaja(String nimi, String ytunnus, String osoite, String paikkakunta, String postinumero,
-            int yhteyshenkiloid) {
+            int yhtHloId) {
         super();
         this.nimi = nimi;
         this.ytunnus = ytunnus;
         this.osoite = osoite;
         this.paikkakunta = paikkakunta;
         this.postinumero = postinumero;
-        this.yhteyshenkiloid = yhteyshenkiloid;
+        this.yhtHloId = yhtHloId;
     }
 
     public Jarjestaja() {
@@ -39,16 +42,16 @@ public class Jarjestaja {
         this.osoite = null;
         this.paikkakunta = null;
         this.postinumero = null;
-        this.yhteyshenkiloid = 0;
+        this.yhtHloId = 0;
 
     }
 
-    public Long getId() {
-        return id;
+    public Long getJarjestajaId() {
+        return jarjestajaId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setJarjestajaId(Long jarjestajaId) {
+        this.jarjestajaId = jarjestajaId;
     }
 
     public String getNimi() {
@@ -91,19 +94,20 @@ public class Jarjestaja {
         this.postinumero = postinumero;
     }
 
-    public int getYhteyshenkiloid() {
-        return yhteyshenkiloid;
+    public int getYhtHloId() {
+        return yhtHloId;
     }
 
-    public void setYhteyshenkiloid(int yhteyshenkiloid) {
-        this.yhteyshenkiloid = yhteyshenkiloid;
+    public void setYhtHloId(int yhtHloId) {
+        this.yhtHloId = yhtHloId;
     }
 
     @Override
     public String toString() {
-        return "Jarjestaja [id=" + id + ", nimi=" + nimi + ", ytunnus=" + ytunnus + ", osoite=" + osoite
-                + ", paikkakunta=" + paikkakunta + ", postinumero=" + postinumero + ", yhteyshenkiloid="
-                + yhteyshenkiloid + "]";
+        return "Jarjestaja [jarjestajaId=" + jarjestajaId + ", nimi=" + nimi + ", ytunnus=" + ytunnus + ", osoite="
+                + osoite
+                + ", paikkakunta=" + paikkakunta + ", postinumero=" + postinumero + ", yhtHloId="
+                + yhtHloId + "]";
     }
 
 }
