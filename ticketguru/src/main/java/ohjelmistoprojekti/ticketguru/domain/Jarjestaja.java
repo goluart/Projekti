@@ -26,14 +26,19 @@ public class Jarjestaja {
     private String paikkakunta;
     private String postinumero;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jarjestaja")
+    @JsonIgnoreProperties("jarjestaja")
+    private List<Tapahtuma> tapahtumat;
+
     @ManyToOne
     @JsonIgnoreProperties("jarjestajat")
     @JoinColumn(name = "yht_hlo_id")
     private Yhteyshenkilo yhtHloId;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jarjestaja")
-    @JsonIgnoreProperties("jarjestaja")
-    private List<Tapahtuma> tapahtumat;
+    @ManyToOne
+    @JsonIgnoreProperties("jarjestajat")
+    @JoinColumn(name = "postinumero_id")
+    private Postitoimipaikka postinumeroId;
 
     // Myöhemmin Jarjestaja ManyToOne Tapahtuma
     // Liittyy luokkiin Tapahtumapaikka, Yhteyshenkilo ja Postitoimipaikka
@@ -124,12 +129,19 @@ public class Jarjestaja {
         this.tapahtumat = tapahtumat;
     }
 
+    public Postitoimipaikka getPostinumeroId() {
+        return postinumeroId;
+    }
+
+    public void setPostinumeroId(Postitoimipaikka postinumeroId) {
+        this.postinumeroId = postinumeroId;
+    }
+
     @Override
     public String toString() {
         return "Jarjestaja [jarjestajaId=" + jarjestajaId + ", nimi=" + nimi + ", ytunnus=" + ytunnus + ", osoite="
-                + osoite
-                + ", paikkakunta=" + paikkakunta + ", postinumero=" + postinumero + ", yhtHloId="
-                + yhtHloId + "]";
+                + osoite + ", paikkakunta=" + paikkakunta + ", postinumero=" + postinumero + ", tapahtumat="
+                + tapahtumat + ", yhtHloId=" + yhtHloId + ", postinumeroId=" + postinumeroId + "]";
     }
 
 }

@@ -113,10 +113,19 @@ public class Yhteyshenkilo {
         this.jarjestajat = jarjestajat;
     }
 
+    public Tapahtumapaikka getTapahtumapaikka() {
+        return tapahtumapaikka;
+    }
+
+    public void setTapahtumapaikka(Tapahtumapaikka tapahtumapaikka) {
+        this.tapahtumapaikka = tapahtumapaikka;
+    }
+
     @Override
     public String toString() {
         return "Yhteyshenkilo [yhtHloId=" + yhtHloId + ", etunimi=" + etunimi + ", sukunimi=" + sukunimi
-                + ", sahkoposti=" + sahkoposti + ", puhelin=" + puhelin + ", lisatieto=" + lisatieto + "]";
+                + ", sahkoposti=" + sahkoposti + ", puhelin=" + puhelin + ", lisatieto=" + lisatieto + ", jarjestajat="
+                + jarjestajat + ", tapahtumapaikka=" + tapahtumapaikka + "]";
     }
 
 }
