@@ -1,5 +1,6 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,8 +9,9 @@ import jakarta.persistence.Id;
 @Entity
 public class Yhteyshenkilo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+    @Column(name = "yht_hlo_id")
     private Long yhtHloId;
     private String etunimi;
     private String sukunimi;
