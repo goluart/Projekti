@@ -1,5 +1,6 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,16 +9,18 @@ import jakarta.persistence.Id;
 @Entity
 public class Asiakasryhma {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long id;
+    @Column(name = "asryh_id")
+    private Long asryhid;
+
     private String nimi;
     private String kuvaus;
     private boolean tarkista;
 
     // Konstruktori
     public Asiakasryhma(Long id, String nimi, String kuvaus, boolean tarkista) {
-        this.id = id;
+        this.asryhid = id;
         this.nimi = nimi;
         this.kuvaus = kuvaus;
         this.tarkista = tarkista;
@@ -25,11 +28,11 @@ public class Asiakasryhma {
 
     // get+set
     public Long getId() {
-        return id;
+        return asryhid;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.asryhid = id;
     }
 
     public String getNimi() {
@@ -59,7 +62,7 @@ public class Asiakasryhma {
     // toString
     @Override
     public String toString() {
-        return "Asiakasryhma [id=" + id + ", nimi=" + nimi + ", kuvaus=" + kuvaus + ", tarkista=" + tarkista + "]";
+        return "Asiakasryhma [id=" + asryhid + ", nimi=" + nimi + ", kuvaus=" + kuvaus + ", tarkista=" + tarkista + "]";
     }
 
 }

@@ -27,6 +27,18 @@ public class Tapahtumapaikka {
         super();
     }
 
+    public Tapahtumapaikka(String osoite, String paikkakunta, String postinumero, String kuvaus, String ytunnus,
+            String sposti, String lisatiedot, List<Yhteyshenkilo> yhteyshenkilo, List<Tapahtuma> tapahtuma) {
+        this.osoite = osoite;
+        this.paikkakunta = paikkakunta;
+        this.postinumero = postinumero;
+        this.kuvaus = kuvaus;
+        this.ytunnus = ytunnus;
+        this.sposti = sposti;
+        this.lisatiedot = lisatiedot;
+        this.yhteyshenkilo = yhteyshenkilo;
+        this.tapahtuma = tapahtuma;
+    }
 
     public Long getTapaikkaId() {
         return tapaikkaId;
