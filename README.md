@@ -109,6 +109,7 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > jarjestaja_id | int FK | Tapahtuman järjestäjä, viittaus [jarjestaja](#Jarjestaja)-tauluun
 > perushinta | decimal | Tapahtumalipun perushinta, kiinteä liukuluku
 > lippu_id | int FK | Tapahtuman lippu, viittaus [lippu](#lippu)-tauluun
+> lipputyyppi_id | int FK | Lipputyyppi, viittaa [lipputyyppi](#lipputyyppi)-tauluun
 >
 >
 > ### _Tapahtumapaikka_
