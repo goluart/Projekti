@@ -46,9 +46,7 @@ public class TicketguruApplication {
             Yhteyshenkilo yhteys1 = yhteyshenkiloRepository.save(new Yhteyshenkilo("Matti", "Meikäläinen", "matti@example.com", "0401234567", "Markkinointipäällikkö"));
 			Yhteyshenkilo yhteys2 = yhteyshenkiloRepository.save(new Yhteyshenkilo("Liisa", "Laaksonen", "liisa@example.com", "0501234567", "Tuotantopäällikkö"));
 			Yhteyshenkilo yhteys3 = yhteyshenkiloRepository.save(new Yhteyshenkilo("Jukka", "Järvinen", "jukka@example.com", "0451234567", "Tapahtumakoordinaattori"));
-			// Lisää yhteyshenkilöitä tarvittaessa...
-	
-			// Lisää järjestäjiä
+
             
             // Luodaan tapahtumapaikkoja
             Tapahtumapaikka paikka1 = tapahtumapaikkaRepository.save(new Tapahtumapaikka("Kulttuuritalo", "Sturenkatu 4, Helsinki", "Kulttuuritapahtumien keskus", "1234567-8", "info@kulttuuritalo.fi", "Esteetön pääsy", new ArrayList<>(), new ArrayList<>(), helsinki));
@@ -59,15 +57,13 @@ public class TicketguruApplication {
             Jarjestaja jarjestaja1 = jarjestajaRepository.save(new Jarjestaja("Musiikki Oy", "1234567-8", "Mannerheimintie 13, Helsinki", "Helsinki", helsinki, yhteys1));
 			Jarjestaja jarjestaja2 = jarjestajaRepository.save(new Jarjestaja("Festivaali Oy", "2234567-8", "Bulevardi 14, Helsinki", "Helsinki", helsinki, yhteys2));
 			Jarjestaja jarjestaja3 = jarjestajaRepository.save(new Jarjestaja("Konsertti Oy", "3234567-8", "Fredrikinkatu 15, Helsinki", "Helsinki", helsinki, yhteys3));
-            // Lisää järjestäjiä tarvittaessa...
+
 
             // Luodaan tapahtumia
             tapahtumaRepository.save(new Tapahtuma("Rock Festivaali", ZonedDateTime.now().plusDays(10), ZonedDateTime.now().plusDays(10).plusHours(5), "Suurin rock tapahtuma vuonna", 50.00, paikka1, jarjestaja1, new HashSet<>(), null));
 			tapahtumaRepository.save(new Tapahtuma("Jazz-ilta", ZonedDateTime.now().plusDays(20), ZonedDateTime.now().plusDays(20).plusHours(4), "Nauti rennosta jazz-musiikista", 40.00, paikka2, jarjestaja2, new HashSet<>(), null));
         	tapahtumaRepository.save(new Tapahtuma("Stand-up show", ZonedDateTime.now().plusDays(30), ZonedDateTime.now().plusDays(30).plusHours(3), "Naurua koko illaksi", 35.00, paikka3, jarjestaja3, new HashSet<>(), null));
-        // Lisää tapahtumia tarvittaessa...
 
-            // Lisää tapahtumia tarvittaessa...
         };
     }
 }
