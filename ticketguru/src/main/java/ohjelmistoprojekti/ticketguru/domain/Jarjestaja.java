@@ -1,5 +1,6 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -27,7 +28,7 @@ public class Jarjestaja {
     private String postinumero;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "jarjestaja")
-    @JsonIgnoreProperties("jarjestaja")
+    @JsonIgnore
     private List<Tapahtuma> tapahtumat;
 
     @ManyToOne

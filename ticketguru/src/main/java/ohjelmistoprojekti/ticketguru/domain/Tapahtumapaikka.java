@@ -2,6 +2,7 @@ package ohjelmistoprojekti.ticketguru.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -26,6 +27,7 @@ public class Tapahtumapaikka {
     private String osoite, kuvaus, ytunnus, sposti, lisatiedot;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumapaikka")
     private List<Yhteyshenkilo> yhteyshenkilo;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumapaikka")
     private List<Tapahtuma> tapahtuma;
 
