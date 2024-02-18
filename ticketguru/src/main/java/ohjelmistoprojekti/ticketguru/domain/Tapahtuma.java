@@ -34,24 +34,33 @@ public class Tapahtuma {
     private ZonedDateTime paattyyPvm;
     private String kuvaus;
     private double perushinta;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name="tapaikka_id")
+    @JoinColumn(name = "tapaikka_id")
     private Tapahtumapaikka tapahtumapaikka;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name="jarjestaja_id")
+    @JoinColumn(name = "jarjestaja_id")
     private Jarjestaja jarjestaja;
+
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "tapahtuma_lippu", joinColumns = { @JoinColumn(name = "tapahtuma_id") }, inverseJoinColumns = { @JoinColumn( name = "lippu_id" ) })
+    @JoinTable(name = "tapahtuma_lippu", joinColumns = { @JoinColumn(name = "tapahtuma_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "lippu_id") })
     private Set<Lippu> liput = new HashSet<Lippu>(0);
-    
+
+    // Lipputyyppi
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "lipputyyppi_id")
+    private Lipputyyppi lipputyyppi;
+
     public Tapahtuma() {
         super();
         luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
-    }    
+    }
 
     public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm,
             String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka, Jarjestaja jarjestaja,
-            Set<Lippu> liput) {
+            Set<Lippu> liput, Lipputyyppi lipputyyppi) {
         this.tapahtumaNimi = tapahtumaNimi;
         this.alkaaPvm = alkaaPvm;
         this.paattyyPvm = paattyyPvm;
@@ -60,6 +69,7 @@ public class Tapahtuma {
         this.tapahtumapaikka = tapahtumapaikka;
         this.jarjestaja = jarjestaja;
         this.liput = liput;
+        this.lipputyyppi = lipputyyppi;
     }
 
     public Long getTapahtumaId() {
@@ -142,12 +152,20 @@ public class Tapahtuma {
         this.liput = liput;
     }
 
+    public Lipputyyppi getLipputyyppi() {
+        return lipputyyppi;
+    }
+
+    public void setLipputyyppi(Lipputyyppi lipputyyppi) {
+        this.lipputyyppi = lipputyyppi;
+    }
+
     @Override
     public String toString() {
         return "Tapahtuma [tapahtumaId=" + tapahtumaId + ", tapahtumaNimi=" + tapahtumaNimi + ", luontiPvm=" + luontiPvm
                 + ", alkaaPvm=" + alkaaPvm + ", paattyyPvm=" + paattyyPvm + ", kuvaus=" + kuvaus + ", perushinta="
-                + perushinta + ", tapahtumapaikka=" + tapahtumapaikka + ", jarjestaja=" + jarjestaja + "]";
+                + perushinta + ", tapahtumapaikka=" + tapahtumapaikka + ", jarjestaja=" + jarjestaja + ", liput="
+                + liput + ", lipputyyppi=" + lipputyyppi + "]";
     }
-   
-    
+
 }
