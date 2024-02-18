@@ -5,6 +5,8 @@ import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,20 +37,24 @@ public class Tapahtuma {
     private String kuvaus;
     private double perushinta;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "tapaikka_id")
     private Tapahtumapaikka tapahtumapaikka;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "jarjestaja_id")
     private Jarjestaja jarjestaja;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "tapahtuma_lippu", joinColumns = { @JoinColumn(name = "tapahtuma_id") }, inverseJoinColumns = {
             @JoinColumn(name = "lippu_id") })
     private Set<Lippu> liput = new HashSet<Lippu>(0);
 
     // Lipputyyppi
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "lipputyyppi_id")
     private Lipputyyppi lipputyyppi;
