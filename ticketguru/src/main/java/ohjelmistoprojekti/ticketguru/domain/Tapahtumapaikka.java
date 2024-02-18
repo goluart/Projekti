@@ -21,6 +21,8 @@ public class Tapahtumapaikka {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tapaikka_id")
     private Long tapaikkaId;
+    @Column(name = "paikka_nimi")
+    private String paikkaNimi;
     private String osoite, kuvaus, ytunnus, sposti, lisatiedot;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumapaikka")
     private List<Yhteyshenkilo> yhteyshenkilo;
@@ -36,8 +38,9 @@ public class Tapahtumapaikka {
         super();
     }   
 
-    public Tapahtumapaikka(String osoite, String kuvaus, String ytunnus, String sposti, String lisatiedot,
+    public Tapahtumapaikka(String paikkaNimi,String osoite, String kuvaus, String ytunnus, String sposti, String lisatiedot,
             List<Yhteyshenkilo> yhteyshenkilo, List<Tapahtuma> tapahtuma, Postitoimipaikka postitoimipaikka) {
+        this.paikkaNimi = paikkaNimi;
         this.osoite = osoite;
         this.kuvaus = kuvaus;
         this.ytunnus = ytunnus;
@@ -47,6 +50,7 @@ public class Tapahtumapaikka {
         this.tapahtuma = tapahtuma;
         this.postitoimipaikka = postitoimipaikka;
     }
+    
 
     public Long getTapaikkaId() {
         return tapaikkaId;
@@ -122,9 +126,17 @@ public class Tapahtumapaikka {
 
     @Override
     public String toString() {
-        return "Tapahtumapaikka [tapaikkaId=" + tapaikkaId + ", osoite=" + osoite + ", kuvaus=" + kuvaus + ", ytunnus="
-                + ytunnus + ", sposti=" + sposti + ", lisatiedot=" + lisatiedot + ", postitoimipaikka="
-                + postitoimipaikka + "]";
+        return "Tapahtumapaikka [tapaikkaId=" + tapaikkaId + ", paikkaNimi=" + paikkaNimi + ", osoite=" + osoite
+                + ", kuvaus=" + kuvaus + ", ytunnus=" + ytunnus + ", sposti=" + sposti + ", lisatiedot=" + lisatiedot
+                + ", postitoimipaikka=" + postitoimipaikka + "]";
+    }
+
+    public String getPaikkaNimi() {
+        return paikkaNimi;
+    }
+
+    public void setPaikkaNimi(String paikkaNimi) {
+        this.paikkaNimi = paikkaNimi;
     }
     
 }

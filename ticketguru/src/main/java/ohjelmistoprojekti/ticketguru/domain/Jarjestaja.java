@@ -33,115 +33,118 @@ public class Jarjestaja {
     @ManyToOne
     @JsonIgnoreProperties("jarjestajat")
     @JoinColumn(name = "yht_hlo_id")
-    private Yhteyshenkilo yhtHloId;
+    private Yhteyshenkilo yhteyshenkilo;
 
     @ManyToOne
     @JsonIgnoreProperties("jarjestajat")
-    @JoinColumn(name = "postinumero_id")
-    private Postitoimipaikka postinumeroId;
+    @JoinColumn(name = "postitoimipaikka_id")
+    private Postitoimipaikka postitoimipaikka;
 
     // Myöhemmin Jarjestaja ManyToOne Tapahtuma
     // Liittyy luokkiin Tapahtumapaikka, Yhteyshenkilo ja Postitoimipaikka
 
-    public Jarjestaja(String nimi, String ytunnus, String osoite, String paikkakunta, String postinumero,
-            Yhteyshenkilo yhtHloId) {
+
+    
+    public Jarjestaja(String nimi, String ytunnus, String osoite, String paikkakunta, Postitoimipaikka postitoimipaikka,
+    Yhteyshenkilo yhteyshenkilo) {
         super();
         this.nimi = nimi;
         this.ytunnus = ytunnus;
         this.osoite = osoite;
         this.paikkakunta = paikkakunta;
-        this.postinumero = postinumero;
-        this.yhtHloId = yhtHloId;
+        this.postitoimipaikka = postitoimipaikka;
+        this.yhteyshenkilo = yhteyshenkilo;
     }
-
+    
     public Jarjestaja() {
         super();
         this.nimi = null;
         this.ytunnus = null;
         this.osoite = null;
         this.paikkakunta = null;
-        this.postinumero = null;
-        this.yhtHloId = null;
-
+        this.postitoimipaikka = null;
+        this.yhteyshenkilo = null;        
     }
-
+    
     public Long getJarjestajaId() {
         return jarjestajaId;
     }
-
+    
     public void setJarjestajaId(Long jarjestajaId) {
         this.jarjestajaId = jarjestajaId;
     }
-
+    
     public String getNimi() {
         return nimi;
     }
-
+    
     public void setNimi(String nimi) {
         this.nimi = nimi;
     }
-
+    
     public String getYtunnus() {
         return ytunnus;
     }
-
+    
     public void setYtunnus(String ytunnus) {
         this.ytunnus = ytunnus;
     }
-
+    
     public String getOsoite() {
         return osoite;
     }
-
+    
     public void setOsoite(String osoite) {
         this.osoite = osoite;
     }
-
+    
     public String getPaikkakunta() {
         return paikkakunta;
     }
-
+    
     public void setPaikkakunta(String paikkakunta) {
         this.paikkakunta = paikkakunta;
     }
-
+    
     public String getPostinumero() {
         return postinumero;
     }
-
+    
     public void setPostinumero(String postinumero) {
         this.postinumero = postinumero;
     }
-
-    public Yhteyshenkilo getYhtHloId() {
-        return yhtHloId;
+    
+    public Yhteyshenkilo getyhteyshenkilo() {
+        return yhteyshenkilo;
     }
-
-    public void setYhtHloId(Yhteyshenkilo yhtHloId) {
-        this.yhtHloId = yhtHloId;
+    
+    public void setyhteyshenkilo(Yhteyshenkilo yhteyshenkilo) {
+        this.yhteyshenkilo = yhteyshenkilo;
     }
-
+    
     public List<Tapahtuma> getTapahtumat() {
         return tapahtumat;
     }
-
+    
     public void setTapahtumat(List<Tapahtuma> tapahtumat) {
         this.tapahtumat = tapahtumat;
     }
-
-    public Postitoimipaikka getPostinumeroId() {
-        return postinumeroId;
+    
+    public Postitoimipaikka getPostitoimipaikka() {
+        return postitoimipaikka;
     }
-
-    public void setPostinumeroId(Postitoimipaikka postinumeroId) {
-        this.postinumeroId = postinumeroId;
+    
+    public void setPostitoimipaikka(Postitoimipaikka postitoimipaikka) {
+        this.postitoimipaikka = postitoimipaikka;
     }
 
     @Override
     public String toString() {
         return "Jarjestaja [jarjestajaId=" + jarjestajaId + ", nimi=" + nimi + ", ytunnus=" + ytunnus + ", osoite="
-                + osoite + ", paikkakunta=" + paikkakunta + ", postinumero=" + postinumero + ", tapahtumat="
-                + tapahtumat + ", yhtHloId=" + yhtHloId + ", postinumeroId=" + postinumeroId + "]";
+        + osoite + ", paikkakunta=" + paikkakunta + ", postinumero=" + postinumero + ", yhteyshenkilo=" + yhteyshenkilo
+        + ", postitoimipaikka=" + postitoimipaikka + "]";
     }
-
+    
+    
+    
 }
