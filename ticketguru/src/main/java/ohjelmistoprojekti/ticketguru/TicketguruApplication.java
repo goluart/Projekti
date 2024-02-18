@@ -42,6 +42,7 @@ public class TicketguruApplication {
             // Luodaan postitoimipaikat
             Postitoimipaikka helsinki = postitoimipaikkaRepository.save(new Postitoimipaikka("00100", "Helsinki"));
 			Postitoimipaikka helsinki2 = postitoimipaikkaRepository.save(new Postitoimipaikka("00600", "Helsinki"));
+			
             // Luodaan yhteyshenkilöitä
             Yhteyshenkilo yhteys1 = yhteyshenkiloRepository.save(new Yhteyshenkilo("Matti", "Meikäläinen", "matti@example.com", "0401234567", "Markkinointipäällikkö"));
 			Yhteyshenkilo yhteys2 = yhteyshenkiloRepository.save(new Yhteyshenkilo("Liisa", "Laaksonen", "liisa@example.com", "0501234567", "Tuotantopäällikkö"));
