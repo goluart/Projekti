@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,15 +22,22 @@ public class TapahtumaRestController {
 
     @Autowired
     private TapahtumaRepository tapahtumaRepository;
-    
-    @RequestMapping(value="/tapahtumat", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/tapahtumat", method = RequestMethod.GET)
     public @ResponseBody List<Tapahtuma> tapahtumatListRest() {
-    	return (List<Tapahtuma>)tapahtumaRepository.findAll();
+        return (List<Tapahtuma>) tapahtumaRepository.findAll();
     }
-    
-    //@NotNull lisätty virheilmoituksen perusteella
+
+    // @NotNull lisätty virheilmoituksen perusteella
     @PostMapping("tapahtuma")
-	Tapahtuma newTapahtuma(@RequestBody @NonNull Tapahtuma newTapahtuma) {
-		return tapahtumaRepository.save(newTapahtuma);
-	}
+    Tapahtuma newTapahtuma(@RequestBody @NonNull Tapahtuma newTapahtuma) {
+        return tapahtumaRepository.save(newTapahtuma);
+    }
+
+    // Poista tapahtuma tapahtuma IDllä esim. "localhost:8080/delete/1"
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteTapahtuma(@PathVariable("id") @NonNull Long tapahtumaId) {
+        tapahtumaRepository.deleteById(tapahtumaId);
+        return "redirect:/tapahtumat";
+    }
 }
