@@ -23,7 +23,7 @@ public class TapahtumaRestController {
     @Autowired
     private TapahtumaRepository tapahtumaRepository;
 
-    @RequestMapping(value = "/tapahtumat", method = RequestMethod.GET)
+    @GetMapping("/tapahtumat") //Muutettu @RequestMapping @GetMapping muotoon
     public @ResponseBody List<Tapahtuma> tapahtumatListRest() {
         return (List<Tapahtuma>) tapahtumaRepository.findAll();
     }
