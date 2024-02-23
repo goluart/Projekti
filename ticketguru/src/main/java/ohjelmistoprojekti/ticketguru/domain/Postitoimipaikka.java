@@ -4,8 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,11 +25,11 @@ public class Postitoimipaikka {
     private String kaupunki;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postitoimipaikka")
-    @JsonIgnoreProperties("postitoimipaikka")
+    @JsonIgnore
     private Set<Jarjestaja> jarjestajat = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postitoimipaikka")
-    @JsonIgnoreProperties("postitoimipaikka")
+    @JsonIgnore
     private List<Tapahtumapaikka> tapahtumapaikat;
 
     public Postitoimipaikka(String postinumero, String kaupunki) {

@@ -37,12 +37,12 @@ public class Tapahtuma {
     private String kuvaus;
     private double perushinta;
 
-    @JsonIgnore
+    // @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "tapaikka_id")
     private Tapahtumapaikka tapahtumapaikka;
 
-    @JsonIgnore
+    // @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "jarjestaja_id")
     private Jarjestaja jarjestaja;
