@@ -23,7 +23,8 @@ public class TapahtumaRestController {
     @Autowired
     private TapahtumaRepository tapahtumaRepository;
 
-    @GetMapping("/tapahtumat") //Muutettu @RequestMapping @GetMapping muotoon
+    // Muutettu @RequestMapping @GetMapping muotoon
+    @GetMapping("/tapahtumat") 
     public @ResponseBody List<Tapahtuma> tapahtumatListRest() {
         return (List<Tapahtuma>) tapahtumaRepository.findAll();
     }
@@ -39,5 +40,12 @@ public class TapahtumaRestController {
     public String deleteTapahtuma(@PathVariable("id") @NonNull Long tapahtumaId) {
         tapahtumaRepository.deleteById(tapahtumaId);
         return "redirect:/tapahtumat";
+    }
+
+    @PutMapping("/edit/{id}")
+    public String editTapahtuma(@PathVariable("id") @NotNull Long tapahtumaId) {
+        tapahtumaRepository.findById(tapahtumaId);
+        return "edittapahtuma";
+
     }
 }
