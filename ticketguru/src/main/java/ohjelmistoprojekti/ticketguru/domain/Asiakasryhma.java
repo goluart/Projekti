@@ -1,26 +1,33 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Asiakasryhma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "asryh_id")
     private Long asryhid;
 
     private String nimi;
     private String kuvaus;
     private boolean tarkista;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "asiakasryhma")
+    @JsonIgnore
+    List<Lipputyyppi> lipputyypit; 
 
     // Konstruktori
-    public Asiakasryhma(Long id, String nimi, String kuvaus, boolean tarkista) {
-        this.asryhid = id;
+    public Asiakasryhma(String nimi, String kuvaus, boolean tarkista) {
         this.nimi = nimi;
         this.kuvaus = kuvaus;
         this.tarkista = tarkista;

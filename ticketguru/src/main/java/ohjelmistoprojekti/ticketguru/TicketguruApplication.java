@@ -10,10 +10,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import ohjelmistoprojekti.ticketguru.domain.Asiakasryhma;
+import ohjelmistoprojekti.ticketguru.domain.AsiakasryhmaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
 import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
+import ohjelmistoprojekti.ticketguru.domain.Kayttaja;
+import ohjelmistoprojekti.ticketguru.domain.KayttajaRepository;
+import ohjelmistoprojekti.ticketguru.domain.LippuRepository;
+import ohjelmistoprojekti.ticketguru.domain.Lipputyyppi;
 import ohjelmistoprojekti.ticketguru.domain.Postitoimipaikka;
 import ohjelmistoprojekti.ticketguru.domain.PostitoimipaikkaRepository;
+import ohjelmistoprojekti.ticketguru.domain.Rooli;
+import ohjelmistoprojekti.ticketguru.domain.RooliRepository;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtumapaikka;
@@ -37,7 +45,7 @@ public class TicketguruApplication {
                                     TapahtumapaikkaRepository tapahtumapaikkaRepository, 
                                     JarjestajaRepository jarjestajaRepository,
                                     YhteyshenkiloRepository yhteyshenkiloRepository,
-                                    PostitoimipaikkaRepository postitoimipaikkaRepository) {
+                                    PostitoimipaikkaRepository postitoimipaikkaRepository, AsiakasryhmaRepository asryhRepository, KayttajaRepository kayttajaRepository, RooliRepository rooliRepository, LippuRepository lipputyyppiRepository) {
         return args -> {
             // Luodaan postitoimipaikat
             Postitoimipaikka helsinki = postitoimipaikkaRepository.save(new Postitoimipaikka("00100", "Helsinki"));
@@ -64,6 +72,29 @@ public class TicketguruApplication {
             tapahtumaRepository.save(new Tapahtuma("Rock Festivaali", ZonedDateTime.now().plusDays(10), ZonedDateTime.now().plusDays(10).plusHours(5), "Suurin rock tapahtuma vuonna", 50.00, paikka1, jarjestaja1, new HashSet<>(), null));
 			tapahtumaRepository.save(new Tapahtuma("Jazz-ilta", ZonedDateTime.now().plusDays(20), ZonedDateTime.now().plusDays(20).plusHours(4), "Nauti rennosta jazz-musiikista", 40.00, paikka2, jarjestaja2, new HashSet<>(), null));
         	tapahtumaRepository.save(new Tapahtuma("Stand-up show", ZonedDateTime.now().plusDays(30), ZonedDateTime.now().plusDays(30).plusHours(3), "Naurua koko illaksi", 35.00, paikka3, jarjestaja3, new HashSet<>(), null));
+
+            // Luodaan asiakaryhmiä
+            Asiakasryhma aikuinen = asryhRepository.save(new Asiakasryhma("Aikuinen", "Yli 18-vuotiaat", true));
+            Asiakasryhma lapsi = asryhRepository.save(new Asiakasryhma("Lapsi", "Alle 18-vuotiaat", true));
+            Asiakasryhma elakelainen = asryhRepository.save(new Asiakasryhma("Elakelainen", "Eläkkeellä olevat henkilöt", true));
+            Asiakasryhma tyoton = asryhRepository.save(new Asiakasryhma("Tyoton", "Työttömät henkilöt", true));
+
+            // Luodaan roolit
+            Rooli myyja = rooliRepository.save(new Rooli("Myyjä"));
+            Rooli lipuntarkastaja = rooliRepository.save(new Rooli("Lipuntarkastaja"));
+            Rooli hallinto = rooliRepository.save(new Rooli("Hallinto"));
+
+            // Luodaan käyttäjät ja liitetään roolit
+            kayttajaRepository.save(new Kayttaja("salasana123", "Mäkinen", "Matti", "Myyntialue", myyja));
+            kayttajaRepository.save(new Kayttaja("salasana456", "Virtanen", "Veera", "Tarkastusaluella", lipuntarkastaja));
+            kayttajaRepository.save(new Kayttaja("salasana789", "Laaksonen", "Liisa", "Hallinnossa", hallinto));
+
+            // Luodaan lipputyypit
+
+            lipputyyppiRepository.save(new Lipputyyppi("Normaali", 0.0, aikuinen));
+            lipputyyppiRepository.save(new Lipputyyppi("Lapsi", -5.0, lapsi));
+            lipputyyppiRepository.save(new Lipputyyppi("Eläkeläinen", -3.0, elakelainen));
+            lipputyyppiRepository.save(new Lipputyyppi("Työtön", -2.0, tyoton));
 
         };
     }

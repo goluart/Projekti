@@ -1,14 +1,12 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
-import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Lipputyyppi {
@@ -19,16 +17,15 @@ public class Lipputyyppi {
     private Long lipputyyppiId;
 
     private String nimi;
-    private Date hintamuutos;
+    private double hintamuutos;
 
     // Tuodaan Asiakasryhmä luokka tänne
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "asryh_id")
     private Asiakasryhma asiakasryhma;
 
     // Konstruktori
-    public Lipputyyppi(Long id, String nimi, Date hintamuutos, Asiakasryhma asiakasryhma) {
-        this.lipputyyppiId = id;
+    public Lipputyyppi(String nimi, Double hintamuutos, Asiakasryhma asiakasryhma) {
         this.nimi = nimi;
         this.hintamuutos = hintamuutos;
         this.asiakasryhma = asiakasryhma;
@@ -59,11 +56,11 @@ public class Lipputyyppi {
         this.nimi = nimi;
     }
 
-    public Date getHintamuutos() {
+    public double getHintamuutos() {
         return hintamuutos;
     }
 
-    public void setHintamuutos(Date hintamuutos) {
+    public void setHintamuutos(double hintamuutos) {
         this.hintamuutos = hintamuutos;
     }
 
