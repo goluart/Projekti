@@ -24,8 +24,6 @@ public class Jarjestaja {
     private String nimi;
     private String ytunnus;
     private String osoite;
-    private String paikkakunta;
-    private String postinumero;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "jarjestaja")
     @JsonIgnore
@@ -46,13 +44,12 @@ public class Jarjestaja {
 
 
     
-    public Jarjestaja(String nimi, String ytunnus, String osoite, String paikkakunta, Postitoimipaikka postitoimipaikka,
+    public Jarjestaja(String nimi, String ytunnus, String osoite, Postitoimipaikka postitoimipaikka,
     Yhteyshenkilo yhteyshenkilo) {
         super();
         this.nimi = nimi;
         this.ytunnus = ytunnus;
         this.osoite = osoite;
-        this.paikkakunta = paikkakunta;
         this.postitoimipaikka = postitoimipaikka;
         this.yhteyshenkilo = yhteyshenkilo;
     }
@@ -62,7 +59,6 @@ public class Jarjestaja {
         this.nimi = null;
         this.ytunnus = null;
         this.osoite = null;
-        this.paikkakunta = null;
         this.postitoimipaikka = null;
         this.yhteyshenkilo = null;        
     }
@@ -99,22 +95,6 @@ public class Jarjestaja {
         this.osoite = osoite;
     }
     
-    public String getPaikkakunta() {
-        return paikkakunta;
-    }
-    
-    public void setPaikkakunta(String paikkakunta) {
-        this.paikkakunta = paikkakunta;
-    }
-    
-    public String getPostinumero() {
-        return postinumero;
-    }
-    
-    public void setPostinumero(String postinumero) {
-        this.postinumero = postinumero;
-    }
-    
     public Yhteyshenkilo getyhteyshenkilo() {
         return yhteyshenkilo;
     }
@@ -142,9 +122,9 @@ public class Jarjestaja {
     @Override
     public String toString() {
         return "Jarjestaja [jarjestajaId=" + jarjestajaId + ", nimi=" + nimi + ", ytunnus=" + ytunnus + ", osoite="
-        + osoite + ", paikkakunta=" + paikkakunta + ", postinumero=" + postinumero + ", yhteyshenkilo=" + yhteyshenkilo
-        + ", postitoimipaikka=" + postitoimipaikka + "]";
+                + osoite + ", yhteyshenkilo=" + yhteyshenkilo + ", postitoimipaikka=" + postitoimipaikka + "]";
     }
+
     
     
     

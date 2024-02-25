@@ -54,7 +54,9 @@ public class TapahtumaRestController {
     @PutMapping("/tapahtumat/edit/{id}")
     public String editTapahtuma(@PathVariable("id") @NonNull Long tapahtumaId) {
         tapahtumaRepository.findById(tapahtumaId);
-        return "redirect:/tapahtumat/{id}";
+        return "redirect:/tapahtumat";
 
     }
+
+    
 }
