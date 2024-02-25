@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Optional;
 
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
@@ -29,6 +30,11 @@ public class TapahtumaRestController {
     @GetMapping("/tapahtumat") 
     public @ResponseBody List<Tapahtuma> tapahtumatListRest() {
         return (List<Tapahtuma>) tapahtumaRepository.findAll();
+    }
+    // Haetaan tapahtuma tunnisteen (tapahtumaId) avulla
+    @GetMapping("/tapahtuma/{id}")
+    public @ResponseBody Optional<Tapahtuma> findTapahtumaById(@PathVariable ("id") @NonNull Long tapahtumaId) {
+        return tapahtumaRepository.findById(tapahtumaId);
     }
 
     // @NotNull lisätty virheilmoituksen perusteella
