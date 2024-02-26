@@ -30,6 +30,10 @@ public class Lipputyyppi {
     @ManyToOne
     @JoinColumn(name = "asryh_id")
     private Asiakasryhma asiakasryhma;
+
+    public Lipputyyppi() {
+        super();
+    }
     
     // Konstruktori
     public Lipputyyppi(String nimi, Double hintamuutos, Asiakasryhma asiakasryhma) {

@@ -26,6 +26,10 @@ public class Asiakasryhma {
     @JsonIgnore
     List<Lipputyyppi> lipputyypit; 
 
+    public Asiakasryhma() {
+        super();
+    }
+
     // Konstruktori
     public Asiakasryhma(String nimi, String kuvaus, boolean tarkista) {
         this.nimi = nimi;

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class TapahtumaRestController {
 
     // Poista tapahtuma tapahtuma IDllä esim. "localhost:8080/delete/1"
     // @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/tapahtumat/delete/{id}")
     public String deleteTapahtuma(@PathVariable("id") @NonNull Long tapahtumaId) {
         tapahtumaRepository.deleteById(tapahtumaId);
         return "redirect:/tapahtumat";
