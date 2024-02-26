@@ -55,7 +55,7 @@ public class Tapahtuma {
     // Lipputyyppi
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "tapahtuma_lipputyyppi", joinColumns = @JoinColumn(name = "tapahtuma_id"), inverseJoinColumns = @JoinColumn(name = "lipputyyppi_id"))
+    // @JoinTable(name = "tapahtuma_lipputyyppi", joinColumns = @JoinColumn(name = "tapahtuma_id"), inverseJoinColumns = @JoinColumn(name = "lipputyyppi_id"))
     private Set<Lipputyyppi> lipputyypit = new HashSet<>();
 
     public Tapahtuma() {
@@ -64,8 +64,7 @@ public class Tapahtuma {
     }
 
     public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm,
-            String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka, Jarjestaja jarjestaja,
-            Set<Lippu> liput, Set<Lipputyyppi> lipputyypit) {
+            String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka, Jarjestaja jarjestaja) {
         this.tapahtumaNimi = tapahtumaNimi;
         this.alkaaPvm = alkaaPvm;
         this.paattyyPvm = paattyyPvm;
@@ -73,8 +72,16 @@ public class Tapahtuma {
         this.perushinta = perushinta;
         this.tapahtumapaikka = tapahtumapaikka;
         this.jarjestaja = jarjestaja;
-        this.liput = liput;
-        this.lipputyypit = lipputyypit;
+    }
+
+    public void addLipputyyppi(Lipputyyppi lipputyyppi) {
+        this.lipputyypit.add(lipputyyppi);
+        lipputyyppi.getTapahtumat().add(this); 
+    }
+
+    public void removeLipputyyppi(Lipputyyppi lipputyyppi) {
+        this.lipputyypit.remove(lipputyyppi);
+        lipputyyppi.getTapahtumat().remove(this);
     }
 
     public Long getTapahtumaId() {

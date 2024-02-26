@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
-			<!-- versio poistettu -->
+			<version>3.2.3</version>
 		</dependency>
 		<!-- Thymeleaf dependence otettu pois, aiheutti testauksessa välillä
 		virheitä -->

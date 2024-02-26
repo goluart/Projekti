@@ -8,5 +8,5 @@ public interface LippuRepository extends JpaRepository<Lippu, Long> {
 
     List<Lippu> findByTarkistuskoodi(Long tarkistuskoodi);
 
-    void save(Lipputyyppi lipputyyppi);
+    Lipputyyppi save(Lipputyyppi lipputyyppi);
 }
