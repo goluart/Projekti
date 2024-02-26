@@ -178,6 +178,13 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 >
 ## Tekninen kuvaus
 
+### REST-rajapinnan ratkaisut
+Tapahtuma-luokan metodit on luotu REST-rajapinnalla. Ensimmäisessä vaihessaa Tapahtuma-luokalle luotiin GET- , POST- , PUT- sekä DELETE-metodit.
+Rajapinnan nimeämiskäytännössä käytettiin apuna GitHub-käyttäjä _jamecook:n_ kokoamaa ohjetta REST-rajapintojen dokumentaatiosta.
+
+
+
+
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
 ratkaisut, esim.
 
