@@ -27,8 +27,8 @@ public class TapahtumaRestController {
 
     // Muutettu @RequestMapping @GetMapping muotoon
     @GetMapping("/tapahtumat")
-    public @ResponseBody List<Tapahtuma> tapahtumatListRest() {
-        return (List<Tapahtuma>) tapahtumaRepository.findAll();
+    public List<Tapahtuma> tapahtumatListRest() {
+        return tapahtumaRepository.findAll();
     }
 
     // Haetaan tapahtuma tunnisteen (tapahtumaId) avulla
@@ -52,14 +52,12 @@ public class TapahtumaRestController {
     }
 
     // Etsi yksi tapahtuma muokkaamista varten
-    @PutMapping("/tapahtumat/edit/{id}")
-    public String editTapahtuma(@PathVariable("id") @NonNull Long tapahtumaId) {
-        tapahtumaRepository.findById(tapahtumaId);
-        return "redirect:/tapahtumat";
+    @PutMapping("tapahtumat/{id}")
+    Tapahtuma editTapahtuma(@RequestBody Tapahtuma editedTapahtuma, @PathVariable Long id) {
+
+        editedTapahtuma.setTapahtumaId(editedTapahtuma.getTapahtumaId());
+
+        return tapahtumaRepository.save(editedTapahtuma);
 
     }
-
-    <<<<<<<HEAD=======
-
-    >>>>>>>2615d 7f 09248ea bdd95d9fb0db6f33f8f5a3f545
 }
