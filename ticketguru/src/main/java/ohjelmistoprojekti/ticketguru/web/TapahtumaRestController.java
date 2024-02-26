@@ -59,4 +59,7 @@ public class TapahtumaRestController {
 
     }
 
+    <<<<<<<HEAD=======
+
+    >>>>>>>2615d 7f 09248ea bdd95d9fb0db6f33f8f5a3f545
 }

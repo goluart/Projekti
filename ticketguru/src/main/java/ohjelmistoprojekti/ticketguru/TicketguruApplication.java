@@ -63,9 +63,9 @@ public class TicketguruApplication {
             Tapahtumapaikka paikka3 = tapahtumapaikkaRepository.save(new Tapahtumapaikka("Linnanmäki", "Tivolikuja 1, Helsinki", "Huvipuisto kaikenikäisille", "3456789-0", "info@linnanmaki.fi", "Koirat sallittu hihnassa", new ArrayList<>(), new ArrayList<>(), helsinki));
 			
             // Luodaan järjestäjiä
-            Jarjestaja jarjestaja1 = jarjestajaRepository.save(new Jarjestaja("Musiikki Oy", "1234567-8", "Mannerheimintie 13, Helsinki", "Helsinki", helsinki, yhteys1));
-			Jarjestaja jarjestaja2 = jarjestajaRepository.save(new Jarjestaja("Festivaali Oy", "2234567-8", "Bulevardi 14, Helsinki", "Helsinki", helsinki, yhteys2));
-			Jarjestaja jarjestaja3 = jarjestajaRepository.save(new Jarjestaja("Konsertti Oy", "3234567-8", "Fredrikinkatu 15, Helsinki", "Helsinki", helsinki, yhteys3));
+            Jarjestaja jarjestaja1 = jarjestajaRepository.save(new Jarjestaja("Musiikki Oy", "1234567-8", "Mannerheimintie 13", helsinki, yhteys1));
+			Jarjestaja jarjestaja2 = jarjestajaRepository.save(new Jarjestaja("Festivaali Oy", "2234567-8", "Bulevardi 14", helsinki, yhteys2));
+			Jarjestaja jarjestaja3 = jarjestajaRepository.save(new Jarjestaja("Konsertti Oy", "3234567-8", "Fredrikinkatu 15", helsinki2, yhteys3));
 
 
             // Luodaan tapahtumia
@@ -90,7 +90,6 @@ public class TicketguruApplication {
             kayttajaRepository.save(new Kayttaja("salasana789", "Laaksonen", "Liisa", "Hallinnossa", hallinto));
 
             // Luodaan lipputyypit
-
             lipputyyppiRepository.save(new Lipputyyppi("Normaali", 0.0, aikuinen));
             lipputyyppiRepository.save(new Lipputyyppi("Lapsi", -5.0, lapsi));
             lipputyyppiRepository.save(new Lipputyyppi("Eläkeläinen", -3.0, elakelainen));
