@@ -182,6 +182,22 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 Tapahtuma-luokan metodit on luotu REST-rajapinnalla. Ensimmäisessä vaihessaa Tapahtuma-luokalle luotiin GET- , POST- , PUT- sekä DELETE-metodit.
 Rajapinnan nimeämiskäytännössä käytettiin apuna GitHub-käyttäjä _jamecook:n_ kokoamaa ohjetta REST-rajapintojen dokumentaatiosta.
 
+Method: GET
+
+- URL: "/tapahtumat". Hakee kaikki järjestelmän tapahtumien tiedot. Palauttaa listan kaikista tapahtumista.
+- URL: "/tapahtumat/{id}". Hakee yhden tapahtuman tiedot tapahtuman id:n perusteella. Palauttaa valitun tapahtuman
+
+Method: POST
+
+- URL: "/tapahtumat". Luo uuden tapahtuman. Palauttaa luodun tapahtuman.
+
+Method: PUT
+
+- URL: "/tapahtumat". Hakee tapahtuman id:n perusteella ja tallentaa tehdyt muutokset. Palauttaa muokatun tapahtuman.
+
+Method: DELETE
+
+- URL: "/tapahtumat/{id}". Hakee tapahtuman id:n perusteella ja poistaa tapahtuman. Palauttaa listan kaikista jäljellä olevista tapahtumista.
 
 
 
