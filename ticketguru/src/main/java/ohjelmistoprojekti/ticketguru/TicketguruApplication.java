@@ -2,6 +2,9 @@ package ohjelmistoprojekti.ticketguru;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -74,11 +77,15 @@ public class TicketguruApplication {
             Lipputyyppi lapsi5 = lipputyyppiRepository.save(new Lipputyyppi("Lapsi", -5.0, lapsi)); 
             Lipputyyppi elakelainen3 = lipputyyppiRepository.save(new Lipputyyppi("Eläkeläinen", -3.0, elakelainen)); 
 
-         
+            Set<Lipputyyppi> lipputyypit = new HashSet<>();
+            lipputyypit.add(normaali);
+            lipputyypit.add(lapsi5);
+            lipputyypit.add(elakelainen3);
+
             // Luodaan tapahtumia
-            Tapahtuma tapahtuma = tapahtumaRepository.save(new Tapahtuma("Rock Festivaali", ZonedDateTime.now().plusDays(10), ZonedDateTime.now().plusDays(10).plusHours(5), "Suurin rock tapahtuma vuonna", 50.00, paikka1, jarjestaja1));
-			tapahtumaRepository.save(new Tapahtuma("Jazz-ilta", ZonedDateTime.now().plusDays(20), ZonedDateTime.now().plusDays(20).plusHours(4), "Nauti rennosta jazz-musiikista", 40.00, paikka2, jarjestaja2));
-        	tapahtumaRepository.save(new Tapahtuma("Stand-up show", ZonedDateTime.now().plusDays(30), ZonedDateTime.now().plusDays(30).plusHours(3), "Naurua koko illaksi", 35.00, paikka3, jarjestaja3));
+            Tapahtuma tapahtuma = tapahtumaRepository.save(new Tapahtuma("Rock Festivaali", ZonedDateTime.now().plusDays(10), ZonedDateTime.now().plusDays(10).plusHours(5), "Suurin rock tapahtuma vuonna", 50.00, paikka1, jarjestaja1, lipputyypit));
+			tapahtumaRepository.save(new Tapahtuma("Jazz-ilta", ZonedDateTime.now().plusDays(20), ZonedDateTime.now().plusDays(20).plusHours(4), "Nauti rennosta jazz-musiikista", 40.00, paikka2, jarjestaja2, lipputyypit));
+        	tapahtumaRepository.save(new Tapahtuma("Stand-up show", ZonedDateTime.now().plusDays(30), ZonedDateTime.now().plusDays(30).plusHours(3), "Naurua koko illaksi", 35.00, paikka3, jarjestaja3, lipputyypit));
 
             tapahtuma.addLipputyyppi(normaali);
             tapahtuma.addLipputyyppi(lapsi5);
