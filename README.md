@@ -179,13 +179,19 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 ## Tekninen kuvaus
 
 ### REST-rajapinnan ratkaisut
-Tapahtuma-luokan metodit on luotu REST-rajapinnalla. Ensimmäisessä vaihessaa Tapahtuma-luokalle luotiin GET- , POST- , PUT- sekä DELETE-metodit.
+Tapahtuma-luokan metodit on luotu REST-rajapinnalla. Ensimmäisessä vaihessa Tapahtuma-luokalle luotiin GET- , POST- , PUT- sekä DELETE-metodit.
 Rajapinnan nimeämiskäytännössä käytettiin apuna GitHub-käyttäjä _jamecook:n_ kokoamaa ohjetta REST-rajapintojen dokumentaatiosta.
+
+Tällä hetkellä käytämme Base-URL:na http://localhost:8080
+Tulevaisuudessa kun tuote etenee tuotantovaiheeseen muuttu Base-URL muotoon https://ticketguru.fi
+
+Endpoint Tapahtuma-luokalla on muotoa: /tapahtumat
 
 Method: GET
 
 - URL: "/tapahtumat". Hakee kaikki järjestelmän tapahtumien tiedot. Palauttaa listan kaikista tapahtumista.
 - URL: "/tapahtumat/{id}". Hakee yhden tapahtuman tiedot tapahtuman id:n perusteella. Palauttaa valitun tapahtuman
+
 
 Method: POST
 
@@ -193,7 +199,7 @@ Method: POST
 
 Method: PUT
 
-- URL: "/tapahtumat". Hakee tapahtuman id:n perusteella ja tallentaa tehdyt muutokset. Palauttaa muokatun tapahtuman.
+- URL: "/tapahtumat/{id}". Hakee tapahtuman id:n perusteella ja tallentaa tehdyt muutokset. Palauttaa muokatun tapahtuman.
 
 Method: DELETE
 
