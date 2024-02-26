@@ -53,9 +53,9 @@ public class Tapahtuma {
     private Set<Lippu> liput = new HashSet<Lippu>(0);
 
     // Lipputyyppi
-    @JsonIgnore
+    // @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
-    // @JoinTable(name = "tapahtuma_lipputyyppi", joinColumns = @JoinColumn(name = "tapahtuma_id"), inverseJoinColumns = @JoinColumn(name = "lipputyyppi_id"))
+    @JoinTable(name = "tapahtuma_lipputyyppi", joinColumns = @JoinColumn(name = "tapahtuma_id"), inverseJoinColumns = @JoinColumn(name = "lipputyyppi_id"))
     private Set<Lipputyyppi> lipputyypit = new HashSet<>();
 
     public Tapahtuma() {
@@ -63,7 +63,7 @@ public class Tapahtuma {
         luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
     }
 
-    public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm,
+    /*public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm,
             String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka, Jarjestaja jarjestaja) {
         this.tapahtumaNimi = tapahtumaNimi;
         this.alkaaPvm = alkaaPvm;
@@ -72,6 +72,20 @@ public class Tapahtuma {
         this.perushinta = perushinta;
         this.tapahtumapaikka = tapahtumapaikka;
         this.jarjestaja = jarjestaja;
+    } */
+    
+
+    public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm,
+            ZonedDateTime paattyyPvm, String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka,
+            Jarjestaja jarjestaja, Set<Lipputyyppi> lipputyypit) {
+        this.tapahtumaNimi = tapahtumaNimi;
+        this.alkaaPvm = alkaaPvm;
+        this.paattyyPvm = paattyyPvm;
+        this.kuvaus = kuvaus;
+        this.perushinta = perushinta;
+        this.tapahtumapaikka = tapahtumapaikka;
+        this.jarjestaja = jarjestaja;
+        this.lipputyypit = lipputyypit;
     }
 
     public void addLipputyyppi(Lipputyyppi lipputyyppi) {
@@ -177,7 +191,7 @@ public class Tapahtuma {
         return "Tapahtuma [tapahtumaId=" + tapahtumaId + ", tapahtumaNimi=" + tapahtumaNimi + ", luontiPvm=" + luontiPvm
                 + ", alkaaPvm=" + alkaaPvm + ", paattyyPvm=" + paattyyPvm + ", kuvaus=" + kuvaus + ", perushinta="
                 + perushinta + ", tapahtumapaikka=" + tapahtumapaikka + ", jarjestaja=" + jarjestaja + ", liput="
-                + liput + "]";
+                + liput + ", lipputyypit=" + lipputyypit + "]";
     }
 
 
