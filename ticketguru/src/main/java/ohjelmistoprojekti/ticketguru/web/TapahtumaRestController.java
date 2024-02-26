@@ -24,6 +24,7 @@ public class TapahtumaRestController {
     @Autowired
     private TapahtumaRepository tapahtumaRepository;
 
+    // Haetaan kaikki järjestelmän tapahtumat
     // Muutettu @RequestMapping @GetMapping muotoon
     @GetMapping("/tapahtumat")
     public List<Tapahtuma> tapahtumatListRest() {
@@ -37,25 +38,24 @@ public class TapahtumaRestController {
     }
 
     // @NotNull lisätty virheilmoituksen perusteella
-    @PostMapping("/tapahtumat/add")
+    @PostMapping("/tapahtumat")
     Tapahtuma newTapahtuma(@RequestBody @NonNull Tapahtuma newTapahtuma) {
         return tapahtumaRepository.save(newTapahtuma);
     }
 
-    // Poista tapahtuma tapahtuma IDllä esim. "localhost:8080/delete/1"
+    // Poista tapahtuma tapahtuma IDllä esim. "localhost:8080/tapahtumat/1"
     // @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    @DeleteMapping("/tapahtumat/delete/{id}")
-    public String deleteTapahtuma(@PathVariable("id") @NonNull Long tapahtumaId) {
+    @DeleteMapping("/tapahtumat/{id}")
+    List<Tapahtuma> deleteTapahtuma(@PathVariable("id") @NonNull Long tapahtumaId) {
         tapahtumaRepository.deleteById(tapahtumaId);
-        return "redirect:/tapahtumat";
+        return tapahtumaRepository.findAll();
     }
 
     // Etsi yksi tapahtuma muokkaamista varten
+    // Muokkaa tunniteella yksilöityä tapahtumaa ja tallenna tehdyt muutokset
     @PutMapping("tapahtumat/{id}")
     Tapahtuma editTapahtuma(@RequestBody Tapahtuma editedTapahtuma, @PathVariable Long id) {
-
-        editedTapahtuma.setTapahtumaId(editedTapahtuma.getTapahtumaId());
-
+        editedTapahtuma.setTapahtumaId(id);
         return tapahtumaRepository.save(editedTapahtuma);
 
     }
