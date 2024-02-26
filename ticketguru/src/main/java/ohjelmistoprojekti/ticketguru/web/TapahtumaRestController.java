@@ -33,7 +33,7 @@ public class TapahtumaRestController {
 
     // Haetaan tapahtuma tunnisteen (tapahtumaId) avulla
     @GetMapping("/tapahtumat/{id}")
-    public @ResponseBody Optional<Tapahtuma> findTapahtumaById(@PathVariable("id") @NonNull Long tapahtumaId) {
+    public Optional<Tapahtuma> findTapahtumaById(@PathVariable("id") @NonNull Long tapahtumaId) {
         return tapahtumaRepository.findById(tapahtumaId);
     }
 
