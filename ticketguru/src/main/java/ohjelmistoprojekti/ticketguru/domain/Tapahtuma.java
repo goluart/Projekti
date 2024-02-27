@@ -5,6 +5,8 @@ import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,24 +36,35 @@ public class Tapahtuma {
     private ZonedDateTime paattyyPvm;
     private String kuvaus;
     private double perushinta;
+
+    // @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name="tapaikka_id")
+    @JoinColumn(name = "tapaikka_id")
     private Tapahtumapaikka tapahtumapaikka;
+
+    // @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name="jarjestaja_id")
+    @JoinColumn(name = "jarjestaja_id")
     private Jarjestaja jarjestaja;
+
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "tapahtuma_lippu", joinColumns = { @JoinColumn(name = "tapahtuma_id") }, inverseJoinColumns = { @JoinColumn( name = "lippu_id" ) })
+    @JoinTable(name = "tapahtuma_lippu", joinColumns = @JoinColumn(name = "tapahtuma_id"), inverseJoinColumns = @JoinColumn(name = "lippu_id"))
     private Set<Lippu> liput = new HashSet<Lippu>(0);
-    
+
+    // Lipputyyppi
+    // @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tapahtuma_lipputyyppi", joinColumns = @JoinColumn(name = "tapahtuma_id"), inverseJoinColumns = @JoinColumn(name = "lipputyyppi_id"))
+    private Set<Lipputyyppi> lipputyypit = new HashSet<>();
+
     public Tapahtuma() {
         super();
         luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
-    }    
+    }
 
-    public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm,
-            String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka, Jarjestaja jarjestaja,
-            Set<Lippu> liput) {
+    /*public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm,
+            String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka, Jarjestaja jarjestaja) {
         this.tapahtumaNimi = tapahtumaNimi;
         this.alkaaPvm = alkaaPvm;
         this.paattyyPvm = paattyyPvm;
@@ -59,7 +72,30 @@ public class Tapahtuma {
         this.perushinta = perushinta;
         this.tapahtumapaikka = tapahtumapaikka;
         this.jarjestaja = jarjestaja;
-        this.liput = liput;
+    } */
+    
+
+    public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm,
+            ZonedDateTime paattyyPvm, String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka,
+            Jarjestaja jarjestaja, Set<Lipputyyppi> lipputyypit) {
+        this.tapahtumaNimi = tapahtumaNimi;
+        this.alkaaPvm = alkaaPvm;
+        this.paattyyPvm = paattyyPvm;
+        this.kuvaus = kuvaus;
+        this.perushinta = perushinta;
+        this.tapahtumapaikka = tapahtumapaikka;
+        this.jarjestaja = jarjestaja;
+        this.lipputyypit = lipputyypit;
+    }
+
+    public void addLipputyyppi(Lipputyyppi lipputyyppi) {
+        this.lipputyypit.add(lipputyyppi);
+        lipputyyppi.getTapahtumat().add(this); 
+    }
+
+    public void removeLipputyyppi(Lipputyyppi lipputyyppi) {
+        this.lipputyypit.remove(lipputyyppi);
+        lipputyyppi.getTapahtumat().remove(this);
     }
 
     public Long getTapahtumaId() {
@@ -142,12 +178,21 @@ public class Tapahtuma {
         this.liput = liput;
     }
 
+    public Set<Lipputyyppi> getLipputyypit() {
+        return lipputyypit;
+    }
+
+    public void setLipputyypit(Set<Lipputyyppi> lipputyypit) {
+        this.lipputyypit = lipputyypit;
+    }
+    
     @Override
     public String toString() {
         return "Tapahtuma [tapahtumaId=" + tapahtumaId + ", tapahtumaNimi=" + tapahtumaNimi + ", luontiPvm=" + luontiPvm
                 + ", alkaaPvm=" + alkaaPvm + ", paattyyPvm=" + paattyyPvm + ", kuvaus=" + kuvaus + ", perushinta="
-                + perushinta + ", tapahtumapaikka=" + tapahtumapaikka + ", jarjestaja=" + jarjestaja + "]";
+                + perushinta + ", tapahtumapaikka=" + tapahtumapaikka + ", jarjestaja=" + jarjestaja + ", liput="
+                + liput + ", lipputyypit=" + lipputyypit + "]";
     }
-   
-    
+
+
 }

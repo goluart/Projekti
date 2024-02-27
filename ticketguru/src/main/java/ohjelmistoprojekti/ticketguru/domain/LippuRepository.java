@@ -2,9 +2,11 @@ package ohjelmistoprojekti.ticketguru.domain;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LippuRepository extends CrudRepository<Lippu, Long> {
+public interface LippuRepository extends JpaRepository<Lippu, Long> {
 
     List<Lippu> findByTarkistuskoodi(Long tarkistuskoodi);
+
+    Lipputyyppi save(Lipputyyppi lipputyyppi);
 }

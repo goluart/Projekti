@@ -1,9 +1,10 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,18 +21,18 @@ public class Postitoimipaikka {
 
     @Column(name = "postinumero_id")
     private Long postinumeroId;
-    private int postinumero;
+    private String postinumero;
     private String kaupunki;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postitoimipaikka")
-    @JsonIgnoreProperties("postitoimipaikka")
-    private List<Jarjestaja> jarjestajat;
+    @JsonIgnore
+    private Set<Jarjestaja> jarjestajat = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postitoimipaikka")
-    @JsonIgnoreProperties("postitoimipaikka")
+    @JsonIgnore
     private List<Tapahtumapaikka> tapahtumapaikat;
 
-    public Postitoimipaikka(int postinumero, String kaupunki) {
+    public Postitoimipaikka(String postinumero, String kaupunki) {
         super();
         this.postinumero = postinumero;
         this.kaupunki = kaupunki;
@@ -39,7 +40,7 @@ public class Postitoimipaikka {
 
     public Postitoimipaikka() {
         super();
-        this.postinumero = 0;
+        this.postinumero = null;
         this.kaupunki = null;
 
     }
@@ -52,11 +53,11 @@ public class Postitoimipaikka {
         this.postinumeroId = postinumeroId;
     }
 
-    public int getPostinumero() {
+    public String getPostinumero() {
         return postinumero;
     }
 
-    public void setPostinumero(int postinumero) {
+    public void setPostinumero(String postinumero) {
         this.postinumero = postinumero;
     }
 
@@ -68,14 +69,6 @@ public class Postitoimipaikka {
         this.kaupunki = kaupunki;
     }
 
-    public List<Jarjestaja> getJarjestajat() {
-        return jarjestajat;
-    }
-
-    public void setJarjestajat(List<Jarjestaja> jarjestajat) {
-        this.jarjestajat = jarjestajat;
-    }
-
     public List<Tapahtumapaikka> getTapahtumapaikat() {
         return tapahtumapaikat;
     }
@@ -84,10 +77,19 @@ public class Postitoimipaikka {
         this.tapahtumapaikat = tapahtumapaikat;
     }
 
+    public Set<Jarjestaja> getJarjestajat() {
+        return jarjestajat;
+    }
+
+    public void setJarjestajat(Set<Jarjestaja> jarjestajat) {
+        this.jarjestajat = jarjestajat;
+    }
+
     @Override
     public String toString() {
         return "Postitoimipaikka [postinumeroId=" + postinumeroId + ", postinumero=" + postinumero + ", kaupunki="
                 + kaupunki + ", jarjestajat=" + jarjestajat + ", tapahtumapaikat=" + tapahtumapaikat + "]";
     }
+
 
 }

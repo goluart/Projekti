@@ -27,9 +27,8 @@ public class Kayttaja {
 	public Kayttaja() {
 	}
 
-	public Kayttaja(Long hloId, String salasana, String snimi, String enimi, String lisatiedot, Rooli rooli) {
+	public Kayttaja(String salasana, String snimi, String enimi, String lisatiedot, Rooli rooli) {
 		super();
-		this.hloId = hloId;
 		this.salasana = salasana;
 		this.snimi = snimi;
 		this.enimi = enimi;

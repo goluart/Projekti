@@ -109,6 +109,7 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > jarjestaja_id | int FK | Tapahtuman järjestäjä, viittaus [jarjestaja](#Jarjestaja)-tauluun
 > perushinta | decimal | Tapahtumalipun perushinta, kiinteä liukuluku
 > lippu_id | int FK | Tapahtuman lippu, viittaus [lippu](#lippu)-tauluun
+> lipputyyppi_id | int FK | Lipputyyppi, viittaa [lipputyyppi](#lipputyyppi)-tauluun
 >
 >
 > ### _Tapahtumapaikka_
@@ -176,6 +177,35 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 >
 >
 ## Tekninen kuvaus
+
+### REST-rajapinnan ratkaisut
+Tapahtuma-luokan metodit on luotu REST-rajapinnalla. Ensimmäisessä vaihessa Tapahtuma-luokalle luotiin GET- , POST- , PUT- sekä DELETE-metodit.
+Rajapinnan nimeämiskäytännössä käytettiin apuna GitHub-käyttäjä _jamecook:n_ kokoamaa ohjetta REST-rajapintojen dokumentaatiosta.
+
+Tällä hetkellä käytämme Base-URL:na http://localhost:8080
+Tulevaisuudessa kun tuote etenee tuotantovaiheeseen muuttu Base-URL muotoon https://ticketguru.fi
+
+Endpoint Tapahtuma-luokalla on muotoa: /tapahtumat
+
+Method: GET
+
+- URL: "/tapahtumat". Hakee kaikki järjestelmän tapahtumien tiedot. Palauttaa listan kaikista tapahtumista.
+- URL: "/tapahtumat/{id}". Hakee yhden tapahtuman tiedot tapahtuman id:n perusteella. Palauttaa valitun tapahtuman
+
+
+Method: POST
+
+- URL: "/tapahtumat". Luo uuden tapahtuman. Palauttaa luodun tapahtuman.
+
+Method: PUT
+
+- URL: "/tapahtumat/{id}". Hakee tapahtuman id:n perusteella ja tallentaa tehdyt muutokset. Palauttaa muokatun tapahtuman.
+
+Method: DELETE
+
+- URL: "/tapahtumat/{id}". Hakee tapahtuman id:n perusteella ja poistaa tapahtuman. Palauttaa listan kaikista jäljellä olevista tapahtumista.
+
+
 
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
 ratkaisut, esim.
