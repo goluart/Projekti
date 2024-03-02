@@ -51,6 +51,11 @@
 			<artifactId>h2</artifactId>
 			<!-- versio poistettu -->
 		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.4.2.Final</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -59,5 +64,18 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<plugin>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.1</version>
+    <configuration>
+        <annotationProcessorPaths>
+            <path>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>1.4.2.Final</version>
+            </path>
+        </annotationProcessorPaths>
+    </configuration>
+</plugin>
 	</build>
 </project>

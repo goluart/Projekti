@@ -35,6 +35,7 @@ public class Tapahtuma {
     @Column(name = "paattyy_pvm")
     private ZonedDateTime paattyyPvm;
     private String kuvaus;
+    private int max_lippuja;
     private double perushinta;
 
     // @JsonIgnore
@@ -77,7 +78,7 @@ public class Tapahtuma {
 
     public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm,
             ZonedDateTime paattyyPvm, String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka,
-            Jarjestaja jarjestaja, Set<Lipputyyppi> lipputyypit) {
+            Jarjestaja jarjestaja, Set<Lipputyyppi> lipputyypit, int max_lippuja) {
         this.tapahtumaNimi = tapahtumaNimi;
         this.alkaaPvm = alkaaPvm;
         this.paattyyPvm = paattyyPvm;
@@ -86,6 +87,7 @@ public class Tapahtuma {
         this.tapahtumapaikka = tapahtumapaikka;
         this.jarjestaja = jarjestaja;
         this.lipputyypit = lipputyypit;
+        this.max_lippuja = max_lippuja;
     }
 
     public void addLipputyyppi(Lipputyyppi lipputyyppi) {
@@ -186,13 +188,22 @@ public class Tapahtuma {
         this.lipputyypit = lipputyypit;
     }
     
+    public int getMax_lippuja() {
+        return max_lippuja;
+    }
+
+    public void setMax_lippuja(int max_lippuja) {
+        this.max_lippuja = max_lippuja;
+    }
+
     @Override
     public String toString() {
         return "Tapahtuma [tapahtumaId=" + tapahtumaId + ", tapahtumaNimi=" + tapahtumaNimi + ", luontiPvm=" + luontiPvm
-                + ", alkaaPvm=" + alkaaPvm + ", paattyyPvm=" + paattyyPvm + ", kuvaus=" + kuvaus + ", perushinta="
-                + perushinta + ", tapahtumapaikka=" + tapahtumapaikka + ", jarjestaja=" + jarjestaja + ", liput="
-                + liput + ", lipputyypit=" + lipputyypit + "]";
+                + ", alkaaPvm=" + alkaaPvm + ", paattyyPvm=" + paattyyPvm + ", kuvaus=" + kuvaus + ", max_lippuja="
+                + max_lippuja + ", perushinta=" + perushinta + ", tapahtumapaikka=" + tapahtumapaikka + ", jarjestaja="
+                + jarjestaja + "]";
     }
 
+    
 
 }

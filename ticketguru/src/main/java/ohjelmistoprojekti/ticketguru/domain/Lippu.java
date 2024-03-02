@@ -23,33 +23,67 @@ public class Lippu {
     private Date loppuPvm;
     private Date kayttoPvm;
     private Long tarkistuskoodi;
+    private double hinta;
 
     // Tuodaan lipputyyppi tänne
     @ManyToOne
-    @JoinColumn(name = "lipputyyppi_id")
-    private Lipputyyppi lippuTyyppi;
+    @JoinColumn(name = "tapahtuma_id")
+    private Tapahtuma tapahtuma;
 
+    @ManyToOne
+    @JoinColumn(name = "lipputyyppi_id")
+    private Lipputyyppi lipputyyppi;
+    
+    @ManyToOne
+    @JoinColumn(name = "myyntitapahtuma_id")
+    private Myyntitapahtuma myyntitapahtuma;
+    
     // Konstruktori
-    public Lippu(Long id, Date ostoPvm, Date alkuPvm, Date loppuPvm, Date kayttoPvm, Long tarkistuskoodi,
-            Lipputyyppi lippuTyyppi) {
-        this.lippuId = id;
+    
+    public Lippu() {
+        super();
+    }
+    
+    public Lippu(Date ostoPvm, Date alkuPvm, Date loppuPvm, Date kayttoPvm, Long tarkistuskoodi,
+    Tapahtuma tapahtuma, Lipputyyppi lipputyyppi, Myyntitapahtuma myyntitapahtuma, double hinta) {
         this.ostoPvm = ostoPvm;
         this.alkuPvm = alkuPvm;
         this.loppuPvm = loppuPvm;
         this.kayttoPvm = kayttoPvm;
         this.tarkistuskoodi = tarkistuskoodi;
-        this.lippuTyyppi = lippuTyyppi;
+        this.tapahtuma = tapahtuma;
+        this.lipputyyppi = lipputyyppi;
+        this.myyntitapahtuma = myyntitapahtuma;
+        this.hinta = hinta;
     }
-
+    
     // get+set
-    public Long getId() {
+    
+
+    public Long getLippuId() {
         return lippuId;
     }
 
-    public void setId(Long id) {
-        this.lippuId = id;
+    public void setLippuId(Long lippuId) {
+        this.lippuId = lippuId;
     }
 
+    public double getHinta() {
+        return hinta;
+    }
+
+    public void setHinta(double hinta) {
+        this.hinta = hinta;
+    }
+
+    public Myyntitapahtuma getMyyntitapahtuma() {
+        return myyntitapahtuma;
+    }
+
+    public void setMyyntitapahtuma(Myyntitapahtuma myyntitapahtuma) {
+        this.myyntitapahtuma = myyntitapahtuma;
+    }
+    
     public Date getOstoPvm() {
         return ostoPvm;
     }
@@ -90,19 +124,29 @@ public class Lippu {
         this.tarkistuskoodi = tarkistuskoodi;
     }
 
-    public Lipputyyppi getLippuTyyppi() {
-        return lippuTyyppi;
+    public Tapahtuma getTapahtuma() {
+        return tapahtuma;
     }
 
-    public void setLippuTyyppi(Lipputyyppi lippuTyyppi) {
-        this.lippuTyyppi = lippuTyyppi;
+    public void setTapahtuma(Tapahtuma tapahtuma) {
+        this.tapahtuma = tapahtuma;
     }
 
-    // toString
     @Override
     public String toString() {
-        return "Lippu [id=" + lippuId + ", ostoPvm=" + ostoPvm + ", alkuPvm=" + alkuPvm + ", loppuPvm=" + loppuPvm
-                + ", kayttoPvm=" + kayttoPvm + ", tarkistuskoodi=" + tarkistuskoodi + ", lippuTyyppi=" + lippuTyyppi
-                + "]";
+        return "Lippu [lippuId=" + lippuId + ", ostoPvm=" + ostoPvm + ", alkuPvm=" + alkuPvm + ", loppuPvm=" + loppuPvm
+                + ", kayttoPvm=" + kayttoPvm + ", tarkistuskoodi=" + tarkistuskoodi + ", hinta=" + hinta
+                + ", tapahtuma=" + tapahtuma + ", myyntitapahtuma=" + myyntitapahtuma + "]";
     }
+
+    public Lipputyyppi getLipputyyppi() {
+        return lipputyyppi;
+    }
+
+    public void setLipputyyppi(Lipputyyppi lipputyyppi) {
+        this.lipputyyppi = lipputyyppi;
+    }
+
+    
+
 }
