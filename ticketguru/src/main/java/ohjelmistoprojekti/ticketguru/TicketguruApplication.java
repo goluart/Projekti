@@ -17,8 +17,8 @@ import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
 import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Kayttaja;
 import ohjelmistoprojekti.ticketguru.domain.KayttajaRepository;
-import ohjelmistoprojekti.ticketguru.domain.LippuRepository;
 import ohjelmistoprojekti.ticketguru.domain.Lipputyyppi;
+import ohjelmistoprojekti.ticketguru.domain.LipputyyppiRepository;
 import ohjelmistoprojekti.ticketguru.domain.Postitoimipaikka;
 import ohjelmistoprojekti.ticketguru.domain.PostitoimipaikkaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Rooli;
@@ -46,7 +46,7 @@ public class TicketguruApplication {
                                     TapahtumapaikkaRepository tapahtumapaikkaRepository, 
                                     JarjestajaRepository jarjestajaRepository,
                                     YhteyshenkiloRepository yhteyshenkiloRepository,
-                                    PostitoimipaikkaRepository postitoimipaikkaRepository, AsiakasryhmaRepository asryhRepository, KayttajaRepository kayttajaRepository, RooliRepository rooliRepository, LippuRepository lipputyyppiRepository) {
+                                    PostitoimipaikkaRepository postitoimipaikkaRepository, AsiakasryhmaRepository asryhRepository, KayttajaRepository kayttajaRepository, RooliRepository rooliRepository, LipputyyppiRepository lipputyyppiRepository) {
         return args -> {
             // Luodaan postitoimipaikat
             Postitoimipaikka helsinki = postitoimipaikkaRepository.save(new Postitoimipaikka("00100", "Helsinki"));
@@ -73,9 +73,9 @@ public class TicketguruApplication {
             Asiakasryhma elakelainen = asryhRepository.save(new Asiakasryhma("Elakelainen", "Eläkkeellä olevat henkilöt", true));
             Asiakasryhma tyoton = asryhRepository.save(new Asiakasryhma("Tyoton", "Työttömät henkilöt", true));
 			
-            Lipputyyppi normaali = lipputyyppiRepository.save(new Lipputyyppi("Aikuinen", 0.0, aikuinen)); 
-            Lipputyyppi lapsi5 = lipputyyppiRepository.save(new Lipputyyppi("Lapsi", -5.0, lapsi)); 
-            Lipputyyppi elakelainen3 = lipputyyppiRepository.save(new Lipputyyppi("Eläkeläinen", -3.0, elakelainen)); 
+            Lipputyyppi normaali = lipputyyppiRepository.save(new Lipputyyppi("Aikuinen", 1.0, aikuinen)); 
+            Lipputyyppi lapsi5 = lipputyyppiRepository.save(new Lipputyyppi("Lapsi", 0.5, lapsi)); 
+            Lipputyyppi elakelainen3 = lipputyyppiRepository.save(new Lipputyyppi("Eläkeläinen", 0.7, elakelainen)); 
 
             Set<Lipputyyppi> lipputyypit = new HashSet<>();
             lipputyypit.add(normaali);
@@ -83,9 +83,9 @@ public class TicketguruApplication {
             lipputyypit.add(elakelainen3);
 
             // Luodaan tapahtumia
-            Tapahtuma tapahtuma = tapahtumaRepository.save(new Tapahtuma("Rock Festivaali", ZonedDateTime.now().plusDays(10), ZonedDateTime.now().plusDays(10).plusHours(5), "Suurin rock tapahtuma vuonna", 50.00, paikka1, jarjestaja1, lipputyypit));
-			tapahtumaRepository.save(new Tapahtuma("Jazz-ilta", ZonedDateTime.now().plusDays(20), ZonedDateTime.now().plusDays(20).plusHours(4), "Nauti rennosta jazz-musiikista", 40.00, paikka2, jarjestaja2, lipputyypit));
-        	tapahtumaRepository.save(new Tapahtuma("Stand-up show", ZonedDateTime.now().plusDays(30), ZonedDateTime.now().plusDays(30).plusHours(3), "Naurua koko illaksi", 35.00, paikka3, jarjestaja3, lipputyypit));
+            Tapahtuma tapahtuma = tapahtumaRepository.save(new Tapahtuma("Rock Festivaali", ZonedDateTime.now().plusDays(10), ZonedDateTime.now().plusDays(10).plusHours(5), "Suurin rock tapahtuma vuonna 2024", 50.00, paikka1, jarjestaja1, lipputyypit, 15000));
+			tapahtumaRepository.save(new Tapahtuma("Jazz-ilta", ZonedDateTime.now().plusDays(20), ZonedDateTime.now().plusDays(20).plusHours(4), "Nauti rennosta jazz-musiikista", 40.00, paikka2, jarjestaja2, lipputyypit, 70));
+        	tapahtumaRepository.save(new Tapahtuma("Stand-up show", ZonedDateTime.now().plusDays(30), ZonedDateTime.now().plusDays(30).plusHours(3), "Naurua koko illaksi", 35.00, paikka3, jarjestaja3, lipputyypit, 150));
 
             tapahtuma.addLipputyyppi(normaali);
             tapahtuma.addLipputyyppi(lapsi5);

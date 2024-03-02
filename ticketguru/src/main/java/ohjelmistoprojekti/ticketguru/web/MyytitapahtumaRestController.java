@@ -2,27 +2,32 @@ package ohjelmistoprojekti.ticketguru.web;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import ohjelmistoprojekti.ticketguru.service.LippuService;
+import ohjelmistoprojekti.ticketguru.dto.LuoMyyntitapahtumaDTO;
+import ohjelmistoprojekti.ticketguru.dto.MyyntitapahtumaDTO;
 import ohjelmistoprojekti.ticketguru.service.MyyntitapahtumaService;
 
-import org.apache.catalina.mapper.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
-@RequestMapping("/myynti")
+@RequestMapping("/myyntitapahtuma")
 public class MyytitapahtumaRestController {
 
-    private LippuService lippuService;
+    @Autowired
     private MyyntitapahtumaService myyntitapahtumaService;
-    private Mapper mapper;
     
-    public MyytitapahtumaRestController(LippuService lippuService, MyyntitapahtumaService myyntitapahtumaService,
-            Mapper mapper) {
-        this.lippuService = lippuService;
-        this.myyntitapahtumaService = myyntitapahtumaService;
-        this.mapper = mapper;
+    @PostMapping
+    public ResponseEntity<MyyntitapahtumaDTO> luoMyyntitapahtuma(@RequestBody LuoMyyntitapahtumaDTO mtDto ) {
+        MyyntitapahtumaDTO myyntitapahtumaDto = myyntitapahtumaService.luoMyyntitapahtuma(mtDto);
+        return ResponseEntity.ok(myyntitapahtumaDto);
     }
+
+
+
 
     
 

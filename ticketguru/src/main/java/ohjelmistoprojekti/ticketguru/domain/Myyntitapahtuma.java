@@ -1,6 +1,7 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
 import java.util.List;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
@@ -10,7 +11,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -21,17 +21,19 @@ public class Myyntitapahtuma {
     @Column(name = "myyntitapahtuma_id")
     private Long myyntitapahtumaId;
 
+    @Column(name = "myyntitapahtuma_pvm")
+    private LocalDateTime myyntitapahtumaPvm;
+
     @OneToMany(mappedBy = "myyntitapahtuma", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="myyntitapahtuma_id")
+    @Column(name="myyntitapahtuma_id")
     private List<Lippu> liput = new ArrayList<>();
 
     public Myyntitapahtuma() {
         super();
     }
 
-    public Myyntitapahtuma(Long myyntitapahtumaId, List<Lippu> liput) {
-        this.myyntitapahtumaId = myyntitapahtumaId;
-        this.liput = liput;
+    public Myyntitapahtuma(LocalDateTime myyntitapahtumaPvm) {
+        this.myyntitapahtumaPvm = myyntitapahtumaPvm;
     }
 
     public Long getMyyntitapahtumaId() {
@@ -50,20 +52,17 @@ public class Myyntitapahtuma {
         this.liput = liput;
     }
 
-    @Override
-    public String toString() {
-        return "Myyntitapahtuma [myyntitapahtumaId=" + myyntitapahtumaId + "]";
+    public LocalDateTime getMyyntitapahtumaPvm() {
+        return myyntitapahtumaPvm;
     }
 
-    
+    public void setMyyntitapahtumaPvm(LocalDateTime myyntitapahtumaPvm) {
+        this.myyntitapahtumaPvm = myyntitapahtumaPvm;
+    }
 
-    
-
-
-
-    
-
-    
-
-
+    @Override
+    public String toString() {
+        return "Myyntitapahtuma [myyntitapahtumaId=" + myyntitapahtumaId + ", myyntitapahtumaPvm=" + myyntitapahtumaPvm
+                + "]";
+    }
 }

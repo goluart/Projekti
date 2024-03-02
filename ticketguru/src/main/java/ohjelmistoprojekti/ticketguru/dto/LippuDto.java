@@ -1,14 +1,15 @@
 package ohjelmistoprojekti.ticketguru.dto;
 
-import java.util.List;
-
 public class LippuDto {
 
-    String tapahtumanNimi;
-    String tapahtumanPaikka;
-    String tapahtumanAika;
-    String tapahtumanHinta;
-    List<String> lipputyypit;
+    private String tapahtumaId;
+    private String tapahtumanNimi;
+    private String tapahtumaAika;
+    private String tapahtumaPaikka;
+    private String lipputyyppiId;
+    private String lipputyyppi;
+    private String hinta;
+    private String tarkistuskoodi;
     
     public String getTapahtumanNimi() {
         return tapahtumanNimi;
@@ -16,30 +17,48 @@ public class LippuDto {
     public void setTapahtumanNimi(String tapahtumanNimi) {
         this.tapahtumanNimi = tapahtumanNimi;
     }
-    public String getTapahtumanPaikka() {
-        return tapahtumanPaikka;
+    public String getTapahtumaAika() {
+        return tapahtumaAika;
     }
-    public void setTapahtumanPaikka(String tapahtumanPaikka) {
-        this.tapahtumanPaikka = tapahtumanPaikka;
+    public void setTapahtumaAika(String tapahtumaAika) {
+        this.tapahtumaAika = tapahtumaAika;
     }
-    public String getTapahtumanAika() {
-        return tapahtumanAika;
+    public String getLipputyyppiId() {
+        return lipputyyppiId;
     }
-    public void setTapahtumanAika(String tapahtumanAika) {
-        this.tapahtumanAika = tapahtumanAika;
+    public void setLipputyyppiId(String lipputyyppiId) {
+        this.lipputyyppiId = lipputyyppiId;
     }
-    public String getTapahtumanHinta() {
-        return tapahtumanHinta;
+    public String getHinta() {
+        return hinta;
     }
-    public void setTapahtumanHinta(String tapahtumanHinta) {
-        this.tapahtumanHinta = tapahtumanHinta;
+    public void setHinta(String hinta) {
+        this.hinta = hinta;
     }
-    public List<String> getLipputyypit() {
-        return lipputyypit;
+    public String getTapahtumaId() {
+        return tapahtumaId;
     }
-    public void setLipputyypit(List<String> lipputyypit) {
-        this.lipputyypit = lipputyypit;
+    public void setTapahtumaId(String tapahtumaId) {
+        this.tapahtumaId = tapahtumaId;
     }
-      
+    public String getTarkistuskoodi() {
+        return tarkistuskoodi;
+    }
+    public void setTarkistuskoodi(String tarkistuskoodi) {
+        this.tarkistuskoodi = tarkistuskoodi;
+    }
+    public String getTapahtumaPaikka() {
+        return tapahtumaPaikka;
+    }
+    public void setTapahtumaPaikka(String tapahtumaPaikka) {
+        this.tapahtumaPaikka = tapahtumaPaikka;
+    }
+    public String getLipputyyppi() {
+        return lipputyyppi;
+    }
+    public void setLipputyyppi(String lipputyyppi) {
+        this.lipputyyppi = lipputyyppi;
+    }
+    
 
 }

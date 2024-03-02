@@ -6,7 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LippuRepository extends JpaRepository<Lippu, Long> {
 
-    List<Lippu> findByTarkistuskoodi(Long tarkistuskoodi);
-
-    Lipputyyppi save(Lipputyyppi lipputyyppi);
+    List<Lippu> findByTarkistuskoodi(String tarkistuskoodi);
 }

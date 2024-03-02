@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,6 +26,7 @@ public class Tapahtuma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tapahtuma_id")
+    @NonNull
     private Long tapahtumaId;
     @Column(name = "tapahtuma_nimi")
     private String tapahtumaNimi;
@@ -88,6 +90,10 @@ public class Tapahtuma {
         this.jarjestaja = jarjestaja;
         this.lipputyypit = lipputyypit;
         this.max_lippuja = max_lippuja;
+    }
+
+    public int getLippujaJaljella() {        
+        return max_lippuja - liput.size();
     }
 
     public void addLipputyyppi(Lipputyyppi lipputyyppi) {
