@@ -27,11 +27,11 @@ public class Lippu {
     private String tarkistuskoodi;
     private double hinta;
 
-    // Tuodaan lipputyyppi tänne
     @ManyToOne
     @JoinColumn(name = "tapahtuma_id")
     private Tapahtuma tapahtuma;
-
+    
+    // Tuodaan lipputyyppi tänne
     @ManyToOne
     @JoinColumn(name = "lipputyyppi_id")
     private Lipputyyppi lipputyyppi;
@@ -61,22 +61,7 @@ public class Lippu {
         return UUID.randomUUID().toString();
     }
     
-    // public Lippu(Date ostoPvm, Date alkuPvm, Date loppuPvm, Date kayttoPvm, Long tarkistuskoodi,
-    // Tapahtuma tapahtuma, Myyntitapahtuma myyntitapahtuma, double hinta) {
-    //     this.ostoPvm = ostoPvm;
-    //     this.alkuPvm = alkuPvm;
-    //     this.loppuPvm = loppuPvm;
-    //     this.kayttoPvm = kayttoPvm;
-    //     this.tarkistuskoodi = tarkistuskoodi;
-    //     this.tapahtuma = tapahtuma;
-    //     this.myyntitapahtuma = myyntitapahtuma;
-    //     this.hinta = hinta;
-    // }
-    
-    // get+set
-    
-
-    
+    // get+set    
 
     public Long getLippuId() {
         return lippuId;

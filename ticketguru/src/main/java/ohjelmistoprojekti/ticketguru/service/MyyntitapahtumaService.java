@@ -35,24 +35,27 @@ public class MyyntitapahtumaService {
     @SuppressWarnings("null")
     @Transactional
     public MyyntitapahtumaDTO luoMyyntitapahtuma(LuoMyyntitapahtumaDTO lmDto) {
-        // Haetaan tapahtuma ja lipputyyppi
+        // Haetaan tapahtuma
         Tapahtuma tapahtuma = tapahtumaRepository.findById(lmDto.getTapahtumaId()).orElseThrow(() -> new RuntimeException("Tapahtumaa ei löydy"));
+        // Lasketaan myyntitapahtuman liput yhteensä 
         int lippujaYht = lmDto.getLippuTyyppiMaarat().stream()
             .mapToInt(LippuTyyppiMaaraDTO::getLippuMaara)
-            .sum();
-            
-            // Tarkistetaan, onko riittävästi lippuja jäljellä
+            .sum();            
+        // Tarkistetaan, onko riittävästi lippuja jäljellä haluttu määrä
             if (tapahtuma.getLippujaJaljella() < lippujaYht) {
                 throw new RuntimeException("Ei tarpeeksi lippuja jäljellä (" + tapahtuma.getLippujaJaljella() +")");
             }
-            
+        // Alustetaan uusi myyntitapahtuma ja tallennetaan se tietokantaan (tämä tarvitaan, jotta myyntitapahtuman voi liittää lippuhin)
         Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now());
         myyntitapahtumaRepository.save(myyntitapahtuma);
-        
+
+        // Luodaan lista kaikille myyntitapahtuman lipuille
         List<Lippu> luodutLiput = new ArrayList<>();
+
+        // Luotujen lippujen hinta yhteensä
         double loppusumma = 0;
 
-        // Luodaan liput lipputyyppien mukaan, tallennetaan lippu ja lisätään ne luodutLiput listaan
+        // Luupataan halutut liput: Luodaan liput lipputyyppien mukaan, tallennetaan lippu ja lisätään ne luodutLiput listaan
         for (LippuTyyppiMaaraDTO lippuInfo : lmDto.getLippuTyyppiMaarat()) {
             for (int i=0; i < lippuInfo.getLippuMaara(); i++) {
                 Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(lippuInfo.getLipputyyppiId()).orElseThrow(() -> new RuntimeException("Lipputyyppiä ei löydy"));
@@ -63,10 +66,11 @@ public class MyyntitapahtumaService {
                 
             }
         }
-        // Luodaan ja tallennetaan varsinainen myyntitapahtuma
+        // Tallennetaan liput ja loppusumma myyntitapahtumaan
         myyntitapahtuma.setLiput(luodutLiput);
         myyntitapahtuma.setLoppusumma(loppusumma);
 
+        // Palautetaan vastauksena funktion mukainen DTO json
         return muunnaMyyntitapahtumaDtoon(myyntitapahtuma, luodutLiput, loppusumma);
     }
 
@@ -77,6 +81,7 @@ public class MyyntitapahtumaService {
         myyntiDto.setMyyntitapahtumaPvm(myyntitapahtuma.getMyyntitapahtumaPvm());
         myyntiDto.setLoppusumma(String.format("%.2f", myyntitapahtuma.getLoppusumma()));
 
+        // Lisätään listaan kaikki myyntitapahtuman liput tekstinä
         List<LippuDto> lippuDtoList = liput.stream().map(lippu -> {
             LippuDto lippuDto = new LippuDto();
             lippuDto.setTapahtumaId(lippu.getTapahtuma().getTapahtumaId().toString());
@@ -90,39 +95,12 @@ public class MyyntitapahtumaService {
             return lippuDto;
         }).collect(Collectors.toList());
 
+        // Tallennetaan lista MyyntitapahtumaDTO olioon
         myyntiDto.setLiputDto(lippuDtoList);
 
+        // Palautetaan luotu olio
         return myyntiDto;
 
     }
 
 }
-
-
-    // @Autowired
-    // private MyyntitapahtumaRepository myyntitapahtumaRepository;
-    // @Autowired
-    // private LippuService lippuService;
-    // @Autowired
-    // private TapahtumaRepository tapahtumaRepository;
-    // @Autowired
-    // private LipputyyppiRepository lipputyyppiRepository;
-
-    // @Transactional
-    // public Myyntitapahtuma suoritaMyyntitapahtuma(MyyntitapahtumaDTO dto) {
-    //     Tapahtuma tapahtuma = tapahtumaRepository.findById(dto.getTapahtumaId());
-    //     Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(dto.getLipputyyppiId());
-    //     Lippu uusilippu = lippuService.luoLippu(tapahtuma, lipputyyppi);
-    //     Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma();
-    //     // Aseta tarvittavat tiedot myyntitapahtumalle
-
-        
-
-    //     return myyntitapahtumaRepository.save(myyntitapahtuma);
-    // }
-
-
-
-    
-
-

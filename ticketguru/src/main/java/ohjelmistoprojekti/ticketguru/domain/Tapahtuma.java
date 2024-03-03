@@ -90,6 +90,8 @@ public class Tapahtuma {
         this.jarjestaja = jarjestaja;
         this.lipputyypit = lipputyypit;
         this.max_lippuja = max_lippuja;
+        this.luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
+        ;
     }
 
     public int getLippujaJaljella() {        

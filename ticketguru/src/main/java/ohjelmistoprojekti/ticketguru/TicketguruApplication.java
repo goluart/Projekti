@@ -1,5 +1,7 @@
 package ohjelmistoprojekti.ticketguru;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -83,9 +85,9 @@ public class TicketguruApplication {
             lipputyypit.add(elakelainen3);
 
             // Luodaan tapahtumia
-            Tapahtuma tapahtuma = tapahtumaRepository.save(new Tapahtuma("Rock Festivaali", ZonedDateTime.now().plusDays(10), ZonedDateTime.now().plusDays(10).plusHours(5), "Suurin rock tapahtuma vuonna 2024", 50.00, paikka1, jarjestaja1, lipputyypit, 15000));
-			tapahtumaRepository.save(new Tapahtuma("Jazz-ilta", ZonedDateTime.now().plusDays(20), ZonedDateTime.now().plusDays(20).plusHours(4), "Nauti rennosta jazz-musiikista", 40.00, paikka2, jarjestaja2, lipputyypit, 70));
-        	tapahtumaRepository.save(new Tapahtuma("Stand-up show", ZonedDateTime.now().plusDays(30), ZonedDateTime.now().plusDays(30).plusHours(3), "Naurua koko illaksi", 35.00, paikka3, jarjestaja3, lipputyypit, 150));
+            Tapahtuma tapahtuma = tapahtumaRepository.save(new Tapahtuma("Rock Festivaali", ZonedDateTime.of(LocalDateTime.of(2024, 3, 22, 19, 0), ZoneId.of("Europe/Helsinki")), ZonedDateTime.of(LocalDateTime.of(2024, 3, 23, 01, 0), ZoneId.of("Europe/Helsinki")), "Suurin rock tapahtuma vuonna 2024", 50.00, paikka1, jarjestaja1, lipputyypit, 15000));
+			tapahtumaRepository.save(new Tapahtuma("Jazz-ilta", ZonedDateTime.of(LocalDateTime.of(2024, 4, 20, 21, 30), ZoneId.of("Europe/Helsinki")), ZonedDateTime.of(LocalDateTime.of(2024, 4, 21, 02, 0), ZoneId.of("Europe/Helsinki")), "Nauti rennosta jazz-musiikista", 40.00, paikka2, jarjestaja2, lipputyypit, 70));
+        	tapahtumaRepository.save(new Tapahtuma("Stand-up show", ZonedDateTime.of(LocalDateTime.of(2024, 5, 15, 18, 0), ZoneId.of("Europe/Helsinki")), ZonedDateTime.of(LocalDateTime.of(2024, 5, 15, 22, 0), ZoneId.of("Europe/Helsinki")), "Naurua koko illaksi", 35.00, paikka3, jarjestaja3, lipputyypit, 150));
 
             tapahtuma.addLipputyyppi(normaali);
             tapahtuma.addLipputyyppi(lapsi5);
