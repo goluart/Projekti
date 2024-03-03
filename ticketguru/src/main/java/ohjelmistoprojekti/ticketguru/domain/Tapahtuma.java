@@ -8,7 +8,6 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.micrometer.common.lang.NonNull;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Tapahtuma {
@@ -50,10 +50,10 @@ public class Tapahtuma {
     @JoinColumn(name = "jarjestaja_id")
     private Jarjestaja jarjestaja;
 
+    // Tapahtuman ja lipun välinen suhde muutettu. Tähän ei tule enää välitaulua.
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "tapahtuma_lippu", joinColumns = @JoinColumn(name = "tapahtuma_id"), inverseJoinColumns = @JoinColumn(name = "lippu_id"))
-    private Set<Lippu> liput = new HashSet<Lippu>(0);
+    @OneToMany(mappedBy = "tapahtuma")
+    private Set<Lippu> liput = new HashSet<Lippu>();
 
     // Lipputyyppi
     // @JsonIgnore

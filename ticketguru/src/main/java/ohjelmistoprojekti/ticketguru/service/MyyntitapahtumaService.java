@@ -32,6 +32,7 @@ public class MyyntitapahtumaService {
     @Autowired private LippuRepository lippuRepository;
     @Autowired private MyyntitapahtumaRepository myyntitapahtumaRepository;
 
+    @SuppressWarnings("null")
     @Transactional
     public MyyntitapahtumaDTO luoMyyntitapahtuma(LuoMyyntitapahtumaDTO lmDto) {
         // Haetaan tapahtuma ja lipputyyppi
@@ -42,7 +43,7 @@ public class MyyntitapahtumaService {
             
             // Tarkistetaan, onko riittävästi lippuja jäljellä
             if (tapahtuma.getLippujaJaljella() < lippujaYht) {
-                throw new RuntimeException("Ei tarpeeksi lippuja jäljellä");
+                throw new RuntimeException("Ei tarpeeksi lippuja jäljellä (" + tapahtuma.getLippujaJaljella() +")");
             }
             
         Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now());
@@ -80,7 +81,7 @@ public class MyyntitapahtumaService {
             LippuDto lippuDto = new LippuDto();
             lippuDto.setTapahtumaId(lippu.getTapahtuma().getTapahtumaId().toString());
             lippuDto.setTapahtumanNimi(lippu.getTapahtuma().getTapahtumaNimi());
-            lippuDto.setTapahtumaAika(lippu.getTapahtuma().getAlkaaPvm().toString());;
+            lippuDto.setTapahtumaAika(lippu.getTapahtuma().getAlkaaPvm().toString());
             lippuDto.setTapahtumaPaikka(lippu.getTapahtuma().getTapahtumapaikka().getPaikkaNimi());
             lippuDto.setLipputyyppiId(lippu.getLipputyyppi().getLipputyyppiId().toString());
             lippuDto.setLipputyyppi(lippu.getLipputyyppi().getNimi());
