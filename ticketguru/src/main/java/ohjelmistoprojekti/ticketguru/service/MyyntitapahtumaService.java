@@ -32,7 +32,7 @@ public class MyyntitapahtumaService {
     @Autowired private LippuRepository lippuRepository;
     @Autowired private MyyntitapahtumaRepository myyntitapahtumaRepository;
 
-    // @Transactional
+    @Transactional
     public MyyntitapahtumaDTO luoMyyntitapahtuma(LuoMyyntitapahtumaDTO lmDto) {
         // Haetaan tapahtuma ja lipputyyppi
         Tapahtuma tapahtuma = tapahtumaRepository.findById(lmDto.getTapahtumaId()).orElseThrow(() -> new RuntimeException("Tapahtumaa ei löydy"));
@@ -49,6 +49,7 @@ public class MyyntitapahtumaService {
         myyntitapahtumaRepository.save(myyntitapahtuma);
         
         List<Lippu> luodutLiput = new ArrayList<>();
+        double loppusumma = 0;
 
         // Luodaan liput lipputyyppien mukaan, tallennetaan lippu ja lisätään ne luodutLiput listaan
         for (LippuTyyppiMaaraDTO lippuInfo : lmDto.getLippuTyyppiMaarat()) {
@@ -56,21 +57,24 @@ public class MyyntitapahtumaService {
                 Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(lippuInfo.getLipputyyppiId()).orElseThrow(() -> new RuntimeException("Lipputyyppiä ei löydy"));
                 double hinta = tapahtuma.getPerushinta() * lipputyyppi.getHintakerroin();
                 Lippu lippu = new Lippu(tapahtuma, lipputyyppi, myyntitapahtuma, hinta);
+                loppusumma += hinta;
                 luodutLiput.add(lippuRepository.save(lippu));
                 
             }
         }
         // Luodaan ja tallennetaan varsinainen myyntitapahtuma
         myyntitapahtuma.setLiput(luodutLiput);
+        myyntitapahtuma.setLoppusumma(loppusumma);
 
-        return muunnaMyyntitapahtumaDtoon(myyntitapahtuma, luodutLiput);
+        return muunnaMyyntitapahtumaDtoon(myyntitapahtuma, luodutLiput, loppusumma);
     }
 
-    private MyyntitapahtumaDTO muunnaMyyntitapahtumaDtoon(Myyntitapahtuma myyntitapahtuma, List<Lippu> liput) {
+    private MyyntitapahtumaDTO muunnaMyyntitapahtumaDtoon(Myyntitapahtuma myyntitapahtuma, List<Lippu> liput, double loppusumma) {
         
         // Muodostetaan ja palautetaan MyyntitapahtumaDTO
         MyyntitapahtumaDTO myyntiDto = new MyyntitapahtumaDTO();
         myyntiDto.setMyyntitapahtumaPvm(myyntitapahtuma.getMyyntitapahtumaPvm());
+        myyntiDto.setLoppusumma(String.format("%.2f", myyntitapahtuma.getLoppusumma()));
 
         List<LippuDto> lippuDtoList = liput.stream().map(lippu -> {
             LippuDto lippuDto = new LippuDto();

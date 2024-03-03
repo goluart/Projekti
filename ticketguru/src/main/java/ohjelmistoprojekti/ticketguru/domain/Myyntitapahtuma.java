@@ -28,6 +28,8 @@ public class Myyntitapahtuma {
     @Column(name="myyntitapahtuma_id")
     private List<Lippu> liput = new ArrayList<>();
 
+    private double loppusumma;
+
     public Myyntitapahtuma() {
         super();
     }
@@ -60,9 +62,19 @@ public class Myyntitapahtuma {
         this.myyntitapahtumaPvm = myyntitapahtumaPvm;
     }
 
+    public double getLoppusumma() {
+        return loppusumma;
+    }
+
+    public void setLoppusumma(double loppusumma) {
+        this.loppusumma = loppusumma;
+    }
+
     @Override
     public String toString() {
         return "Myyntitapahtuma [myyntitapahtumaId=" + myyntitapahtumaId + ", myyntitapahtumaPvm=" + myyntitapahtumaPvm
-                + "]";
+                + ", loppusumma=" + loppusumma + "]";
     }
+
+    
 }
