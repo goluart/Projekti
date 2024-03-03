@@ -66,18 +66,6 @@ public class Tapahtuma {
         luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
     }
 
-    /*public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm,
-            String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka, Jarjestaja jarjestaja) {
-        this.tapahtumaNimi = tapahtumaNimi;
-        this.alkaaPvm = alkaaPvm;
-        this.paattyyPvm = paattyyPvm;
-        this.kuvaus = kuvaus;
-        this.perushinta = perushinta;
-        this.tapahtumapaikka = tapahtumapaikka;
-        this.jarjestaja = jarjestaja;
-    } */
-    
-
     public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm,
             ZonedDateTime paattyyPvm, String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka,
             Jarjestaja jarjestaja, Set<Lipputyyppi> lipputyypit, int max_lippuja) {
@@ -91,7 +79,6 @@ public class Tapahtuma {
         this.lipputyypit = lipputyypit;
         this.max_lippuja = max_lippuja;
         this.luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
-        ;
     }
 
     public int getLippujaJaljella() {        
