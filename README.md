@@ -192,6 +192,8 @@ Method: GET
 - URL: "/tapahtumat". Hakee kaikki järjestelmän tapahtumien tiedot. Palauttaa listan kaikista tapahtumista.
 - URL: "/tapahtumat/{id}". Hakee yhden tapahtuman tiedot tapahtuman id:n perusteella. Palauttaa valitun tapahtuman
 
+(restapidocs/tapahtumat/get.md)
+
 
 Method: POST
 
