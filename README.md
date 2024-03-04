@@ -110,6 +110,7 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > perushinta | decimal | Tapahtumalipun perushinta, kiinteä liukuluku
 > lippu_id | int FK | Tapahtuman lippu, viittaus [lippu](#lippu)-tauluun
 > lipputyyppi_id | int FK | Lipputyyppi, viittaa [lipputyyppi](#lipputyyppi)-tauluun
+> max_lippuja | int | Tapahtuman myytävien lippujen maksimimäärä
 >
 >
 > ### _Tapahtumapaikka_
@@ -147,9 +148,8 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > ------ | ------ | ------
 > lippu_id | int PK | Lipun yksilöivä tunniste
 > lipputyyppi_id | int FK | Lipputyypin tunniste, viittaus [lipputyyppi](#lipputyyppi)-tauluun
+> myyntitapahtuma_id | int FK | Lippuun liittyvän myyntitapahtuman yksilöivä tunniste [myyntitapahtuma](#myyntitapahtuma)-tauluun
 > osto_pvm | date | Lipun ostoajankohta
-> alku_pvm | date | Lipun voimassaolon alkamispäivä
-> loppu_pvm | date | Lipun voimassaolon päättymispäivä
 > kaytto_pvm | date | Lipun käyttöpäivämäärä, kun se on käytetty
 > tarkistuskoodi | int | Lipun tarkistuskoodi, onko lippu käytetty vai ei
 >
@@ -174,6 +174,16 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > nimi | varchar (20) | Asiakasryhmän nimi
 > kuvaus | varchar (100) | Lyhyt kuvaus asiakasryhmästä ja sen erityisoikeuksista
 > tarkista | boolean | Kenttä, joka määrittää, onko asiakasryhmä tarkistettava
+>
+>
+>### _Myyntitapahtuma_
+>_Myyntitapahtuma-taulu sisältää tiedot suoritetuista myyntitapahtumista. Myyntitapahtuma on toimi, jossa asiakas ostaa lippuja. Myyntitapahtumassa näkyvät tiedot ovat myyntitapahtuman ajankohta, ostettujen lippujen kokonaissumma sekä yksityikohdat jokaisesta ostetusta lipusta. Myyntitapahtuma liittyy Lippu-tauluun. Myyntitapahtuma luodaan sekä dto- että service-luokkien avulla._
+>
+> Kenttä | Tyyppi | Kuvaus
+> ------ | ------ | ------
+> myyntitapahtumaId | int PK | Myyntitapahtuman yksilöivä tunniste
+> myyntitapahtumaPvm | date | Myyntitapahtuman päivämäärä
+> loppusumma | decimal | Myyntitapahtumassa ostettujen lippujen yhteissumma
 >
 >
 ## Tekninen kuvaus
