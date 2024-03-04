@@ -185,7 +185,7 @@ Rajapinnan nimeämiskäytännössä käytettiin apuna GitHub-käyttäjä _jameco
 Tällä hetkellä käytämme Base-URL:na http://localhost:8080
 Tulevaisuudessa kun tuote etenee tuotantovaiheeseen muuttu Base-URL muotoon https://ticketguru.fi
 
-Endpoint Tapahtuma-luokalla on muotoa: /tapahtumat
+#### Endpoint Tapahtuma-luokalla on muotoa: /tapahtumat
 
 Method: GET
 
@@ -211,6 +211,19 @@ Method: DELETE
 - URL: "/tapahtumat/{id}". Hakee tapahtuman id:n perusteella ja poistaa tapahtuman. Palauttaa listan kaikista jäljellä olevista tapahtumista.
 
 [Tarkempi kuvaus DELETE-pyynnöstä](restapidocs/tapahtumat/delete.md)
+
+#### Endpoint Myyntitapahtuma-luokalla on muotoa: /myyntitapahtumat
+
+Method: GET
+
+- URL: "/myyntitapahtumat". Hakee kaikki järjestelmän myyntitapahtumat.
+- URL: "/myyntitapahtumat/{id}". Hakee valitun id:n mukaisen myyntitapahtuman järjestelmästä.
+
+[Tarkempi kuvaus GET-pyynnöistä](restapidocs/myynitapahtumat/get.md)
+
+Method: POST
+
+- URL: "/myyntitapahtumat" Luo uuden myyntitapahtuman. Palauttaa myyntipäivämäärän, loppusumman sekä listan lipuista.
 
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
 ratkaisut, esim.
