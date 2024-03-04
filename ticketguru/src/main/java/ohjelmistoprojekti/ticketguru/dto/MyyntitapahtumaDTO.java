@@ -5,6 +5,7 @@ import java.util.List;
 
 public class MyyntitapahtumaDTO {
 
+    private Long myyntitapahtumaId;
     private LocalDateTime myyntitapahtumaPvm;
     private String loppusumma;
     private List<LippuDto> liputDto;
@@ -27,6 +28,12 @@ public class MyyntitapahtumaDTO {
     }
     public void setLoppusumma(String loppusumma) {
         this.loppusumma = loppusumma;
+    }
+    public Long getMyyntitapahtumaId() {
+        return myyntitapahtumaId;
+    }
+    public void setMyyntitapahtumaId(Long myyntitapahtumaId) {
+        this.myyntitapahtumaId = myyntitapahtumaId;
     }
 
     

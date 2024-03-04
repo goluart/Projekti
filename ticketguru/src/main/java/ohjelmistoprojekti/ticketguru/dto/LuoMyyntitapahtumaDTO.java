@@ -18,8 +18,5 @@ public class LuoMyyntitapahtumaDTO {
     }
     public void setLippuTyyppiMaarat(List<LippuTyyppiMaaraDTO> lippuTyyppiMaarat) {
         this.lippuTyyppiMaarat = lippuTyyppiMaarat;
-    }
-     
-
-    
+    }   
 }

@@ -6,7 +6,6 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,8 +18,12 @@ import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
 import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Kayttaja;
 import ohjelmistoprojekti.ticketguru.domain.KayttajaRepository;
+import ohjelmistoprojekti.ticketguru.domain.Lippu;
+import ohjelmistoprojekti.ticketguru.domain.LippuRepository;
 import ohjelmistoprojekti.ticketguru.domain.Lipputyyppi;
 import ohjelmistoprojekti.ticketguru.domain.LipputyyppiRepository;
+import ohjelmistoprojekti.ticketguru.domain.Myyntitapahtuma;
+import ohjelmistoprojekti.ticketguru.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Postitoimipaikka;
 import ohjelmistoprojekti.ticketguru.domain.PostitoimipaikkaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Rooli;
@@ -48,7 +51,7 @@ public class TicketguruApplication {
                                     TapahtumapaikkaRepository tapahtumapaikkaRepository, 
                                     JarjestajaRepository jarjestajaRepository,
                                     YhteyshenkiloRepository yhteyshenkiloRepository,
-                                    PostitoimipaikkaRepository postitoimipaikkaRepository, AsiakasryhmaRepository asryhRepository, KayttajaRepository kayttajaRepository, RooliRepository rooliRepository, LipputyyppiRepository lipputyyppiRepository) {
+                                    PostitoimipaikkaRepository postitoimipaikkaRepository, AsiakasryhmaRepository asryhRepository, KayttajaRepository kayttajaRepository, RooliRepository rooliRepository, LipputyyppiRepository lipputyyppiRepository, MyyntitapahtumaRepository myyntitapahtumaRepository, LippuRepository lippuRepository) {
         return args -> {
             // Luodaan postitoimipaikat
             Postitoimipaikka helsinki = postitoimipaikkaRepository.save(new Postitoimipaikka("00100", "Helsinki"));
@@ -70,10 +73,10 @@ public class TicketguruApplication {
 			Jarjestaja jarjestaja3 = jarjestajaRepository.save(new Jarjestaja("Konsertti Oy", "3234567-8", "Fredrikinkatu 15", helsinki2, yhteys3));
             
             // Luodaan asiakaryhmiä
-            Asiakasryhma aikuinen = asryhRepository.save(new Asiakasryhma("Aikuinen", "Yli 18-vuotiaat", true));
-            Asiakasryhma lapsi = asryhRepository.save(new Asiakasryhma("Lapsi", "Alle 18-vuotiaat", true));
-            Asiakasryhma elakelainen = asryhRepository.save(new Asiakasryhma("Elakelainen", "Eläkkeellä olevat henkilöt", true));
-            Asiakasryhma tyoton = asryhRepository.save(new Asiakasryhma("Tyoton", "Työttömät henkilöt", true));
+            Asiakasryhma aikuinen = asryhRepository.save(new Asiakasryhma("Aikuinen", "Yli 18-vuotiaat"));
+            Asiakasryhma lapsi = asryhRepository.save(new Asiakasryhma("Lapsi", "Alle 18-vuotiaat"));
+            Asiakasryhma elakelainen = asryhRepository.save(new Asiakasryhma("Elakelainen", "Eläkkeellä olevat henkilöt"));
+            Asiakasryhma tyoton = asryhRepository.save(new Asiakasryhma("Tyoton", "Työttömät henkilöt"));
 			
             Lipputyyppi normaali = lipputyyppiRepository.save(new Lipputyyppi("Aikuinen", 1.0, aikuinen)); 
             Lipputyyppi lapsi5 = lipputyyppiRepository.save(new Lipputyyppi("Lapsi", 0.5, lapsi)); 
@@ -102,6 +105,27 @@ public class TicketguruApplication {
             kayttajaRepository.save(new Kayttaja("salasana123", "Mäkinen", "Matti", "Myyntialue", myyja));
             kayttajaRepository.save(new Kayttaja("salasana456", "Virtanen", "Veera", "Tarkastusaluella", lipuntarkastaja));
             kayttajaRepository.save(new Kayttaja("salasana789", "Laaksonen", "Liisa", "Hallinnossa", hallinto));
+
+            // Luodaan myyntitapahtumia
+            Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now());
+            myyntitapahtumaRepository.save(myyntitapahtuma);
+            myyntitapahtuma.setLoppusumma(135.00);
+            myyntitapahtumaRepository.save(myyntitapahtuma);
+
+            // myyntitapahtumaRepository.save(new Myyntitapahtuma(LocalDateTime.now()));
+            // myyntitapahtumaRepository.save(new Myyntitapahtuma(LocalDateTime.now()));
+            // myyntitapahtumaRepository.save(new Myyntitapahtuma(LocalDateTime.now()));
+
+            Lippu lippu1 = new Lippu(tapahtuma, normaali, myyntitapahtuma, 60.00 );
+            Lippu lippu2 = new Lippu(tapahtuma, lapsi5, myyntitapahtuma, 30.00 );
+            Lippu lippu3 = new Lippu(tapahtuma, elakelainen3, myyntitapahtuma, 45.00 );
+            lippuRepository.save(lippu1);
+            lippuRepository.save(lippu2);
+            lippuRepository.save(lippu3);
+
+
+
+            
 
 
         };

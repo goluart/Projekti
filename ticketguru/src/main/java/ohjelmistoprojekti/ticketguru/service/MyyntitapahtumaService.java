@@ -25,8 +25,6 @@ import ohjelmistoprojekti.ticketguru.dto.MyyntitapahtumaDTO;
 @Service
 public class MyyntitapahtumaService {
 
-
-    // Oletetaan, että tässä on riippuvuuksina tarvittavat repositoryt
     @Autowired private TapahtumaRepository tapahtumaRepository;
     @Autowired private LipputyyppiRepository lipputyyppiRepository;
     @Autowired private LippuRepository lippuRepository;
@@ -71,15 +69,17 @@ public class MyyntitapahtumaService {
         myyntitapahtuma.setLoppusumma(loppusumma);
 
         // Palautetaan vastauksena funktion mukainen DTO json
-        return muunnaMyyntitapahtumaDtoon(myyntitapahtuma, luodutLiput, loppusumma);
+        return muunnaMyyntitapahtumaDtoon(myyntitapahtuma);
     }
 
-    private MyyntitapahtumaDTO muunnaMyyntitapahtumaDtoon(Myyntitapahtuma myyntitapahtuma, List<Lippu> liput, double loppusumma) {
+    public MyyntitapahtumaDTO muunnaMyyntitapahtumaDtoon(Myyntitapahtuma myyntitapahtuma) {
         
         // Muodostetaan ja palautetaan MyyntitapahtumaDTO
         MyyntitapahtumaDTO myyntiDto = new MyyntitapahtumaDTO();
+        myyntiDto.setMyyntitapahtumaId(myyntitapahtuma.getMyyntitapahtumaId());
         myyntiDto.setMyyntitapahtumaPvm(myyntitapahtuma.getMyyntitapahtumaPvm());
         myyntiDto.setLoppusumma(String.format("%.2f", myyntitapahtuma.getLoppusumma()));
+        List<Lippu> liput = myyntitapahtuma.getLiput();
 
         // Lisätään listaan kaikki myyntitapahtuman liput tekstinä
         List<LippuDto> lippuDtoList = liput.stream().map(lippu -> {

@@ -1,6 +1,9 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -24,6 +27,7 @@ public class Myyntitapahtuma {
     @Column(name = "myyntitapahtuma_pvm")
     private LocalDateTime myyntitapahtumaPvm;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "myyntitapahtuma", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Column(name="myyntitapahtuma_id")
     private List<Lippu> liput = new ArrayList<>();
