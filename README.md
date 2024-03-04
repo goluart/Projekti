@@ -46,7 +46,7 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 
 ![Tietokantakaavio](pictures/tietokantakaavio_updated.png)
 
-<img src ="pictures/tietokantakaavio_updated.png" alt="Tietokantakaavio SQL Server Management Studiolla" width="100%" height="auto">
+<img src ="pictures/tietokantakaavio_ssms.png" alt="Tietokantakaavio SQL Server Management Studiolla" width="100%" height="auto">
 
 
 > ### _Jarjestaja_
