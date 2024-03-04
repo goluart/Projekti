@@ -225,6 +225,8 @@ Method: POST
 
 - URL: "/myyntitapahtumat" Luo uuden myyntitapahtuman. Palauttaa myyntipäivämäärän, loppusumman sekä listan lipuista.
 
+[Tarkempi kuvaus POST-pyynnöstä](restapidocs/myynitapahtumat/post.md)
+
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
 ratkaisut, esim.
 
