@@ -44,7 +44,7 @@ Käyttöliittymä tarkoitus toteuttaa alustavasti Reactilla. Käyttöliittymäsi
 
 Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Tietohkemisto-kuvaukset auttavat käytettävien attribuuttien ymmärtämisessä, sekä taulujen yhteyksien hahmottamisessa. Jokaisesta taulusta on annettu tarkat kuvaukset, jotka sisältävät taulun kentät, niiden tyypit ja niiden tarkoitukset. Tämä osio tarjoaa kattavan yleiskuvan tietokannan rakenteesta, tietokantakaaviosta ja toiminnallisuudesta.
 
-![Tietokantakaavio](pictures/tietokantakaavio.png)
+![Tietokantakaavio](pictures/tietokantakaavio_updated.png)
 
 <img src ="pictures/tietokantakaavio_ssms.png" alt="Tietokantakaavio SQL Server Management Studiolla" width="100%" height="auto">
 
