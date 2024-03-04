@@ -192,22 +192,25 @@ Method: GET
 - URL: "/tapahtumat". Hakee kaikki järjestelmän tapahtumien tiedot. Palauttaa listan kaikista tapahtumista.
 - URL: "/tapahtumat/{id}". Hakee yhden tapahtuman tiedot tapahtuman id:n perusteella. Palauttaa valitun tapahtuman.
 
-[links](restapidocs/tapahtumat/get.md)
-
+[Tarkempi kuvaus GET-pyynnöistä](restapidocs/tapahtumat/get.md)
 
 Method: POST
 
 - URL: "/tapahtumat". Luo uuden tapahtuman. Palauttaa luodun tapahtuman.
 
+[Tarkempi kuvaus POST-pyynnöstä](restapidocs/tapahtumat/post.md)
+
 Method: PUT
 
 - URL: "/tapahtumat/{id}". Hakee tapahtuman id:n perusteella ja tallentaa tehdyt muutokset. Palauttaa muokatun tapahtuman.
+
+[Tarkempi kuvaus PUT-pyynnöstä](restapidocs/tapahtumat/put.md)
 
 Method: DELETE
 
 - URL: "/tapahtumat/{id}". Hakee tapahtuman id:n perusteella ja poistaa tapahtuman. Palauttaa listan kaikista jäljellä olevista tapahtumista.
 
-
+[Tarkempi kuvaus DELETE-pyynnöstä](restapidocs/tapahtumat/delete.md)
 
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
 ratkaisut, esim.
