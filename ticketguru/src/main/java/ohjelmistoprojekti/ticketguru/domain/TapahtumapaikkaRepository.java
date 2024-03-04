@@ -1,9 +1,7 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface TapahtumapaikkaRepository extends CrudRepository<Tapahtumapaikka, Long> {
+public interface TapahtumapaikkaRepository extends JpaRepository<Tapahtumapaikka, Long> {
 
 }

@@ -21,7 +21,7 @@ public class Asiakasryhma {
 
     private String nimi;
     private String kuvaus;
-    private boolean tarkista;
+    // private boolean tarkista;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "asiakasryhma")
     @JsonIgnore
     List<Lipputyyppi> lipputyypit; 
@@ -31,10 +31,9 @@ public class Asiakasryhma {
     }
 
     // Konstruktori
-    public Asiakasryhma(String nimi, String kuvaus, boolean tarkista) {
+    public Asiakasryhma(String nimi, String kuvaus) {
         this.nimi = nimi;
         this.kuvaus = kuvaus;
-        this.tarkista = tarkista;
     }
 
     // get+set
@@ -62,18 +61,18 @@ public class Asiakasryhma {
         this.kuvaus = kuvaus;
     }
 
-    public boolean isTarkista() {
-        return tarkista;
-    }
+    // public boolean isTarkista() {
+    //     return tarkista;
+    // }
 
-    public void setTarkista(boolean tarkista) {
-        this.tarkista = tarkista;
-    }
+    // public void setTarkista(boolean tarkista) {
+    //     this.tarkista = tarkista;
+    // }
 
     // toString
     @Override
     public String toString() {
-        return "Asiakasryhma [id=" + asryhid + ", nimi=" + nimi + ", kuvaus=" + kuvaus + ", tarkista=" + tarkista + "]";
+        return "Asiakasryhma [id=" + asryhid + ", nimi=" + nimi + ", kuvaus=" + kuvaus + "]";
     }
 
 }

@@ -21,7 +21,7 @@ public class Lipputyyppi {
     @Column(name = "lipputyyppi_id")
     private Long lipputyyppiId;
     private String nimi;
-    private double hintamuutos;
+    private double hintakerroin;
     @JsonIgnore
     @ManyToMany(mappedBy = "lipputyypit")
     private Set<Tapahtuma> tapahtumat = new HashSet<>();
@@ -36,9 +36,9 @@ public class Lipputyyppi {
     }
     
     // Konstruktori
-    public Lipputyyppi(String nimi, Double hintamuutos, Asiakasryhma asiakasryhma) {
+    public Lipputyyppi(String nimi, Double hintakerroin, Asiakasryhma asiakasryhma) {
         this.nimi = nimi;
-        this.hintamuutos = hintamuutos;
+        this.hintakerroin = hintakerroin;
         this.asiakasryhma = asiakasryhma;
     }
     
@@ -74,19 +74,19 @@ public class Lipputyyppi {
         this.nimi = nimi;
     }
 
-    public double getHintamuutos() {
-        return hintamuutos;
+    public double getHintakerroin() {
+        return hintakerroin;
     }
 
-    public void setHintamuutos(double hintamuutos) {
-        this.hintamuutos = hintamuutos;
+    public void setHintakerroin(double hintakerroin) {
+        this.hintakerroin = hintakerroin;
     }
     
 
     // toString
     @Override
     public String toString() {
-        return "Lipputyyppi [id=" + lipputyyppiId + ", nimi=" + nimi + ", hintamuutos=" + hintamuutos
+        return "Lipputyyppi [id=" + lipputyyppiId + ", nimi=" + nimi + ", hintakerroin=" + hintakerroin
                 + ", asiakasryhma="
                 + asiakasryhma + "]";
     }

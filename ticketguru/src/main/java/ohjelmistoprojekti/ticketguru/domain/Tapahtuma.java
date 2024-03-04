@@ -7,7 +7,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
+import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Tapahtuma {
@@ -25,6 +26,7 @@ public class Tapahtuma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tapahtuma_id")
+    @NonNull
     private Long tapahtumaId;
     @Column(name = "tapahtuma_nimi")
     private String tapahtumaNimi;
@@ -35,6 +37,7 @@ public class Tapahtuma {
     @Column(name = "paattyy_pvm")
     private ZonedDateTime paattyyPvm;
     private String kuvaus;
+    private int max_lippuja;
     private double perushinta;
 
     // @JsonIgnore
@@ -47,10 +50,10 @@ public class Tapahtuma {
     @JoinColumn(name = "jarjestaja_id")
     private Jarjestaja jarjestaja;
 
+    // Tapahtuman ja lipun välinen suhde muutettu. Tähän ei tule enää välitaulua.
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "tapahtuma_lippu", joinColumns = @JoinColumn(name = "tapahtuma_id"), inverseJoinColumns = @JoinColumn(name = "lippu_id"))
-    private Set<Lippu> liput = new HashSet<Lippu>(0);
+    @OneToMany(mappedBy = "tapahtuma")
+    private Set<Lippu> liput = new HashSet<Lippu>();
 
     // Lipputyyppi
     // @JsonIgnore
@@ -63,21 +66,9 @@ public class Tapahtuma {
         luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
     }
 
-    /*public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm,
-            String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka, Jarjestaja jarjestaja) {
-        this.tapahtumaNimi = tapahtumaNimi;
-        this.alkaaPvm = alkaaPvm;
-        this.paattyyPvm = paattyyPvm;
-        this.kuvaus = kuvaus;
-        this.perushinta = perushinta;
-        this.tapahtumapaikka = tapahtumapaikka;
-        this.jarjestaja = jarjestaja;
-    } */
-    
-
     public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm,
             ZonedDateTime paattyyPvm, String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka,
-            Jarjestaja jarjestaja, Set<Lipputyyppi> lipputyypit) {
+            Jarjestaja jarjestaja, Set<Lipputyyppi> lipputyypit, int max_lippuja) {
         this.tapahtumaNimi = tapahtumaNimi;
         this.alkaaPvm = alkaaPvm;
         this.paattyyPvm = paattyyPvm;
@@ -86,6 +77,12 @@ public class Tapahtuma {
         this.tapahtumapaikka = tapahtumapaikka;
         this.jarjestaja = jarjestaja;
         this.lipputyypit = lipputyypit;
+        this.max_lippuja = max_lippuja;
+        this.luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
+    }
+
+    public int getLippujaJaljella() {        
+        return max_lippuja - liput.size();
     }
 
     public void addLipputyyppi(Lipputyyppi lipputyyppi) {
@@ -186,13 +183,22 @@ public class Tapahtuma {
         this.lipputyypit = lipputyypit;
     }
     
+    public int getMax_lippuja() {
+        return max_lippuja;
+    }
+
+    public void setMax_lippuja(int max_lippuja) {
+        this.max_lippuja = max_lippuja;
+    }
+
     @Override
     public String toString() {
         return "Tapahtuma [tapahtumaId=" + tapahtumaId + ", tapahtumaNimi=" + tapahtumaNimi + ", luontiPvm=" + luontiPvm
-                + ", alkaaPvm=" + alkaaPvm + ", paattyyPvm=" + paattyyPvm + ", kuvaus=" + kuvaus + ", perushinta="
-                + perushinta + ", tapahtumapaikka=" + tapahtumapaikka + ", jarjestaja=" + jarjestaja + ", liput="
-                + liput + ", lipputyypit=" + lipputyypit + "]";
+                + ", alkaaPvm=" + alkaaPvm + ", paattyyPvm=" + paattyyPvm + ", kuvaus=" + kuvaus + ", max_lippuja="
+                + max_lippuja + ", perushinta=" + perushinta + ", tapahtumapaikka=" + tapahtumapaikka + ", jarjestaja="
+                + jarjestaja + "]";
     }
 
+    
 
 }

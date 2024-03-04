@@ -9,7 +9,7 @@ Hae tietoja yksittäisestä tapahtumasta.
 
 **URL-parametrit**: tapahtumaId=[integer], missä tapahtumaId on palvelimella olevan tapahtuman yksilöllinen tunniste.
 
-**Metodi**: GET
+**Metodi**: `GET`
 
 **Autentikointi vaaditaan**: Ei
 
@@ -19,17 +19,18 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 ## Onnistunut Vastaus
 **Ehto**: Kaikki tapahtumat löytyvät tai löytyy yksi tapahtuma annetulla id:llä
 
-**Koodi**: 200 OK
+**Koodi**: `200 OK`
 
 **Sisällön esimerkki**
 ```json
 {
     "tapahtumaId": 1,
     "tapahtumaNimi": "Rock Festivaali",
-    "luontiPvm": null,
-    "alkaaPvm": "2024-03-07T19:21:22.702451+02:00",
-    "paattyyPvm": "2024-03-08T00:21:22.702451+02:00",
-    "kuvaus": "Suurin rock tapahtuma vuonna",
+    "luontiPvm": "2024-03-03T22:38:16.443598+02:00",
+    "alkaaPvm": "2024-03-22T19:00:00+02:00",
+    "paattyyPvm": "2024-03-23T01:00:00+02:00",
+    "kuvaus": "Suurin rock tapahtuma vuonna 2024",
+    "max_lippuja": 15000,
     "perushinta": 50.0,
     "tapahtumapaikka": {
         "tapaikkaId": 1,
@@ -39,6 +40,7 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
         "ytunnus": "1234567-8",
         "sposti": "info@kulttuuritalo.fi",
         "lisatiedot": "Esteetön pääsy",
+        "yhteyshenkilo": [],
         "postitoimipaikka": {
             "postinumeroId": 1,
             "postinumero": "00100",
@@ -56,31 +58,64 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
             "sukunimi": "Meikäläinen",
             "sahkoposti": "matti@example.com",
             "puhelin": "0401234567",
-            "lisatieto": "Markkinointipäällikkö"
+            "lisatieto": "Markkinointipäällikkö",
+            "tapahtumapaikka": null
         },
         "postitoimipaikka": {
             "postinumeroId": 1,
             "postinumero": "00100",
             "kaupunki": "Helsinki"
         }
-    }
+    },
+    "lipputyypit": [
+        {
+            "lipputyyppiId": 1,
+            "nimi": "Aikuinen",
+            "hintakerroin": 1.0,
+            "asiakasryhma": {
+                "nimi": "Aikuinen",
+                "kuvaus": "Yli 18-vuotiaat",
+                "id": 1
+            }
+        },
+        {
+            "lipputyyppiId": 3,
+            "nimi": "Eläkeläinen",
+            "hintakerroin": 0.7,
+            "asiakasryhma": {
+                "nimi": "Elakelainen",
+                "kuvaus": "Eläkkeellä olevat henkilöt",
+                "id": 3
+            }
+        },
+        {
+            "lipputyyppiId": 2,
+            "nimi": "Lapsi",
+            "hintakerroin": 0.5,
+            "asiakasryhma": {
+                "nimi": "Lapsi",
+                "kuvaus": "Alle 18-vuotiaat",
+                "id": 2
+            }
+        }
+    ],
+    "lippujaJaljella": 15000
 }
 ```
 ## Virhevastaukset
 **Ehto**: Jos tapahtumaa ei löydy annetulla ID:llä tai järjestlmästä ei löydy yhtäkään tapahtumaa.
 
-**Koodi**: 404 Not Found
+**Koodi**: `404 Not Found`
 
 **Sisältö**: null
 
 ### Tai
 **Ehto**: Jos tapahtuman haku epäonnistuu muusta syystä.
 
-**Koodi**: 500 Sisäinen palvelinvirhe
+**Koodi**: `500 Internal Server Error`
 
 **Sisältö**: 
 
 ## Huomautukset
 Varmista, että käytät oikeaa tapahtumaId-arvoa tapahtuman tietojen hakemiseen.
 Tämä rajapinta palauttaa kaikki tapahtuman tiedot, mukaan lukien tapahtumapaikan ja järjestäjän tiedot.
-Huomioi, että luontiPvm voi olla null, mikäli luontipäivämäärää ei ole määritelty.

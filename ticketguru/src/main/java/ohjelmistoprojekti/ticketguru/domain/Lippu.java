@@ -1,6 +1,8 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,52 +14,79 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Lippu {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "lippu_id")
     private Long lippuId;
 
-    private Date ostoPvm;
+    private LocalDateTime ostoPvm;
     private Date alkuPvm;
     private Date loppuPvm;
     private Date kayttoPvm;
-    private Long tarkistuskoodi;
+    private String tarkistuskoodi;
+    private double hinta;
 
+    @ManyToOne
+    @JoinColumn(name = "tapahtuma_id")
+    private Tapahtuma tapahtuma;
+    
     // Tuodaan lipputyyppi tänne
     @ManyToOne
     @JoinColumn(name = "lipputyyppi_id")
-    private Lipputyyppi lippuTyyppi;
-
+    private Lipputyyppi lipputyyppi;
+    
+    @ManyToOne
+    @JoinColumn(name = "myyntitapahtuma_id")
+    private Myyntitapahtuma myyntitapahtuma;
+    
     // Konstruktori
-    public Lippu(Long id, Date ostoPvm, Date alkuPvm, Date loppuPvm, Date kayttoPvm, Long tarkistuskoodi,
-            Lipputyyppi lippuTyyppi) {
-        this.lippuId = id;
-        this.ostoPvm = ostoPvm;
-        this.alkuPvm = alkuPvm;
-        this.loppuPvm = loppuPvm;
-        this.kayttoPvm = kayttoPvm;
-        this.tarkistuskoodi = tarkistuskoodi;
-        this.lippuTyyppi = lippuTyyppi;
+    
+    public Lippu() {
+        super();
     }
 
-    // get+set
-    public Long getId() {
+    public Lippu(Tapahtuma tapahtuma, Lipputyyppi lipputyyppi, Myyntitapahtuma myyntitapahtuma, double hinta) {
+        this.tapahtuma = tapahtuma;
+        this.lipputyyppi = lipputyyppi;
+        this.myyntitapahtuma = myyntitapahtuma;
+        // Hinta on laskettu ennen lipun muodostamista: tapahtuman perushinta * lipputyypin hintakerroin
+        this.hinta = hinta;
+        this.ostoPvm = LocalDateTime.now();
+        this.tarkistuskoodi = generoiTarkistuskoodi();
+    }
+
+    private String generoiTarkistuskoodi() {
+        // Generoi satunnainen UUID ja muuntaa sen merkkijonoksi
+        return UUID.randomUUID().toString();
+    }
+    
+    // get+set    
+
+    public Long getLippuId() {
         return lippuId;
     }
 
-    public void setId(Long id) {
-        this.lippuId = id;
+    public void setLippuId(Long lippuId) {
+        this.lippuId = lippuId;
     }
 
-    public Date getOstoPvm() {
-        return ostoPvm;
+    public double getHinta() {
+        return hinta;
     }
 
-    public void setOstoPvm(Date ostoPvm) {
-        this.ostoPvm = ostoPvm;
+    public void setHinta(double hinta) {
+        this.hinta = hinta;
     }
 
+    public Myyntitapahtuma getMyyntitapahtuma() {
+        return myyntitapahtuma;
+    }
+
+    public void setMyyntitapahtuma(Myyntitapahtuma myyntitapahtuma) {
+        this.myyntitapahtuma = myyntitapahtuma;
+    }
+    
     public Date getAlkuPvm() {
         return alkuPvm;
     }
@@ -82,27 +111,44 @@ public class Lippu {
         this.kayttoPvm = kayttoPvm;
     }
 
-    public Long getTarkistuskoodi() {
+    public Tapahtuma getTapahtuma() {
+        return tapahtuma;
+    }
+
+    public void setTapahtuma(Tapahtuma tapahtuma) {
+        this.tapahtuma = tapahtuma;
+    }
+
+    public String getTarkistuskoodi() {
         return tarkistuskoodi;
     }
 
-    public void setTarkistuskoodi(Long tarkistuskoodi) {
+    public void setTarkistuskoodi(String tarkistuskoodi) {
         this.tarkistuskoodi = tarkistuskoodi;
     }
 
-    public Lipputyyppi getLippuTyyppi() {
-        return lippuTyyppi;
+    public Lipputyyppi getLipputyyppi() {
+        return lipputyyppi;
     }
 
-    public void setLippuTyyppi(Lipputyyppi lippuTyyppi) {
-        this.lippuTyyppi = lippuTyyppi;
+    public void setLipputyyppi(Lipputyyppi lipputyyppi) {
+        this.lipputyyppi = lipputyyppi;
     }
 
-    // toString
+    
+    public LocalDateTime getOstoPvm() {
+        return ostoPvm;
+    }
+    
+    public void setOstoPvm(LocalDateTime ostoPvm) {
+        this.ostoPvm = ostoPvm;
+    }   
+    
     @Override
     public String toString() {
-        return "Lippu [id=" + lippuId + ", ostoPvm=" + ostoPvm + ", alkuPvm=" + alkuPvm + ", loppuPvm=" + loppuPvm
-                + ", kayttoPvm=" + kayttoPvm + ", tarkistuskoodi=" + tarkistuskoodi + ", lippuTyyppi=" + lippuTyyppi
+        return "Lippu [lippuId=" + lippuId + ", ostoPvm=" + ostoPvm + ", alkuPvm=" + alkuPvm + ", loppuPvm=" + loppuPvm
+                + ", kayttoPvm=" + kayttoPvm + ", tarkistuskoodi=" + tarkistuskoodi + ", hinta=" + hinta
+                + ", tapahtuma=" + tapahtuma + ", lipputyyppi=" + lipputyyppi + ", myyntitapahtuma=" + myyntitapahtuma
                 + "]";
     }
 }
