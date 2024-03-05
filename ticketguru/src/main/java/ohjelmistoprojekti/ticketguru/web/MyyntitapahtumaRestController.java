@@ -2,15 +2,12 @@ package ohjelmistoprojekti.ticketguru.web;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import io.micrometer.common.lang.NonNull;
-import ohjelmistoprojekti.ticketguru.domain.Myyntitapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti.ticketguru.dto.LuoMyyntitapahtumaDTO;
 import ohjelmistoprojekti.ticketguru.dto.MyyntitapahtumaDTO;
 import ohjelmistoprojekti.ticketguru.service.MyyntitapahtumaService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
