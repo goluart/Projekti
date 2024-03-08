@@ -59,7 +59,7 @@ public class Tapahtuma {
     // @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tapahtuma_lipputyyppi", joinColumns = @JoinColumn(name = "tapahtuma_id"), inverseJoinColumns = @JoinColumn(name = "lipputyyppi_id"))
-    private Set<Lipputyyppi> lipputyypit = new HashSet<>();
+    private Set<Lipputyyppi> lipputyypit = new HashSet<Lipputyyppi>();
 
     public Tapahtuma() {
         super();

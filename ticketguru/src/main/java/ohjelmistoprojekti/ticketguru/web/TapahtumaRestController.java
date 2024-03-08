@@ -1,6 +1,7 @@
 package ohjelmistoprojekti.ticketguru.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,9 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
+import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto;
+import ohjelmistoprojekti.ticketguru.service.TapahtumaService;
 
 @CrossOrigin
 @RestController
@@ -23,12 +27,17 @@ public class TapahtumaRestController {
 
     @Autowired
     private TapahtumaRepository tapahtumaRepository;
+    @Autowired 
+    private TapahtumaService tapahtumaService;
 
     // Haetaan kaikki järjestelmän tapahtumat
     // Muutettu @RequestMapping @GetMapping muotoon
     @GetMapping("/tapahtumat")
-    public List<Tapahtuma> tapahtumatListRest() {
-        return tapahtumaRepository.findAll();
+    public ResponseEntity<List<TapahtumaDto>> naytaTapahtumaDto() {
+        List<TapahtumaDto> tapatumaDtos = tapahtumaRepository.findAll().stream()
+            .map(tapahtuma -> tapahtumaService.naytaTapahtumaDto(tapahtuma))
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(tapatumaDtos);
     }
 
     // Haetaan tapahtuma tunnisteen (tapahtumaId) avulla
