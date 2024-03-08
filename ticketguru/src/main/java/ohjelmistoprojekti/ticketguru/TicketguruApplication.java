@@ -122,12 +122,7 @@ public class TicketguruApplication {
             lippuRepository.save(lippu1);
             lippuRepository.save(lippu2);
             lippuRepository.save(lippu3);
-
-
-
             
-
-
         };
     }
 }
