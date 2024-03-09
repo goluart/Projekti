@@ -2,14 +2,29 @@
 
 Tiimi 4: Golubev Artur, Huovinen Mia, Tuomela Jouni, Varpanen Hilda-Maija. 
 
+<<<<<<< HEAD
 ## Johdanto
+=======
+Scrum on ketterän kehityksen malli, jossa projekti kulkee 1-4 viikon sykleissä eli sprinteissä. Sykli alkaa valitsemalla kehitysjonosta (backlog) sprintin aikana kehitettävä tuotteen ominaisuus. Ominaisuudet on järjestetty sprintin kehitysjonossa tärkeysjärjestykseen ja ominaisuudet kehitetään tässä järjestyksessä. Sprintin aikana tuote kehitetään valmiiksi tuoteversioksi, jonka jälkeen pidetään sprintin katselmointi. Sen aikana tuotetta tarkastellaan ja seurataan tavoitteiden edistymistä.
+
+Tämän jälkeen pidetään vielä retrospektiivi, jonka aikana on tarkoitus tarkastella sprintin toimivuutta, yhteistyötä, työnkulkua jne. Tarkastelusta huomattuja muutosideoita tehokkuuden parantamiseksi otetaan seuraavissa sprinteissä käyttöön ja sykli alkaa alusta.
+>>>>>>> develop/jt-develop
 
 Asiakkaanamme toimii lipputoimisto, joka haluaa uudistaa lippujärjestelmänsä vastaamaan nykypäivän vaatimuksia ja tarpeita. TicketGuru-järjestelmän tavoitteena on mahdollistaa lippujen myynti myyntipisteessä sekä myöhemmin myös verkkokaupassa. Lippujen myynti tapahtuu ensisijaisesti myyntipisteessä, jossa lipunmyyjä myy ja tulostaa liput asiakkaille. Kun ennakkomyynti päättyy, jäljellä jäävät liput tulostetaan myyntipisteen sijaan ovella myytäväksi. Jokaisessa lipussa on selkeästi tarkastettava koodi, joka mahdollistaa nopean ja vaivattoman pääsyn tapahtumaan.
 
+<<<<<<< HEAD
 Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena, joka on optimoitu käytettäväksi läppärillä tai pöytäkoneella.
+=======
+Sprintit ovat määriteltyjä ajanjaksoja, joissa kehitystiimi keskittyy sovittuihin tehtäviin. Sprintit ovat yleensä 1-4 viikon mittaisia ajanjaksoja. Niiden aikana tuotetaan valittu ominaisuus, joka on vaatimusten mukainen, käyttökelpoinen ja potentiaalisesti julkaisukelpoinen tuoteversio. Tavoite on, että sprintin lopputuote on valmis ja vaatimusmäärittelyn mukainen. 
+>>>>>>> develop/jt-develop
 
 
+<<<<<<< HEAD
 ## Järjestelmän määrittely
+=======
+Product Backlog: Koko tuotteen ominaisuuslista, joka sisältää kaikki tulevaisuudessa toteutettavat toiminnot, korjaukset ja parannukset. Tuoteomistaja priorisoi product backlogin.
+Sprint Backlog: Valikoima tehtäviä product backlogista, jotka tiimi on sitoutunut toteuttamaan tulevan sprintin aikana. Sprint backlog muodostetaan sprintin suunnittelukokouksessa. 
+>>>>>>> develop/jt-develop
 
 ### Käyttäjäryhmät
 
