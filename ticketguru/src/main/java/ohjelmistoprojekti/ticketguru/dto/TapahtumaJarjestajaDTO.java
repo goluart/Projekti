@@ -26,7 +26,7 @@ public class TapahtumaJarjestajaDTO {
         this.jarjestajaNimi = jarjestajaNimi;
     }
 
-    
+
    
     
 
