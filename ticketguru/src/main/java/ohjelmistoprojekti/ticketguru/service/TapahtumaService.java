@@ -19,14 +19,14 @@ public class TapahtumaService {
     public TapahtumaDto naytaTapahtumaDto(Tapahtuma tapahtuma) {
 
         // Muodostetaan ja palautetaan tapahtumaDto
-        TapahtumaDto tDto = new TapahtumaDto();
-        tDto.setTapahtumaId(tapahtuma.getTapahtumaId());
-        tDto.setTapahtumaNimi(tapahtuma.getTapahtumaNimi());
-        tDto.setAlkaaPvm(tapahtuma.getAlkaaPvm());
-        tDto.setLoppuuPvm(tapahtuma.getPaattyyPvm());
-        tDto.setKuvaus(tapahtuma.getKuvaus());
-        tDto.setMax_lippuja(tapahtuma.getMax_lippuja());
-        tDto.setPerushinta(tapahtuma.getPerushinta());
+        // TapahtumaDto tDto = new TapahtumaDto();
+        // tDto.setTapahtumaId(tapahtuma.getTapahtumaId());
+        // tDto.setTapahtumaNimi(tapahtuma.getTapahtumaNimi());
+        // tDto.setAlkaaPvm(tapahtuma.getAlkaaPvm());
+        // tDto.setLoppuuPvm(tapahtuma.getPaattyyPvm());
+        // tDto.setKuvaus(tapahtuma.getKuvaus());
+        // tDto.setMaxLippuja(tapahtuma.getMax_lippuja());
+        // tDto.setPerushinta(tapahtuma.getPerushinta());
 
         Set<Lipputyyppi> lipputyypit = tapahtuma.getLipputyypit();
         List<TapahtumaLipputyyppiDto> ltDtot = lipputyypit.stream()
@@ -39,15 +39,17 @@ public class TapahtumaService {
                 return ltDto;
             }).collect(Collectors.toList());
 
-        tDto.setLipputyypit(ltDtot);
-        tDto.setLippujaJaljella(tapahtuma.getLippujaJaljella());
+        // tDto.setLipputyypit(ltDtot);
+        // tDto.setLippujaJaljella(tapahtuma.getLippujaJaljella());
 
         TapahtumaTapahtumapaikkaDTO tpDto = new TapahtumaTapahtumapaikkaDTO(tapahtuma.getTapahtumapaikka().getTapaikkaId(), tapahtuma.getTapahtumapaikka().getPaikkaNimi(), tapahtuma.getTapahtumapaikka().getOsoite(), tapahtuma.getTapahtumapaikka().getPostitoimipaikka().getKaupunki());
-        tDto.setTapahtumapaikka(tpDto);
+        // tDto.setTapahtumapaikka(tpDto);
         
         TapahtumaJarjestajaDTO jDto = new TapahtumaJarjestajaDTO(tapahtuma.getJarjestaja().getJarjestajaId(), tapahtuma.getJarjestaja().getNimi());
 
-        tDto.setJarjestaja(jDto);
+        // tDto.setJarjestaja(jDto);
+
+        TapahtumaDto tDto = new TapahtumaDto(tapahtuma.getTapahtumaId(), tapahtuma.getTapahtumaNimi(), tapahtuma.getKuvaus(), tapahtuma.getAlkaaPvm(), tapahtuma.getPaattyyPvm(), tapahtuma.getMax_lippuja(), tapahtuma.getLippujaJaljella(), tpDto, jDto, tapahtuma.getPerushinta(), ltDtot);
 
         return tDto;
     }

@@ -2,26 +2,32 @@ package ohjelmistoprojekti.ticketguru.dto;
 
 public class TapahtumaJarjestajaDTO {
 
-    private Long jarestajaId;
-    private String jarestajaNimi;
+    private Long jarjestajaId;
+    private String jarjestajaNimi;
+
+    public TapahtumaJarjestajaDTO(Long jarjestajaId, String jarjestajaNimi) {
+        this.jarjestajaId = jarjestajaId;
+        this.jarjestajaNimi = jarjestajaNimi;
+    }
+
+    public Long getJarjestajaId() {
+        return jarjestajaId;
+    }
+
+    public void setJarjestajaId(Long jarjestajaId) {
+        this.jarjestajaId = jarjestajaId;
+    }
+
+    public String getJarjestajaNimi() {
+        return jarjestajaNimi;
+    }
+
+    public void setJarjestajaNimi(String jarjestajaNimi) {
+        this.jarjestajaNimi = jarjestajaNimi;
+    }
+
+    
    
-    public TapahtumaJarjestajaDTO(Long jarestajaId, String jarestajaNimi) {
-        this.jarestajaId = jarestajaId;
-        this.jarestajaNimi = jarestajaNimi;
-    }
-
-    public void setJarestajaNimi(String jarestajaNimi) {
-        this.jarestajaNimi = jarestajaNimi;
-    }
-
-    public Long getJarestajaId() {
-        return jarestajaId;
-    }
-    public void setJarestajaId(Long jarestajaId) {
-        this.jarestajaId = jarestajaId;
-    }
-    public String getJarestajaNimi() {
-        return jarestajaNimi;
-    }   
+    
 
 }
