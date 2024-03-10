@@ -2,6 +2,7 @@ package ohjelmistoprojekti.ticketguru.web;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
+import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto;
 import ohjelmistoprojekti.ticketguru.service.TapahtumaService;
 
 @CrossOrigin
@@ -35,11 +37,15 @@ public class TapahtumaRestController {
 	// Muutettu @RequestMapping @GetMapping muotoon
 	// Jos get-metodi palauttaa tyhjän listan, palautetaan 404
 	@GetMapping("/tapahtumat")
-	public List<Tapahtuma> tapahtumatListRest() {
+	public ResponseEntity<List<TapahtumaDto>> naytaTapahtumaDto() {
 		if (tapahtumaRepository.findAll().isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumia ei löytynyt.");
 		}
-		return tapahtumaRepository.findAll();
+		List<TapahtumaDto> tapatumaDtot = tapahtumaRepository.findAll().stream()
+            .map(tapahtuma -> tapahtumaService.naytaTapahtumaDto(tapahtuma))
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(tapatumaDtot);
+
 	}
 
 	// Haetaan tapahtuma tunnisteen (tapahtumaId) avulla
