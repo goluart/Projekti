@@ -1,11 +1,10 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,15 +14,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class Myyntitapahtuma {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotEmpty
     @Column(name = "myyntitapahtuma_id")
     private Long myyntitapahtumaId;
-
+    @NotEmpty
     @Column(name = "myyntitapahtuma_pvm")
     private LocalDateTime myyntitapahtumaPvm;
 

@@ -1,5 +1,7 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -11,19 +13,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import java.util.List;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Yhteyshenkilo {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @NotEmpty
     @Column(name = "yht_hlo_id")
     private Long yhtHloId;
+    @NotEmpty(message = "Anna etunimesi")
     private String etunimi;
+    @NotEmpty(message = "Anna sukunimesi")
     private String sukunimi;
+    @NotEmpty(message = "Anna sähköpostiosoitteesi")
     private String sahkoposti;
+    @NotEmpty(message = "Anna puhelinnumero")
+    @Pattern(regexp = "^[0-9+]", message = "Anna numero ilman välilyöntejä")
     private String puhelin;
+    @Size(max = 700, message = "Suurin sallittu merkkimäärä on 700")
     private String lisatieto;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "yhteyshenkilo")
