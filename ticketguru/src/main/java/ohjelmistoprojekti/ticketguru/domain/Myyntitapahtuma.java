@@ -32,15 +32,23 @@ public class Myyntitapahtuma {
 	@OneToMany(mappedBy = "myyntitapahtuma", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@Column(name = "myyntitapahtuma_id")
 	private List<Lippu> liput = new ArrayList<>();
-	@DecimalMin(value = "0.01", inclusive = true)
+	@DecimalMin(value = "0.1", inclusive = true)
 	private double loppusumma;
 
 	public Myyntitapahtuma() {
 		super();
-	}
+	}    
 
-	public Myyntitapahtuma(LocalDateTime myyntitapahtumaPvm) {
+	public Myyntitapahtuma(@NotNull LocalDateTime myyntitapahtumaPvm, List<Lippu> liput,
+            @DecimalMin(value = "0.01", inclusive = true) double loppusumma) {
+        this.myyntitapahtumaPvm = myyntitapahtumaPvm;
+        this.liput = liput;
+        this.loppusumma = loppusumma;
+    }
+
+    public Myyntitapahtuma(LocalDateTime myyntitapahtumaPvm, double loppusumma) {
 		this.myyntitapahtumaPvm = myyntitapahtumaPvm;
+        this.loppusumma = loppusumma;       
 	}
 
 	public Long getMyyntitapahtumaId() {

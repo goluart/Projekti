@@ -18,13 +18,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
-import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto;
 import ohjelmistoprojekti.ticketguru.service.TapahtumaService;
 
 @CrossOrigin

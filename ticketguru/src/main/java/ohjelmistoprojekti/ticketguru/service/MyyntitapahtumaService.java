@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -32,19 +33,23 @@ public class MyyntitapahtumaService {
     // @SuppressWarnings("null")
     @Transactional
     public MyyntitapahtumaDTO luoMyyntitapahtuma(LuoMyyntitapahtumaDTO lmDto) {
+
         // Haetaan tapahtuma
-        Tapahtuma tapahtuma = tapahtumaRepository.findById(lmDto.getTapahtumaId()).orElseThrow(() -> new RuntimeException("Tapahtumaa ei löydy"));
+        Tapahtuma tapahtuma = tapahtumaRepository.findById(lmDto.getTapahtumaId()).orElseThrow(() -> new ResourceNotFoundException("Tapahtumaa ei löydy"));
+
         // Lasketaan myyntitapahtuman liput yhteensä 
         int lippujaYht = lmDto.getLippuTyyppiMaarat().stream()
             .mapToInt(LuoMyyntitapahtumaDTO.LippuTyyppiMaaraDTO::getLippuMaara)
             .sum();            
+
         // Tarkistetaan, onko riittävästi lippuja jäljellä haluttu määrä
             if (tapahtuma.getLippujaJaljella() < lippujaYht) {
-                throw new RuntimeException("Ei tarpeeksi lippuja jäljellä (" + tapahtuma.getLippujaJaljella() +")");
+                throw new IllegalStateException("Ei tarpeeksi lippuja jäljellä (" + tapahtuma.getLippujaJaljella() +")");
             }
         // Alustetaan uusi myyntitapahtuma ja tallennetaan se tietokantaan (tämä tarvitaan, jotta myyntitapahtuman voi liittää lippuhin)
-        Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now());
+        Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now(), 0.1);
         myyntitapahtumaRepository.save(myyntitapahtuma);
+        // myyntitapahtumaRepository.save(myyntitapahtuma);
 
         // Luodaan lista kaikille myyntitapahtuman lipuille
         List<Lippu> luodutLiput = new ArrayList<>();
@@ -54,18 +59,23 @@ public class MyyntitapahtumaService {
 
         // Luupataan halutut liput: Luodaan liput lipputyyppien mukaan, tallennetaan lippu ja lisätään ne luodutLiput listaan
         for (LuoMyyntitapahtumaDTO.LippuTyyppiMaaraDTO lippuInfo : lmDto.getLippuTyyppiMaarat()) {
+            Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(lippuInfo.getLipputyyppiId()).orElseThrow(() -> new RuntimeException("Lipputyyppiä ei löydy"));
             for (int i=0; i < lippuInfo.getLippuMaara(); i++) {
-                Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(lippuInfo.getLipputyyppiId()).orElseThrow(() -> new RuntimeException("Lipputyyppiä ei löydy"));
                 double hinta = tapahtuma.getPerushinta() * lipputyyppi.getHintakerroin();
-                Lippu lippu = new Lippu(tapahtuma, lipputyyppi, myyntitapahtuma, hinta);
+                Lippu lippu = new Lippu(tapahtuma, myyntitapahtuma, lipputyyppi, hinta);
                 loppusumma += hinta;
-                luodutLiput.add(lippuRepository.save(lippu));
-                
+                luodutLiput.add(lippu);
+                lippuRepository.save(lippu);                
             }
         }
         // Tallennetaan liput ja loppusumma myyntitapahtumaan
+        myyntitapahtuma.setMyyntitapahtumaPvm(LocalDateTime.now());
         myyntitapahtuma.setLiput(luodutLiput);
         myyntitapahtuma.setLoppusumma(loppusumma);
+
+        // Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now(), luodutLiput, loppusumma);
+        myyntitapahtumaRepository.save(myyntitapahtuma);
+
 
         // Palautetaan vastauksena funktion mukainen DTO json
         return muunnaMyyntitapahtumaDtoon(myyntitapahtuma);

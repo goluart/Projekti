@@ -28,7 +28,6 @@ public class Tapahtuma {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tapahtuma_id")
-	@NonNull
 	private Long tapahtumaId;
 	@NotEmpty(message = "Tapahtuma tarvitsee nimen")
 	@Column(name = "tapahtuma_nimi")
