@@ -87,7 +87,6 @@ public class TapahtumaRestController {
 
         editTapahtuma.setTapahtumaId(tapahtumanTiedot.getTapahtumaId());
         tapahtumaRepository.save(tapahtumanTiedot);
-
         return ResponseEntity.ok(editTapahtuma);
     }
 
