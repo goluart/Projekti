@@ -20,6 +20,7 @@ import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
 import ohjelmistoprojekti.ticketguru.dto.LuoMyyntitapahtumaDTO;
 import ohjelmistoprojekti.ticketguru.dto.MyyntitapahtumaDTO;
 
+
 @Service
 public class MyyntitapahtumaService {
 
@@ -28,7 +29,7 @@ public class MyyntitapahtumaService {
     @Autowired private LippuRepository lippuRepository;
     @Autowired private MyyntitapahtumaRepository myyntitapahtumaRepository;
 
-    @SuppressWarnings("null")
+    // @SuppressWarnings("null")
     @Transactional
     public MyyntitapahtumaDTO luoMyyntitapahtuma(LuoMyyntitapahtumaDTO lmDto) {
         // Haetaan tapahtuma
@@ -75,18 +76,6 @@ public class MyyntitapahtumaService {
         // Muodostetaan ja palautetaan MyyntitapahtumaDTO
         MyyntitapahtumaDTO myyntiDto = new MyyntitapahtumaDTO(myyntitapahtuma.getMyyntitapahtumaId(),myyntitapahtuma.getMyyntitapahtumaPvm(), String.format("%.2f", myyntitapahtuma.getLoppusumma()), muunnaLiputDto(myyntitapahtuma.getLiput()));
        
-        // List<Lippu> liput = myyntitapahtuma.getLiput();
-
-        // // Lisätään listaan kaikki myyntitapahtuman liput tekstinä
-        // List<LippuDto> lippuDtoList = liput.stream().map(lippu -> {
-        //     LippuDto lippuDto = new LippuDto(lippu.getTapahtuma().getTapahtumaId().toString(), lippu.getTapahtuma().getTapahtumaNimi(), lippu.getTapahtuma().getAlkaaPvm().toString(), lippu.getTapahtuma().getTapahtumapaikka().getPaikkaNimi(), lippu.getLipputyyppi().getLipputyyppiId().toString(), lippu.getLipputyyppi().getNimi(), String.format("%.2f", lippu.getHinta()), lippu.getTarkistuskoodi());
-        //     return lippuDto;
-        // }).collect(Collectors.toList());
-
-        // Tallennetaan lista MyyntitapahtumaDTO olioon
-        // myyntiDto.setLiputDto(lippuDtoList);
-
-        // Palautetaan luotu olio
         return myyntiDto;
 
     }
