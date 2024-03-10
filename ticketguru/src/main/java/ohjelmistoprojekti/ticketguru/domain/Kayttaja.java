@@ -19,7 +19,7 @@ public class Kayttaja {
 	private String snimi;
 	private String enimi;
 	private String lisatiedot;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "rooli_id")
 	private Rooli rooli;

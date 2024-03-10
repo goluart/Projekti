@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,124 +19,116 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 public class Yhteyshenkilo {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "yht_hlo_id")
+	private Long yhtHloId;
+	@NotEmpty(message = "Anna etunimesi")
+	private String etunimi;
+	@NotEmpty(message = "Anna sukunimesi")
+	private String sukunimi;
+	@NotEmpty(message = "Anna sähköpostiosoitteesi")
+	private String sahkoposti;
+	@NotEmpty(message = "Anna puhelinnumero")
+	@Pattern(regexp = "[0-9]+", message = "Anna numero ilman välilyöntejä tai erikoismerkkejä")
+	private String puhelin;
+	@Size(max = 700, message = "Suurin sallittu merkkimäärä on 700")
+	private String lisatieto;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "yhteyshenkilo")
+	@JsonIgnoreProperties("yhteyshenkilo")
+	private List<Jarjestaja> jarjestajat;
+
+	@ManyToOne
+	@JsonIgnoreProperties("yhteyshenkilo")
+	@JoinColumn(name = "tapaikkaId")
+	private Tapahtumapaikka tapahtumapaikka;
+
+	// Myöhemmin Yhteyshenkilo OneToMany Tapahtumapaikka
+	// Liittyy luokkiin Tapahtumapaikka ja Jarjestaja
 	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "yht_hlo_id")
-    @NonNull
-    private Long yhtHloId;
-    @NotEmpty(message = "Anna etunimesi")
-    private String etunimi;
-    @NotEmpty(message = "Anna sukunimesi")
-    private String sukunimi;
-    @NotEmpty(message = "Anna sähköpostiosoitteesi")
-    private String sahkoposti;
-    @NotEmpty(message = "Anna puhelinnumero")
-    @Pattern(regexp = "[0-9]+", message = "Anna numero ilman välilyöntejä tai erikoismerkkejä")
-    private String puhelin;
-    @Size(max = 700, message = "Suurin sallittu merkkimäärä on 700")
-    private String lisatieto;
+	public Yhteyshenkilo() {
+	}
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "yhteyshenkilo")
-    @JsonIgnoreProperties("yhteyshenkilo")
-    private List<Jarjestaja> jarjestajat;
+	public Yhteyshenkilo(String etunimi, String sukunimi, String sahkoposti, String puhelin, String lisatieto) {
+		super();
+		this.etunimi = etunimi;
+		this.sukunimi = sukunimi;
+		this.sahkoposti = sahkoposti;
+		this.puhelin = puhelin;
+		this.lisatieto = lisatieto;
+	}
 
-    @ManyToOne
-    @JsonIgnoreProperties("yhteyshenkilo")
-    @JoinColumn(name = "tapaikkaId")
-    private Tapahtumapaikka tapahtumapaikka;
+	public Long getYhtHloId() {
+		return yhtHloId;
+	}
 
-    // Myöhemmin Yhteyshenkilo OneToMany Tapahtumapaikka
-    // Liittyy luokkiin Tapahtumapaikka ja Jarjestaja
+	public void setYhtHloId(Long yhtHloId) {
+		this.yhtHloId = yhtHloId;
+	}
 
-    public Yhteyshenkilo(String etunimi, String sukunimi, String sahkoposti, String puhelin, String lisatieto) {
-        super();
-        this.etunimi = etunimi;
-        this.sukunimi = sukunimi;
-        this.sahkoposti = sahkoposti;
-        this.puhelin = puhelin;
-        this.lisatieto = lisatieto;
-    }
+	public String getEtunimi() {
+		return etunimi;
+	}
 
-    public Yhteyshenkilo() {
-        super();
-        this.etunimi = null;
-        this.sukunimi = null;
-        this.sahkoposti = null;
-        this.puhelin = null;
-        this.lisatieto = null;
+	public void setEtunimi(String etunimi) {
+		this.etunimi = etunimi;
+	}
 
-    }
+	public String getSukunimi() {
+		return sukunimi;
+	}
 
-    public Long getYhtHloId() {
-        return yhtHloId;
-    }
+	public void setSukunimi(String sukunimi) {
+		this.sukunimi = sukunimi;
+	}
 
-    public void setYhtHloId(Long yhtHloId) {
-        this.yhtHloId = yhtHloId;
-    }
+	public String getSahkoposti() {
+		return sahkoposti;
+	}
 
-    public String getEtunimi() {
-        return etunimi;
-    }
+	public void setSahkoposti(String sahkoposti) {
+		this.sahkoposti = sahkoposti;
+	}
 
-    public void setEtunimi(String etunimi) {
-        this.etunimi = etunimi;
-    }
+	public String getPuhelin() {
+		return puhelin;
+	}
 
-    public String getSukunimi() {
-        return sukunimi;
-    }
+	public void setPuhelin(String puhelin) {
+		this.puhelin = puhelin;
+	}
 
-    public void setSukunimi(String sukunimi) {
-        this.sukunimi = sukunimi;
-    }
+	public String getLisatieto() {
+		return lisatieto;
+	}
 
-    public String getSahkoposti() {
-        return sahkoposti;
-    }
+	public void setLisatieto(String lisatieto) {
+		this.lisatieto = lisatieto;
+	}
 
-    public void setSahkoposti(String sahkoposti) {
-        this.sahkoposti = sahkoposti;
-    }
+	public List<Jarjestaja> getJarjestajat() {
+		return jarjestajat;
+	}
 
-    public String getPuhelin() {
-        return puhelin;
-    }
+	public void setJarjestajat(List<Jarjestaja> jarjestajat) {
+		this.jarjestajat = jarjestajat;
+	}
 
-    public void setPuhelin(String puhelin) {
-        this.puhelin = puhelin;
-    }
+	public Tapahtumapaikka getTapahtumapaikka() {
+		return tapahtumapaikka;
+	}
 
-    public String getLisatieto() {
-        return lisatieto;
-    }
+	public void setTapahtumapaikka(Tapahtumapaikka tapahtumapaikka) {
+		this.tapahtumapaikka = tapahtumapaikka;
+	}
 
-    public void setLisatieto(String lisatieto) {
-        this.lisatieto = lisatieto;
-    }
-
-    public List<Jarjestaja> getJarjestajat() {
-        return jarjestajat;
-    }
-
-    public void setJarjestajat(List<Jarjestaja> jarjestajat) {
-        this.jarjestajat = jarjestajat;
-    }
-
-    public Tapahtumapaikka getTapahtumapaikka() {
-        return tapahtumapaikka;
-    }
-
-    public void setTapahtumapaikka(Tapahtumapaikka tapahtumapaikka) {
-        this.tapahtumapaikka = tapahtumapaikka;
-    }
-
-    @Override
-    public String toString() {
-        return "Yhteyshenkilo [yhtHloId=" + yhtHloId + ", etunimi=" + etunimi + ", sukunimi=" + sukunimi
-                + ", sahkoposti=" + sahkoposti + ", puhelin=" + puhelin + ", lisatieto=" + lisatieto + ", jarjestajat="
-                + jarjestajat + ", tapahtumapaikka=" + tapahtumapaikka + "]";
-    }
+	@Override
+	public String toString() {
+		return "Yhteyshenkilo [yhtHloId=" + yhtHloId + ", etunimi=" + etunimi + ", sukunimi=" + sukunimi
+				+ ", sahkoposti=" + sahkoposti + ", puhelin=" + puhelin + ", lisatieto=" + lisatieto + ", jarjestajat="
+				+ jarjestajat + ", tapahtumapaikka=" + tapahtumapaikka + "]";
+	}
 
 }

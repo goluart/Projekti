@@ -14,73 +14,71 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Myyntitapahtuma {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-     @NotNull
-    @Column(name = "myyntitapahtuma_id")
-    private Long myyntitapahtumaId;
-     @NotBlank
-    @Column(name = "myyntitapahtuma_pvm")
-    private LocalDateTime myyntitapahtumaPvm;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "myyntitapahtuma_id")
+	private Long myyntitapahtumaId;
+	@NotNull
+	@Column(name = "myyntitapahtuma_pvm")
+	private LocalDateTime myyntitapahtumaPvm;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "myyntitapahtuma", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Column(name="myyntitapahtuma_id")
-    private List<Lippu> liput = new ArrayList<>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "myyntitapahtuma", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@Column(name = "myyntitapahtuma_id")
+	private List<Lippu> liput = new ArrayList<>();
+	//@DecimalMin(value = "0.01", inclusive = false)
+	private double loppusumma;
 
-    private double loppusumma;
+	public Myyntitapahtuma() {
+		super();
+	}
 
-    public Myyntitapahtuma() {
-        super();
-    }
+	public Myyntitapahtuma(LocalDateTime myyntitapahtumaPvm) {
+		this.myyntitapahtumaPvm = myyntitapahtumaPvm;
+	}
 
-    public Myyntitapahtuma(LocalDateTime myyntitapahtumaPvm) {
-        this.myyntitapahtumaPvm = myyntitapahtumaPvm;
-    }
+	public Long getMyyntitapahtumaId() {
+		return myyntitapahtumaId;
+	}
 
-    public Long getMyyntitapahtumaId() {
-        return myyntitapahtumaId;
-    }
+	public void setMyyntitapahtumaId(Long myyntitapahtumaId) {
+		this.myyntitapahtumaId = myyntitapahtumaId;
+	}
 
-    public void setMyyntitapahtumaId(Long myyntitapahtumaId) {
-        this.myyntitapahtumaId = myyntitapahtumaId;
-    }
+	public List<Lippu> getLiput() {
+		return liput;
+	}
 
-    public List<Lippu> getLiput() {
-        return liput;
-    }
+	public void setLiput(List<Lippu> liput) {
+		this.liput = liput;
+	}
 
-    public void setLiput(List<Lippu> liput) {
-        this.liput = liput;
-    }
+	public LocalDateTime getMyyntitapahtumaPvm() {
+		return myyntitapahtumaPvm;
+	}
 
-    public LocalDateTime getMyyntitapahtumaPvm() {
-        return myyntitapahtumaPvm;
-    }
+	public void setMyyntitapahtumaPvm(LocalDateTime myyntitapahtumaPvm) {
+		this.myyntitapahtumaPvm = myyntitapahtumaPvm;
+	}
 
-    public void setMyyntitapahtumaPvm(LocalDateTime myyntitapahtumaPvm) {
-        this.myyntitapahtumaPvm = myyntitapahtumaPvm;
-    }
+	public double getLoppusumma() {
+		return loppusumma;
+	}
 
-    public double getLoppusumma() {
-        return loppusumma;
-    }
+	public void setLoppusumma(double loppusumma) {
+		this.loppusumma = loppusumma;
+	}
 
-    public void setLoppusumma(double loppusumma) {
-        this.loppusumma = loppusumma;
-    }
+	@Override
+	public String toString() {
+		return "Myyntitapahtuma [myyntitapahtumaId=" + myyntitapahtumaId + ", myyntitapahtumaPvm=" + myyntitapahtumaPvm
+				+ ", loppusumma=" + loppusumma + "]";
+	}
 
-    @Override
-    public String toString() {
-        return "Myyntitapahtuma [myyntitapahtumaId=" + myyntitapahtumaId + ", myyntitapahtumaPvm=" + myyntitapahtumaPvm
-                + ", loppusumma=" + loppusumma + "]";
-    }
-
-    
 }
