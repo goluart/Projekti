@@ -23,84 +23,128 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
 **Sisällön esimerkki**
 ```json
-{
-    "tapahtumaId": 1,
-    "tapahtumaNimi": "Rock Festivaali",
-    "luontiPvm": "2024-03-03T22:38:16.443598+02:00",
-    "alkaaPvm": "2024-03-22T19:00:00+02:00",
-    "paattyyPvm": "2024-03-23T01:00:00+02:00",
-    "kuvaus": "Suurin rock tapahtuma vuonna 2024",
-    "max_lippuja": 15000,
-    "perushinta": 50.0,
-    "tapahtumapaikka": {
-        "tapaikkaId": 1,
-        "paikkaNimi": "Kulttuuritalo",
-        "osoite": "Sturenkatu 4, Helsinki",
-        "kuvaus": "Kulttuuritapahtumien keskus",
-        "ytunnus": "1234567-8",
-        "sposti": "info@kulttuuritalo.fi",
-        "lisatiedot": "Esteetön pääsy",
-        "yhteyshenkilo": [],
-        "postitoimipaikka": {
-            "postinumeroId": 1,
-            "postinumero": "00100",
-            "kaupunki": "Helsinki"
-        }
+[
+    {
+        "tapahtumaId": 1,
+        "tapahtumaNimi": "Rock Festivaali",
+        "kuvaus": "Suurin rock tapahtuma vuonna 2024",
+        "alkaaPvm": "2024-03-22T19:00:00+02:00",
+        "loppuuPvm": "2024-03-23T01:00:00+02:00",
+        "maxLippuja": 15000,
+        "lippujaJaljella": 14997,
+        "tapahtumapaikka": {
+            "tapahtumapaikkaId": 1,
+            "tapahtumapaikkaNimi": "Kulttuuritalo",
+            "tapahtumapaikkaOsoite": "Sturenkatu 4, Helsinki",
+            "tapahtumapaikkaKaupunki": "Helsinki"
+        },
+        "jarjestaja": {
+            "jarjestajaId": 1,
+            "jarjestajaNimi": "Musiikki Oy"
+        },
+        "perushinta": 50.0,
+        "lipputyypit": [
+            {
+                "lipputyyppiId": 2,
+                "lipputyyppiNimi": "Lapsi",
+                "asiakasryhma": "Lapsi",
+                "hintakerroin": 0.5
+            },
+            {
+                "lipputyyppiId": 1,
+                "lipputyyppiNimi": "Aikuinen",
+                "asiakasryhma": "Aikuinen",
+                "hintakerroin": 1.0
+            },
+            {
+                "lipputyyppiId": 3,
+                "lipputyyppiNimi": "Eläkeläinen",
+                "asiakasryhma": "Elakelainen",
+                "hintakerroin": 0.7
+            }
+        ]
     },
-    "jarjestaja": {
-        "jarjestajaId": 1,
-        "nimi": "Musiikki Oy",
-        "ytunnus": "1234567-8",
-        "osoite": "Mannerheimintie 13",
-        "yhteyshenkilo": {
-            "yhtHloId": 1,
-            "etunimi": "Matti",
-            "sukunimi": "Meikäläinen",
-            "sahkoposti": "matti@example.com",
-            "puhelin": "0401234567",
-            "lisatieto": "Markkinointipäällikkö",
-            "tapahtumapaikka": null
+    {
+        "tapahtumaId": 2,
+        "tapahtumaNimi": "Jazz-ilta",
+        "kuvaus": "Nauti rennosta jazz-musiikista",
+        "alkaaPvm": "2024-04-20T21:30:00+03:00",
+        "loppuuPvm": "2024-04-21T02:00:00+03:00",
+        "maxLippuja": 70,
+        "lippujaJaljella": 70,
+        "tapahtumapaikka": {
+            "tapahtumapaikkaId": 2,
+            "tapahtumapaikkaNimi": "Messukeskus",
+            "tapahtumapaikkaOsoite": "Messuaukio 1, Helsinki",
+            "tapahtumapaikkaKaupunki": "Helsinki"
         },
-        "postitoimipaikka": {
-            "postinumeroId": 1,
-            "postinumero": "00100",
-            "kaupunki": "Helsinki"
-        }
+        "jarjestaja": {
+            "jarjestajaId": 2,
+            "jarjestajaNimi": "Festivaali Oy"
+        },
+        "perushinta": 40.0,
+        "lipputyypit": [
+            {
+                "lipputyyppiId": 2,
+                "lipputyyppiNimi": "Lapsi",
+                "asiakasryhma": "Lapsi",
+                "hintakerroin": 0.5
+            },
+            {
+                "lipputyyppiId": 1,
+                "lipputyyppiNimi": "Aikuinen",
+                "asiakasryhma": "Aikuinen",
+                "hintakerroin": 1.0
+            },
+            {
+                "lipputyyppiId": 3,
+                "lipputyyppiNimi": "Eläkeläinen",
+                "asiakasryhma": "Elakelainen",
+                "hintakerroin": 0.7
+            }
+        ]
     },
-    "lipputyypit": [
-        {
-            "lipputyyppiId": 1,
-            "nimi": "Aikuinen",
-            "hintakerroin": 1.0,
-            "asiakasryhma": {
-                "nimi": "Aikuinen",
-                "kuvaus": "Yli 18-vuotiaat",
-                "id": 1
-            }
+    {
+        "tapahtumaId": 3,
+        "tapahtumaNimi": "Stand-up show",
+        "kuvaus": "Naurua koko illaksi",
+        "alkaaPvm": "2024-05-15T18:00:00+03:00",
+        "loppuuPvm": "2024-05-15T22:00:00+03:00",
+        "maxLippuja": 150,
+        "lippujaJaljella": 150,
+        "tapahtumapaikka": {
+            "tapahtumapaikkaId": 3,
+            "tapahtumapaikkaNimi": "Linnanmäki",
+            "tapahtumapaikkaOsoite": "Tivolikuja 1, Helsinki",
+            "tapahtumapaikkaKaupunki": "Helsinki"
         },
-        {
-            "lipputyyppiId": 3,
-            "nimi": "Eläkeläinen",
-            "hintakerroin": 0.7,
-            "asiakasryhma": {
-                "nimi": "Elakelainen",
-                "kuvaus": "Eläkkeellä olevat henkilöt",
-                "id": 3
-            }
+        "jarjestaja": {
+            "jarjestajaId": 3,
+            "jarjestajaNimi": "Konsertti Oy"
         },
-        {
-            "lipputyyppiId": 2,
-            "nimi": "Lapsi",
-            "hintakerroin": 0.5,
-            "asiakasryhma": {
-                "nimi": "Lapsi",
-                "kuvaus": "Alle 18-vuotiaat",
-                "id": 2
+        "perushinta": 35.0,
+        "lipputyypit": [
+            {
+                "lipputyyppiId": 2,
+                "lipputyyppiNimi": "Lapsi",
+                "asiakasryhma": "Lapsi",
+                "hintakerroin": 0.5
+            },
+            {
+                "lipputyyppiId": 1,
+                "lipputyyppiNimi": "Aikuinen",
+                "asiakasryhma": "Aikuinen",
+                "hintakerroin": 1.0
+            },
+            {
+                "lipputyyppiId": 3,
+                "lipputyyppiNimi": "Eläkeläinen",
+                "asiakasryhma": "Elakelainen",
+                "hintakerroin": 0.7
             }
-        }
-    ],
-    "lippujaJaljella": 15000
-}
+        ]
+    }
+]
 ```
 ## Virhevastaukset
 **Ehto**: Jos tapahtumaa ei löydy annetulla ID:llä tai järjestlmästä ei löydy yhtäkään tapahtumaa.

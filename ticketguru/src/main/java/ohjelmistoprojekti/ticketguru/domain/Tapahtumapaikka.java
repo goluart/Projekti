@@ -14,6 +14,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Tapahtumapaikka {
@@ -22,9 +26,21 @@ public class Tapahtumapaikka {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tapaikka_id")
     private Long tapaikkaId;
-    @Column(name = "paikka_nimi")
+    @NotBlank(message = "Paikan nimi ei saa olla tyhjä")
+    @Size(max = 100, message = "Paikan nimen maksimipituus on 100 merkkiä")
+    @Column(name = "paikka_nimi")    
     private String paikkaNimi;
-    private String osoite, kuvaus, ytunnus, sposti, lisatiedot;
+    @NotBlank(message = "Osoite ei saa olla tyhjä")
+    @Size(max = 150, message = "Osoitteen maksimipituus on 150 merkkiä")
+    private String osoite;
+    @Size(max = 500, message = "Kuvauksen maksimipituus on 500 merkkiä")
+    private String kuvaus;
+    @Pattern(regexp = "^[0-9]{7}-[0-9]$", message = "Y-tunnuksen tulee olla muodossa 1234567-8")
+    private String ytunnus;
+    @Email(message = "Sähköpostiosoitteen tulee olla kelvollinen")
+    private String sposti;
+    @Size(max = 500, message = "Lisätietojen maksimipituus on 500 merkkiä")
+    private String lisatiedot;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumapaikka")
     private List<Yhteyshenkilo> yhteyshenkilo;
     @JsonIgnore

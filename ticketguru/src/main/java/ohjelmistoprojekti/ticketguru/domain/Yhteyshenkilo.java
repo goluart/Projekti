@@ -22,7 +22,6 @@ public class Yhteyshenkilo {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotEmpty
     @Column(name = "yht_hlo_id")
     private Long yhtHloId;
     @NotEmpty(message = "Anna etunimesi")
@@ -32,7 +31,7 @@ public class Yhteyshenkilo {
     @NotEmpty(message = "Anna sähköpostiosoitteesi")
     private String sahkoposti;
     @NotEmpty(message = "Anna puhelinnumero")
-    @Pattern(regexp = "^[0-9+]", message = "Anna numero ilman välilyöntejä")
+    @Pattern(regexp = "(\\+358|0)\\d{9}", message = "Puhelinnumeron tulee olla muodossa +358401234567 tai 0401234567")
     private String puhelin;
     @Size(max = 700, message = "Suurin sallittu merkkimäärä on 700")
     private String lisatieto;

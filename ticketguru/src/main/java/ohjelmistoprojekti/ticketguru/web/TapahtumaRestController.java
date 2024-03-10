@@ -16,9 +16,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
+import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto;
+import ohjelmistoprojekti.ticketguru.service.TapahtumaService;
 
 @CrossOrigin
 @RestController
@@ -26,12 +29,17 @@ public class TapahtumaRestController {
 
     @Autowired
     private TapahtumaRepository tapahtumaRepository;
+    @Autowired
+    private TapahtumaService tapahtumaService;
 
     // Haetaan kaikki järjestelmän tapahtumat
     // Muutettu @RequestMapping @GetMapping muotoon
     @GetMapping("/tapahtumat")
-    public List<Tapahtuma> tapahtumatListRest() {
-        return tapahtumaRepository.findAll();
+    public ResponseEntity<List<TapahtumaDto>> naytaTapahtumaDto() {
+        List<TapahtumaDto> tapatumaDtot = tapahtumaRepository.findAll().stream()
+            .map(tapahtuma -> tapahtumaService.naytaTapahtumaDto(tapahtuma))
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(tapatumaDtot);
     }
 
     // Haetaan tapahtuma tunnisteen (tapahtumaId) avulla

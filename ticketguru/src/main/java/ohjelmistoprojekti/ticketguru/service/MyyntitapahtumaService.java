@@ -17,8 +17,6 @@ import ohjelmistoprojekti.ticketguru.domain.Myyntitapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
-import ohjelmistoprojekti.ticketguru.dto.LippuDto;
-import ohjelmistoprojekti.ticketguru.dto.LippuTyyppiMaaraDTO;
 import ohjelmistoprojekti.ticketguru.dto.LuoMyyntitapahtumaDTO;
 import ohjelmistoprojekti.ticketguru.dto.MyyntitapahtumaDTO;
 
@@ -37,7 +35,7 @@ public class MyyntitapahtumaService {
         Tapahtuma tapahtuma = tapahtumaRepository.findById(lmDto.getTapahtumaId()).orElseThrow(() -> new RuntimeException("Tapahtumaa ei löydy"));
         // Lasketaan myyntitapahtuman liput yhteensä 
         int lippujaYht = lmDto.getLippuTyyppiMaarat().stream()
-            .mapToInt(LippuTyyppiMaaraDTO::getLippuMaara)
+            .mapToInt(LuoMyyntitapahtumaDTO.LippuTyyppiMaaraDTO::getLippuMaara)
             .sum();            
         // Tarkistetaan, onko riittävästi lippuja jäljellä haluttu määrä
             if (tapahtuma.getLippujaJaljella() < lippujaYht) {
@@ -54,7 +52,7 @@ public class MyyntitapahtumaService {
         double loppusumma = 0;
 
         // Luupataan halutut liput: Luodaan liput lipputyyppien mukaan, tallennetaan lippu ja lisätään ne luodutLiput listaan
-        for (LippuTyyppiMaaraDTO lippuInfo : lmDto.getLippuTyyppiMaarat()) {
+        for (LuoMyyntitapahtumaDTO.LippuTyyppiMaaraDTO lippuInfo : lmDto.getLippuTyyppiMaarat()) {
             for (int i=0; i < lippuInfo.getLippuMaara(); i++) {
                 Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(lippuInfo.getLipputyyppiId()).orElseThrow(() -> new RuntimeException("Lipputyyppiä ei löydy"));
                 double hinta = tapahtuma.getPerushinta() * lipputyyppi.getHintakerroin();
@@ -75,32 +73,34 @@ public class MyyntitapahtumaService {
     public MyyntitapahtumaDTO muunnaMyyntitapahtumaDtoon(Myyntitapahtuma myyntitapahtuma) {
         
         // Muodostetaan ja palautetaan MyyntitapahtumaDTO
-        MyyntitapahtumaDTO myyntiDto = new MyyntitapahtumaDTO();
-        myyntiDto.setMyyntitapahtumaId(myyntitapahtuma.getMyyntitapahtumaId());
-        myyntiDto.setMyyntitapahtumaPvm(myyntitapahtuma.getMyyntitapahtumaPvm());
-        myyntiDto.setLoppusumma(String.format("%.2f", myyntitapahtuma.getLoppusumma()));
-        List<Lippu> liput = myyntitapahtuma.getLiput();
+        MyyntitapahtumaDTO myyntiDto = new MyyntitapahtumaDTO(myyntitapahtuma.getMyyntitapahtumaId(),myyntitapahtuma.getMyyntitapahtumaPvm(), String.format("%.2f", myyntitapahtuma.getLoppusumma()), muunnaLiputDto(myyntitapahtuma.getLiput()));
+       
+        // List<Lippu> liput = myyntitapahtuma.getLiput();
 
-        // Lisätään listaan kaikki myyntitapahtuman liput tekstinä
-        List<LippuDto> lippuDtoList = liput.stream().map(lippu -> {
-            LippuDto lippuDto = new LippuDto();
-            lippuDto.setTapahtumaId(lippu.getTapahtuma().getTapahtumaId().toString());
-            lippuDto.setTapahtumanNimi(lippu.getTapahtuma().getTapahtumaNimi());
-            lippuDto.setTapahtumaAika(lippu.getTapahtuma().getAlkaaPvm().toString());
-            lippuDto.setTapahtumaPaikka(lippu.getTapahtuma().getTapahtumapaikka().getPaikkaNimi());
-            lippuDto.setLipputyyppiId(lippu.getLipputyyppi().getLipputyyppiId().toString());
-            lippuDto.setLipputyyppi(lippu.getLipputyyppi().getNimi());
-            lippuDto.setHinta(String.format("%.2f", lippu.getHinta()));
-            lippuDto.setTarkistuskoodi(lippu.getTarkistuskoodi());
-            return lippuDto;
-        }).collect(Collectors.toList());
+        // // Lisätään listaan kaikki myyntitapahtuman liput tekstinä
+        // List<LippuDto> lippuDtoList = liput.stream().map(lippu -> {
+        //     LippuDto lippuDto = new LippuDto(lippu.getTapahtuma().getTapahtumaId().toString(), lippu.getTapahtuma().getTapahtumaNimi(), lippu.getTapahtuma().getAlkaaPvm().toString(), lippu.getTapahtuma().getTapahtumapaikka().getPaikkaNimi(), lippu.getLipputyyppi().getLipputyyppiId().toString(), lippu.getLipputyyppi().getNimi(), String.format("%.2f", lippu.getHinta()), lippu.getTarkistuskoodi());
+        //     return lippuDto;
+        // }).collect(Collectors.toList());
 
         // Tallennetaan lista MyyntitapahtumaDTO olioon
-        myyntiDto.setLiputDto(lippuDtoList);
+        // myyntiDto.setLiputDto(lippuDtoList);
 
         // Palautetaan luotu olio
         return myyntiDto;
 
     }
 
+    private List<MyyntitapahtumaDTO.LippuDto> muunnaLiputDto(List<Lippu> liput) {
+
+        return liput.stream().map(lippu -> new MyyntitapahtumaDTO.LippuDto(
+            lippu.getTapahtuma().getTapahtumaId().toString(), 
+            lippu.getTapahtuma().getTapahtumaNimi(), 
+            lippu.getTapahtuma().getAlkaaPvm().toString(), 
+            lippu.getTapahtuma().getTapahtumapaikka().getPaikkaNimi(), 
+            lippu.getLipputyyppi().getLipputyyppiId().toString(), 
+            lippu.getLipputyyppi().getNimi(), String.format("%.2f", lippu.getHinta()), 
+            lippu.getTarkistuskoodi())
+        ).collect(Collectors.toList());
+    }
 }

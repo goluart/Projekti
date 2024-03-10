@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Rooli {
@@ -17,6 +18,7 @@ public class Rooli {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="rooli_id")
 	private Long rooliId;
+	@NotBlank(message = "Roolin nimi ei voi olla tyhjä")
 	@Column(name ="rooli_nimi")
 	private String rooliNimi;
 	
