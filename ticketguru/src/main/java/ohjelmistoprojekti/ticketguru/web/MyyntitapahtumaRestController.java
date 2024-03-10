@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,7 +61,7 @@ public class MyyntitapahtumaRestController {
     
     // Lisätään tietokantaan myyntitapahtuma ja luodaan jokainen myyntitapahtumassa myyty lippu
     @PostMapping
-    public ResponseEntity<?> luoMyyntitapahtuma(@RequestBody LuoMyyntitapahtumaDTO mtDto ) {  
+    public ResponseEntity<?> luoMyyntitapahtuma(@RequestBody @NonNull LuoMyyntitapahtumaDTO mtDto ) {  
         /* Hakee tapahtuman tietokannasta, käyttämällä tapahtumaId:tä POST-pyynnön Body'sta. Jos tapahtumaId:tä ei löydy palautetaan poikkeus  */ 
         Tapahtuma tapahtuma = tapahtumaRepository.findById(mtDto.getTapahtumaId())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa " + mtDto.getTapahtumaId() + " ei löydy"));
@@ -87,11 +88,5 @@ public class MyyntitapahtumaRestController {
         MyyntitapahtumaDTO myyntitapahtumaDto = myyntitapahtumaService.luoMyyntitapahtuma(mtDto);
         return ResponseEntity.ok(myyntitapahtumaDto);
     }
-
-
-
-
     
-
-
 }

@@ -2,11 +2,9 @@ package ohjelmistoprojekti.ticketguru.dto;
 
 import java.util.List;
 
-import jakarta.validation.constraints.NotNull;
 
 public class LuoMyyntitapahtumaDTO {
 
-    @NotNull
     private Long tapahtumaId;
     private List<LippuTyyppiMaaraDTO> lippuTyyppiMaarat;
 
@@ -25,9 +23,8 @@ public class LuoMyyntitapahtumaDTO {
 
     public static class LippuTyyppiMaaraDTO {
 
-        @NotNull
+
         private Long lipputyyppiId;
-        @NotNull
         private int lippuMaara;
         
         public Long getLipputyyppiId() {
