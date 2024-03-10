@@ -51,6 +51,11 @@
 			<artifactId>h2</artifactId>
 			<!-- versio poistettu -->
 		</dependency>
+		<!-- Validointi lisätty -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -60,17 +65,17 @@
 			</plugin>
 		</plugins>
 		<plugin>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <version>3.8.1</version>
-    <configuration>
-        <annotationProcessorPaths>
-            <!-- <path>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.8.1</version>
+			<configuration>
+				<annotationProcessorPaths>
+					<!-- <path>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>1.4.2.Final</version>
             </path> -->
-        </annotationProcessorPaths>
-    </configuration>
-</plugin>
+				</annotationProcessorPaths>
+			</configuration>
+		</plugin>
 	</build>
 </project>
