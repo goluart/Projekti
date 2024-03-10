@@ -14,17 +14,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Myyntitapahtuma {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotEmpty
+     @NotNull
     @Column(name = "myyntitapahtuma_id")
     private Long myyntitapahtumaId;
-    @NotEmpty
+     @NotBlank
     @Column(name = "myyntitapahtuma_pvm")
     private LocalDateTime myyntitapahtumaPvm;
 

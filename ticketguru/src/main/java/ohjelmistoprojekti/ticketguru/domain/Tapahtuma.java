@@ -19,6 +19,11 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Tapahtuma {
@@ -28,16 +33,21 @@ public class Tapahtuma {
     @Column(name = "tapahtuma_id")
     @NonNull
     private Long tapahtumaId;
+    @NotEmpty(message = "Tapahtuma tarvitsee nimen")
     @Column(name = "tapahtuma_nimi")
     private String tapahtumaNimi;
     @Column(name = "luonti_pvm")
     private ZonedDateTime luontiPvm;
+    @Future(message = "Tapahtumia voi luoda vain tulevaisuuten")
     @Column(name = "alkaa_pvm")
     private ZonedDateTime alkaaPvm;
+    @Future(message = "Tapahtumia voi luoda vain tulevaisuuteen")
     @Column(name = "paattyy_pvm")
     private ZonedDateTime paattyyPvm;
     private String kuvaus;
+    @Min(value = 1, message = "Myytäviä lippuja on oltava enemmän kuin 0")
     private int max_lippuja;
+    @Min(value = 1, message = "Anna tapahtuman lipuille perushinta")
     private double perushinta;
 
     // @JsonIgnore
@@ -81,13 +91,13 @@ public class Tapahtuma {
         this.luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
     }
 
-    public int getLippujaJaljella() {        
+    public int getLippujaJaljella() {
         return max_lippuja - liput.size();
     }
 
     public void addLipputyyppi(Lipputyyppi lipputyyppi) {
         this.lipputyypit.add(lipputyyppi);
-        lipputyyppi.getTapahtumat().add(this); 
+        lipputyyppi.getTapahtumat().add(this);
     }
 
     public void removeLipputyyppi(Lipputyyppi lipputyyppi) {
@@ -182,7 +192,7 @@ public class Tapahtuma {
     public void setLipputyypit(Set<Lipputyyppi> lipputyypit) {
         this.lipputyypit = lipputyypit;
     }
-    
+
     public int getMax_lippuja() {
         return max_lippuja;
     }
@@ -198,7 +208,5 @@ public class Tapahtuma {
                 + max_lippuja + ", perushinta=" + perushinta + ", tapahtumapaikka=" + tapahtumapaikka + ", jarjestaja="
                 + jarjestaja + "]";
     }
-
-    
 
 }

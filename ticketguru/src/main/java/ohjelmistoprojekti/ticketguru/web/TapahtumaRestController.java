@@ -1,5 +1,8 @@
 package ohjelmistoprojekti.ticketguru.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
-import java.util.Optional;
 
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
@@ -37,13 +38,15 @@ public class TapahtumaRestController {
     // Haetaan tapahtuma tunnisteen (tapahtumaId) avulla
     @GetMapping("/tapahtumat/{id}")
     public Optional<Tapahtuma> findTapahtumaById(@PathVariable("id") @NonNull Long tapahtumaId) {
+    	
         return tapahtumaRepository.findById(tapahtumaId);
     }
 
     // @NotNull lisätty virheilmoituksen perusteella
     @PostMapping("/tapahtumat")
-    Tapahtuma newTapahtuma(@RequestBody @NonNull Tapahtuma newTapahtuma) {
-        return tapahtumaRepository.save(newTapahtuma);
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Uusi tapahtuma luotu")
+    public Tapahtuma newTapahtuma(@RequestBody @NonNull Tapahtuma newTapahtuma) {        	
+    	return tapahtumaRepository.save(newTapahtuma);
     }
 
     // Poista tapahtuma, tapahtuma IDllä esim. "localhost:8080/tapahtumat/1"
@@ -76,7 +79,7 @@ public class TapahtumaRestController {
     // Etsi yksi tapahtuma muokkaamista varten
     // Muokkaa tunniteella yksilöityä tapahtumaa ja tallenna tehdyt muutokset
     @PutMapping("tapahtumat/{id}")
-    Tapahtuma editTapahtuma(@RequestBody Tapahtuma editedTapahtuma, @PathVariable Long id) {
+    public Tapahtuma editTapahtuma(@RequestBody Tapahtuma editedTapahtuma, @PathVariable Long id) {
         editedTapahtuma.setTapahtumaId(id);
         return tapahtumaRepository.save(editedTapahtuma);
 

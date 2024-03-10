@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,8 +23,8 @@ public class Yhteyshenkilo {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotEmpty
     @Column(name = "yht_hlo_id")
+    @NonNull
     private Long yhtHloId;
     @NotEmpty(message = "Anna etunimesi")
     private String etunimi;
@@ -32,7 +33,7 @@ public class Yhteyshenkilo {
     @NotEmpty(message = "Anna sähköpostiosoitteesi")
     private String sahkoposti;
     @NotEmpty(message = "Anna puhelinnumero")
-    @Pattern(regexp = "^[0-9+]", message = "Anna numero ilman välilyöntejä")
+    @Pattern(regexp = "[0-9]+", message = "Anna numero ilman välilyöntejä tai erikoismerkkejä")
     private String puhelin;
     @Size(max = 700, message = "Suurin sallittu merkkimäärä on 700")
     private String lisatieto;
