@@ -31,7 +31,7 @@ public class Myyntitapahtuma {
     @OneToMany(mappedBy = "myyntitapahtuma", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Column(name="myyntitapahtuma_id")
     private List<Lippu> liput = new ArrayList<>();
-
+    @NotNull
     private double loppusumma;
 
     public Myyntitapahtuma() {

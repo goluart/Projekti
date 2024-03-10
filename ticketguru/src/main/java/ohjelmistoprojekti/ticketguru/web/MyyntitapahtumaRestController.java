@@ -13,7 +13,6 @@ import ohjelmistoprojekti.ticketguru.dto.MyyntitapahtumaDTO;
 import ohjelmistoprojekti.ticketguru.service.MyyntitapahtumaService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,17 +60,30 @@ public class MyyntitapahtumaRestController {
     
     // Lisätään tietokantaan myyntitapahtuma ja luodaan jokainen myyntitapahtumassa myyty lippu
     @PostMapping
-    public ResponseEntity<?> luoMyyntitapahtuma(@RequestBody LuoMyyntitapahtumaDTO mtDto ) {    
-        Optional <Tapahtuma> tapahtumaOpt = tapahtumaRepository.findById(mtDto.getTapahtumaId());
-        if (!tapahtumaOpt.isPresent()) {
-            return ResponseEntity.badRequest().body("Tapahtumaa ei löydy");
-        }
-        // Tapahtuma tapahtuma = tapahtumaOpt.get();
+    public ResponseEntity<?> luoMyyntitapahtuma(@RequestBody LuoMyyntitapahtumaDTO mtDto ) {  
+        /* Hakee tapahtuman tietokannasta, käyttämällä tapahtumaId:tä POST-pyynnön Body'sta. Jos tapahtumaId:tä ei löydy palautetaan poikkeus  */ 
+        Tapahtuma tapahtuma = tapahtumaRepository.findById(mtDto.getTapahtumaId())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa " + mtDto.getTapahtumaId() + " ei löydy"));
+        /* Käydään läpi kaikki LuoMyyntitapahtumaDTO-objektin sisältämät LippuTyyppiMaaraDTO-objektit.
+        Jokainen  LippuTyyppiMaaraDTO sisältää tiedon yhdestä lipputyypistä ja siitä, kuinka monta lippua kyseisestä lipputyypistä halutaan ostaa.*/
         for (LuoMyyntitapahtumaDTO.LippuTyyppiMaaraDTO ltm : mtDto.getLippuTyyppiMaarat()) {
-            Lipputyyppi lipputyyppi = lipputyyppiRepository.findById(ltm.getLipputyyppiId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Lipputyyppiä ei löytynyt."));
+            // Tarkistetaan, että lipputyyppiId on määritelty
+            if (ltm.getLipputyyppiId() == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "LipputyyppiId on virheellinen");
+            }
+            /*Haetaan lipputyyppi tietokannasta käyttäen LippuTyyppiMaaraDTO:ssa määriteltyä lipputyyppiId:tä.
+            findById-metodi palauttaa Optional-objektin, joka voi sisältää Lipputyyppi-objektin tai olla tyhjä, jos lipputyyppiä ei löydy annetulla ID:llä.*/
+            Lipputyyppi lt = lipputyyppiRepository.findById(ltm.getLipputyyppiId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Lipputyyppiä " + ltm.getLipputyyppiId() + " ei löytynyt"));
+
+            /* Tarkistetaan, kuuluuko lipputyyppi kyseiseen tapahtumaan. Arvo False aiheuttaa poikkeuksen */
+            boolean kuuluuTapahtumaan = tapahtuma.getLipputyypit().contains(lt);
+            if (!kuuluuTapahtumaan) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lipputyypillä " + ltm.getLipputyyppiId() + " ei voi myydä tapahtumaan lippuja");
+            }
         }
 
+        // Luodaan myyntitapahtuma, jos ei poikkeuksia
         MyyntitapahtumaDTO myyntitapahtumaDto = myyntitapahtumaService.luoMyyntitapahtuma(mtDto);
         return ResponseEntity.ok(myyntitapahtumaDto);
     }

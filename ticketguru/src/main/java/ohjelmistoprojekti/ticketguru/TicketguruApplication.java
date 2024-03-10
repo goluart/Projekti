@@ -102,7 +102,7 @@ public class TicketguruApplication {
             Rooli hallinto = rooliRepository.save(new Rooli("Hallinto"));
 
             // Luodaan käyttäjät ja liitetään roolit
-            kayttajaRepository.save(new Kayttaja("makimat", "Salasana123%", "Mäkinen", "Matti", "Myyntialue", myyja));
+            kayttajaRepository.save(new Kayttaja("makimat", "Salasanat123%", "Mäkinen", "Matti", "Myyntialue", myyja));
             kayttajaRepository.save(new Kayttaja("virtvee", "Salasana456%", "Virtanen", "Veera", "Tarkastusaluella", lipuntarkastaja));
             kayttajaRepository.save(new Kayttaja("laaksolii", "Salasana789%", "Laaksonen", "Liisa", "Hallinnossa", hallinto));
 
