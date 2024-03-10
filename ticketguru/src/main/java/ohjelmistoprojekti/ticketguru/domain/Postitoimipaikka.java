@@ -16,80 +16,75 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Postitoimipaikka {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Column(name = "postinumero_id")
-    private Long postinumeroId;
-    private String postinumero;
-    private String kaupunki;
+	@Column(name = "postinumero_id")
+	private Long postinumeroId;
+	private String postinumero;
+	private String kaupunki;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postitoimipaikka")
-    @JsonIgnore
-    private Set<Jarjestaja> jarjestajat = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "postitoimipaikka")
+	@JsonIgnore
+	private Set<Jarjestaja> jarjestajat = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postitoimipaikka")
-    @JsonIgnore
-    private List<Tapahtumapaikka> tapahtumapaikat;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "postitoimipaikka")
+	@JsonIgnore
+	private List<Tapahtumapaikka> tapahtumapaikat;
 
-    public Postitoimipaikka(String postinumero, String kaupunki) {
-        super();
-        this.postinumero = postinumero;
-        this.kaupunki = kaupunki;
-    }
+	public Postitoimipaikka() {
+	}
 
-    public Postitoimipaikka() {
-        super();
-        this.postinumero = null;
-        this.kaupunki = null;
+	public Postitoimipaikka(String postinumero, String kaupunki) {
+		super();
+		this.postinumero = postinumero;
+		this.kaupunki = kaupunki;
+	}
 
-    }
+	public Long getPostinumeroId() {
+		return postinumeroId;
+	}
 
-    public Long getPostinumeroId() {
-        return postinumeroId;
-    }
+	public void setPostinumeroId(Long postinumeroId) {
+		this.postinumeroId = postinumeroId;
+	}
 
-    public void setPostinumeroId(Long postinumeroId) {
-        this.postinumeroId = postinumeroId;
-    }
+	public String getPostinumero() {
+		return postinumero;
+	}
 
-    public String getPostinumero() {
-        return postinumero;
-    }
+	public void setPostinumero(String postinumero) {
+		this.postinumero = postinumero;
+	}
 
-    public void setPostinumero(String postinumero) {
-        this.postinumero = postinumero;
-    }
+	public String getKaupunki() {
+		return kaupunki;
+	}
 
-    public String getKaupunki() {
-        return kaupunki;
-    }
+	public void setKaupunki(String kaupunki) {
+		this.kaupunki = kaupunki;
+	}
 
-    public void setKaupunki(String kaupunki) {
-        this.kaupunki = kaupunki;
-    }
+	public List<Tapahtumapaikka> getTapahtumapaikat() {
+		return tapahtumapaikat;
+	}
 
-    public List<Tapahtumapaikka> getTapahtumapaikat() {
-        return tapahtumapaikat;
-    }
+	public void setTapahtumapaikat(List<Tapahtumapaikka> tapahtumapaikat) {
+		this.tapahtumapaikat = tapahtumapaikat;
+	}
 
-    public void setTapahtumapaikat(List<Tapahtumapaikka> tapahtumapaikat) {
-        this.tapahtumapaikat = tapahtumapaikat;
-    }
+	public Set<Jarjestaja> getJarjestajat() {
+		return jarjestajat;
+	}
 
-    public Set<Jarjestaja> getJarjestajat() {
-        return jarjestajat;
-    }
+	public void setJarjestajat(Set<Jarjestaja> jarjestajat) {
+		this.jarjestajat = jarjestajat;
+	}
 
-    public void setJarjestajat(Set<Jarjestaja> jarjestajat) {
-        this.jarjestajat = jarjestajat;
-    }
-
-    @Override
-    public String toString() {
-        return "Postitoimipaikka [postinumeroId=" + postinumeroId + ", postinumero=" + postinumero + ", kaupunki="
-                + kaupunki + ", jarjestajat=" + jarjestajat + ", tapahtumapaikat=" + tapahtumapaikat + "]";
-    }
-
+	@Override
+	public String toString() {
+		return "Postitoimipaikka [postinumeroId=" + postinumeroId + ", postinumero=" + postinumero + ", kaupunki="
+				+ kaupunki + ", jarjestajat=" + jarjestajat + ", tapahtumapaikat=" + tapahtumapaikat + "]";
+	}
 
 }

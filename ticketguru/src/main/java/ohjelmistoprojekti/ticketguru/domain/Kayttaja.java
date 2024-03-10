@@ -30,7 +30,7 @@ public class Kayttaja {
 	private String enimi;
 	@Size(max = 500, message = "Lisätietojen maksimipituus on 500 merkkiä")
 	private String lisatiedot;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "rooli_id")
 	private Rooli rooli;

@@ -13,20 +13,20 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Rooli {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name ="rooli_id")
+	@Column(name = "rooli_id")
 	private Long rooliId;
 	@NotBlank(message = "Roolin nimi ei voi olla tyhjä")
-	@Column(name ="rooli_nimi")
+	@Column(name = "rooli_nimi")
 	private String rooliNimi;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rooli")
 	private List<Kayttaja> kayttajat;
-	
+
 	public Rooli() {
-		}
+	}
 
 	public Rooli(String rooliNimi) {
 		super();
