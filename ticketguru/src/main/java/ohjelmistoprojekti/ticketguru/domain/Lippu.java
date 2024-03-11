@@ -1,7 +1,6 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -12,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Lippu {
@@ -20,11 +21,11 @@ public class Lippu {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "lippu_id")
 	private Long lippuId;
+	@NotNull(message = "Lippu tarvitsee osto päivämäärän")
 	private LocalDateTime ostoPvm;
-	private Date alkuPvm;
-	private Date loppuPvm;
-	private Date kayttoPvm;
+	@NotBlank(message = "Lipussa on oltava tarkistuskoodi")
 	private String tarkistuskoodi;
+	@NotNull(message = "Lipussa ei ole hintaa")
 	private double hinta;
 
 	@ManyToOne
@@ -37,7 +38,7 @@ public class Lippu {
 	private Lipputyyppi lipputyyppi;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "myyntitapahtuma_id")
+	@JoinColumn(name = "myyntitapahtuma_id")
 	private Myyntitapahtuma myyntitapahtuma;
 
 	// Konstruktori
@@ -87,30 +88,6 @@ public class Lippu {
 		this.myyntitapahtuma = myyntitapahtuma;
 	}
 
-	public Date getAlkuPvm() {
-		return alkuPvm;
-	}
-
-	public void setAlkuPvm(Date alkuPvm) {
-		this.alkuPvm = alkuPvm;
-	}
-
-	public Date getLoppuPvm() {
-		return loppuPvm;
-	}
-
-	public void setLoppuPvm(Date loppuPvm) {
-		this.loppuPvm = loppuPvm;
-	}
-
-	public Date getKayttoPvm() {
-		return kayttoPvm;
-	}
-
-	public void setKayttoPvm(Date kayttoPvm) {
-		this.kayttoPvm = kayttoPvm;
-	}
-
 	public Tapahtuma getTapahtuma() {
 		return tapahtuma;
 	}
@@ -145,9 +122,9 @@ public class Lippu {
 
 	@Override
 	public String toString() {
-		return "Lippu [lippuId=" + lippuId + ", ostoPvm=" + ostoPvm + ", alkuPvm=" + alkuPvm + ", loppuPvm=" + loppuPvm
-				+ ", kayttoPvm=" + kayttoPvm + ", tarkistuskoodi=" + tarkistuskoodi + ", hinta=" + hinta
-				+ ", tapahtuma=" + tapahtuma + ", lipputyyppi=" + lipputyyppi + ", myyntitapahtuma=" + myyntitapahtuma
-				+ "]";
+		return "Lippu [lippuId=" + lippuId + ", ostoPvm=" + ostoPvm + ", tarkistuskoodi=" + tarkistuskoodi + ", hinta="
+				+ hinta + ", tapahtuma=" + tapahtuma + ", lipputyyppi=" + lipputyyppi + ", myyntitapahtuma="
+				+ myyntitapahtuma + "]";
 	}
+
 }

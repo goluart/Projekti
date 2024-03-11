@@ -11,6 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Asiakasryhma {
@@ -18,7 +20,10 @@ public class Asiakasryhma {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "asryh_id")
 	private Long asryhid;
+	@NotBlank(message = "Asiakasryhmän nimi ei saa olla tyhjä")
+	@Size(max = 20, message = "Asiakasryhmän nimen maksimipituus on 20 merkkiä")
 	private String nimi;
+	@Size(max = 100, message = "Kuvauksen maksimipituus on 100 merkkiä")
 	private String kuvaus;
 	// private boolean tarkista;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "asiakasryhma")

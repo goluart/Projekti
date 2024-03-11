@@ -68,8 +68,6 @@ public class TapahtumaRestController {
 	}
 
 	// Poista tapahtuma, tapahtuma IDllä esim. "localhost:8080/tapahtumat/1"
-	// Palautetaan "204 No Content" status koodi onnistuessa, sopivampi tilakoodi
-	// onnistuneille DELETE-pyynnöille, koska niitä resursseja ei enää ole olemassa.
 	@DeleteMapping("/tapahtumat/{id}")
 	public ResponseEntity<Void> deleteTapahtuma(@PathVariable("id") @NonNull Long tapahtumaId) {
 		Optional<Tapahtuma> tapahtumaOptional = tapahtumaRepository.findById(tapahtumaId);
