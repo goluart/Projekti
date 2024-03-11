@@ -19,34 +19,49 @@ public class TapahtumaService {
 
         // Set<Lipputyyppi> lipputyypit = tapahtuma.getLipputyypit();
         // List<TapahtumaLipputyyppiDto> ltDtot = lipputyypit.stream()
-        //     .map(lipputyyppi -> {
-        //         TapahtumaLipputyyppiDto ltDto = new TapahtumaLipputyyppiDto();
-        //         ltDto.setLipputyyppiId(lipputyyppi.getLipputyyppiId());
-        //         ltDto.setLipputyyppiNimi(lipputyyppi.getNimi());
-        //         ltDto.setAsiakasryhma(lipputyyppi.getAsiakasryhma().getNimi());
-        //         ltDto.setHintakerroin(lipputyyppi.getHintakerroin());
-        //         return ltDto;
-        //     }).collect(Collectors.toList());
+        // .map(lipputyyppi -> {
+        // TapahtumaLipputyyppiDto ltDto = new TapahtumaLipputyyppiDto();
+        // ltDto.setLipputyyppiId(lipputyyppi.getLipputyyppiId());
+        // ltDto.setLipputyyppiNimi(lipputyyppi.getNimi());
+        // ltDto.setAsiakasryhma(lipputyyppi.getAsiakasryhma().getNimi());
+        // ltDto.setHintakerroin(lipputyyppi.getHintakerroin());
+        // return ltDto;
+        // }).collect(Collectors.toList());
 
         // tDto.setLipputyypit(ltDtot);
         // tDto.setLippujaJaljella(tapahtuma.getLippujaJaljella());
 
-        // TapahtumaTapahtumapaikkaDTO tpDto = new TapahtumaTapahtumapaikkaDTO(tapahtuma.getTapahtumapaikka().getTapaikkaId(), tapahtuma.getTapahtumapaikka().getPaikkaNimi(), tapahtuma.getTapahtumapaikka().getOsoite(), tapahtuma.getTapahtumapaikka().getPostitoimipaikka().getKaupunki());
+        // TapahtumaTapahtumapaikkaDTO tpDto = new
+        // TapahtumaTapahtumapaikkaDTO(tapahtuma.getTapahtumapaikka().getTapaikkaId(),
+        // tapahtuma.getTapahtumapaikka().getPaikkaNimi(),
+        // tapahtuma.getTapahtumapaikka().getOsoite(),
+        // tapahtuma.getTapahtumapaikka().getPostitoimipaikka().getKaupunki());
         // tDto.setTapahtumapaikka(tpDto);
-        
-        // TapahtumaJarjestajaDTO jDto = new TapahtumaJarjestajaDTO(tapahtuma.getJarjestaja().getJarjestajaId(), tapahtuma.getJarjestaja().getNimi());
+
+        // TapahtumaJarjestajaDTO jDto = new
+        // TapahtumaJarjestajaDTO(tapahtuma.getJarjestaja().getJarjestajaId(),
+        // tapahtuma.getJarjestaja().getNimi());
 
         // tDto.setJarjestaja(jDto);
 
-        // TapahtumaDto tDto = new TapahtumaDto(tapahtuma.getTapahtumaId(), tapahtuma.getTapahtumaNimi(), tapahtuma.getKuvaus(), tapahtuma.getAlkaaPvm(), tapahtuma.getPaattyyPvm(), tapahtuma.getMax_lippuja(), tapahtuma.getLippujaJaljella(), tpDto, jDto, tapahtuma.getPerushinta(), ltDtot);
+        // TapahtumaDto tDto = new TapahtumaDto(tapahtuma.getTapahtumaId(),
+        // tapahtuma.getTapahtumaNimi(), tapahtuma.getKuvaus(), tapahtuma.getAlkaaPvm(),
+        // tapahtuma.getPaattyyPvm(), tapahtuma.getMax_lippuja(),
+        // tapahtuma.getLippujaJaljella(), tpDto, jDto, tapahtuma.getPerushinta(),
+        // ltDtot);
 
-        TapahtumaDto tDto = new TapahtumaDto(tapahtuma.getTapahtumaId(), tapahtuma.getTapahtumaNimi(), tapahtuma.getKuvaus(), tapahtuma.getAlkaaPvm(), tapahtuma.getPaattyyPvm(), tapahtuma.getMax_lippuja(), tapahtuma.getLippujaJaljella(), muunnaPaikka(tapahtuma.getTapahtumapaikka()), muunnaJarjestaja(tapahtuma.getJarjestaja()), tapahtuma.getPerushinta(), muunnaLipputyyppiLista(tapahtuma.getLipputyypit()));
+        TapahtumaDto tDto = new TapahtumaDto(tapahtuma.getTapahtumaId(), tapahtuma.getTapahtumaNimi(),
+                tapahtuma.getKuvaus(), tapahtuma.getAlkaaPvm(), tapahtuma.getPaattyyPvm(), tapahtuma.getMax_lippuja(),
+                tapahtuma.getLippujaJaljella(), muunnaPaikka(tapahtuma.getTapahtumapaikka()),
+                muunnaJarjestaja(tapahtuma.getJarjestaja()), tapahtuma.getPerushinta(),
+                muunnaLipputyyppiLista(tapahtuma.getLipputyypit()));
 
         return tDto;
     }
 
     private TapahtumaDto.PaikkaDTO muunnaPaikka(Tapahtumapaikka paikka) {
-        return new TapahtumaDto.PaikkaDTO(paikka.getTapaikkaId(), paikka.getPaikkaNimi(), paikka.getOsoite(), paikka.getPostitoimipaikka().getKaupunki());
+        return new TapahtumaDto.PaikkaDTO(paikka.getTapaikkaId(), paikka.getPaikkaNimi(), paikka.getOsoite(),
+                paikka.getPostitoimipaikka().getKaupunki());
 
     }
 
@@ -57,10 +72,11 @@ public class TapahtumaService {
     private List<TapahtumaDto.LipputyyppiDto> muunnaLipputyyppiLista(Set<Lipputyyppi> lipputyypit) {
         return lipputyypit.stream()
                 .map(lipputyyppi -> new TapahtumaDto.LipputyyppiDto(
-                    lipputyyppi.getLipputyyppiId(), 
-                    lipputyyppi.getNimi(), 
-                    lipputyyppi.getAsiakasryhma().getNimi(), 
-                    lipputyyppi.getHintakerroin())
-                ).collect(Collectors.toList());
+                        lipputyyppi.getLipputyyppiId(),
+                        lipputyyppi.getNimi(),
+                        lipputyyppi.getAsiakasryhma().getNimi(),
+                        lipputyyppi.getHintakerroin()))
+                .collect(Collectors.toList());
     }
+
 }

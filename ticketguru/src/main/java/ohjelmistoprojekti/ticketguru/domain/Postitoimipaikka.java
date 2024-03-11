@@ -12,6 +12,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Postitoimipaikka {
@@ -21,7 +24,9 @@ public class Postitoimipaikka {
 
 	@Column(name = "postinumero_id")
 	private Long postinumeroId;
+	@Pattern(regexp = "[0-9]+", message = "Anna numero ilman välilyöntejä tai erikoismerkkejä")
 	private String postinumero;
+	@NotEmpty(message = "Syötä kaupungin nimi")
 	private String kaupunki;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "postitoimipaikka")

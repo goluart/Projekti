@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import jakarta.validation.Valid;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
 import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto;
@@ -61,8 +62,9 @@ public class TapahtumaRestController {
 	// @NotNull lisätty virheilmoituksen perusteella
 	@PostMapping("/tapahtumat")
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Uusi tapahtuma luotu")
-	public Tapahtuma newTapahtuma(@RequestBody @NonNull Tapahtuma newTapahtuma) {
+	public Tapahtuma newTapahtuma(@RequestBody @Valid @NonNull Tapahtuma newTapahtuma) {
 		return tapahtumaRepository.save(newTapahtuma);
+
 	}
 
 	// Poista tapahtuma, tapahtuma IDllä esim. "localhost:8080/tapahtumat/1"
@@ -94,13 +96,12 @@ public class TapahtumaRestController {
 	// Muokkaa tunniteella yksilöityä tapahtumaa ja tallenna tehdyt muutokset
 	@PutMapping("tapahtumat/{id}")
 	public ResponseEntity<Tapahtuma> editTapahtuma(@PathVariable Long id,
-			@RequestBody Tapahtuma tapahtumanTiedot) {
+			@RequestBody @Valid Tapahtuma tapahtumanTiedot) {
 		@SuppressWarnings("null")
 		Tapahtuma editTapahtuma = tapahtumaRepository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException( // 404 virhekoodin käsittely
 						HttpStatus.NOT_FOUND,
 						"Tapahtumaa " + id + " ei voi muokata, koska sitä ei ole olemassa"));
-
 		editTapahtuma.setTapahtumaId(tapahtumanTiedot.getTapahtumaId());
 		tapahtumaRepository.save(tapahtumanTiedot);
 
