@@ -40,6 +40,7 @@ public class Tapahtuma {
 	@Future(message = "Tapahtumia voi luoda vain tulevaisuuteen")
 	@Column(name = "paattyy_pvm")
 	private ZonedDateTime paattyyPvm;
+	@NotEmpty(message = "Kuvaile tapahtumaa, jotta asiakkaat näkevät millaisesta tapahtumasta on kyse")
 	private String kuvaus;
 	@Min(value = 1, message = "Myytäviä lippuja on oltava enemmän kuin 0")
 	private int max_lippuja;
@@ -68,8 +69,8 @@ public class Tapahtuma {
 	private Set<Lipputyyppi> lipputyypit = new HashSet<Lipputyyppi>();
 
 	public Tapahtuma() {
-        super();
-        luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
+		super();
+		luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
 	}
 
 	public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm, String kuvaus,
