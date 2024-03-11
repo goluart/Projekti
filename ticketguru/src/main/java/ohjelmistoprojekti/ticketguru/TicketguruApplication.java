@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -78,13 +79,13 @@ public class TicketguruApplication {
             Asiakasryhma elakelainen = asryhRepository.save(new Asiakasryhma("Elakelainen", "Eläkkeellä olevat henkilöt"));
             Asiakasryhma tyoton = asryhRepository.save(new Asiakasryhma("Tyoton", "Työttömät henkilöt"));
 			
-            Lipputyyppi normaali = lipputyyppiRepository.save(new Lipputyyppi("Aikuinen", 1.0, aikuinen)); 
+            Lipputyyppi normaali = lipputyyppiRepository.save(new Lipputyyppi("Aikuinen", 0.5, aikuinen)); 
             Lipputyyppi lapsi5 = lipputyyppiRepository.save(new Lipputyyppi("Lapsi", 0.5, lapsi)); 
             Lipputyyppi elakelainen3 = lipputyyppiRepository.save(new Lipputyyppi("Eläkeläinen", 0.7, elakelainen)); 
 
             Set<Lipputyyppi> lipputyypit = new HashSet<>();
             lipputyypit.add(normaali);
-            lipputyypit.add(lapsi5);
+            // lipputyypit.add(lapsi5);
             lipputyypit.add(elakelainen3);
 
             // Luodaan tapahtumia
@@ -92,42 +93,36 @@ public class TicketguruApplication {
 			tapahtumaRepository.save(new Tapahtuma("Jazz-ilta", ZonedDateTime.of(LocalDateTime.of(2024, 4, 20, 21, 30), ZoneId.of("Europe/Helsinki")), ZonedDateTime.of(LocalDateTime.of(2024, 4, 21, 02, 0), ZoneId.of("Europe/Helsinki")), "Nauti rennosta jazz-musiikista", 40.00, paikka2, jarjestaja2, lipputyypit, 70));
         	tapahtumaRepository.save(new Tapahtuma("Stand-up show", ZonedDateTime.of(LocalDateTime.of(2024, 5, 15, 18, 0), ZoneId.of("Europe/Helsinki")), ZonedDateTime.of(LocalDateTime.of(2024, 5, 15, 22, 0), ZoneId.of("Europe/Helsinki")), "Naurua koko illaksi", 35.00, paikka3, jarjestaja3, lipputyypit, 150));
 
-            tapahtuma.addLipputyyppi(normaali);
-            tapahtuma.addLipputyyppi(lapsi5);
-            tapahtuma.addLipputyyppi(elakelainen3);
-
             // Luodaan roolit
             Rooli myyja = rooliRepository.save(new Rooli("Myyjä"));
             Rooli lipuntarkastaja = rooliRepository.save(new Rooli("Lipuntarkastaja"));
             Rooli hallinto = rooliRepository.save(new Rooli("Hallinto"));
 
             // Luodaan käyttäjät ja liitetään roolit
-            kayttajaRepository.save(new Kayttaja("salasana123", "Mäkinen", "Matti", "Myyntialue", myyja));
-            kayttajaRepository.save(new Kayttaja("salasana456", "Virtanen", "Veera", "Tarkastusaluella", lipuntarkastaja));
-            kayttajaRepository.save(new Kayttaja("salasana789", "Laaksonen", "Liisa", "Hallinnossa", hallinto));
+            kayttajaRepository.save(new Kayttaja("makimat", "Salasanat123%", "Mäkinen", "Matti", "Myyntialue", myyja));
+            kayttajaRepository.save(new Kayttaja("virtvee", "Salasana456%", "Virtanen", "Veera", "Tarkastusaluella", lipuntarkastaja));
+            kayttajaRepository.save(new Kayttaja("laaksolii", "Salasana789%", "Laaksonen", "Liisa", "Hallinnossa", hallinto));
 
-            // Luodaan myyntitapahtumia
-            Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now());
+            // Alustetaan myyntitapahtuma
+            Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now(), 0.1);
             myyntitapahtumaRepository.save(myyntitapahtuma);
-            myyntitapahtuma.setLoppusumma(135.00);
-            myyntitapahtumaRepository.save(myyntitapahtuma);
+            
+            List<Lippu> myydytLiput = new ArrayList<>();
 
-            // myyntitapahtumaRepository.save(new Myyntitapahtuma(LocalDateTime.now()));
-            // myyntitapahtumaRepository.save(new Myyntitapahtuma(LocalDateTime.now()));
-            // myyntitapahtumaRepository.save(new Myyntitapahtuma(LocalDateTime.now()));
-
-            Lippu lippu1 = new Lippu(tapahtuma, normaali, myyntitapahtuma, 60.00 );
-            Lippu lippu2 = new Lippu(tapahtuma, lapsi5, myyntitapahtuma, 30.00 );
-            Lippu lippu3 = new Lippu(tapahtuma, elakelainen3, myyntitapahtuma, 45.00 );
+            Lippu lippu1 = new Lippu(tapahtuma, myyntitapahtuma, normaali, 60.00 );
+            Lippu lippu2 = new Lippu(tapahtuma, myyntitapahtuma, lapsi5, 30.00 );
+            Lippu lippu3 = new Lippu(tapahtuma, myyntitapahtuma, elakelainen3, 45.00 );
             lippuRepository.save(lippu1);
             lippuRepository.save(lippu2);
             lippuRepository.save(lippu3);
-
-
-
+            myydytLiput.add(lippu1);
+            myydytLiput.add(lippu2);
+            myydytLiput.add(lippu3);
             
-
-
+            // Viimeistellään myyntitapahtuma
+            myyntitapahtuma.setLiput(myydytLiput);
+            myyntitapahtuma.setLoppusumma(135.0);
+            myyntitapahtumaRepository.save(myyntitapahtuma);
         };
     }
 }

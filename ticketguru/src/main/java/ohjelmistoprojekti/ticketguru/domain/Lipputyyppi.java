@@ -13,83 +13,85 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Lipputyyppi {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lipputyyppi_id")
-    private Long lipputyyppiId;
-    private String nimi;
-    private double hintakerroin;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "lipputyypit")
-    private Set<Tapahtuma> tapahtumat = new HashSet<>();
-    
-    // Tuodaan Asiakasryhmä luokka tänne
-    @ManyToOne
-    @JoinColumn(name = "asryh_id")
-    private Asiakasryhma asiakasryhma;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "lipputyyppi_id")
+	private Long lipputyyppiId;
+	@NotBlank(message = "Lipputyyppi tarvitsee nimen")
+	@Size(max = 20, message = "Lipputyypin nimen maksimipituus on 20 merkkiä")
+	private String nimi;
+	@NotNull(message = "Lipputyyppin hintakerroin ei saa olla 0")
+	private double hintakerroin;
+	@JsonIgnore
+	@ManyToMany(mappedBy = "lipputyypit")
+	private Set<Tapahtuma> tapahtumat = new HashSet<>();
 
-    public Lipputyyppi() {
-        super();
-    }
-    
-    // Konstruktori
-    public Lipputyyppi(String nimi, Double hintakerroin, Asiakasryhma asiakasryhma) {
-        this.nimi = nimi;
-        this.hintakerroin = hintakerroin;
-        this.asiakasryhma = asiakasryhma;
-    }
-    
-    public Long getLipputyyppiId() {
-        return lipputyyppiId;
-    }
+	// Tuodaan Asiakasryhmä luokka tänne
+	@ManyToOne
+	@JoinColumn(name = "asryh_id")
+	private Asiakasryhma asiakasryhma;
 
-    public void setLipputyyppiId(Long lipputyyppiId) {
-        this.lipputyyppiId = lipputyyppiId;
-    }
+	public Lipputyyppi() {
+	}
 
-    public Set<Tapahtuma> getTapahtumat() {
-        return tapahtumat;
-    }
+	// Konstruktori
+	public Lipputyyppi(String nimi, Double hintakerroin, Asiakasryhma asiakasryhma) {
+		this.nimi = nimi;
+		this.hintakerroin = hintakerroin;
+		this.asiakasryhma = asiakasryhma;
+	}
 
-    public void setTapahtumat(Set<Tapahtuma> tapahtumat) {
-        this.tapahtumat = tapahtumat;
-    }    
-    
-    public Asiakasryhma getAsiakasryhma() {
-        return asiakasryhma;
-    }
-    
-    public void setAsiakasryhma(Asiakasryhma asiakasryhma) {
-        this.asiakasryhma = asiakasryhma;
-    }
+	public Long getLipputyyppiId() {
+		return lipputyyppiId;
+	}
 
-    public String getNimi() {
-        return nimi;
-    }
+	public void setLipputyyppiId(Long lipputyyppiId) {
+		this.lipputyyppiId = lipputyyppiId;
+	}
 
-    public void setNimi(String nimi) {
-        this.nimi = nimi;
-    }
+	public Set<Tapahtuma> getTapahtumat() {
+		return tapahtumat;
+	}
 
-    public double getHintakerroin() {
-        return hintakerroin;
-    }
+	public void setTapahtumat(Set<Tapahtuma> tapahtumat) {
+		this.tapahtumat = tapahtumat;
+	}
 
-    public void setHintakerroin(double hintakerroin) {
-        this.hintakerroin = hintakerroin;
-    }
-    
+	public Asiakasryhma getAsiakasryhma() {
+		return asiakasryhma;
+	}
 
-    // toString
-    @Override
-    public String toString() {
-        return "Lipputyyppi [id=" + lipputyyppiId + ", nimi=" + nimi + ", hintakerroin=" + hintakerroin
-                + ", asiakasryhma="
-                + asiakasryhma + "]";
-    }
+	public void setAsiakasryhma(Asiakasryhma asiakasryhma) {
+		this.asiakasryhma = asiakasryhma;
+	}
 
+	public String getNimi() {
+		return nimi;
+	}
+
+	public void setNimi(String nimi) {
+		this.nimi = nimi;
+	}
+
+	public double getHintakerroin() {
+		return hintakerroin;
+	}
+
+	public void setHintakerroin(double hintakerroin) {
+		this.hintakerroin = hintakerroin;
+	}
+
+	// toString
+	@Override
+	public String toString() {
+		return "Lipputyyppi [id=" + lipputyyppiId + ", nimi=" + nimi + ", hintakerroin=" + hintakerroin
+				+ ", asiakasryhma=" + asiakasryhma + "]";
+	}
 
 }

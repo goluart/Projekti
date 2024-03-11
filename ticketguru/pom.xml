@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.2</version>
+		<version>3.2.3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ohjelmistoprojekti</groupId>
@@ -21,7 +21,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
-			<version>3.2.3</version>
 		</dependency>
 		<!-- Thymeleaf dependence otettu pois, aiheutti testauksessa välillä
 		virheitä -->
@@ -51,6 +50,11 @@
 			<artifactId>h2</artifactId>
 			<!-- versio poistettu -->
 		</dependency>
+		<!-- Validointi lisätty -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -60,17 +64,17 @@
 			</plugin>
 		</plugins>
 		<plugin>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <version>3.8.1</version>
-    <configuration>
-        <annotationProcessorPaths>
-            <!-- <path>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.8.1</version>
+			<configuration>
+				<annotationProcessorPaths>
+					<!-- <path>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>1.4.2.Final</version>
             </path> -->
-        </annotationProcessorPaths>
-    </configuration>
-</plugin>
+				</annotationProcessorPaths>
+			</configuration>
+		</plugin>
 	</build>
 </project>
