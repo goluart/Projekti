@@ -133,7 +133,7 @@ LippuTyyppiMaarat on lista objekteja.
     "timestamp": "2024-03-11T14:54:31.574+00:00",
     "status": 400,
     "error": "Bad Request",
-    "message": "Ei tarpeeksi lippuja jäljellä (70)",
+    "message": "Lippujen määrä ylittää jäljellä olevien lippujen määrän (70)",
     "path": "/myyntitapahtumat"
 }
 ```

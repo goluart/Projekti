@@ -46,7 +46,7 @@ public class MyyntitapahtumaService {
 
         // Tarkistetaan, onko riittävästi lippuja jäljellä haluttu määrä
             if (tapahtuma.getLippujaJaljella() < lippujaYht) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ei tarpeeksi lippuja jäljellä (" + tapahtuma.getLippujaJaljella() +")");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lippujen määrä ylittää jäljellä olevien lippujen määrän (" + tapahtuma.getLippujaJaljella() +")");
             }
         // Alustetaan uusi myyntitapahtuma ja tallennetaan se tietokantaan (tämä tarvitaan, jotta myyntitapahtuman voi liittää lippuhin)
         Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now(), 0.1);
