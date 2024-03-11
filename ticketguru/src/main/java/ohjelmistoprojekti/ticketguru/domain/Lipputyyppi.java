@@ -13,6 +13,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Lipputyyppi {
@@ -20,7 +23,10 @@ public class Lipputyyppi {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "lipputyyppi_id")
 	private Long lipputyyppiId;
+	@NotBlank(message = "Lipputyyppi tarvitsee nimen")
+	@Size(max = 20, message = "Lipputyypin nimen maksimipituus on 20 merkkiä")
 	private String nimi;
+	@NotNull(message = "Lipputyyppin hintakerroin ei saa olla 0")
 	private double hintakerroin;
 	@JsonIgnore
 	@ManyToMany(mappedBy = "lipputyypit")
