@@ -151,14 +151,16 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
 **Koodi**: `404 Not Found`
 
-**Sisältö**: null
-
-### Tai
-**Ehto**: Jos tapahtuman haku epäonnistuu muusta syystä.
-
-**Koodi**: `500 Internal Server Error`
-
 **Sisältö**: 
+```json
+{
+    "timestamp": "2024-03-11T14:18:26.543+00:00",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Tapahtumaa 10 ei löytynyt.",
+    "path": "/tapahtumat/10"
+}
+```
 
 ## Huomautukset
 Varmista, että käytät oikeaa tapahtumaId-arvoa tapahtuman tietojen hakemiseen.
