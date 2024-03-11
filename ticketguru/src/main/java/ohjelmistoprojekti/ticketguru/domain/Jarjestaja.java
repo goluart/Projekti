@@ -12,6 +12,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+
 import java.util.List;
 
 @Entity
@@ -21,8 +24,11 @@ public class Jarjestaja {
 
 	@Column(name = "jarjestaja_id")
 	private Long jarjestajaId;
+	@NotEmpty(message = "Anna järjestäjän nimi")
 	private String nimi;
+	@Pattern(regexp = "[y-y]*-[0-9]+", message = "Anna y-tunnus")
 	private String ytunnus;
+	@NotEmpty(message = "Anna järjestäjän katuosoite")
 	private String osoite;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "jarjestaja")

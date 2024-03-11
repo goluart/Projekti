@@ -17,13 +17,18 @@ public class TapahtumaService {
 
     public TapahtumaDto naytaTapahtumaDto(Tapahtuma tapahtuma) {
 
-        TapahtumaDto tDto = new TapahtumaDto(tapahtuma.getTapahtumaId(), tapahtuma.getTapahtumaNimi(), tapahtuma.getKuvaus(), tapahtuma.getAlkaaPvm(), tapahtuma.getPaattyyPvm(), tapahtuma.getMax_lippuja(), tapahtuma.getLippujaJaljella(), muunnaPaikka(tapahtuma.getTapahtumapaikka()), muunnaJarjestaja(tapahtuma.getJarjestaja()), tapahtuma.getPerushinta(), muunnaLipputyyppiLista(tapahtuma.getLipputyypit()));
+        TapahtumaDto tDto = new TapahtumaDto(tapahtuma.getTapahtumaId(), tapahtuma.getTapahtumaNimi(),
+                tapahtuma.getKuvaus(), tapahtuma.getAlkaaPvm(), tapahtuma.getPaattyyPvm(), tapahtuma.getMax_lippuja(),
+                tapahtuma.getLippujaJaljella(), muunnaPaikka(tapahtuma.getTapahtumapaikka()),
+                muunnaJarjestaja(tapahtuma.getJarjestaja()), tapahtuma.getPerushinta(),
+                muunnaLipputyyppiLista(tapahtuma.getLipputyypit()));
 
         return tDto;
     }
 
     private TapahtumaDto.PaikkaDTO muunnaPaikka(Tapahtumapaikka paikka) {
-        return new TapahtumaDto.PaikkaDTO(paikka.getTapaikkaId(), paikka.getPaikkaNimi(), paikka.getOsoite(), paikka.getPostitoimipaikka().getKaupunki());
+        return new TapahtumaDto.PaikkaDTO(paikka.getTapaikkaId(), paikka.getPaikkaNimi(), paikka.getOsoite(),
+                paikka.getPostitoimipaikka().getKaupunki());
 
     }
 
@@ -34,10 +39,11 @@ public class TapahtumaService {
     private List<TapahtumaDto.LipputyyppiDto> muunnaLipputyyppiLista(Set<Lipputyyppi> lipputyypit) {
         return lipputyypit.stream()
                 .map(lipputyyppi -> new TapahtumaDto.LipputyyppiDto(
-                    lipputyyppi.getLipputyyppiId(), 
-                    lipputyyppi.getNimi(), 
-                    lipputyyppi.getAsiakasryhma().getNimi(), 
-                    lipputyyppi.getHintakerroin())
-                ).collect(Collectors.toList());
+                        lipputyyppi.getLipputyyppiId(),
+                        lipputyyppi.getNimi(),
+                        lipputyyppi.getAsiakasryhma().getNimi(),
+                        lipputyyppi.getHintakerroin()))
+                .collect(Collectors.toList());
     }
+
 }
