@@ -64,7 +64,7 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 }
 ```
 ## Virhevastaukset
-**Ehto**: Pyynnön sisältö oli viallinen.
+**Ehto**: Pyynnön sisältö oli viallinen. Pyynnöstä puuttu pakollisia attribuutteja tai ne eivät vastaa pyydettyä muotoa.
 
 **Koodi**: 400 Bad Request
 
