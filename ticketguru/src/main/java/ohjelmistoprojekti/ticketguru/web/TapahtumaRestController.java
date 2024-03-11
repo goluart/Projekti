@@ -28,10 +28,10 @@ import ohjelmistoprojekti.ticketguru.service.TapahtumaService;
 @RestController
 public class TapahtumaRestController {
 
-    @Autowired
-    private TapahtumaRepository tapahtumaRepository;
-    @Autowired
-    private TapahtumaService tapahtumaService;
+	@Autowired
+	private TapahtumaRepository tapahtumaRepository;
+	@Autowired
+	private TapahtumaService tapahtumaService;
 
 	// Haetaan kaikki järjestelmän tapahtumat
 	// Muutettu @RequestMapping @GetMapping muotoon
@@ -42,9 +42,9 @@ public class TapahtumaRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumia ei löytynyt.");
 		}
 		List<TapahtumaDto> tapatumaDtot = tapahtumaRepository.findAll().stream()
-            .map(tapahtuma -> tapahtumaService.naytaTapahtumaDto(tapahtuma))
-            .collect(Collectors.toList());
-        return ResponseEntity.ok(tapatumaDtot);
+				.map(tapahtuma -> tapahtumaService.naytaTapahtumaDto(tapahtuma))
+				.collect(Collectors.toList());
+		return ResponseEntity.ok(tapatumaDtot);
 
 	}
 
@@ -93,8 +93,17 @@ public class TapahtumaRestController {
 	// Etsi yksi tapahtuma muokkaamista varten
 	// Muokkaa tunniteella yksilöityä tapahtumaa ja tallenna tehdyt muutokset
 	@PutMapping("tapahtumat/{id}")
-	public Tapahtuma editTapahtuma(@RequestBody Tapahtuma editedTapahtuma, @PathVariable Long id) {
-		editedTapahtuma.setTapahtumaId(id);
-		return tapahtumaRepository.save(editedTapahtuma);
+	public ResponseEntity<Tapahtuma> editTapahtuma(@PathVariable Long id,
+			@RequestBody Tapahtuma tapahtumanTiedot) {
+		@SuppressWarnings("null")
+		Tapahtuma editTapahtuma = tapahtumaRepository.findById(id)
+				.orElseThrow(() -> new ResponseStatusException( // 404 virhekoodin käsittely
+						HttpStatus.NOT_FOUND,
+						"Tapahtumaa " + id + " ei voi muokata, koska sitä ei ole olemassa"));
+
+		editTapahtuma.setTapahtumaId(tapahtumanTiedot.getTapahtumaId());
+		tapahtumaRepository.save(tapahtumanTiedot);
+
+		return ResponseEntity.ok(editTapahtuma);
 	}
 }
