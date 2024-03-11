@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.transaction.Transactional;
 import ohjelmistoprojekti.ticketguru.domain.Lippu;
@@ -44,7 +46,7 @@ public class MyyntitapahtumaService {
 
         // Tarkistetaan, onko riittävästi lippuja jäljellä haluttu määrä
             if (tapahtuma.getLippujaJaljella() < lippujaYht) {
-                throw new IllegalStateException("Ei tarpeeksi lippuja jäljellä (" + tapahtuma.getLippujaJaljella() +")");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ei tarpeeksi lippuja jäljellä (" + tapahtuma.getLippujaJaljella() +")");
             }
         // Alustetaan uusi myyntitapahtuma ja tallennetaan se tietokantaan (tämä tarvitaan, jotta myyntitapahtuman voi liittää lippuhin)
         Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now(), 0.1);

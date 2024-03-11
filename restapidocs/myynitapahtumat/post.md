@@ -26,6 +26,7 @@ Luo uusi myyntitapahtuja ja tapahtumassa myydyt liput
   ]
 }
 ```
+LippuTyyppiMaarat on lista objekteja.
 
 ## Onnistunut Vastaus
 **Ehto**: Tapahtumaan on jäljellä haluttu määrä lippuja, `tapahtumaId` ja `lipputyyppiId` ovat olemassa
@@ -71,48 +72,69 @@ Luo uusi myyntitapahtuja ja tapahtumassa myydyt liput
     ]
 }
 ```
+
 ## Virhevastaukset
-**Ehto**: Jos pyynnössä tyyppivirhe
+**Ehto**: Jos tapahtumaa ei löydy tietokannasta annetulla id:llä
+
+**Koodi**: `404 Not Found`
+
+**Sisältö**: 
+
+```json
+{
+    "timestamp": "2024-03-11T14:41:50.743+00:00",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Tapahtumaa 10 ei löydy",
+    "path": "/myyntitapahtumat"
+}
+```
+
+### Tai
+
+**Ehto**: Jos lipputyyppi on olemassa, mutta sitä ei ole liitetty tapahtumaan
 
 **Koodi**: `400 Bad Request`
 
 **Sisältö**: 
-
 ```json
 {
-    "timestamp": "2024-03-03T20:19:38.978+00:00",
+    "timestamp": "2024-03-11T14:45:36.092+00:00",
     "status": 400,
     "error": "Bad Request",
-    "message": "JSON parse error: Cannot deserialize value of type `java.util.ArrayList<ohjelmistoprojekti.ticketguru.dto.LippuTyyppiMaaraDTO>` from Object value (token `JsonToken.START_OBJECT`)",
-    "path": "/myyntitapahtuma"
+    "message": "Lipputyypillä 2 ei voi myydä tapahtumaan lippuja",
+    "path": "/myyntitapahtumat"
 }
 ```
-LippuTyyppiMaarat on lista objekteja.
-
 ### Tai
-**Ehto**: Jos lippuja myydään enemmän kuin niitä on jäljellä, tapahtumaa tai lipputyyppiä ei löydy
 
-**Koodi**: `500 Internal Server Error`
+**Ehto**: Jos lipputyyppiä ei ole olemassa
+**Koodi**: `404 Not Found`
 
 **Sisältö**: 
 ```json
-
 {
-    "timestamp": "2024-03-03T19:50:27.006+00:00",
-    "status": 500,
-    "error": "Internal Server Error",
-    "message": "Ei tarpeeksi lippuja jäljellä (67)",
-    "path": "/myyntitapahtuma"
+    "timestamp": "2024-03-11T14:48:09.798+00:00",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Lipputyyppiä 1500 ei löytynyt",
+    "path": "/myyntitapahtumat"
 }
 ```
+### Tai
 
+**Ehto**: Jos lippuja on pyynnössä enemmän kuin niitä on jäljellä
+
+**Koodi**: `400 Bad Request`
+
+**Sisältö**: 
 ```json
 {
-    "timestamp": "2024-03-03T20:16:51.547+00:00",
-    "status": 500,
-    "error": "Internal Server Error",
-    "message": "Lipputyyppiä ei löydy",
-    "path": "/myyntitapahtuma"
+    "timestamp": "2024-03-11T14:54:31.574+00:00",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Ei tarpeeksi lippuja jäljellä (70)",
+    "path": "/myyntitapahtumat"
 }
 ```
 

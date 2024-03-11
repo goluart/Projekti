@@ -26,7 +26,7 @@ public class Jarjestaja {
 	private Long jarjestajaId;
 	@NotEmpty(message = "Anna järjestäjän nimi")
 	private String nimi;
-	@Pattern(regexp = "[y-y]*-[0-9]+", message = "Anna y-tunnus")
+	@Pattern(regexp = "^[0-9]{7}-[0-9]$", message = "Anna y-tunnus")
 	private String ytunnus;
 	@NotEmpty(message = "Anna järjestäjän katuosoite")
 	private String osoite;
