@@ -33,21 +33,16 @@ public class Tapahtuma {
     @Column(name = "tapahtuma_id")
     @NonNull
     private Long tapahtumaId;
-    @NotEmpty(message = "Tapahtuma tarvitsee nimen")
     @Column(name = "tapahtuma_nimi")
     private String tapahtumaNimi;
     @Column(name = "luonti_pvm")
     private ZonedDateTime luontiPvm;
-    @Future(message = "Tapahtumia voi luoda vain tulevaisuuten")
     @Column(name = "alkaa_pvm")
     private ZonedDateTime alkaaPvm;
-    @Future(message = "Tapahtumia voi luoda vain tulevaisuuteen")
     @Column(name = "paattyy_pvm")
     private ZonedDateTime paattyyPvm;
     private String kuvaus;
-    @Min(value = 1, message = "Myytäviä lippuja on oltava enemmän kuin 0")
     private int max_lippuja;
-    @Min(value = 1, message = "Anna tapahtuman lipuille perushinta")
     private double perushinta;
 
     // @JsonIgnore
@@ -74,6 +69,18 @@ public class Tapahtuma {
     public Tapahtuma() {
         super();
         luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
+    }
+
+    public Tapahtuma(String tapahtumaNimi, ZonedDateTime luontiPvm, ZonedDateTime alkaaPvm,
+            ZonedDateTime paattyyPvm, String kuvaus, int max_lippuja, double perushinta) {
+        super();
+        this.tapahtumaNimi = tapahtumaNimi;
+        this.luontiPvm = luontiPvm;
+        this.alkaaPvm = alkaaPvm;
+        this.paattyyPvm = paattyyPvm;
+        this.kuvaus = kuvaus;
+        this.max_lippuja = max_lippuja;
+        this.perushinta = perushinta;
     }
 
     public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm,

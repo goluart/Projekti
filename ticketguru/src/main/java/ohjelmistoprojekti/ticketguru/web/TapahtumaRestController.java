@@ -1,5 +1,7 @@
 package ohjelmistoprojekti.ticketguru.web;
 
+import org.hibernate.ObjectNotFoundException;
+import org.hibernate.query.IllegalQueryOperationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ import java.util.Optional;
 
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
+import ohjelmistoprojekti.ticketguru.service.TapahtumaService;
 
 @CrossOrigin
 @RestController
@@ -30,6 +33,8 @@ public class TapahtumaRestController {
 
     @Autowired
     private TapahtumaRepository tapahtumaRepository;
+    @Autowired
+    private TapahtumaService tapahtumaService;
 
     // Haetaan kaikki järjestelmän tapahtumat
     // Muutettu @RequestMapping @GetMapping muotoon
@@ -76,18 +81,18 @@ public class TapahtumaRestController {
 
     // Etsi yksi tapahtuma muokkaamista varten
     // Muokkaa tunnsiteella yksilöityä tapahtumaa ja tallenna tehdyt muutokset
+    @SuppressWarnings("null")
     @PutMapping("tapahtumat/{id}")
     public ResponseEntity<Tapahtuma> editTapahtuma(@PathVariable Long id,
             @RequestBody Tapahtuma tapahtumanTiedot) {
-        @SuppressWarnings("null")
-        Tapahtuma editTapahtuma = tapahtumaRepository.findById(id)
+        Tapahtuma editedTapahtuma = tapahtumaRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException( // 404 virhekoodin käsittely
                         HttpStatus.NOT_FOUND,
                         "Tapahtumaa " + id + " ei voi muokata, koska sitä ei ole olemassa"));
 
-        editTapahtuma.setTapahtumaId(tapahtumanTiedot.getTapahtumaId());
+        editedTapahtuma.setTapahtumaId(tapahtumanTiedot.getTapahtumaId());
         tapahtumaRepository.save(tapahtumanTiedot);
-        return ResponseEntity.ok(editTapahtuma);
+        return ResponseEntity.ok(editedTapahtuma);
     }
 
 }
