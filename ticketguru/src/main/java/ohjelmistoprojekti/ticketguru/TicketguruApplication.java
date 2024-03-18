@@ -100,7 +100,8 @@ public class TicketguruApplication {
 
             // Luodaan käyttäjät ja liitetään roolit
             // Tunnus ja salasana vaihdettu rooleiksi testausta varten
-            kayttajaRepository.save(new Kayttaja("myyja", "myyja", "Mäkinen", "Matti", "Myyntialue", myyja));
+            // tunnus: myyja, salasana: myyja
+            kayttajaRepository.save(new Kayttaja("myyja", "$2a$12$M2VMhGeepVH3IiXm7HsEB.qzWnoAVHRKswllNYQxvCmCZrO96Br5K", "Mäkinen", "Matti", "Myyntialue", myyja));
             kayttajaRepository.save(new Kayttaja("lipuntarkastaja", "lipuntarkastaja", "Virtanen", "Veera", "Tarkastusaluella", lipuntarkastaja));
             kayttajaRepository.save(new Kayttaja("hallinto", "hallinto", "Laaksonen", "Liisa", "Hallinnossa", hallinto));
 
