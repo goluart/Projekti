@@ -26,7 +26,6 @@ public class WebSecurityConfig {
                 .formLogin((form) -> form
                         .permitAll())
                 .logout((logout) -> logout.permitAll())
-                // https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/basic.html
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
