@@ -99,9 +99,11 @@ public class TicketguruApplication {
             Rooli hallinto = rooliRepository.save(new Rooli("Hallinto"));
 
             // Luodaan käyttäjät ja liitetään roolit
-            kayttajaRepository.save(new Kayttaja("makimat", "Salasanat123%", "Mäkinen", "Matti", "Myyntialue", myyja));
-            kayttajaRepository.save(new Kayttaja("virtvee", "Salasana456%", "Virtanen", "Veera", "Tarkastusaluella", lipuntarkastaja));
-            kayttajaRepository.save(new Kayttaja("laaksolii", "Salasana789%", "Laaksonen", "Liisa", "Hallinnossa", hallinto));
+            // Tunnus ja salasana vaihdettu rooleiksi testausta varten
+            // tunnus: myyja, salasana: myyja
+            kayttajaRepository.save(new Kayttaja("myyja", "$2a$12$M2VMhGeepVH3IiXm7HsEB.qzWnoAVHRKswllNYQxvCmCZrO96Br5K", "Mäkinen", "Matti", "Myyntialue", myyja));
+            kayttajaRepository.save(new Kayttaja("lipuntarkastaja", "lipuntarkastaja", "Virtanen", "Veera", "Tarkastusaluella", lipuntarkastaja));
+            kayttajaRepository.save(new Kayttaja("hallinto", "hallinto", "Laaksonen", "Liisa", "Hallinnossa", hallinto));
 
             // Alustetaan myyntitapahtuma
             Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now(), 0.1);
