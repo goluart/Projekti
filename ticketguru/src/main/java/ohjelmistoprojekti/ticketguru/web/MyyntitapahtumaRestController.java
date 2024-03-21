@@ -44,7 +44,7 @@ public class MyyntitapahtumaRestController {
     private LipputyyppiRepository lipputyyppiRepository;
 
     // Haetaan kaikki myynitapahtumat
-    @PreAuthorize("hasAnyAuthority('Myyjä', 'Hallinto')")
+    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
     @GetMapping
     public ResponseEntity<List<MyyntitapahtumaDTO>> haeKaikkiMyyntitapahtumat() {
         List<MyyntitapahtumaDTO> myyntitapahtumatDtot = myyntitapahtumaRepository.findAll().stream()
@@ -53,7 +53,7 @@ public class MyyntitapahtumaRestController {
         return ResponseEntity.ok(myyntitapahtumatDtot);
     }
 
-    @PreAuthorize("hasAnyAuthority('Myyjä', 'Hallinto')")
+    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
     @SuppressWarnings("null")
     @GetMapping("/{id}")
     public ResponseEntity<MyyntitapahtumaDTO> haeYksiMyyntitapahtuma(@PathVariable("id") Long myyntitapahtumaId) {
@@ -65,7 +65,7 @@ public class MyyntitapahtumaRestController {
 
     // Lisätään tietokantaan myyntitapahtuma ja luodaan jokainen myyntitapahtumassa
     // myyty lippu
-    @PreAuthorize("hasRole('Myyjä')")
+    @PreAuthorize("hasRole('myyja')")
     @PostMapping
     public ResponseEntity<?> luoMyyntitapahtuma(@RequestBody @NonNull LuoMyyntitapahtumaDTO mtDto) {
         /*
