@@ -1,5 +1,10 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -23,6 +27,7 @@ public class Kayttaja {
 	@NotBlank(message = "Salasana ei saa olla tyhjä")
     //@Size(min = 8, message = "Salasanan on oltava vähintään 8 merkkiä pitkä")
     //@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-\\[\\]{}|;:'\",.<>\\/?]).+$", message = "Salasanan on sisällettävä vähintään yksi iso kirjain ja yksi erikoismerkki")
+	@JsonIgnore
 	private String salasana;
 	@NotBlank(message = "Sukunimi ei saa olla tyhjä")
 	private String snimi;
@@ -31,9 +36,12 @@ public class Kayttaja {
 	@Size(max = 500, message = "Lisätietojen maksimipituus on 500 merkkiä")
 	private String lisatiedot;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "rooli_id")
 	private Rooli rooli;
+
+	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
 	public Kayttaja() {
 	}
@@ -41,7 +49,7 @@ public class Kayttaja {
 	public Kayttaja(String tunnus, String salasana, String snimi, String enimi, String lisatiedot, Rooli rooli) {
 		super();
 		this.tunnus = tunnus;
-		this.salasana = salasana;
+		setSalasana(salasana);
 		this.snimi = snimi;
 		this.enimi = enimi;
 		this.lisatiedot = lisatiedot;
@@ -69,7 +77,7 @@ public class Kayttaja {
 	}
 
 	public void setSalasana(String salasana) {
-		this.salasana = salasana;
+		this.salasana = PASSWORD_ENCODER.encode(salasana);
 	}
 
 	public String getSnimi() {

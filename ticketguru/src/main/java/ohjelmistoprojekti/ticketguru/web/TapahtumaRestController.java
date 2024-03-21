@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class TapahtumaRestController {
 	// Haetaan kaikki järjestelmän tapahtumat
 	// Muutettu @RequestMapping @GetMapping muotoon
 	// Jos get-metodi palauttaa tyhjän listan, palautetaan 404
+	@PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
 	@GetMapping("/tapahtumat")
 	public ResponseEntity<List<TapahtumaDto>> naytaTapahtumaDto() {
 		if (tapahtumaRepository.findAll().isEmpty()) {
@@ -51,6 +53,7 @@ public class TapahtumaRestController {
 
 	// Haetaan tapahtuma tunnisteen (tapahtumaId) avulla
 	// Jos get-metodi palauttaa tyhjän vastauksen, palautetaan 404
+	@PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
 	@GetMapping("/tapahtumat/{id}")
 	public Optional<Tapahtuma> findTapahtumaById(@PathVariable("id") @NonNull Long tapahtumaId) {
 		if (tapahtumaRepository.findById(tapahtumaId).isEmpty()) {
@@ -60,6 +63,7 @@ public class TapahtumaRestController {
 	}
 
 	// @NotNull lisätty virheilmoituksen perusteella
+	@PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
 	@PostMapping("/tapahtumat")
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Uusi tapahtuma luotu")
 	public Tapahtuma newTapahtuma(@RequestBody @Valid @NonNull Tapahtuma newTapahtuma) {
@@ -68,6 +72,7 @@ public class TapahtumaRestController {
 	}
 
 	// Poista tapahtuma, tapahtuma IDllä esim. "localhost:8080/tapahtumat/1"
+	@PreAuthorize("hasRole('hallinto')")
 	@DeleteMapping("/tapahtumat/{id}")
 	public ResponseEntity<Void> deleteTapahtuma(@PathVariable("id") @NonNull Long tapahtumaId) {
 		Optional<Tapahtuma> tapahtumaOptional = tapahtumaRepository.findById(tapahtumaId);
@@ -92,6 +97,7 @@ public class TapahtumaRestController {
 
 	// Etsi yksi tapahtuma muokkaamista varten
 	// Muokkaa tunniteella yksilöityä tapahtumaa ja tallenna tehdyt muutokset
+	@PreAuthorize("hasRole('hallinto')")
 	@PutMapping("tapahtumat/{id}")
 	public ResponseEntity<Tapahtuma> editTapahtuma(@PathVariable Long id,
 			@RequestBody @Valid Tapahtuma tapahtumanTiedot) {

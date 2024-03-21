@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +44,7 @@ public class MyyntitapahtumaRestController {
     private LipputyyppiRepository lipputyyppiRepository;
 
     // Haetaan kaikki myynitapahtumat
+    @PreAuthorize("hasAnyAuthority('Myyjä', 'Hallinto')")
     @GetMapping
     public ResponseEntity<List<MyyntitapahtumaDTO>> haeKaikkiMyyntitapahtumat() {
         List<MyyntitapahtumaDTO> myyntitapahtumatDtot = myyntitapahtumaRepository.findAll().stream()
@@ -51,6 +53,7 @@ public class MyyntitapahtumaRestController {
         return ResponseEntity.ok(myyntitapahtumatDtot);
     }
 
+    @PreAuthorize("hasAnyAuthority('Myyjä', 'Hallinto')")
     @SuppressWarnings("null")
     @GetMapping("/{id}")
     public ResponseEntity<MyyntitapahtumaDTO> haeYksiMyyntitapahtuma(@PathVariable("id") Long myyntitapahtumaId) {
@@ -62,6 +65,7 @@ public class MyyntitapahtumaRestController {
 
     // Lisätään tietokantaan myyntitapahtuma ja luodaan jokainen myyntitapahtumassa
     // myyty lippu
+    @PreAuthorize("hasRole('Myyjä')")
     @PostMapping
     public ResponseEntity<?> luoMyyntitapahtuma(@RequestBody @NonNull LuoMyyntitapahtumaDTO mtDto) {
         /*
