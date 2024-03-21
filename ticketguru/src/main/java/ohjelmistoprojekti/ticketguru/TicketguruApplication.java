@@ -67,7 +67,6 @@ public class TicketguruApplication {
                                 Postitoimipaikka helsinki2 = postitoimipaikkaRepository
                                                 .save(new Postitoimipaikka("00600", "Helsinki"));
 
-<<<<<<< HEAD
                                 // Luodaan yhteyshenkilöitä
                                 Yhteyshenkilo yhteys1 = yhteyshenkiloRepository.save(new Yhteyshenkilo("Matti",
                                                 "Meikäläinen",
@@ -78,14 +77,6 @@ public class TicketguruApplication {
                                 Yhteyshenkilo yhteys3 = yhteyshenkiloRepository.save(new Yhteyshenkilo("Jukka",
                                                 "Järvinen",
                                                 "jukka@example.com", "0451234567", "Tapahtumakoordinaattori"));
-=======
-            // Luodaan käyttäjät ja liitetään roolit
-            // Tunnus ja salasana vaihdettu rooleiksi testausta varten
-            kayttajaRepository.save(new Kayttaja("myyja", "myyja", "Mäkinen", "Matti", "Myyntialue", myyja));
-            kayttajaRepository.save(new Kayttaja("lipuntarkastaja", "lipuntarkastaja", "Virtanen", "Veera", "Tarkastusaluella", lipuntarkastaja));
-            kayttajaRepository.save(new Kayttaja("hallinto", "hallinto", "Laaksonen", "Liisa", "Hallinnossa", hallinto));
-            kayttajaRepository.save(new Kayttaja("testi", "testi", "Testaaja", "Liisa", "Myyntialue", myyja));   
->>>>>>> 2377ca149648dd861123b2629ef0c7d1cda59904
 
                                 // Luodaan tapahtumapaikkoja
                                 Tapahtumapaikka paikka1 = tapahtumapaikkaRepository.save(new Tapahtumapaikka(
@@ -167,17 +158,18 @@ public class TicketguruApplication {
 
                                 // Luodaan käyttäjät ja liitetään roolit
                                 // Tunnus ja salasana vaihdettu rooleiksi testausta varten
+                                kayttajaRepository.save(new Kayttaja("myyja", "myyja", "Mäkinen", "Matti", "Myyntialue",
+                                                myyja));
+                                kayttajaRepository.save(new Kayttaja("lipuntarkastaja", "lipuntarkastaja", "Virtanen",
+                                                "Veera", "Tarkastusaluella", lipuntarkastaja));
+                                kayttajaRepository.save(new Kayttaja("hallinto", "hallinto", "Laaksonen", "Liisa",
+                                                "Hallinnossa", hallinto));
+                                kayttajaRepository.save(new Kayttaja("testi", "testi", "Testaaja", "Liisa",
+                                                "Myyntialue", myyja));
+
+                                // Luodaan käyttäjät ja liitetään roolit
+                                // Tunnus ja salasana vaihdettu rooleiksi testausta varten
                                 // tunnus: myyja, salasana: myyja
-                                kayttajaRepository
-                                                .save(new Kayttaja("myyja",
-                                                                "$2a$12$M2VMhGeepVH3IiXm7HsEB.qzWnoAVHRKswllNYQxvCmCZrO96Br5K",
-                                                                "Mäkinen", "Matti", "Myyntialue", myyja));
-                                kayttajaRepository.save(
-                                                new Kayttaja("lipuntarkastaja", "lipuntarkastaja", "Virtanen", "Veera",
-                                                                "Tarkastusaluella", lipuntarkastaja));
-                                kayttajaRepository
-                                                .save(new Kayttaja("hallinto", "hallinto", "Laaksonen", "Liisa",
-                                                                "Hallinnossa", hallinto));
 
                                 // Alustetaan myyntitapahtuma
                                 Myyntitapahtuma myyntitapahtuma = new Myyntitapahtuma(LocalDateTime.now(), 0.1);

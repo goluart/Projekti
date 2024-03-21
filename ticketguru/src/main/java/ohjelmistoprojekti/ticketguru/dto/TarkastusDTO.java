@@ -1,7 +1,6 @@
 package ohjelmistoprojekti.ticketguru.dto;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class TarkastusDTO {
 
