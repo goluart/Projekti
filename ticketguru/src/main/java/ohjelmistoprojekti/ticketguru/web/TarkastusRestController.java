@@ -16,7 +16,7 @@ public class TarkastusRestController {
     @Autowired
     private TarkastusService tarkastusService;
 
-    @PreAuthorize("hasRole('lipuntarkastaja')")
+    @PreAuthorize("hasAuthority('lipuntarkastaja')")
     @GetMapping("/tarkastukset")
     public List<TarkastusDTO> haeKaikkiTarkastukset() {
         return tarkastusService.haeKaikkiTarkastukset();
