@@ -20,13 +20,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
-<<<<<<< HEAD
-import jakarta.validation.constraints.NotBlank;
+
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-=======
-import jakarta.validation.constraints.NotEmpty;
->>>>>>> b0c7225e2ea1e4e848f9ebc2074717a3ca4767d5
 
 @Entity
 public class Tapahtuma {
@@ -212,8 +207,4 @@ public class Tapahtuma {
                 + jarjestaja + "]";
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b0c7225e2ea1e4e848f9ebc2074717a3ca4767d5

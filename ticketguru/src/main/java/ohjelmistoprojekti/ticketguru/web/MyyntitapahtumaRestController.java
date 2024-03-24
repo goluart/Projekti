@@ -2,13 +2,9 @@ package ohjelmistoprojekti.ticketguru.web;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-<<<<<<< HEAD
-=======
-
 
 import ohjelmistoprojekti.ticketguru.domain.Lipputyyppi;
 import ohjelmistoprojekti.ticketguru.domain.LipputyyppiRepository;
->>>>>>> b0c7225e2ea1e4e848f9ebc2074717a3ca4767d5
 
 import ohjelmistoprojekti.ticketguru.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
@@ -50,17 +46,11 @@ public class MyyntitapahtumaRestController {
     @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
     @GetMapping
     public ResponseEntity<List<MyyntitapahtumaDTO>> haeKaikkiMyyntitapahtumat() {
-<<<<<<< HEAD
-        List<MyyntitapahtumaDTO> myyntitapahtumatDtos = myyntitapahtumaRepository.findAll().stream()
-                .map(myyntitapahtuma -> myyntitapahtumaService.muunnaMyyntitapahtumaDtoon(myyntitapahtuma))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(myyntitapahtumatDtos);
-=======
         List<MyyntitapahtumaDTO> myyntitapahtumatDtot = myyntitapahtumaRepository.findAll().stream()
                 .map(myyntitapahtuma -> myyntitapahtumaService.muunnaMyyntitapahtumaDtoon(myyntitapahtuma))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(myyntitapahtumatDtot);
->>>>>>> b0c7225e2ea1e4e848f9ebc2074717a3ca4767d5
+
     }
 
     @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
@@ -79,10 +69,7 @@ public class MyyntitapahtumaRestController {
 
     // Lisätään tietokantaan myyntitapahtuma ja luodaan jokainen myyntitapahtumassa
     // myyty lippu
-<<<<<<< HEAD
-    @PostMapping
-    public ResponseEntity<MyyntitapahtumaDTO> luoMyyntitapahtuma(@RequestBody LuoMyyntitapahtumaDTO mtDto) {
-=======
+
     @PreAuthorize("hasRole('myyja')")
     @PostMapping
     public ResponseEntity<?> luoMyyntitapahtuma(@RequestBody @NonNull LuoMyyntitapahtumaDTO mtDto) {
@@ -129,7 +116,7 @@ public class MyyntitapahtumaRestController {
         }
 
         // Luodaan myyntitapahtuma, jos ei poikkeuksia
->>>>>>> b0c7225e2ea1e4e848f9ebc2074717a3ca4767d5
+
         MyyntitapahtumaDTO myyntitapahtumaDto = myyntitapahtumaService.luoMyyntitapahtuma(mtDto);
         return ResponseEntity.ok(myyntitapahtumaDto);
     }
