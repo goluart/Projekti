@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.2</version>
+		<version>3.2.3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ohjelmistoprojekti</groupId>
@@ -21,7 +21,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
-			<version>3.2.3</version>
 		</dependency>
 		<!-- Thymeleaf dependence otettu pois, aiheutti testauksessa välillä
 		virheitä -->
@@ -51,11 +50,23 @@
 			<artifactId>h2</artifactId>
 			<!-- versio poistettu -->
 		</dependency>
+<<<<<<< HEAD
 		<dependency> <!--Validaatiota
 			varten-->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 			<version>2.4.1</version>
+=======
+		<!-- Validointi lisätty -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<!-- Spring boot security lisätty -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+>>>>>>> b0c7225e2ea1e4e848f9ebc2074717a3ca4767d5
 		</dependency>
 	</dependencies>
 	<build>
@@ -64,19 +75,35 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+<<<<<<< HEAD
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
 					<annotationProcessorPaths>
 						<!-- <path>
+=======
+		</plugins>
+		<plugin>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.8.1</version>
+			<configuration>
+				<annotationProcessorPaths>
+					<!-- <path>
+>>>>>>> b0c7225e2ea1e4e848f9ebc2074717a3ca4767d5
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>1.4.2.Final</version>
             </path> -->
+<<<<<<< HEAD
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 		</plugins>
+=======
+				</annotationProcessorPaths>
+			</configuration>
+		</plugin>
+>>>>>>> b0c7225e2ea1e4e848f9ebc2074717a3ca4767d5
 	</build>
 </project>

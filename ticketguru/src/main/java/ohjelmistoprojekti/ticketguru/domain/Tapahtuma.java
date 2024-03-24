@@ -7,7 +7,6 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,9 +20,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
+<<<<<<< HEAD
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+=======
+import jakarta.validation.constraints.NotEmpty;
+>>>>>>> b0c7225e2ea1e4e848f9ebc2074717a3ca4767d5
 
 @Entity
 public class Tapahtuma {
@@ -31,7 +34,6 @@ public class Tapahtuma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tapahtuma_id")
-    @NonNull
     private Long tapahtumaId;
     @NotEmpty(message = "Tapahtuma tarvitsee nimen")
     @Column(name = "tapahtuma_nimi")
@@ -44,6 +46,7 @@ public class Tapahtuma {
     @Future(message = "Tapahtumia voi luoda vain tulevaisuuteen")
     @Column(name = "paattyy_pvm")
     private ZonedDateTime paattyyPvm;
+    @NotEmpty(message = "Kuvaile tapahtumaa, jotta asiakkaat näkevät millaisesta tapahtumasta on kyse")
     private String kuvaus;
     @Min(value = 1, message = "Myytäviä lippuja on oltava enemmän kuin 0")
     private int max_lippuja;
@@ -69,16 +72,16 @@ public class Tapahtuma {
     // @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tapahtuma_lipputyyppi", joinColumns = @JoinColumn(name = "tapahtuma_id"), inverseJoinColumns = @JoinColumn(name = "lipputyyppi_id"))
-    private Set<Lipputyyppi> lipputyypit = new HashSet<>();
+    private Set<Lipputyyppi> lipputyypit = new HashSet<Lipputyyppi>();
 
     public Tapahtuma() {
         super();
         luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
     }
 
-    public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm,
-            ZonedDateTime paattyyPvm, String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka,
-            Jarjestaja jarjestaja, Set<Lipputyyppi> lipputyypit, int max_lippuja) {
+    public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm, String kuvaus,
+            double perushinta, Tapahtumapaikka tapahtumapaikka, Jarjestaja jarjestaja, Set<Lipputyyppi> lipputyypit,
+            int max_lippuja) {
         this.tapahtumaNimi = tapahtumaNimi;
         this.alkaaPvm = alkaaPvm;
         this.paattyyPvm = paattyyPvm;
@@ -209,4 +212,8 @@ public class Tapahtuma {
                 + jarjestaja + "]";
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b0c7225e2ea1e4e848f9ebc2074717a3ca4767d5
