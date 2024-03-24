@@ -1,5 +1,5 @@
-# Luo uusi tapahtumat
-Tämä dokumentaatio kuvaa, miten järjestelmään voi luodaan myyntitapahtuma ja tapahtuman sisältämät liput
+# Uuden myyntitapahtuman luominen
+Tämä dokumentaatio kuvaa, miten järjestelmään luodaan myyntitapahtuma ja siihen liittyvät liput
 
 ## API Endpoint
 Luo uusi myyntitapahtuja ja tapahtumassa myydyt liput
@@ -8,7 +8,9 @@ Luo uusi myyntitapahtuja ja tapahtumassa myydyt liput
 
 **Metodi**: `POST`
 
-**Autentikointi vaaditaan**: Ei
+**Autentikointi vaaditaan**: Kyllä
+
+**PreAuthorize**: `hasAuthority('myyja')`
 
 ## Pyyntö
 ```json
@@ -26,9 +28,10 @@ Luo uusi myyntitapahtuja ja tapahtumassa myydyt liput
   ]
 }
 ```
-LippuTyyppiMaarat on lista objekteja.
+LippuTyyppiMaarat on lista on lista, joka sisältää lipputyyppien id:t ja määrät.
 
 ## Onnistunut Vastaus
+
 **Ehto**: Tapahtumaan on jäljellä haluttu määrä lippuja, `tapahtumaId` ja `lipputyyppiId` ovat olemassa
 
 **Koodi**: `200 OK`
@@ -74,6 +77,15 @@ LippuTyyppiMaarat on lista objekteja.
 ```
 
 ## Virhevastaukset
+
+**Ehto**: Autentikointi epäonnistui
+
+**Koodi**: `401 Unauthorized`
+
+**Sisältö**:
+
+### Tai
+
 **Ehto**: Jos tapahtumaa ei löydy tietokannasta annetulla id:llä
 
 **Koodi**: `404 Not Found`
@@ -139,6 +151,4 @@ LippuTyyppiMaarat on lista objekteja.
 ```
 
 ## Huomautukset
-Varmista, että käytät oikeita attribuuttien arvoja myyntitapahtuman ja lipputyypeissä.
-Tämä rajapinta palauttaa myyntitapahtuman tiedot sekä myyntitapahtumassa myydyt liput. Lipuissa on tiedot tapahtumasta, lipputyypistä, lipun hinta sekä tarkistuskoodi. 
-Huomioi, että onnistunut palautus on tekstimuodossa.
+Kun luot myyntitapahtuman, varmista että käytät oikeita arvoja tapahtuman ja lipputyypin attribuuteille. API palauttaa tiedot luodusta myyntitapahtumasta ja siihen liittyvistä lipuista, sisältäen tapahtuman tiedot, lipputyypin, hinnan ja tarkistuskoodin. Onnistuneen luonnin paluuarvo on JSON-muodossa.
