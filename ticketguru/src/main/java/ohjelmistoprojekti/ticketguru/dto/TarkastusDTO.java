@@ -61,9 +61,9 @@ public class TarkastusDTO {
 
     @Override
     public String toString() {
-        return "TarkastusDTO [kayttoPvm=" + kayttoPvm
-                + ", tarkistuskoodi=" + tarkistuskoodi + ", tapahtumaNimi="
-                + tapahtumaNimi + ", nimi=" + lipputyyppi + ", paikkaNimi=" + paikkaNimi + "]";
+        return "TarkastusDTO [tarkastusId=" + tarkastusId + ", kayttoPvm=" + kayttoPvm + ", tarkistuskoodi="
+                + tarkistuskoodi + ", tapahtumaNimi=" + tapahtumaNimi + ", lipputyyppi=" + lipputyyppi + ", paikkaNimi="
+                + paikkaNimi + "]";
     }
 
 }

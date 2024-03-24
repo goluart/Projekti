@@ -25,7 +25,6 @@ public class TarkastusService {
 
     private TarkastusDTO muutaLuokkaDtoksi(Tarkastus tarkastus) {
         TarkastusDTO tarkastusDTO = new TarkastusDTO();
-        tarkastusDTO.setTarkastusId(tarkastus.getTarkastusId());
         tarkastusDTO.setKayttoPvm(tarkastus.getKayttoPvm());
         tarkastusDTO.setTarkistuskoodi(tarkastus.getLippu().getTarkistuskoodi());
         tarkastusDTO.setTapahtumaNimi(tarkastus.getLippu().getTapahtuma().getTapahtumaNimi());
