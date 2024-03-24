@@ -1,3 +1,4 @@
+
 package ohjelmistoprojekti.ticketguru.domain;
 
 import java.time.ZonedDateTime;
@@ -20,7 +21,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
-
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
