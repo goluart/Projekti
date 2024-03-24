@@ -152,16 +152,16 @@ public class TicketguruApplication {
 						"Suurin rock tapahtuma vuonna 2025", 50.00, paikka1, jarjestaja1,
 						lipputyypit, 15000));
 				tapahtumaRepository.save(new Tapahtuma("Jazz-ilta",
-						ZonedDateTime.of(LocalDateTime.of(2024, 4, 20, 21, 30),
+						ZonedDateTime.of(LocalDateTime.of(2025, 4, 20, 21, 30),
 								ZoneId.of("Europe/Helsinki")),
-						ZonedDateTime.of(LocalDateTime.of(2024, 4, 21, 02, 0),
+						ZonedDateTime.of(LocalDateTime.of(2025, 4, 21, 02, 0),
 								ZoneId.of("Europe/Helsinki")),
 						"Nauti rennosta jazz-musiikista", 40.00, paikka2, jarjestaja2,
 						lipputyypit, 70));
 				tapahtumaRepository.save(new Tapahtuma("Stand-up show",
-						ZonedDateTime.of(LocalDateTime.of(2024, 5, 15, 18, 0),
+						ZonedDateTime.of(LocalDateTime.of(2025, 5, 15, 18, 0),
 								ZoneId.of("Europe/Helsinki")),
-						ZonedDateTime.of(LocalDateTime.of(2024, 5, 15, 22, 0),
+						ZonedDateTime.of(LocalDateTime.of(2025, 5, 15, 22, 0),
 								ZoneId.of("Europe/Helsinki")),
 						"Naurua koko illaksi", 35.00, paikka3, jarjestaja3, lipputyypit, 150));
 
