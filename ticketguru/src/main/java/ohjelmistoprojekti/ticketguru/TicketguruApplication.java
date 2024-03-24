@@ -145,11 +145,11 @@ public class TicketguruApplication {
 
 				// Luodaan tapahtumia
 				Tapahtuma tapahtuma = tapahtumaRepository.save(new Tapahtuma("Rock Festivaali",
-						ZonedDateTime.of(LocalDateTime.of(2024, 3, 22, 19, 0),
+						ZonedDateTime.of(LocalDateTime.of(2025, 3, 22, 19, 0),
 								ZoneId.of("Europe/Helsinki")),
-						ZonedDateTime.of(LocalDateTime.of(2024, 3, 23, 01, 0),
+						ZonedDateTime.of(LocalDateTime.of(2025, 3, 23, 01, 0),
 								ZoneId.of("Europe/Helsinki")),
-						"Suurin rock tapahtuma vuonna 2024", 50.00, paikka1, jarjestaja1,
+						"Suurin rock tapahtuma vuonna 2025", 50.00, paikka1, jarjestaja1,
 						lipputyypit, 15000));
 				tapahtumaRepository.save(new Tapahtuma("Jazz-ilta",
 						ZonedDateTime.of(LocalDateTime.of(2024, 4, 20, 21, 30),
