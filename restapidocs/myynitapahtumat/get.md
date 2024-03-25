@@ -2,16 +2,23 @@
 Tämä dokumentaatio kuvaa, miten voit hakea tietoja myyntitapahtumista.
 
 ## API Endpoint
-Hae tietoja yksittäisestä tapahtumasta.
+Hae tiedot tietyistä tai kaikista myyntitapahtumista.
+
+**Yksittäisen tapahtuman tiedot**
 
 **URL**: /myyntitapahtumat/:myyntitapahtumaId
-**URL**: /myyntitapahtumat
 
 **URL-parametrit**: myyntitapahtumaId=[integer], missä `myyntitapahtymaId` on palvelimella olevan myyntitapahtuman yksilöllinen tunniste.
 
+**Kaikkien tapahtumien tiedot**
+
+**URL**: /myyntitapahtumat
+
 **Metodi**: `GET`
 
-**Autentikointi vaaditaan**: Ei (tulossa)
+**Autentikointi vaaditaan**: Kyllä
+
+**PreAuthorize**: `hasAnyAuthority('myyja', 'hallinto')`
 
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
@@ -111,6 +118,25 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 ]
 ```
 ## Virhevastaukset
+
+**Ehto**: Autentikointi epäonnistui
+
+**Koodi**: `401 Unauthorized`
+
+**Sisältö**:
+
+
+### Tai
+
+**Ehto**: Autentikointi epäonnistui
+
+**Koodi**: `403 Forbidden`
+
+**Sisältö**:
+
+
+### Tai
+
 **Ehto**: Jos myyntitapahtumaa ei löydy annetulla id:llä
 
 **Koodi**: `404 Not Found`
@@ -125,5 +151,6 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 **Sisältö**: 
 
 ## Huomautukset
-Jos haet kaikki myyntitapahtumat, huomaa että myyntitapahtumat palautuvat listan sisällä. 
-Varmista, että käytät oikeaa tapahtumaId-arvoa tapahtuman tietojen hakemiseen.
+Jos haet kaikki myyntitapahtumat, huomaa että myyntitapahtumat palautetaan listan muodossa. 
+Varmista, että käytät oikeaa `myyntitapahtumaId`-arvoa halutun tapahtuman tietojen hakemiseen.
+Autentikointi ja oikeudet tarkistetaan ennen tietojen palauttamista.

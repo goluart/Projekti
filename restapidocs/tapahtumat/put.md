@@ -6,9 +6,9 @@ Muokkaa olemassa olevaa tapahtumaa.
 
 **URL**: /tapahtumat/{id}
 
-**Metodi**: PUT
+**Metodi**: `PUT`
 
-**Autentikointi vaaditaan**: Ei
+**Autentikointi vaaditaan**: Kyllä
 
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
@@ -16,7 +16,7 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 ## Onnistunut Vastaus
 **Ehto**: Jos uusi tapahtuma on muokattu ja  tallennettu onnistuneesti.
 
-**Koodi**: 200 OK
+**Koodi**: `200 OK`
 
 **Sisällön esimerkki**
 ```json
@@ -70,14 +70,5 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
 **Sisältö**: null
 
-### Tai
-**Ehto**: Jos tapahtuman haku epäonnistuu muusta syystä.
-
-**Koodi**: 500 Sisäinen palvelinvirhe
-
-**Sisältö**: 
-
 ## Huomautukset
 Varmista, että käytät oikeita attribuuttien arvoja tapahtuman muokkauksessa.
-Tämä rajapinta palauttaa kaikki tapahtuman tiedot, mukaan lukien tapahtumapaikan ja järjestäjän tiedot.
-Huomioi, että luontiPvm voi olla null, mikäli luontipäivämäärää ei ole määritelty.

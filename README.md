@@ -197,26 +197,26 @@ Tulevaisuudessa kun tuote etenee tuotantovaiheeseen muuttu Base-URL muotoon http
 
 #### Endpoint Tapahtuma-luokalla on muotoa: /tapahtumat
 
-Method: GET
+Method: `GET`
 
 - URL: "/tapahtumat". Hakee kaikki järjestelmän tapahtumien tiedot. Palauttaa listan kaikista tapahtumista.
 - URL: "/tapahtumat/{id}". Hakee yhden tapahtuman tiedot tapahtuman id:n perusteella. Palauttaa valitun tapahtuman.
 
 [Tarkempi kuvaus GET-pyynnöistä](restapidocs/tapahtumat/get.md)
 
-Method: POST
+Method: `POST`
 
 - URL: "/tapahtumat". Luo uuden tapahtuman. Palauttaa luodun tapahtuman.
 
 [Tarkempi kuvaus POST-pyynnöstä](restapidocs/tapahtumat/post.md)
 
-Method: PUT
+Method: `PUT`
 
 - URL: "/tapahtumat/{id}". Hakee tapahtuman id:n perusteella ja tallentaa tehdyt muutokset. Palauttaa muokatun tapahtuman.
 
 [Tarkempi kuvaus PUT-pyynnöstä](restapidocs/tapahtumat/put.md)
 
-Method: DELETE
+Method: `DELETE`
 
 - URL: "/tapahtumat/{id}". Hakee tapahtuman id:n perusteella ja poistaa tapahtuman. Palauttaa listan kaikista jäljellä olevista tapahtumista.
 
@@ -224,14 +224,14 @@ Method: DELETE
 
 #### Endpoint Myyntitapahtuma-luokalla on muotoa: /myyntitapahtumat
 
-Method: GET
+Method: `GET`
 
 - URL: "/myyntitapahtumat". Hakee kaikki järjestelmän myyntitapahtumat.
 - URL: "/myyntitapahtumat/{id}". Hakee valitun id:n mukaisen myyntitapahtuman järjestelmästä.
 
 [Tarkempi kuvaus GET-pyynnöistä](restapidocs/myynitapahtumat/get.md)
 
-Method: POST
+Method: `POST`
 
 - URL: "/myyntitapahtumat" Luo uuden myyntitapahtuman. Palauttaa myyntipäivämäärän, loppusumman sekä listan lipuista.
 

@@ -4,14 +4,19 @@ Tämä dokumentaatio kuvaa, miten voit hakea tietoja yksittäisestä tapahtumast
 ## API Endpoint
 Hae tietoja yksittäisestä tapahtumasta.
 
+**Yksittäisen tapahtuman tiedot**
+
 **URL**: /tapahtumat/:tapahtumaId
+
+**Kaikkien tapahtumien tiedot**
+
 **URL**: /tapahtumat
 
 **URL-parametrit**: tapahtumaId=[integer], missä tapahtumaId on palvelimella olevan tapahtuman yksilöllinen tunniste.
 
 **Metodi**: `GET`
 
-**Autentikointi vaaditaan**: Ei
+**Autentikointi vaaditaan**: Kyllä
 
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
@@ -27,9 +32,9 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
     {
         "tapahtumaId": 1,
         "tapahtumaNimi": "Rock Festivaali",
-        "kuvaus": "Suurin rock tapahtuma vuonna 2024",
-        "alkaaPvm": "2024-03-22T19:00:00+02:00",
-        "loppuuPvm": "2024-03-23T01:00:00+02:00",
+        "kuvaus": "Suurin rock tapahtuma vuonna 2025",
+        "alkaaPvm": "2025-03-22T19:00:00+02:00",
+        "loppuuPvm": "2025-03-23T01:00:00+02:00",
         "maxLippuja": 15000,
         "lippujaJaljella": 14997,
         "tapahtumapaikka": {
@@ -45,22 +50,16 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
         "perushinta": 50.0,
         "lipputyypit": [
             {
-                "lipputyyppiId": 2,
-                "lipputyyppiNimi": "Lapsi",
-                "asiakasryhma": "Lapsi",
-                "hintakerroin": 0.5
+                "lipputyyppiId": 3,
+                "lipputyyppiNimi": "Eläkeläinen",
+                "asiakasryhma": "Elakelainen",
+                "hintakerroin": 0.7
             },
             {
                 "lipputyyppiId": 1,
                 "lipputyyppiNimi": "Aikuinen",
                 "asiakasryhma": "Aikuinen",
-                "hintakerroin": 1.0
-            },
-            {
-                "lipputyyppiId": 3,
-                "lipputyyppiNimi": "Eläkeläinen",
-                "asiakasryhma": "Elakelainen",
-                "hintakerroin": 0.7
+                "hintakerroin": 0.5
             }
         ]
     },
@@ -68,8 +67,8 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
         "tapahtumaId": 2,
         "tapahtumaNimi": "Jazz-ilta",
         "kuvaus": "Nauti rennosta jazz-musiikista",
-        "alkaaPvm": "2024-04-20T21:30:00+03:00",
-        "loppuuPvm": "2024-04-21T02:00:00+03:00",
+        "alkaaPvm": "2025-04-20T21:30:00+03:00",
+        "loppuuPvm": "2025-04-21T02:00:00+03:00",
         "maxLippuja": 70,
         "lippujaJaljella": 70,
         "tapahtumapaikka": {
@@ -85,68 +84,49 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
         "perushinta": 40.0,
         "lipputyypit": [
             {
-                "lipputyyppiId": 2,
-                "lipputyyppiNimi": "Lapsi",
-                "asiakasryhma": "Lapsi",
-                "hintakerroin": 0.5
+                "lipputyyppiId": 3,
+                "lipputyyppiNimi": "Eläkeläinen",
+                "asiakasryhma": "Elakelainen",
+                "hintakerroin": 0.7
             },
             {
                 "lipputyyppiId": 1,
                 "lipputyyppiNimi": "Aikuinen",
                 "asiakasryhma": "Aikuinen",
-                "hintakerroin": 1.0
-            },
-            {
-                "lipputyyppiId": 3,
-                "lipputyyppiNimi": "Eläkeläinen",
-                "asiakasryhma": "Elakelainen",
-                "hintakerroin": 0.7
-            }
-        ]
-    },
-    {
-        "tapahtumaId": 3,
-        "tapahtumaNimi": "Stand-up show",
-        "kuvaus": "Naurua koko illaksi",
-        "alkaaPvm": "2024-05-15T18:00:00+03:00",
-        "loppuuPvm": "2024-05-15T22:00:00+03:00",
-        "maxLippuja": 150,
-        "lippujaJaljella": 150,
-        "tapahtumapaikka": {
-            "tapahtumapaikkaId": 3,
-            "tapahtumapaikkaNimi": "Linnanmäki",
-            "tapahtumapaikkaOsoite": "Tivolikuja 1, Helsinki",
-            "tapahtumapaikkaKaupunki": "Helsinki"
-        },
-        "jarjestaja": {
-            "jarjestajaId": 3,
-            "jarjestajaNimi": "Konsertti Oy"
-        },
-        "perushinta": 35.0,
-        "lipputyypit": [
-            {
-                "lipputyyppiId": 2,
-                "lipputyyppiNimi": "Lapsi",
-                "asiakasryhma": "Lapsi",
                 "hintakerroin": 0.5
-            },
-            {
-                "lipputyyppiId": 1,
-                "lipputyyppiNimi": "Aikuinen",
-                "asiakasryhma": "Aikuinen",
-                "hintakerroin": 1.0
-            },
-            {
-                "lipputyyppiId": 3,
-                "lipputyyppiNimi": "Eläkeläinen",
-                "asiakasryhma": "Elakelainen",
-                "hintakerroin": 0.7
             }
         ]
     }
 ]
 ```
+
 ## Virhevastaukset
+
+**Ehto**: Jos autentikointi epäonnistui
+
+**Koodi**: `401 Unauthorized`
+
+**Sisältö**:
+
+### Tai
+
+**Ehto**: Jos auktorisointi epäonnistui
+
+**Koodi**: `403 Forbidden`
+
+**Sisältö**:
+```json
+{
+    "timestamp": "2024-03-25T16:13:48.171+00:00",
+    "status": 403,
+    "error": "Forbidden",
+    "message": "Forbidden",
+    "path": "/tapahtumat/1"
+}
+```
+
+### Tai
+
 **Ehto**: Jos tapahtumaa ei löydy annetulla ID:llä tai järjestlmästä ei löydy yhtäkään tapahtumaa.
 
 **Koodi**: `404 Not Found`
