@@ -1,6 +1,5 @@
 package ohjelmistoprojekti.ticketguru.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +14,6 @@ public class UserDetailService implements UserDetailsService {
 	
 	private final KayttajaRepository kRepository;
 	
-	@Autowired
 	public UserDetailService(KayttajaRepository kayttajaRepository) {
 		this.kRepository = kayttajaRepository;
 	}

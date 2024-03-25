@@ -6,78 +6,87 @@ Luo uusi tapahtuma
 
 **URL**: /tapahtumat
 
-**Metodi**: POST
+**Metodi**: `POST`
 
-**Autentikointi vaaditaan**: Ei
+**Autentikointi vaaditaan**: Kyllä
 
 ## Pyyntö
-Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
+
+```Json
+{
+    "tapahtumaNimi": "Sirkus Finlandia",
+    "alkaaPvm": "2025-02-25T20:00:00.000Z",
+    "paattyyPvm": "2025-02-26T23:00:00.000Z",
+    "kuvaus": "Tämä on uuden tapahtuman kuvaus.",
+    "perushinta": 20.0,
+    "tapahtumapaikka": {
+        "tapaikkaId": 1
+    },
+    "jarjestaja": {
+        "jarjestajaId": 2
+    },
+    "lipputyypit": [
+        {"lipputyyppiId": 1},
+        {"lipputyyppiId": 2}
+    ],
+    "max_lippuja": 750
+}
+```
 
 ## Onnistunut Vastaus
-**Ehto**: Jos uusi tapahtuma on tallennettu onnistuneesti ja löytyy listauksesta
+**Ehto**: Jos uusi tapahtuma on tallennettu onnistuneesti
 
-**Koodi**: 200 OK
+**Koodi**: `201 OK`
 
 **Sisällön esimerkki**
 ```json
 {
-    "tapahtumaId": 1,
-    "tapahtumaNimi": "Rock Festivaali",
-    "luontiPvm": null,
-    "alkaaPvm": "2024-03-07T19:21:22.702451+02:00",
-    "paattyyPvm": "2024-03-08T00:21:22.702451+02:00",
-    "kuvaus": "Suurin rock tapahtuma vuonna",
-    "perushinta": 50.0,
-    "tapahtumapaikka": {
-        "tapaikkaId": 1,
-        "paikkaNimi": "Kulttuuritalo",
-        "osoite": "Sturenkatu 4, Helsinki",
-        "kuvaus": "Kulttuuritapahtumien keskus",
-        "ytunnus": "1234567-8",
-        "sposti": "info@kulttuuritalo.fi",
-        "lisatiedot": "Esteetön pääsy",
-        "postitoimipaikka": {
-            "postinumeroId": 1,
-            "postinumero": "00100",
-            "kaupunki": "Helsinki"
-        }
-    },
-    "jarjestaja": {
-        "jarjestajaId": 1,
-        "nimi": "Musiikki Oy",
-        "ytunnus": "1234567-8",
-        "osoite": "Mannerheimintie 13",
-        "yhteyshenkilo": {
-            "yhtHloId": 1,
-            "etunimi": "Matti",
-            "sukunimi": "Meikäläinen",
-            "sahkoposti": "matti@example.com",
-            "puhelin": "0401234567",
-            "lisatieto": "Markkinointipäällikkö"
-        },
-        "postitoimipaikka": {
-            "postinumeroId": 1,
-            "postinumero": "00100",
-            "kaupunki": "Helsinki"
-        }
-    }
+    "timestamp": "2024-03-25T16:07:37.337+00:00",
+    "status": 201,
+    "error": "Created",
+    "message": "Uusi tapahtuma luotu",
+    "path": "/tapahtumat"
 }
 ```
 ## Virhevastaukset
-**Ehto**: Pyynnön sisältö oli viallinen.
 
-**Koodi**: 400 Bad Request
+**Ehto**: Autentikointi epäonnistui
 
-**Sisältö**: null
+**Koodi**: `401 Unauthorized`
+
+**Sisältö**:
 
 ### Tai
-**Ehto**: Jos tapahtuman haku epäonnistuu muusta syystä.
 
-**Koodi**: 500 Sisäinen palvelinvirhe
+**Ehto**: Jos auktorisointi epäonnistui
 
-**Sisältö**: 
+**Koodi**: `403 Forbidden`
+
+**Sisältö**:
+```json
+{
+    "timestamp": "2024-03-25T16:32:51.618+00:00",
+    "status": 403,
+    "error": "Forbidden",
+    "message": "Forbidden",
+    "path": "/tapahtumat"
+}
+```
+
+### Tai
+
+**Ehto**: Pyynnön sisältö oli viallinen.
+
+**Koodi**: `400 Bad Request`
+
+**Sisältö**:
+```json
+{
+    "paattyyPvm": "Tapahtumia voi luoda vain tulevaisuuteen",
+    "max_lippuja": "Myytäviä lippuja on oltava enemmän kuin 0",
+    "alkaaPvm": "Tapahtumia voi luoda vain tulevaisuuten"
+}
+```
 
 ## Huomautukset
 Varmista, että käytät oikeita attribuuttien arvoja tapahtuman luomisessa.
-Tämä rajapinta palauttaa kaikki tapahtuman tiedot, mukaan lukien tapahtumapaikan ja järjestäjän tiedot.
-Huomioi, että luontiPvm voi olla null, mikäli luontipäivämäärää ei ole määritelty.

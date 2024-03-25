@@ -78,11 +78,28 @@ LippuTyyppiMaarat on lista on lista, joka sisältää lipputyyppien id:t ja mä�
 
 ## Virhevastaukset
 
-**Ehto**: Autentikointi epäonnistui
+**Ehto**: Jos autentikointi epäonnistui.
 
 **Koodi**: `401 Unauthorized`
 
 **Sisältö**:
+
+### Tai
+
+**Ehto**: Jos auktorisointi epäonnistui.
+
+**Koodi**: `403 Forbidden`
+
+**Sisältö**:
+```json
+{
+    "timestamp": "2024-03-25T17:06:19.243+00:00",
+    "status": 403,
+    "error": "Forbidden",
+    "message": "Forbidden",
+    "path": "/myyntitapahtumat"
+}
+```
 
 ### Tai
 

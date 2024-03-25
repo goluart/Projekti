@@ -72,7 +72,7 @@ public class TapahtumaRestController {
 	}
 
 	// Poista tapahtuma, tapahtuma IDllä esim. "localhost:8080/tapahtumat/1"
-	@PreAuthorize("hasRole('hallinto')")
+	@PreAuthorize("hasAuthority('hallinto')")
 	@DeleteMapping("/tapahtumat/{id}")
 	public ResponseEntity<Void> deleteTapahtuma(@PathVariable("id") @NonNull Long tapahtumaId) {
 		Optional<Tapahtuma> tapahtumaOptional = tapahtumaRepository.findById(tapahtumaId);
@@ -97,7 +97,7 @@ public class TapahtumaRestController {
 
 	// Etsi yksi tapahtuma muokkaamista varten
 	// Muokkaa tunniteella yksilöityä tapahtumaa ja tallenna tehdyt muutokset
-	@PreAuthorize("hasRole('hallinto')")
+	@PreAuthorize("hasAuthority('hallinto')")
 	@PutMapping("tapahtumat/{id}")
 	public ResponseEntity<Tapahtuma> editTapahtuma(@PathVariable Long id,
 			@RequestBody @Valid Tapahtuma tapahtumanTiedot) {

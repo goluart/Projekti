@@ -6,76 +6,62 @@ Poista olemassa oleva tapahtuma
 
 **URL**: /tapahtumat/{id}
 
-**Metodi**: DELETE
+**Metodi**: `DELETE`
 
-**Autentikointi vaaditaan**: Ei
+**Autentikointi vaaditaan**: Kyllä
 
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
 ## Onnistunut Vastaus
+
 **Ehto**: Jos tapahtuma on poistettu onnistuneesti, eikä sitä löydy enää listauksesta.
 
-**Koodi**: 200 OK
+**Koodi**: `204 No Content`
 
-**Sisällön esimerkki**
-```json
-{
-    "tapahtumaId": 1,
-    "tapahtumaNimi": "Rock Festivaali",
-    "luontiPvm": null,
-    "alkaaPvm": "2024-03-07T19:21:22.702451+02:00",
-    "paattyyPvm": "2024-03-08T00:21:22.702451+02:00",
-    "kuvaus": "Suurin rock tapahtuma vuonna",
-    "perushinta": 50.0,
-    "tapahtumapaikka": {
-        "tapaikkaId": 1,
-        "paikkaNimi": "Kulttuuritalo",
-        "osoite": "Sturenkatu 4, Helsinki",
-        "kuvaus": "Kulttuuritapahtumien keskus",
-        "ytunnus": "1234567-8",
-        "sposti": "info@kulttuuritalo.fi",
-        "lisatiedot": "Esteetön pääsy",
-        "postitoimipaikka": {
-            "postinumeroId": 1,
-            "postinumero": "00100",
-            "kaupunki": "Helsinki"
-        }
-    },
-    "jarjestaja": {
-        "jarjestajaId": 1,
-        "nimi": "Musiikki Oy",
-        "ytunnus": "1234567-8",
-        "osoite": "Mannerheimintie 13",
-        "yhteyshenkilo": {
-            "yhtHloId": 1,
-            "etunimi": "Matti",
-            "sukunimi": "Meikäläinen",
-            "sahkoposti": "matti@example.com",
-            "puhelin": "0401234567",
-            "lisatieto": "Markkinointipäällikkö"
-        },
-        "postitoimipaikka": {
-            "postinumeroId": 1,
-            "postinumero": "00100",
-            "kaupunki": "Helsinki"
-        }
-    }
-}
-```
+**Sisällön esimerkki**:
+
 ## Virhevastaukset
-**Ehto**: Pyynnön sisältö oli viallinen tai pyynnössä ei ollut olemassa olevaa id:tä.
 
-**Koodi**: 404 Not Found
+**Ehto**: Jos autentikointi ja/tai auktorisointi epäonnistuu.
 
-**Sisältö**: null
+**Koodi**: `401 Unauthorized`
+
+**Sisältö**:
 
 ### Tai
-**Ehto**: Jos tapahtuman haku epäonnistuu muusta syystä.
 
-**Koodi**: 500 Sisäinen palvelinvirhe
+**Ehto**: Jos tapahtumaan on myyty lippuja
+
+**Koodi**: `400 Bad Request`
+
+**Sisältö**:
+```json
+{
+    "timestamp": "2024-03-25T16:22:54.431+00:00",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Tapahtumaa 1 ei voi poistaa, koska tapahtumaan on myyty lippuja.",
+    "path": "/tapahtumat/1"
+}
+```
+
+### Tai
+
+**Ehto**: Jos tapahtumaa ei löydy
+
+**Koodi**: `404 Not Found`
 
 **Sisältö**: 
+```json
+{
+    "timestamp": "2024-03-25T16:25:09.495+00:00",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Tapahtumaa 10 ei löytynyt.",
+    "path": "/tapahtumat/10"
+}
+```
 
 ## Huomautukset
 Varmista, että käytät oikeaa id-numeroa poistettavan tapahtuman valinnassa.

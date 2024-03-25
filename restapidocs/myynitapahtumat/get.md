@@ -125,6 +125,16 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
 **Sisältö**:
 
+
+### Tai
+
+**Ehto**: Autentikointi epäonnistui
+
+**Koodi**: `403 Forbidden`
+
+**Sisältö**:
+
+
 ### Tai
 
 **Ehto**: Jos myyntitapahtumaa ei löydy annetulla id:llä
