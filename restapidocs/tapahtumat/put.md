@@ -10,6 +10,8 @@ Muokkaa olemassa olevaa tapahtumaa.
 
 **Autentikointi vaaditaan**: Kyllä
 
+**Käyttäjäroolit**: `hallinto`
+
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 

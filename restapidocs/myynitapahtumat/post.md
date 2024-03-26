@@ -10,7 +10,7 @@ Luo uusi myyntitapahtuja ja tapahtumassa myydyt liput
 
 **Autentikointi vaaditaan**: Kyllä
 
-**PreAuthorize**: `hasAuthority('myyja')`
+**Käyttäjäroolit**: `myyja`
 
 ## Pyyntö
 ```json
