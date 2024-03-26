@@ -10,6 +10,8 @@ Luo uusi tapahtuma
 
 **Autentikointi vaaditaan**: Kyllä
 
+**Käyttäjäroolit**: `hallinto`
+
 ## Pyyntö
 
 ```Json
@@ -34,6 +36,7 @@ Luo uusi tapahtuma
 ```
 
 ## Onnistunut Vastaus
+
 **Ehto**: Jos uusi tapahtuma on tallennettu onnistuneesti
 
 **Koodi**: `201 OK`

@@ -18,6 +18,8 @@ Hae tietoja yksittäisestä tapahtumasta.
 
 **Autentikointi vaaditaan**: Kyllä
 
+**Käyttäjäroolit**: `myyja` `hallinto`
+
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 

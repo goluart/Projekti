@@ -18,7 +18,7 @@ Hae tiedot tietyistä tai kaikista myyntitapahtumista.
 
 **Autentikointi vaaditaan**: Kyllä
 
-**PreAuthorize**: `hasAnyAuthority('myyja', 'hallinto')`
+**Käyttäjäroolit**: `myyja` `hallinto`
 
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
@@ -119,21 +119,28 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 ```
 ## Virhevastaukset
 
-**Ehto**: Autentikointi epäonnistui
+**Ehto**: Jos autentikointi epäonnistuu
 
 **Koodi**: `401 Unauthorized`
 
 **Sisältö**:
 
-
 ### Tai
 
-**Ehto**: Autentikointi epäonnistui
+**Ehto**: Jos oikeudet eivät riitä
 
 **Koodi**: `403 Forbidden`
 
 **Sisältö**:
-
+```json
+{
+    "timestamp": "2024-03-26T14:05:55.561+00:00",
+    "status": 403,
+    "error": "Forbidden",
+    "message": "Forbidden",
+    "path": "/myyntitapahtumat"
+}
+```
 
 ### Tai
 
@@ -144,11 +151,20 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 **Sisältö**:
 
 ### Tai
-**Ehto**: Jos parametrin tyyppi on muu kuin ingeger
+**Ehto**: Jos parametrin tyyppi on muu kuin integer
 
 **Koodi**: `400 Bad Request`
 
 **Sisältö**: 
+```json
+{
+    "timestamp": "2024-03-25T17:04:35.619+00:00",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: \"t\"",
+    "path": "/myyntitapahtumat/t"
+}
+```
 
 ## Huomautukset
 Jos haet kaikki myyntitapahtumat, huomaa että myyntitapahtumat palautetaan listan muodossa. 

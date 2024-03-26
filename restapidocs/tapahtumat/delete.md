@@ -10,6 +10,8 @@ Poista olemassa oleva tapahtuma
 
 **Autentikointi vaaditaan**: Kyllä
 
+**Käyttäjäroolit**: `hallinto`
+
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
@@ -23,11 +25,28 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
 ## Virhevastaukset
 
-**Ehto**: Jos autentikointi ja/tai auktorisointi epäonnistuu.
+**Ehto**: Jos autentikointi epäonnistuu.
 
 **Koodi**: `401 Unauthorized`
 
 **Sisältö**:
+
+### Tai
+
+**Ehto**: Jos auktorisointi epäonnistuu
+
+**Koodi**: `403 Unauthorized`
+
+**Sisältö**:
+```json
+{
+    "timestamp": "2024-03-26T14:18:20.460+00:00",
+    "status": 403,
+    "error": "Forbidden",
+    "message": "Forbidden",
+    "path": "/tapahtumat/2"
+}
+```
 
 ### Tai
 
