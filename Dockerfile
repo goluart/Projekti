@@ -2,7 +2,7 @@ FROM eclipse-temurin:17-jdk-focal as builder
 WORKDIR /opt/app
 ARG PROJECT_ROOT="./ticketguru"
 COPY ${PROJECT_ROOT}/.mvn/ .mvn
-COPY ${PROJECT_ROOT}/mvnw pom.xml ./
+COPY mvnw pom.xml ./
 RUN chmod +x ./mvnw
 RUN ./mvnw dependency:go-offline
 COPY ${PROJECT_ROOT}/src ./src
