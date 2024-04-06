@@ -4,6 +4,7 @@ ARG PROJECT_ROOT="./ticketguru"
 COPY ${PROJECT_ROOT}/.mvn/ .mvn
 COPY ${PROJECT_ROOT}/mvnw ${PROJECT_ROOT}/pom.xml ./
 RUN chmod +x ./mvnw
+RUN ls -la /opt/app/.mvn/wrapper/
 RUN ./mvnw dependency:go-offline
 COPY ${PROJECT_ROOT}/src ./src
 RUN ./mvnw clean install -DskipTests 
