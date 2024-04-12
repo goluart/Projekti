@@ -39,9 +39,9 @@ public class TarkastusService {
 
     }
 
-    public Boolean haeLippuTarkistuskoodilla(String tarkistuskoodi) {
+    public TarkastusDTO haeLippuTarkistuskoodilla(String tarkistuskoodi) {
         Lippu lippu = lippuRepository.findByTarkistuskoodi(tarkistuskoodi);
-        System.out.println(lippu.getKayttoPvm());
+        TarkastusDTO vastausDTO = new TarkastusDTO();
         // TarkastusDTO tarkastusDTO = new TarkastusDTO();
         if (lippu != null) {
             System.out.println("Lippu ok");
@@ -54,28 +54,28 @@ public class TarkastusService {
                 // tarkastusDTO.setPaikkaNimi(lippu.getTapahtuma().getTapahtumapaikka().getPaikkaNimi()); 
                 lippu.setKayttoPvm(ZonedDateTime.now());
                 lippuRepository.save(lippu);
-                return true;
+                vastausDTO.setResponse(true);
+                return vastausDTO;
             } 
         } 
-        return false;           
+        vastausDTO.setResponse(false);
+        return vastausDTO;           
     }
 
-    public Boolean tarkastaLippu(TarkastusDTO tarkastusDTO) {
+    public TarkastusDTO tarkastaLippu(TarkastusDTO tarkastusDTO) {
         Lippu lippu = lippuRepository.findByTarkistuskoodi(tarkastusDTO.getTarkistuskoodi());
+        TarkastusDTO vastausDTO = new TarkastusDTO();
         if (lippu != null) {
-            System.out.println("Lippu ok");
-            if (lippu.getKayttoPvm() == null && lippu.getTapahtuma().getTapahtumaNimi() == tarkastusDTO.getTapahtumaNimi()) {   
+            System.out.println("Lippu ok. Tapahtuman nimi " + lippu.getTapahtuma().getTapahtumaNimi() + " | " + tarkastusDTO.getTapahtumaNimi() + " | " + lippu.getKayttoPvm());
+            if (lippu.getKayttoPvm() == null && lippu.getTapahtuma().getTapahtumaNimi().equals(tarkastusDTO.getTapahtumaNimi())) {   
                 System.out.println("Käyttöpäivämäärä tyhjä");
-                // tarkastusDTO.setKayttoPvm(lippu.getKayttoPvm());
-                // tarkastusDTO.setTarkistuskoodi(lippu.getTarkistuskoodi());
-                // tarkastusDTO.setTapahtumaNimi(lippu.getTapahtuma().getTapahtumaNimi());
-                // tarkastusDTO.setLipputyyppi(lippu.getLipputyyppi().getNimi());
-                // tarkastusDTO.setPaikkaNimi(lippu.getTapahtuma().getTapahtumapaikka().getPaikkaNimi()); 
                 lippu.setKayttoPvm(ZonedDateTime.now());
                 lippuRepository.save(lippu);
-                return true;
-            } 
+                vastausDTO.setResponse(true);
+                return vastausDTO;
+            }             
         } 
-        return false;         
+        vastausDTO.setResponse(false);
+        return vastausDTO;         
     }
 }
