@@ -6,7 +6,7 @@ Merkitse lippu käytetyksi
 
 **URL**: /tapahtumat/:tarkistuskoodi
 
-**URL-parametrit**: tarkistuskoodi=[String], missä `tarkistuskoodi` on lipun yksilöllinen tarkistuskoodi.
+**URL-parametrit**: tarkistuskoodi=[String], missä `tarkistuskoodi` on lipun yksilöllinen tunniste.
 
 **Metodi**: `GET`
 
