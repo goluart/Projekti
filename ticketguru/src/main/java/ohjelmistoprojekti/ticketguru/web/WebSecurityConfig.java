@@ -1,5 +1,7 @@
 package ohjelmistoprojekti.ticketguru.web;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -18,19 +23,48 @@ public class WebSecurityConfig {
     private UserDetailService userDetailsService;
 
     @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:3000",
+                "http://localhost:4200",
+                "http://localhost:4000",
+                "http://localhost:5000",
+                "http://localhost:5173",
+                "http://localhost:8000",
+                "http://localhost:8080",
+                "http://127.0.0.1:3000",
+                "http://127.0.0.1:4200",
+                "http://127.0.0.1:4000",
+                "http://127.0.0.1:5000",
+                "http://127.0.0.1:5173",
+                "http://127.0.0.1:8000",
+                "http://127.0.0.1:8080",
+                "https://projekti-ticketguru-tiimi4.rahtiapp.fi")); // change origin accordingly
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/api/**", configuration);
+        return source;
+    }
+
+    @Bean
     public SecurityFilterChain web(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
-            			// .loginPage("/login")
-            			.permitAll()
-            		)
+                        // .loginPage("/login")
+                        .permitAll())
                 .logout((logout) -> logout.permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable());
-                http.headers(headers -> headers.disable());
+        http.headers(headers -> headers.disable());
+        http.cors(cors -> cors.disable());
 
         return http.build();
     }
