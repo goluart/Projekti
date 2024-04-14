@@ -22,19 +22,19 @@ public class TarkastusService {
     LippuRepository lippuRepository;
 
     public List<TarkastusDTO> haeKaikkiTarkastukset() {
-        return tarkastusRepository.findAll()
+        return lippuRepository.findAll()
                 .stream()
                 .map(this::muutaLuokkaDtoksi)
                 .collect(Collectors.toList());
     }
 
-    private TarkastusDTO muutaLuokkaDtoksi(Tarkastus tarkastus) {
+    private TarkastusDTO muutaLuokkaDtoksi(Lippu lippu) {
         TarkastusDTO tarkastusDTO = new TarkastusDTO();
-        tarkastusDTO.setKayttoPvm(tarkastus.getKayttoPvm());
-        tarkastusDTO.setTarkistuskoodi(tarkastus.getLippu().getTarkistuskoodi());
-        tarkastusDTO.setTapahtumaNimi(tarkastus.getLippu().getTapahtuma().getTapahtumaNimi());
-        tarkastusDTO.setLipputyyppi(tarkastus.getLippu().getLipputyyppi().getNimi());
-        tarkastusDTO.setPaikkaNimi(tarkastus.getLippu().getTapahtuma().getTapahtumapaikka().getPaikkaNimi());
+        tarkastusDTO.setKayttoPvm(lippu.getKayttoPvm());
+        tarkastusDTO.setTarkistuskoodi(lippu.getTarkistuskoodi());
+        tarkastusDTO.setTapahtumaNimi(lippu.getTapahtuma().getTapahtumaNimi());
+        tarkastusDTO.setLipputyyppi(lippu.getLipputyyppi().getNimi());
+        tarkastusDTO.setPaikkaNimi(lippu.getTapahtuma().getTapahtumapaikka().getPaikkaNimi());
         return tarkastusDTO;
 
     }
@@ -44,7 +44,6 @@ public class TarkastusService {
         TarkastusDTO vastausDTO = new TarkastusDTO();
         // TarkastusDTO tarkastusDTO = new TarkastusDTO();
         if (lippu != null) {
-            System.out.println("Lippu ok");
             if (lippu.getKayttoPvm() == null) {   
                 System.out.println("Käyttöpäivämäärä tyhjä");
                 // tarkastusDTO.setKayttoPvm(lippu.getKayttoPvm());
@@ -78,4 +77,6 @@ public class TarkastusService {
         vastausDTO.setResponse(false);
         return vastausDTO;         
     }
+
+
 }

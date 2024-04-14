@@ -8,6 +8,9 @@ public class LuoMyyntitapahtumaDTO {
     private Long tapahtumaId;
     private List<LippuTyyppiMaaraDTO> lippuTyyppiMaarat;
 
+    public LuoMyyntitapahtumaDTO() {
+    }
+
     public LuoMyyntitapahtumaDTO(Long tapahtumaId, List<LippuTyyppiMaaraDTO> lippuTyyppiMaarat) {
         this.tapahtumaId = tapahtumaId;
         this.lippuTyyppiMaarat = lippuTyyppiMaarat;
