@@ -1,23 +1,32 @@
 import { useState } from "react";
-import api from "./ApiToken";
+import { Link, useParams } from "react-router-dom";
 
 const CheckTicket = () => {
 
-    const [valid, setValid] = useState('')
-    const [ticketUUID, setTicketUUID] = useState('')
-    const [err, setErr] = useState('')
-    const [message, setMessage] = useState('')
+    let { accessToken } = useParams();
+    const [ticketUUID, setTicketUUID] = useState('');
+    const [err, setErr] = useState('');
+    const [message, setMessage] = useState('');
 
-    // patch pyyntö välittää parametrina lipun tiedon ja saa onnistuessaan vastauksena true/false
-    const patchTicket = () => {
-        api.patch(`/tickets/markAsUsed/byUuid?uuid=${ticketUUID}`)
-            .then(response => response.json())
-            .then(data => setValid(data))
-            .catch(error => {
-                setErr(error.message);
-            });
-    }
+    const handleChangeTicketUUID = (event) => {
+        setTicketUUID(event.target.value);
+    };
 
+    const requestOptions = {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    };
+
+    const patchTicket = async () => {
+        try {
+            const response = await fetch(`https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi/api/tickets/markAsUsed/byUuid?uuid=${ticketUUID}`, requestOptions)
+        } catch (error) {
+            setErr('Error: ', error.message) // tulee vastaus not found, pitäisi palauttaa vain http response 204
+        }
+    };
     // painike käynnistää doCheck tapahtuman
     const doCheck = (event) => {
         event.preventDefault();
@@ -31,20 +40,20 @@ const CheckTicket = () => {
                 setMessage("Ticket already used")
             }
         }
-
-    }
+    };
 
     return (
         <div>
             <form>
                 <label>Check ticket
-                    <input type="text" onChange={setTicketUUID} name="ticketUUID" />
+                    <input type="text" onChange={handleChangeTicketUUID} name="ticketUUID" />
                 </label>
                 <input type="button" onClick={doCheck} value="Check" />
                 <h1>{message}</h1>
             </form>
+            <Link to={'/get/' + accessToken}>Get ticket</Link>
         </div>
     )
-}
+};
 
 export default CheckTicket
