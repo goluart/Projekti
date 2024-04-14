@@ -35,14 +35,29 @@ Merkitse lippu käytetyksi
 ```
 ### TAI
 
-**Ehto**: Jos tarkistuskoodilla ei löydy lippua tai lippu on jo käytetty
+**Ehto**: Jos tarkistuskoodilla ei löydy lippua
 
-**Koodi**: `200 OK`
+**Koodi**: `404 Not Found`
 
 **Sisällön esimerkki**
 ```json
 {
-    "response": false
+    "response": false,
+    "reason": "lippua ei löytynyt"
+}
+```
+
+### TAI
+
+**Ehto**: Jos lippu on jo käytetty eli kayttoPvm on muu kuin null
+
+**Koodi**: `400 Bad Request`
+
+**Sisällön esimerkki**
+```json
+{
+    "response": false,
+    "reason": "lippu on jo käytetty"
 }
 ```
 
