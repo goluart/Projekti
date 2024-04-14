@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -21,6 +22,24 @@ public class WebSecurityConfig {
 
     @Autowired
     private UserDetailService userDetailsService;
+
+    @Bean
+    public SecurityFilterChain web(HttpSecurity http) throws Exception {
+        http
+                .cors(withDefaults())
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(form -> form
+                        // .loginPage("/login")
+                        .permitAll())
+                .logout((logout) -> logout.permitAll())
+                .httpBasic(Customizer.withDefaults())
+                .csrf(csrf -> csrf.disable());
+        http.headers(headers -> headers.disable());
+
+        return http.build();
+    }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -34,24 +53,6 @@ public class WebSecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/**", configuration);
         return source;
-    }
-
-    @Bean
-    public SecurityFilterChain web(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/").permitAll()
-                        .anyRequest().authenticated())
-                .formLogin(form -> form
-                        // .loginPage("/login")
-                        .permitAll())
-                .logout((logout) -> logout.permitAll())
-                .httpBasic(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable());
-        http.headers(headers -> headers.disable());
-        http.cors(cors -> cors.disable());
-
-        return http.build();
     }
 
     @Autowired
