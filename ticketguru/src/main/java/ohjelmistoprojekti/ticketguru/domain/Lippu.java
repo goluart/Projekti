@@ -1,6 +1,7 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -40,6 +41,7 @@ public class Lippu {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "myyntitapahtuma_id")
 	private Myyntitapahtuma myyntitapahtuma;
+	private ZonedDateTime kayttoPvm;
 
 	// Konstruktori
 
@@ -120,11 +122,21 @@ public class Lippu {
 		this.ostoPvm = ostoPvm;
 	}
 
+	public ZonedDateTime getKayttoPvm() {
+		return kayttoPvm;
+	}
+
+	public void setKayttoPvm(ZonedDateTime kayttoPvm) {
+		this.kayttoPvm = kayttoPvm;
+	}
+
 	@Override
 	public String toString() {
 		return "Lippu [lippuId=" + lippuId + ", ostoPvm=" + ostoPvm + ", tarkistuskoodi=" + tarkistuskoodi + ", hinta="
 				+ hinta + ", tapahtuma=" + tapahtuma + ", lipputyyppi=" + lipputyyppi + ", myyntitapahtuma="
-				+ myyntitapahtuma + "]";
+				+ myyntitapahtuma + ", kayttoPvm=" + kayttoPvm + "]";
 	}
+
+	
 
 }

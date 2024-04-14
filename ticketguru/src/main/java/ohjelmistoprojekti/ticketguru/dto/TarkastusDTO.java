@@ -2,8 +2,11 @@ package ohjelmistoprojekti.ticketguru.dto;
 
 import java.time.ZonedDateTime;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.validation.constraints.NotEmpty;
 
+@JsonInclude(JsonInclude.Include.NON_NULL) // jättää null-arvot pois vastauksesta
 public class TarkastusDTO {
 
     private Long tarkastusId; // Tarkastus
@@ -16,6 +19,7 @@ public class TarkastusDTO {
     private String lipputyyppi; // Lipputyyppi
     @NotEmpty(message = "Tapahtumapaikka pitää määrittää")
     private String paikkaNimi; // Tapahtumapaikka
+    private Boolean response; // Vastausviestin palautus jsonina
 
     public Long getTarkastusId() {
         return tarkastusId;
@@ -63,13 +67,20 @@ public class TarkastusDTO {
 
     public void setPaikkaNimi(String paikkaNimi) {
         this.paikkaNimi = paikkaNimi;
+    }    
+    
+    public Boolean getResponse() {
+        return response;
     }
-
+    
+    public void setResponse(Boolean response) {
+        this.response = response;
+    }
     @Override
     public String toString() {
         return "TarkastusDTO [tarkastusId=" + tarkastusId + ", kayttoPvm=" + kayttoPvm + ", tarkistuskoodi="
                 + tarkistuskoodi + ", tapahtumaNimi=" + tapahtumaNimi + ", lipputyyppi=" + lipputyyppi + ", paikkaNimi="
                 + paikkaNimi + "]";
     }
-
+    
 }

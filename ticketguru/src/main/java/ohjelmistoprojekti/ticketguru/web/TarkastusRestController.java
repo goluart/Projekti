@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ohjelmistoprojekti.ticketguru.dto.TarkastusDTO;
@@ -16,9 +19,21 @@ public class TarkastusRestController {
     @Autowired
     private TarkastusService tarkastusService;
 
-    @PreAuthorize("hasAuthority('lipuntarkastaja')")
+    @PreAuthorize("hasAnyAuthority('lipuntarkastaja','myyja')")
     @GetMapping("/tarkastukset")
     public List<TarkastusDTO> haeKaikkiTarkastukset() {
         return tarkastusService.haeKaikkiTarkastukset();
     }
+    @PreAuthorize("hasAnyAuthority('lipuntarkastaja','myyja')")
+    @GetMapping("/tarkastukset/{tarkistuskoodi}")
+    public TarkastusDTO haeTarkistuskoodilla(@PathVariable("tarkistuskoodi") String tarkistuskoodi) {
+        return tarkastusService.haeLippuTarkistuskoodilla(tarkistuskoodi);
+    }
+
+    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
+	@PostMapping("/tarkastukset")
+	// @ResponseStatus(value = HttpStatus.CREATED, reason = "Uusi tapahtuma luotu")
+	public TarkastusDTO tarkastaLippu(@RequestBody TarkastusDTO tarkastusDTO) {
+        return tarkastusService.tarkastaLippu(tarkastusDTO);
+	}
 }
