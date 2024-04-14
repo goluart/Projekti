@@ -1,3 +1,4 @@
+
 package ohjelmistoprojekti.ticketguru.domain;
 
 import java.time.ZonedDateTime;

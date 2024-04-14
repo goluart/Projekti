@@ -3,7 +3,6 @@ package ohjelmistoprojekti.ticketguru.web;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-
 import ohjelmistoprojekti.ticketguru.domain.Lipputyyppi;
 import ohjelmistoprojekti.ticketguru.domain.LipputyyppiRepository;
 
@@ -51,6 +50,7 @@ public class MyyntitapahtumaRestController {
                 .map(myyntitapahtuma -> myyntitapahtumaService.muunnaMyyntitapahtumaDtoon(myyntitapahtuma))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(myyntitapahtumatDtot);
+
     }
 
     @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
@@ -60,11 +60,16 @@ public class MyyntitapahtumaRestController {
         return myyntitapahtumaRepository.findById(myyntitapahtumaId)
                 .map(myyntitapahtuma -> myyntitapahtumaService.muunnaMyyntitapahtumaDtoon(myyntitapahtuma))
                 .map(ResponseEntity::ok) // Muunna MyyntitapahtumaDTO ResponseEntity-olioksi
-                .orElse(ResponseEntity.notFound().build()); // Palauta 404 Not Found, jos Myyntitapahtumaa ei löydy
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Myyntitapahtumaa " + myyntitapahtumaId + " ei löytynyt."));
+        // ResponseEntity.notFound().build()); // Palauta 404 Not Found, jos
+        // Myyntitapahtumaa ei löydy
+
     }
 
     // Lisätään tietokantaan myyntitapahtuma ja luodaan jokainen myyntitapahtumassa
     // myyty lippu
+
     @PreAuthorize("hasRole('myyja')")
     @PostMapping
     public ResponseEntity<?> luoMyyntitapahtuma(@RequestBody @NonNull LuoMyyntitapahtumaDTO mtDto) {
@@ -111,6 +116,7 @@ public class MyyntitapahtumaRestController {
         }
 
         // Luodaan myyntitapahtuma, jos ei poikkeuksia
+
         MyyntitapahtumaDTO myyntitapahtumaDto = myyntitapahtumaService.luoMyyntitapahtuma(mtDto);
         return ResponseEntity.ok(myyntitapahtumaDto);
     }
