@@ -19,6 +19,14 @@ const SignIn = () => {
         }
     }
 
+    const handleChangeUsername = (event) => {
+        setUsername(event.target.value);
+    }
+
+    const handleChangePassword = (event) => {
+        setPassword(event.target.value);
+    }
+
     const getToken = async () => {
         fetch('https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi/api/login', requestOptions)
             .then(response => response.json())
@@ -33,10 +41,10 @@ const SignIn = () => {
         <div>
             <form>
                 <label>User
-                    <input type='text' onChange={setUsername} name='otsikko' /><br />
+                    <input type='text' onChange={handleChangeUsername} name='username' /><br />
                 </label>
                 <label>Password
-                    <input type='text' onChange={setPassword} name='paikka' /><br />
+                    <input type='text' onChange={handleChangePassword} name='password' /><br />
                 </label>
                 <input type='button' onClick={getToken} value='Sign in' />
                 <input type='hidden' value={token} />
