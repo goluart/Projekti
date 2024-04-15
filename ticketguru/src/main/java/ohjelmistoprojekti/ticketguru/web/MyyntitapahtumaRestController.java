@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@CrossOrigin
+// @CrossOrigin
 @RestController
 @RequestMapping("/myyntitapahtumat")
 public class MyyntitapahtumaRestController {
