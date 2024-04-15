@@ -46,7 +46,7 @@ public class TarkastusRestController {
 
     @PreAuthorize("hasAnyAuthority('lipuntarkastaja','myyja')")
     @GetMapping("/liput")
-    public ResponseEntity<?> haeLippuId(@RequestParam String tarkistuskoodi) {
+    public ResponseEntity<?> haeLippuId(@RequestParam(name="tarkistuskoodi") String tarkistuskoodi) {
         Lippu lippu = lippuRepository.findByTarkistuskoodi(tarkistuskoodi);
         if (lippu != null) {
             LippuDto lippuDto = tarkastusService.haeLippuId(lippu.getLippuId());

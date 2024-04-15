@@ -1,4 +1,4 @@
-# Luo uusi tapahtumat
+# Merkitse lippu käytetyksi
 Tämä dokumentaatio kuvaa, miten lippu tarkistetaan.
 
 ## API Endpoint

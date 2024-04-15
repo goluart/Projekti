@@ -1,4 +1,4 @@
-# Luo uusi tapahtumat
+# Hae lipun tiedot
 Tämä dokumentaatio kuvaa, miten lippu tarkistetaan.
 
 ## API Endpoint

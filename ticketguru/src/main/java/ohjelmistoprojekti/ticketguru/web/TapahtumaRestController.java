@@ -26,7 +26,7 @@ import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
 import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto;
 import ohjelmistoprojekti.ticketguru.service.TapahtumaService;
 
-@CrossOrigin
+// @CrossOrigin
 @RestController
 public class TapahtumaRestController {
 
