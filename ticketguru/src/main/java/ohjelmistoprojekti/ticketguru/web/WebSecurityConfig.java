@@ -43,6 +43,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain web(HttpSecurity http) throws Exception {
         http
+                
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/").permitAll()
                         .anyRequest().authenticated())
