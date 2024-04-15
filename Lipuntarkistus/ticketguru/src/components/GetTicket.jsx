@@ -1,43 +1,62 @@
-import { useState, useEffect } from "react";
-import { Form } from "react-router-dom";
-import { useParams } from "react-router";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 const GetTicket = () => {
 
-    const [token, setToken] = useState('')
-    const [message, setMessage] = useState('')
-    const [ticketUUID, setTicketUUID] = useState('')
+    let { accessToken } = useParams();
+    const [ticket, setTicket] = useState({});
+    const [ticketUUID, setTicketUUID] = useState("");
+    const [err, setErr] = useState('');
+    const [data, setData] = useState('');
 
     const requestOptions = {
         method: 'GET',
-        redirect: 'follow',
         headers: {
-            Authorization: {
-                token: token,
-                type: 'bearer'
-            }
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
         }
-    }
+    };
+
+    const handleChangeTicketUUID = (event) => {
+        setTicketUUID(event.target.value);
+    };
 
     const fetchTicket = async () => {
-        fetch(`http://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi/api/tickets/${ticketUUID}`, requestOptions)
-            .then(response => response.json())
-            .then(data => setMessage(data))
-            .catch(error => {
-                alert('Error', error);
-            });
-    }
+        try {
+            const response = await fetch(`https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi/api/tickets/byUuid?uuid=${ticketUUID}`, requestOptions)
+            const json = await response.json();
+            setTicket(json)
+        } catch (error) {
+            setErr('Error signing in: ', error.message)
+        }
+        showTicket();
+    };
+
+    const showTicket = () => {
+        if (ticket.length == null) {
+            setData(<p>Fetch failed: {err}</p>)
+        } else {
+            setData( // tieto tulee json muodossa, mutta lipputyypin nimeä ei pysty lukemaan
+                <div>
+                    <p>Ticket type: {ticket.ticketType.name}</p>
+                    <p>Ticket event: {ticket.event}</p>
+                    <p>Ticket used: {ticket.used}</p>
+                </div>
+            )
+        }
+    };
 
     return (
         <div>
             <form>
                 <label>Fetch ticket info
-                    <input type='text' onChange={ticketUUID} name='ticketId' placeholder="Write the code" /><br />
+                    <input type='text' onChange={handleChangeTicketUUID} name='ticketUUID' placeholder="Write the code" /><br />
                 </label>
                 <input type='button' onClick={fetchTicket} value='Search' />
-                <input type='hidden' value={token} />
             </form>
+            {data}
+            <Link to={'/check/' + accessToken}>Check ticket</Link>
         </div>)
-}
+};
 
 export default GetTicket

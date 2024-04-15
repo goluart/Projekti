@@ -1,23 +1,31 @@
-import { useEffect, useState } from 'react';
-import { Form } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
 
-    const [token, setToken] = useState('');
+    const [accessToken, setAccessToken] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [answer, setAnswer] = useState('');
+
+    const handleChangeUsername = (event) => {
+        setUsername(event.target.value);
+    };
+
+    const handleChangePassword = (event) => {
+        setPassword(event.target.value);
+    };
 
     const requestOptions = {
         method: 'POST',
-        redirect: 'follow',
-        body: JSON.stringify({
-            username: username,
-            password: password
-        }),
         headers: {
-            'Content-Type': 'application-json'
-        }
-    }
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'username': username,
+            'password': password
+        }),
+    };
 
     const handleChangeUsername = (event) => {
         setUsername(event.target.value);
@@ -28,14 +36,15 @@ const SignIn = () => {
     }
 
     const getToken = async () => {
-        fetch('https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi/api/login', requestOptions)
-            .then(response => response.json())
-            .then(data => setToken(data.accessToken))
-            .catch(error => {
-                alert(error, 'Error')
-            })
-        console.log(token)
-    }
+        try {
+            const response = await fetch('https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi/api/login', requestOptions);
+            const json = await response.json();
+            setAccessToken(json.token)
+        } catch (error) {
+            alert('Error signing in: ', error.message)
+        }
+        setAnswer(<p>Token ready</p>)
+    };
 
     return (
         <div>
@@ -47,8 +56,12 @@ const SignIn = () => {
                     <input type='text' onChange={handleChangePassword} name='password' /><br />
                 </label>
                 <input type='button' onClick={getToken} value='Sign in' />
-                <input type='hidden' value={token} />
             </form>
+            {answer}
+            <Link to={'/get/'+ accessToken}>Get ticket</Link>
+            <br/>
+            <Link to={'/check/'+ accessToken}>Check ticket</Link>
+        
         </div>)
 }
 
