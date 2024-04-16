@@ -8,6 +8,7 @@ const GetTicket = () => {
     const [ticketUUID, setTicketUUID] = useState("");
     const [err, setErr] = useState('');
     const [data, setData] = useState('');
+    const [used, setUsed] = useState('');
 
     const requestOptions = {
         method: 'GET',
@@ -27,20 +28,25 @@ const GetTicket = () => {
             const json = await response.json();
             setTicket(json)
         } catch (error) {
-            setErr('Error signing in: ', error.message)
+            setErr('Error fetching ticket: ', error.message)
         }
         showTicket();
     };
 
     const showTicket = () => {
-        if (ticket.length == null) {
+        if (ticket.used == true) {
+            setUsed('yes');
+        } if (ticket.used == false) {
+            setUsed('no')
+        }
+        if (ticket == null) {
             setData(<p>Fetch failed: {err}</p>)
         } else {
             setData( // tieto tulee json muodossa, mutta lipputyypin nimeä ei pysty lukemaan
                 <div>
                     <p>Ticket type: {ticket.ticketType.name}</p>
-                    <p>Ticket event: {ticket.event}</p>
-                    <p>Ticket used: {ticket.used}</p>
+                    <p>Ticket event id: {ticket.event}</p>
+                    <p>Ticket used: {used}</p>
                 </div>
             )
         }
