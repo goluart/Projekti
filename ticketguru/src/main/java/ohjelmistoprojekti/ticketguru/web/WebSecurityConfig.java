@@ -24,13 +24,12 @@ public class WebSecurityConfig {
                         .requestMatchers("/").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
-            			// .loginPage("/login")
-            			.permitAll()
-            		)
+                        // .loginPage("/login")
+                        .permitAll())
                 .logout((logout) -> logout.permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable());
-                http.headers(headers -> headers.disable());
+        http.headers(headers -> headers.disable());
 
         return http.build();
     }
