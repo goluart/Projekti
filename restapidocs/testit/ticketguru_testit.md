@@ -1,0 +1,1 @@
+* Ticketguru-lipunmyyntijärjestelmän testidokumentti
