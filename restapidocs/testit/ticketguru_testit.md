@@ -17,11 +17,15 @@ Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poist
 
 > Testin id | Kuvaus | Lähtötilanne | Toimenpiteet | Oletettu lopputulos 
 > --------- | ------ | ------------ | ------------ | ------------------
-> 1 | Hae kaikki tapahtumat | Listalla on kolme tapahtumaa | Testi hakee listan. Listalla on  oltava yli 0 tapahtumaa.| Testi löytää listan, jossa on yli 0 tapahtumaa.
+> 1 | Hae kaikki tapahtumat | Listalla on kolme tapahtumaa | Testi hakee listan. Listalla on  oltava yli 0 tapahtumaa. | Testi löytää listan, jossa on yli 0 tapahtumaa.
 > 2 | Hae yksi tietty tapahtuma | Listalla on kolme tapahtumaa | Testi hakee listan. Testi etsii listalta tapahtuman, jonka id on 2. | Testi löytää ko. tapahtuman.
-> 3 | Lisää tapahtuma | Tapahtuma-lista on tyhjä | Listaan lisätään yksi tapahtuma. | Lista sisältää yhden tapahtuma.
-> 3 | Muokkaa tapahtumaa | Listalla on yksi "Rock Festivaali" -niminen tapahtuma. | Testi muokkaa tapahtuman nimeksi "Humppafest". | Testi löytää listalta "Humppafest"-nimisen tapahtuman.
+> 3 | Lisää tapahtuma | Tapahtuma-lista on tyhjä | Listaan lisätään yksi tapahtuma. | Lista sisältää yhden tapahtuman.
+> 4 | Muokkaa tapahtumaa | Listalla on yksi "Rock Festivaali" -niminen tapahtuma. | Testi muokkaa tapahtuman nimeksi "Humppafest". | Testi löytää listalta "Humppafest"-nimisen tapahtuman.
 
+#### Myyntiapahtumat-luokan testit
 
-
+> Testin id | Kuvaus | Lähtötilanne | Toimenpiteet | Oletettu lopputulos 
+> --------- | ------ | ------------ | ------------ | ------------------
+> 5 | Etsi kaikki myyntitapahtumat | Listalla on kolme tapahtumaa | Testi hakee lista. Listalla on oltavaa yli 0 ja alle 4 tapahtumaa. | Testi löytää listan, jolla on yli 0 ja alle 4 tapahtumaa.
+> 6 | Lisää yksi myyntitapahtuma | Myyntitapahtuma-lista on tyhjä | Listaan lisätään yksi myyntitapahtumatapahtuma. | Lista sisältää yhden myyntitapahtuman.
 
