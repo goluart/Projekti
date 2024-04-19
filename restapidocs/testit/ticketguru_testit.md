@@ -18,7 +18,7 @@ Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poist
 > Testin id | Kuvaus | Lähtötilanne | Toimenpiteet | Oletettu lopputulos 
 > --------- | ------ | ------------ | ------------ | ------------------
 > 1 | Hae kaikki tapahtumat | Listalla on kolme tapahtumaa | Testi hakee listan. Listalla on  oltava yli 0 tapahtumaa. | Testi löytää listan, jossa on yli 0 tapahtumaa.
-> 2 | Hae yksi tietty tapahtuma | Listalla on kolme tapahtumaa | Testi etsii listalta tapahtuman, jonka id on 3. Tapahtuman nimen on oltava "Stand-up show" | Testi löytää ko. tapahtuman
+> 2 | Hae yksi tietty tapahtuma | Listalla on kolme tapahtumaa | Testi etsii listalta tapahtuman, jonka id on 1. Tapahtuman nimen on oltava "Rock Fetivaali" | Testi löytää ko. tapahtuman
 > 3 | Lisää tapahtuma | Listalla on kolme tapahtumaa | Listaan lisätään yksi tapahtuma. | Lista sisältää 4 tapahtumaa.
 > 4 | Muokkaa tapahtumaa | Listalla on yksi "Rock Festivaali" -niminen tapahtuma. | Testi muokkaa tapahtuman nimeksi "Humppafest". | Testi löytää listalta "Humppafest"-nimisen tapahtuman.
 
