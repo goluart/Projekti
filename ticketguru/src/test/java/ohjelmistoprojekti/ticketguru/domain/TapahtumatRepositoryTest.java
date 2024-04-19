@@ -21,8 +21,8 @@ class TapahtumatRepositoryTest {
     @Autowired
     private JarjestajaRepository jarjestajaRepository;
 
-    @Autowired
-    private TapahtumaRestController tapahtumaRestController;
+    // @Autowired
+    // private TapahtumaRestController tapahtumaRestController;
 
     @Test
     void testId1EtsiKaikkiTapahtumat() {
