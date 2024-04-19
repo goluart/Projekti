@@ -15,6 +15,10 @@ Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poist
 
 #### Tapahtumien hakeminen
 
-
+> Testin id | Toimenpide | Oletettu lopputulos 
+> -------- | ---------- | ------------------- 
+> 1 | Tyhjennä tapahtumalista | Tapahtumalista on tyhjä
+> 2 | Lisää listalle yksi tapahtuma | Listalla on yksi tapahtuma
+> 3 | Hae kaikki tapahtumat | Listalla on enemmän kuin 0 tapahtumaa
 
 
