@@ -28,24 +28,17 @@ public class WebSecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/").permitAll()
                         .anyRequest().authenticated())
-<<<<<<< HEAD
-                .formLogin(form -> form
-                        // .loginPage("/login")
-                        .permitAll())
-                .logout((logout) -> logout.permitAll())
-=======
                 // .formLogin(form -> form
-                //         // .loginPage("/login")
-                //         .defaultSuccessUrl("/", true)
-                //         .permitAll())
+                // // .loginPage("/login")
+                // .defaultSuccessUrl("/", true)
+                // .permitAll())
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/")
                         .deleteCookies("JSESSIONID")
                         .permitAll())
->>>>>>> b209cc9fc25252a1cd77e52ec88c4808afd5a354
                 .httpBasic(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable());
         http.headers(headers -> headers.disable());
@@ -56,8 +49,10 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // configuration.setAllowedOrigins(Arrays.asList("*")); // change origin accordingly
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi:80"));
+        // configuration.setAllowedOrigins(Arrays.asList("*")); // change origin
+        // accordingly
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173",
+                "https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi:80"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setExposedHeaders(Arrays.asList("Cache-Control"));
