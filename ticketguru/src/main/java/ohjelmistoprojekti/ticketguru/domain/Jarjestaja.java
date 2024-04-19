@@ -28,7 +28,6 @@ public class Jarjestaja {
 	private String nimi;
 	@Pattern(regexp = "^[0-9]{7}-[0-9]$", message = "Anna y-tunnus")
 	private String ytunnus;
-	@NotEmpty(message = "Anna järjestäjän katuosoite")
 	private String osoite;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "jarjestaja")
@@ -49,6 +48,10 @@ public class Jarjestaja {
 	// Liittyy luokkiin Tapahtumapaikka, Yhteyshenkilo ja Postitoimipaikka
 
 	public Jarjestaja() {
+	}
+
+	public Jarjestaja(String nimi) {
+		this.nimi = nimi;
 	}
 
 	public Jarjestaja(String nimi, String ytunnus, String osoite, Postitoimipaikka postitoimipaikka,
