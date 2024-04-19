@@ -13,12 +13,11 @@ Back-End -testeissä halutaan selvittää eritysesti toimintoja, jotka liittyvä
 
 Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poisto-, ja muokkausominaisuudet toimivat. Myyntitapahtumista halutaan pystyä hakemaan ja lisäämään myyntitapahtumia tässä vaiheessa.
 
-#### Tapahtumien hakeminen
+#### Tapahtumat-luokan testit
 
-> Testin id | Toimenpide | Oletettu lopputulos 
-> -------- | ---------- | ------------------- 
-> 1 | Tyhjennä tapahtumalista | Tapahtumalista on tyhjä
-> 2 | Lisää listalle yksi tapahtuma | Listalla on yksi tapahtuma
-> 3 | Hae kaikki tapahtumat | Listalla on enemmän kuin 0 tapahtumaa
+> Testin id | Kuvaus | Lähtötilanne | Toimenpiteet | Oletettu lopputulos 
+> --------- | ------ | ------------ | ------------ | ------------------
+> 1 | Hae kaikki tapahtumat | Käyttäjä on kirjautunut järjestelmään. Listalla on kolme tapahtumaa | Testi hakee listan. Listalla on  oltava yli 0 tapahtumaa | Testi löytää listan, jossa on yli 0 tapahtumaa
+> 2 | Hae yksi tietty tapahtuma | Käyttäjä on kirjautunut järjestelmään. Listalla on kolme tapahtumaa | Testi hakee listan. Testi etsii listalta tapahtuman, jonka id on 2 | Testi löytää ko. tapahtuman
 
 
