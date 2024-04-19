@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 import ohjelmistoprojekti.ticketguru.domain.Lippu;
 import ohjelmistoprojekti.ticketguru.domain.LippuRepository;
-import ohjelmistoprojekti.ticketguru.domain.Tarkastus;
 import ohjelmistoprojekti.ticketguru.domain.TarkastusRepository;
 import ohjelmistoprojekti.ticketguru.dto.TarkastusDTO;
+import ohjelmistoprojekti.ticketguru.dto.MyyntitapahtumaDTO.LippuDto;
 
 @Service
 public class TarkastusService {
@@ -22,19 +22,19 @@ public class TarkastusService {
     LippuRepository lippuRepository;
 
     public List<TarkastusDTO> haeKaikkiTarkastukset() {
-        return tarkastusRepository.findAll()
+        return lippuRepository.findAll()
                 .stream()
                 .map(this::muutaLuokkaDtoksi)
                 .collect(Collectors.toList());
     }
 
-    private TarkastusDTO muutaLuokkaDtoksi(Tarkastus tarkastus) {
+    private TarkastusDTO muutaLuokkaDtoksi(Lippu lippu) {
         TarkastusDTO tarkastusDTO = new TarkastusDTO();
-        tarkastusDTO.setKayttoPvm(tarkastus.getKayttoPvm());
-        tarkastusDTO.setTarkistuskoodi(tarkastus.getLippu().getTarkistuskoodi());
-        tarkastusDTO.setTapahtumaNimi(tarkastus.getLippu().getTapahtuma().getTapahtumaNimi());
-        tarkastusDTO.setLipputyyppi(tarkastus.getLippu().getLipputyyppi().getNimi());
-        tarkastusDTO.setPaikkaNimi(tarkastus.getLippu().getTapahtuma().getTapahtumapaikka().getPaikkaNimi());
+        tarkastusDTO.setKayttoPvm(lippu.getKayttoPvm());
+        tarkastusDTO.setTarkistuskoodi(lippu.getTarkistuskoodi());
+        tarkastusDTO.setTapahtumaNimi(lippu.getTapahtuma().getTapahtumaNimi());
+        tarkastusDTO.setLipputyyppi(lippu.getLipputyyppi().getNimi());
+        tarkastusDTO.setPaikkaNimi(lippu.getTapahtuma().getTapahtumapaikka().getPaikkaNimi());
         return tarkastusDTO;
 
     }
@@ -44,7 +44,6 @@ public class TarkastusService {
         TarkastusDTO vastausDTO = new TarkastusDTO();
         // TarkastusDTO tarkastusDTO = new TarkastusDTO();
         if (lippu != null) {
-            System.out.println("Lippu ok");
             if (lippu.getKayttoPvm() == null) {   
                 System.out.println("Käyttöpäivämäärä tyhjä");
                 // tarkastusDTO.setKayttoPvm(lippu.getKayttoPvm());
@@ -78,4 +77,15 @@ public class TarkastusService {
         vastausDTO.setResponse(false);
         return vastausDTO;         
     }
+
+    public LippuDto haeLippuId(Long id) {
+        if (lippuRepository.existsById(id)) {
+            Lippu lippu = lippuRepository.findById(id).orElse(null);
+            LippuDto vastausDto = new LippuDto(lippu.getTapahtuma().getTapahtumaId().toString(), lippu.getTapahtuma().getTapahtumaNimi(), lippu.getTapahtuma().getAlkaaPvm().toString(), lippu.getTapahtuma().getTapahtumapaikka().getPaikkaNimi(), lippu.getLipputyyppi().getLipputyyppiId().toString(), lippu.getLipputyyppi().getNimi(), String.format("%.2f", lippu.getHinta()), lippu.getTarkistuskoodi());
+            return vastausDto;
+        } 
+        return null;
+    }
+
+
 }
