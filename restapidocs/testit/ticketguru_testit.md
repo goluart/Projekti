@@ -15,12 +15,66 @@ Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poist
 
 #### Tapahtumat-luokan testit
 
+#### Testien suunnitelmat
+
 > Testin id | Kuvaus | Lähtötilanne | Toimenpiteet | Oletettu lopputulos 
 > --------- | ------ | ------------ | ------------ | ------------------
 > 1 | Hae kaikki tapahtumat | Listalla on kolme tapahtumaa | Testi hakee listan. Listalla on  oltava yli 0 tapahtumaa. | Testi löytää listan, jossa on yli 0 tapahtumaa.
 > 2 | Hae yksi tietty tapahtuma | Listalla on kolme tapahtumaa | Testi etsii listalta tapahtuman, jonka id on 1. Tapahtuman nimen on oltava "Rock Festivaali" | Testi löytää ko. tapahtuman
 > 3 | Lisää tapahtuma | Listalla on kolme tapahtumaa | Listaan lisätään yksi tapahtuma. | Lista sisältää 4 tapahtumaa.
 > 4 | Muokkaa tapahtumaa | Listalla on yksi "Rock Festivaali" -niminen tapahtuma. | Testi muokkaa tapahtuman nimeksi "Humppafest". | Testi löytää listalta "Humppafest"-nimisen tapahtuman.
+
+#### Suoritetut testit
+
+@DataJpaTest
+class TapahtumatRepositoryTest {
+
+    @Autowired
+    private TapahtumaRepository tapahtumaRepository;
+    @Autowired
+    private TapahtumapaikkaRepository tapahtumapaikkaRepository;
+    @Autowired
+    private JarjestajaRepository jarjestajaRepository;
+
+    @Test
+    void testId1EtsiKaikkiTapahtumat() {
+
+        List<Tapahtuma> tapahtumat = tapahtumaRepository.findAll();
+        assertThat(tapahtumat).hasSize(3);
+    }
+
+    @Test
+    void testId2EtsiYksiTapahtuma() {
+        Optional<Tapahtuma> tapahtuma = tapahtumaRepository.findById((long) 1);
+        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Rock Festivaali");
+    }
+
+    @Test
+    void testId3LisaaYksiTapahtuma() {
+        Tapahtumapaikka tapahtumapaikka = new Tapahtumapaikka("Tavastia");
+        tapahtumapaikkaRepository.save(tapahtumapaikka);
+
+        Jarjestaja jarjestaja = new Jarjestaja("Live-nation");
+        jarjestajaRepository.save(jarjestaja);
+
+        assertThat(tapahtumaRepository.count()).isEqualTo(3);
+
+        Tapahtuma tapahtuma = new Tapahtuma("Poppibileet", "Kevyttä poppia", 50, tapahtumapaikka, jarjestaja, 100);
+        tapahtumaRepository.save(tapahtuma);
+        assertThat(tapahtumaRepository.count()).isEqualTo(4);
+    }
+
+    @Test
+    void testId4MuokkaaTapahtumaa() {
+        Optional<Tapahtuma> tapahtuma = tapahtumaRepository.findById((long) 1);
+        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Rock Festivaali");
+
+        tapahtuma.get().setTapahtumaNimi("Humppafest");
+        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Humppafest");
+
+    }
+
+}
 
 #### Myyntiapahtumat-luokan testit
 

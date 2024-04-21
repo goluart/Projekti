@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import ohjelmistoprojekti.ticketguru.web.TapahtumaRestController;
-
 @DataJpaTest
 class TapahtumatRepositoryTest {
 
@@ -20,9 +18,6 @@ class TapahtumatRepositoryTest {
     private TapahtumapaikkaRepository tapahtumapaikkaRepository;
     @Autowired
     private JarjestajaRepository jarjestajaRepository;
-
-    // @Autowired
-    // private TapahtumaRestController tapahtumaRestController;
 
     @Test
     void testId1EtsiKaikkiTapahtumat() {
@@ -51,14 +46,15 @@ class TapahtumatRepositoryTest {
         tapahtumaRepository.save(tapahtuma);
         assertThat(tapahtumaRepository.count()).isEqualTo(4);
     }
-    /*
-     * @Test
-     * void testId4MuokkaaTapahtumaa() {
-     * Optional<Tapahtuma> tapahtuma = tapahtumaRepository.findById((long) 1);
-     * assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Rock Festivaali");
-     * 
-     * tapahtumaRestController.editTapahtuma(1, null)
-     * }
-     */
+
+    @Test
+    void testId4MuokkaaTapahtumaa() {
+        Optional<Tapahtuma> tapahtuma = tapahtumaRepository.findById((long) 1);
+        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Rock Festivaali");
+
+        tapahtuma.get().setTapahtumaNimi("Humppafest");
+        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Humppafest");
+
+    }
 
 }
