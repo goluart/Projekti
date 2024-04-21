@@ -49,10 +49,8 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // configuration.setAllowedOrigins(Arrays.asList("*")); // change origin
-        // accordingly
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173",
-                "https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi:80"));
+        // configuration.setAllowedOrigins(Arrays.asList("*")); // change origin accordingly
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi", "https://projekti-ticketguru-tiimi4.rahtiapp.fi"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setExposedHeaders(Arrays.asList("Cache-Control"));

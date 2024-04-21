@@ -36,6 +36,9 @@ public class LuoMyyntitapahtumaDTO {
         private Long lipputyyppiId;
         private int lippuMaara;
 
+        public LippuTyyppiMaaraDTO() {
+        }
+
         public LippuTyyppiMaaraDTO(Long lipputyyppiId, int lippuMaara) {
             this.lipputyyppiId = lipputyyppiId;
             this.lippuMaara = lippuMaara;
