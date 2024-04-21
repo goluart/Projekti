@@ -25,61 +25,50 @@ Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poist
 > 4 | Muokkaa tapahtumaa | Listalla on yksi "Rock Festivaali" -niminen tapahtuma. | Testi muokkaa tapahtuman nimeksi "Humppafest". | Testi löytää listalta "Humppafest"-nimisen tapahtuman.
 
 #### Suoritetut testit
-
-@DataJpaTest
-class TapahtumatRepositoryTest {
-
-    @Autowired
-    private TapahtumaRepository tapahtumaRepository;
-    @Autowired
-    private TapahtumapaikkaRepository tapahtumapaikkaRepository;
-    @Autowired
-    private JarjestajaRepository jarjestajaRepository;
-
-    @Test
-    void testId1EtsiKaikkiTapahtumat() {
-
-        List<Tapahtuma> tapahtumat = tapahtumaRepository.findAll();
-        assertThat(tapahtumat).hasSize(3);
-    }
-
-    @Test
-    void testId2EtsiYksiTapahtuma() {
-        Optional<Tapahtuma> tapahtuma = tapahtumaRepository.findById((long) 1);
-        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Rock Festivaali");
-    }
-
-    @Test
-    void testId3LisaaYksiTapahtuma() {
-        Tapahtumapaikka tapahtumapaikka = new Tapahtumapaikka("Tavastia");
-        tapahtumapaikkaRepository.save(tapahtumapaikka);
-
-        Jarjestaja jarjestaja = new Jarjestaja("Live-nation");
-        jarjestajaRepository.save(jarjestaja);
-
-        assertThat(tapahtumaRepository.count()).isEqualTo(3);
-
-        Tapahtuma tapahtuma = new Tapahtuma("Poppibileet", "Kevyttä poppia", 50, tapahtumapaikka, jarjestaja, 100);
-        tapahtumaRepository.save(tapahtuma);
-        assertThat(tapahtumaRepository.count()).isEqualTo(4);
-    }
-
-    @Test
-    void testId4MuokkaaTapahtumaa() {
-        Optional<Tapahtuma> tapahtuma = tapahtumaRepository.findById((long) 1);
-        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Rock Festivaali");
-
-        tapahtuma.get().setTapahtumaNimi("Humppafest");
-        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Humppafest");
-
-    }
-
-}
+>    @Test
+>    void testId1EtsiKaikkiTapahtumat() {
+>
+>        List<Tapahtuma> tapahtumat = tapahtumaRepository.findAll();
+>        assertThat(tapahtumat).hasSize(3);
+>    }
+>
+>    @Test
+>    void testId2EtsiYksiTapahtuma() {
+>   
+>        Optional<Tapahtuma> tapahtuma = tapahtumaRepository.findById((long) 1);
+>        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Rock Festivaali");
+>    }
+>
+>    @Test
+>    void testId3LisaaYksiTapahtuma() {
+>    
+>        Tapahtumapaikka tapahtumapaikka = new Tapahtumapaikka("Tavastia");
+>        tapahtumapaikkaRepository.save(tapahtumapaikka);
+>
+>        Jarjestaja jarjestaja = new Jarjestaja("Live-nation");
+>        jarjestajaRepository.save(jarjestaja);
+>
+>        assertThat(tapahtumaRepository.count()).isEqualTo(3);
+>
+>        Tapahtuma tapahtuma = new Tapahtuma("Poppibileet", "Kevyttä poppia", 50, tapahtumapaikka, jarjestaja, 100);
+>        tapahtumaRepository.save(tapahtuma);
+>        assertThat(tapahtumaRepository.count()).isEqualTo(4);
+>    }
+>
+>    @Test
+>    void testId4MuokkaaTapahtumaa() {
+>        Optional<Tapahtuma> tapahtuma = tapahtumaRepository.findById((long) 1);
+>        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Rock Festivaali");
+>
+>        tapahtuma.get().setTapahtumaNimi("Humppafest");
+>        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Humppafest");
+>
+>    }
 
 #### Myyntiapahtumat-luokan testit
 
 > Testin id | Kuvaus | Lähtötilanne | Toimenpiteet | Oletettu lopputulos 
 > --------- | ------ | ------------ | ------------ | ------------------
-> 5 | Etsi kaikki myyntitapahtumat | Listalla on kolme tapahtumaa | Testi hakee lista. Listalla on oltavaa yli 0 ja alle 4 tapahtumaa. | Testi löytää listan, jolla on yli 0 ja alle 4 tapahtumaa.
+> 5 | Etsi kaikki myyntitapahtumat | Listalla on monia tapahtumia | Testi hakee lista. Listalla on oltavaa yli 0 | Testi löytää listan, ja kertoo tapahtumien määrän
 > 6 | Lisää yksi myyntitapahtuma | Myyntitapahtuma-lista on tyhjä | Listaan lisätään yksi myyntitapahtumatapahtuma. | Lista sisältää yhden myyntitapahtuman.
 
