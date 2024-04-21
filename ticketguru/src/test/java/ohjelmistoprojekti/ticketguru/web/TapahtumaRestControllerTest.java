@@ -42,6 +42,7 @@ public class TapahtumaRestControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(tapahtumaRestController).build();
     }
 
+    // Testing a single tapahtuma with tapahtumat/1 endpoint (get)
     @Test
     void testFindTapahtumaById_WithValidId_ReturnsTapahtuma() throws Exception {
         Tapahtuma tapahtuma = new Tapahtuma("TapahtumaTesti", "Kuvaus tapahtuma testille", 25, null, null, 3000);
@@ -49,7 +50,7 @@ public class TapahtumaRestControllerTest {
         Optional<Tapahtuma> tapahtumaOptional = Optional.of(tapahtuma);
         when(tapahtumaRepository.findById(1L)).thenReturn(tapahtumaOptional);
 
-        // Print JSON representation of tapahtuma
+        // Debugging output for request JSON
         ObjectMapper objectMapper = new ObjectMapper();
         String tapahtumaJson = objectMapper.writeValueAsString(tapahtuma);
         System.out.println("Tapahtuma JSON: " + tapahtumaJson);
@@ -63,4 +64,49 @@ public class TapahtumaRestControllerTest {
         assertTrue(tapahtumaOptional.isPresent(), "Event should be found");
         assertEquals("TapahtumaTesti", tapahtumaOptional.get().getTapahtumaNimi(), "Event name should match");
     }
+
+    // Tapahtuma with non existing ID returns 404 Not Found
+    @Test
+    void testFindTapahtumaById_NonExistingId_Returns404() throws Exception {
+        when(tapahtumaRepository.findById(1L)).thenReturn(Optional.empty());
+        // Log before performing the HTTP request
+        System.out.println("Sending GET request to /tapahtumat/1...");
+
+        mockMvc.perform(get("/tapahtumat/1"))
+                .andExpect(status().isNotFound());
+    }
+
+    // Uuden tapahtuma lisäys (post)
+    @Test
+    void testNewTapahtuma_CreatesEvent() throws Exception {
+        Tapahtuma tapahtuma = new Tapahtuma("Uusi Testi Tapahtuma", "Kuvaus uudelle testi tapahtumalle", 50, null, null,
+                500);
+        when(tapahtumaRepository.save(any(Tapahtuma.class))).thenReturn(tapahtuma);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String tapahtumaJson = objectMapper.writeValueAsString(tapahtuma);
+        System.out.println("Uusi Tapahtuma JSON: " + tapahtumaJson);
+
+        mockMvc.perform(post("/tapahtumat")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(tapahtumaJson))
+                .andExpect(status().isCreated());
+    }
+
+    // Tapahtuman poisto (delete)
+    @Test
+    void testDeleteTapahtuma_DeleteExisting() throws Exception {
+        Tapahtuma tapahtuma = new Tapahtuma("Poistettava Testi Tapahtuma", "Kuvaus poistettavalle testi tapahtumalle",
+                75, null, null, 1300);
+        when(tapahtumaRepository.findById(1L)).thenReturn(Optional.of(tapahtuma));
+
+        // Debugging output for request JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+        String tapahtumaJson = objectMapper.writeValueAsString(tapahtuma);
+        System.out.println("Request JSON: " + tapahtumaJson);
+
+        mockMvc.perform(delete("/tapahtumat/1"))
+                .andExpect(status().isNoContent());
+    }
+
 }
