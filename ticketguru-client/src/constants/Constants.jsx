@@ -1,0 +1,1 @@
+export const SERVER_URL = 'https://projekti-ticketguru-tiimi4.rahtiapp.fi';
