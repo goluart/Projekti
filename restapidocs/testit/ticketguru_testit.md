@@ -26,7 +26,7 @@ Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poist
 
 #### Testien tulokset
 
-    ![Testitulokset](../../pictures/Testitulokset_TapahtumatRepository.PNG)
+![Testitulokset](../../pictures/Testitulokset_TapahtumatRepository.PNG)
 
 #### TapahtumaRestController-luokan testit
 
