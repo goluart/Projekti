@@ -72,3 +72,12 @@ Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poist
 > 5 | Etsi kaikki myyntitapahtumat | Listalla on monia tapahtumia | Testi hakee lista. Listalla on oltavaa yli 0 | Testi löytää listan, ja kertoo tapahtumien määrän
 > 6 | Lisää yksi myyntitapahtuma | Myyntitapahtuma-lista on tyhjä | Listaan lisätään yksi myyntitapahtumatapahtuma. | Lista sisältää yhden myyntitapahtuman.
 
+#### TapahtumaRestController-luokan testit
+
+> Testin id | Kuvaus | Lähtötilanne | Toimenpiteet | Oletettu lopputulos 
+> --------- | ------ | ------------ | ------------ | ------------------
+> 1 | Hae yksi tapahtuma id:n perusteella | Tietokannassa on tapahtuma ID:llä 1 | Lähetä GET-pyyntö /tapahtumat/1 | Palauta tapahtuma JSON-muodossa
+> 2 | Hae yksi tapahtuma, id ei löydy | Tietokannassa ei ole tapahtumaa ID:llä 1 | Lähetä GET-pyyntö /tapahtumat/1 | Palauta statuskoodi 404 (Not Found)
+> 3 | Lisää uusi tapahtuma | Tietokannassa ei ole tapahtumaa ID:llä 1 | Lähetä POST-pyyntö /tapahtumat | Palauta statuskoodi 201 (Created)
+> 4 | Poista tapahtuma | Tietokannassa on tapahtuma ID:llä 1 | Lähetä DELETE-pyyntö /tapahtumat/1 | Palauta statuskoodi 204 (No Content)
+
