@@ -13,7 +13,7 @@ Back-End -testeissä halutaan selvittää eritysesti toimintoja, jotka liittyvä
 
 Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poisto-, ja muokkausominaisuudet toimivat. Myyntitapahtumista halutaan pystyä hakemaan ja lisäämään myyntitapahtumia tässä vaiheessa.
 
-#### [Tapahtumat-luokan testit] (../../ticketguru/src/test/java/ohjelmistoprojekti/ticketguru/domain/TapahtumatRepositoryTest.java)
+#### ![Tapahtumat-luokan testit](ticketguru/src/main/java/ohjelmistoprojekti/ticketguru/test/java(ohjelmistoprojekti/ticketguru/TapahtumatRepositoryTest.java))
 
 #### Testien suunnitelmat
 
@@ -39,6 +39,7 @@ End-to-End-testi suoritetaan muista testeistä poiketen Robot Frameworkilla. Tes
 Testissä avataan kahteen eri ikkunaan Ticketgurun Client-sovellus. Toisessa ikkunassa edetään ohjelmassa eteenpäin, kun taas toisessa ikkunassa halutaan pysyä etusivulla. Testillä halutaan selvittää, että miten ohjelma reagoi kahden käyttäjän samanaikaiseen toimintaan.
 
 Testissä ensimmäisessä selaimessa kirjaudutaan sisään ja avataan lipunmyyntitoiminto. Tämän aikana toisessa ikkunassa ei pitäisi tapahtua mitään.
+
 
 
 
