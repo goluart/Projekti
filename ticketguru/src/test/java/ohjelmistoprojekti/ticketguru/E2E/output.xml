@@ -1,120 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.12.1 on win32)" generated="2024-04-22T13:29:01.453499" rpa="false" schemaversion="5">
+<robot generator="Robot 7.0 (Python 3.12.1 on win32)" generated="2024-04-22T22:17:51.227557" rpa="false" schemaversion="5">
 <suite id="s1" name="TicketguruE2ETest" source="C:\ohjelmistoprojekti\Projekti\ticketguru\src\test\java\ohjelmistoprojekti\ticketguru\E2E\TicketguruE2ETest.robot">
 <test id="s1-t1" name="Open Two Browsers" line="15">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:01.662964" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:5173'.</msg>
-<msg time="2024-04-22T13:29:02.291857" level="WARN">The chromedriver version (123.0.6312.86) detected in PATH at C:\Users\OMISTAJA\chromedriver-win64\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (124.0.6367.61); currently, chromedriver 124.0.6367.60 is recommended for chrome 124.*, so it is advised to delete the driver in PATH and retry</msg>
+<msg time="2024-04-22T22:17:51.428979" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:5173'.</msg>
+<msg time="2024-04-22T22:17:52.068918" level="WARN">The chromedriver version (123.0.6312.86) detected in PATH at C:\Users\OMISTAJA\chromedriver-win64\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (124.0.6367.61); currently, chromedriver 124.0.6367.60 is recommended for chrome 124.*, so it is advised to delete the driver in PATH and retry</msg>
 <arg>${URL}</arg>
 <arg>${Chrome1}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-04-22T13:29:01.661948" elapsed="2.074685"/>
+<status status="PASS" start="2024-04-22T22:17:51.428979" elapsed="6.095502"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-22T13:29:05.738308" level="INFO">Slept 2 seconds.</msg>
+<msg time="2024-04-22T22:17:59.526085" level="INFO">Slept 2 seconds.</msg>
 <arg>${Sleep}</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-22T13:29:03.737633" elapsed="2.000675"/>
+<status status="PASS" start="2024-04-22T22:17:57.525482" elapsed="2.000603"/>
 </kw>
 <kw name="Page Should Contain" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:05.763906" level="INFO">Current page contains text 'Tapahtumat'.</msg>
+<msg time="2024-04-22T22:17:59.567985" level="INFO">Current page contains text 'Tapahtumat'.</msg>
 <arg>Tapahtumat</arg>
 <doc>Verifies that current page contains ``text``.</doc>
-<status status="PASS" start="2024-04-22T13:29:05.738834" elapsed="0.025072"/>
+<status status="PASS" start="2024-04-22T22:17:59.527720" elapsed="0.040265"/>
 </kw>
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:05.765899" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:5173'.</msg>
-<msg time="2024-04-22T13:29:06.298813" level="WARN">The chromedriver version (123.0.6312.86) detected in PATH at C:\Users\OMISTAJA\chromedriver-win64\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (124.0.6367.61); currently, chromedriver 124.0.6367.60 is recommended for chrome 124.*, so it is advised to delete the driver in PATH and retry</msg>
+<msg time="2024-04-22T22:17:59.568983" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:5173'.</msg>
+<msg time="2024-04-22T22:18:00.129793" level="WARN">The chromedriver version (123.0.6312.86) detected in PATH at C:\Users\OMISTAJA\chromedriver-win64\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (124.0.6367.61); currently, chromedriver 124.0.6367.60 is recommended for chrome 124.*, so it is advised to delete the driver in PATH and retry</msg>
 <arg>${URL}</arg>
 <arg>${Chrome2}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-04-22T13:29:05.764913" elapsed="1.924723"/>
+<status status="PASS" start="2024-04-22T22:17:59.567985" elapsed="1.986385"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-22T13:29:09.690730" level="INFO">Slept 2 seconds.</msg>
+<msg time="2024-04-22T22:18:03.555618" level="INFO">Slept 2 seconds.</msg>
 <arg>${Sleep}</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-22T13:29:07.690635" elapsed="2.000095"/>
+<status status="PASS" start="2024-04-22T22:18:01.555390" elapsed="2.000228"/>
 </kw>
 <kw name="Page Should Contain" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:09.717441" level="INFO">Current page contains text 'Tapahtumat'.</msg>
+<msg time="2024-04-22T22:18:03.585552" level="INFO">Current page contains text 'Tapahtumat'.</msg>
 <arg>Tapahtumat</arg>
 <doc>Verifies that current page contains ``text``.</doc>
-<status status="PASS" start="2024-04-22T13:29:09.691644" elapsed="0.025797"/>
+<status status="PASS" start="2024-04-22T22:18:03.556623" elapsed="0.029912"/>
 </kw>
-<status status="PASS" start="2024-04-22T13:29:01.660944" elapsed="8.057509"/>
+<status status="PASS" start="2024-04-22T22:17:51.427982" elapsed="12.158553"/>
 </test>
 <test id="s1-t2" name="Go To Tapahtumat Page With Chrome1" line="23">
 <kw name="Switch Browser" owner="SeleniumLibrary">
 <arg>1</arg>
 <doc>Switches between active browsers using ``index_or_alias``.</doc>
-<status status="PASS" start="2024-04-22T13:29:09.720989" elapsed="0.000000"/>
+<status status="PASS" start="2024-04-22T22:18:03.587853" elapsed="0.000000"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:09.721748" level="INFO">Clicking element '//*[@id="root"]/div/nav/div/div/a[1]'.</msg>
+<msg time="2024-04-22T22:18:03.588529" level="INFO">Clicking element '//*[@id="root"]/div/nav/div/div/a[1]'.</msg>
 <arg>//*[@id="root"]/div/nav/div/div/a[1]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-22T13:29:09.721748" elapsed="0.070153"/>
+<status status="PASS" start="2024-04-22T22:18:03.588529" elapsed="0.076797"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:09.792905" level="INFO">Typing text 'myyja' into text field '//*[@id="username"]'.</msg>
+<msg time="2024-04-22T22:18:03.667320" level="INFO">Typing text 'myyja' into text field '//*[@id="username"]'.</msg>
 <arg>//*[@id="username"]</arg>
 <arg>myyja</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-22T13:29:09.791901" elapsed="0.118270"/>
+<status status="PASS" start="2024-04-22T22:18:03.666322" elapsed="0.152590"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:09.910808" level="INFO">Typing text 'myyja' into text field '//*[@id="password"]'.</msg>
+<msg time="2024-04-22T22:18:03.819909" level="INFO">Typing text 'myyja' into text field '//*[@id="password"]'.</msg>
 <arg>//*[@id="password"]</arg>
 <arg>myyja</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-22T13:29:09.910808" elapsed="0.099242"/>
+<status status="PASS" start="2024-04-22T22:18:03.819909" elapsed="0.109708"/>
 </kw>
 <kw name="Click Button" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:10.011053" level="INFO">Clicking button '//*[@id="root"]/div/div/div/div/div/div/form/button'.</msg>
+<msg time="2024-04-22T22:18:03.930613" level="INFO">Clicking button '//*[@id="root"]/div/div/div/div/div/div/form/button'.</msg>
 <arg>//*[@id="root"]/div/div/div/div/div/div/form/button</arg>
 <doc>Clicks the button identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-22T13:29:10.011053" elapsed="0.070023"/>
+<status status="PASS" start="2024-04-22T22:18:03.929617" elapsed="0.066820"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:10.082109" level="INFO">Clicking element '//*[@id="root"]/div/nav/div/div/a[2]'.</msg>
+<msg time="2024-04-22T22:18:03.996437" level="INFO">Clicking element '//*[@id="root"]/div/nav/div/div/a[2]'.</msg>
 <arg>//*[@id="root"]/div/nav/div/div/a[2]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-22T13:29:10.081076" elapsed="0.061767"/>
+<status status="PASS" start="2024-04-22T22:18:03.996437" elapsed="0.063836"/>
 </kw>
 <kw name="Page Should Contain" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:10.630219" level="INFO">Current page contains text 'Myy Lippuja'.</msg>
+<msg time="2024-04-22T22:18:04.627908" level="INFO">Current page contains text 'Myy Lippuja'.</msg>
 <arg>Myy Lippuja</arg>
 <doc>Verifies that current page contains ``text``.</doc>
-<status status="PASS" start="2024-04-22T13:29:10.143839" elapsed="0.486380"/>
+<status status="PASS" start="2024-04-22T22:18:04.061265" elapsed="0.566643"/>
 </kw>
-<status status="PASS" start="2024-04-22T13:29:09.719957" elapsed="0.911234"/>
+<status status="PASS" start="2024-04-22T22:18:03.586535" elapsed="1.042381"/>
 </test>
 <test id="s1-t3" name="Open Modal For Selling tickets" line="32">
 <kw name="Click Button" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:10.633186" level="INFO">Clicking button '//*[@id="root"]/div/div/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[8]/button'.</msg>
+<msg time="2024-04-22T22:18:04.629903" level="INFO">Clicking button '//*[@id="root"]/div/div/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[8]/button'.</msg>
 <arg>//*[@id="root"]/div/div/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[8]/button</arg>
 <doc>Clicks the button identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-22T13:29:10.633186" elapsed="0.137338"/>
+<status status="PASS" start="2024-04-22T22:18:04.629903" elapsed="0.110258"/>
 </kw>
-<status status="PASS" start="2024-04-22T13:29:10.632188" elapsed="0.139333"/>
+<status status="PASS" start="2024-04-22T22:18:04.629903" elapsed="0.111256"/>
 </test>
 <test id="s1-t4" name="Change Browser" line="36">
 <kw name="Switch Browser" owner="SeleniumLibrary">
 <arg>2</arg>
 <doc>Switches between active browsers using ``index_or_alias``.</doc>
-<status status="PASS" start="2024-04-22T13:29:10.773516" elapsed="0.000000"/>
+<status status="PASS" start="2024-04-22T22:18:04.743153" elapsed="0.000000"/>
 </kw>
 <kw name="Page Should Not Contain" owner="SeleniumLibrary">
-<msg time="2024-04-22T13:29:20.827167" level="INFO">Current page does not contain text 'Myy Lippuja'.</msg>
+<msg time="2024-04-22T22:18:14.866594" level="INFO">Current page does not contain text 'Myy Lippuja'.</msg>
 <arg>Myy Lippuja</arg>
 <doc>Verifies the current page does not contain ``text``.</doc>
-<status status="PASS" start="2024-04-22T13:29:10.774516" elapsed="10.052651"/>
+<status status="PASS" start="2024-04-22T22:18:04.744170" elapsed="10.122424"/>
 </kw>
-<status status="PASS" start="2024-04-22T13:29:10.772518" elapsed="10.055789"/>
+<status status="PASS" start="2024-04-22T22:18:04.742155" elapsed="10.125446"/>
 </test>
 <doc>Simultaneous users 1</doc>
-<status status="PASS" start="2024-04-22T13:29:01.457489" elapsed="19.373883"/>
+<status status="PASS" start="2024-04-22T22:17:51.231508" elapsed="23.638072"/>
 </suite>
 <statistics>
 <total>
@@ -127,7 +127,7 @@
 </suite>
 </statistics>
 <errors>
-<msg time="2024-04-22T13:29:02.291857" level="WARN">The chromedriver version (123.0.6312.86) detected in PATH at C:\Users\OMISTAJA\chromedriver-win64\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (124.0.6367.61); currently, chromedriver 124.0.6367.60 is recommended for chrome 124.*, so it is advised to delete the driver in PATH and retry</msg>
-<msg time="2024-04-22T13:29:06.298813" level="WARN">The chromedriver version (123.0.6312.86) detected in PATH at C:\Users\OMISTAJA\chromedriver-win64\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (124.0.6367.61); currently, chromedriver 124.0.6367.60 is recommended for chrome 124.*, so it is advised to delete the driver in PATH and retry</msg>
+<msg time="2024-04-22T22:17:52.068918" level="WARN">The chromedriver version (123.0.6312.86) detected in PATH at C:\Users\OMISTAJA\chromedriver-win64\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (124.0.6367.61); currently, chromedriver 124.0.6367.60 is recommended for chrome 124.*, so it is advised to delete the driver in PATH and retry</msg>
+<msg time="2024-04-22T22:18:00.129793" level="WARN">The chromedriver version (123.0.6312.86) detected in PATH at C:\Users\OMISTAJA\chromedriver-win64\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (124.0.6367.61); currently, chromedriver 124.0.6367.60 is recommended for chrome 124.*, so it is advised to delete the driver in PATH and retry</msg>
 </errors>
 </robot>

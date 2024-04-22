@@ -1,6 +1,6 @@
 # Ticketguru-lipunmyyntijärjestelmän testidokumentti
-Tämän dokumentti kuvaa Ticketguru-lipunmyyntijärjestelmän testausvaiheita. 
-Dokumentista käy ilmi eri testausvaiheet, testikokonaisuuksien suunnitelmat, yksittäisten testien suunitelmat sekä testitulosten analyysit.
+Tämän dokumentti kuvaa Ticketguru-lipunmyyntijärjestelmän testausvaiheitta. 
+Dokumentista käy ilmi eri testaustasot, testikokonaisuuksien suunnitelmat, yksittäisten testien suunitelmat sekä testitulosten analyysit.
 
 ## Testeihin käytetyt ohjelmistot
 Komponenttitesteihin käytetään Junitia, jolla tehdään back-endin testit. Integraatiotesteihin ja End-to-End-testeihin käytetään sekä Junitia ja  Robot Frameworkia.
@@ -41,12 +41,18 @@ Testit on kirjoitettu käyttäen JUnit 5 -kehystä ja Mockitoa riippuvuuksien si
 
 ![Testitulokset](../../pictures/TapahtumaRestController_testitulokset.PNG)
 
-#### End-to-End -testi
+#### ![End-to-End -testi](../../ticketguru/src/test/java/ohjelmistoprojekti/ticketguru/E2E/TicketguruE2ETest.robot)
 
-End-to-End-testi suoritetaan muista testeistä poiketen Robot Frameworkilla. Testillä halutaan selvittää, miten sovellus reagoi samanaikaiseen käyttöön.
+End-to-End-testi suoritetaan muista testeistä poiketen Robot Frameworkilla. End-to-End-testien on tarkoitus simuloida sovelluksen kokonaisvaltaista käyttöä. End-to-End -testit ovat testausvaiheen viimeisimpiä testejä.
+
+Tällä testillä halutaan selvittää, miten sovellus reagoi samanaikaiseen käyttöön.
 Testissä avataan kahteen eri ikkunaan Ticketgurun Client-sovellus. Toisessa ikkunassa edetään ohjelmassa eteenpäin, kun taas toisessa ikkunassa halutaan pysyä etusivulla. Testillä halutaan selvittää, että miten ohjelma reagoi kahden käyttäjän samanaikaiseen toimintaan.
 
 Testissä ensimmäisessä selaimessa kirjaudutaan sisään ja avataan lipunmyyntitoiminto. Tämän aikana toisessa ikkunassa ei pitäisi tapahtua mitään.
+
+#### End-to-End -testien tulokset
+
+![Testitulokset](../../pictures/e2e_tulokset.PNG)
 
 
 
