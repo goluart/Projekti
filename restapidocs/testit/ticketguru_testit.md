@@ -9,11 +9,15 @@ Komponenttitesteihin käytetään Junitia, jolla tehdään back-endin testit. In
 
 Komponenttitestien tarkoitus on testata yhden yksittäisen komponentin toimintaa. Testeillä halutaan selvittää toimiiko komponentti tai komponentin osa kuten halutaan. Komponentin läpäistessä vaaditut testit, voidaan todeta, että ohjelman osa toimii. Tämän jälkeen voidaan siirtyä ohjelmoinnissa ja testauksessa seuraavaan vaiheeseen.
 
+Yksikkötason testeihin valittiin repositorytestit, koska sovelluksen ytimessä on tiedon tallentaminen. Ilman toimivaa tietokantaa toimivaa sovellusta on lähes mahdotonta toimittaa asiakkaalle. 
+
 #### ![Tapahtuma-luokan integraatiotestit](../../ticketguru/src/test/java/ohjelmistoprojekti/ticketguru/web/TapahtumaRestControllerTest.java)
 
 TapahtumaRestControllerTest.java tämä luokka sisältää yksikkötestejä TapahtumaRestControllerille, joka vastaa HTTP-pyyntöihin. Tapahtuma -entiteetteihin liittyen TicketGuru-sovelluksessa. Nämä testit kattavat perus CRUD (Create, Read, Update, Delete) toiminnot, varmistaen että tapahtumat voidaan noutaa, luoda ja poistaa onnistuneesti.
  
 Testit on kirjoitettu käyttäen JUnit 5 -kehystä ja Mockitoa riippuvuuksien simuloimiseen. MockMvc:tä käytetään HTTP-pyyntöjen simuloimiseen ja vastausten varmistamiseen ilman, että koko Spring-sovellus käynnistyy.
+
+Näiden testien keskiössä on tietokannan ja sovelluksen välinen liikenne sekä niiden toimiva yhteys. Toimivien rajapintojen avulla pystytään paremmin takaamaan toimiva ohjelmisto, joka vastaa asiakkaan vaatimuksia ja odotuksia.
 
 #### Tapahtumat-luokan testisuunnitelmat
 
