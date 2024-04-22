@@ -13,7 +13,7 @@ Back-End -testeissä halutaan selvittää eritysesti toimintoja, jotka liittyvä
 
 Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poisto-, ja muokkausominaisuudet toimivat. Myyntitapahtumista halutaan pystyä hakemaan ja lisäämään myyntitapahtumia tässä vaiheessa.
 
-#### Tapahtumat-luokan testit
+#### [Tapahtumat-luokan testit] (../../ticketguru/src/test/java/ohjelmistoprojekti/ticketguru/domain/TapahtumatRepositoryTest.java)
 
 #### Testien suunnitelmat
 
@@ -24,54 +24,6 @@ Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poist
 > 3 | Lisää tapahtuma | Listalla on kolme tapahtumaa | Listaan lisätään yksi tapahtuma. | Lista sisältää 4 tapahtumaa.
 > 4 | Muokkaa tapahtumaa | Listalla on yksi "Rock Festivaali" -niminen tapahtuma. | Testi muokkaa tapahtuman nimeksi "Humppafest". | Testi löytää listalta "Humppafest"-nimisen tapahtuman.
 
-#### Suoritetut testit
->    @Test
->    void testId1EtsiKaikkiTapahtumat() {
->
->        List<Tapahtuma> tapahtumat = tapahtumaRepository.findAll();
->        assertThat(tapahtumat).hasSize(3);
->    }
->
->    @Test
->    void testId2EtsiYksiTapahtuma() {
->   
->        Optional<Tapahtuma> tapahtuma = tapahtumaRepository.findById((long) 1);
->        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Rock Festivaali");
->    }
->
->    @Test
->    void testId3LisaaYksiTapahtuma() {
->    
->        Tapahtumapaikka tapahtumapaikka = new Tapahtumapaikka("Tavastia");
->        tapahtumapaikkaRepository.save(tapahtumapaikka);
->
->        Jarjestaja jarjestaja = new Jarjestaja("Live-nation");
->        jarjestajaRepository.save(jarjestaja);
->
->        assertThat(tapahtumaRepository.count()).isEqualTo(3);
->
->        Tapahtuma tapahtuma = new Tapahtuma("Poppibileet", "Kevyttä poppia", 50, tapahtumapaikka, jarjestaja, 100);
->        tapahtumaRepository.save(tapahtuma);
->        assertThat(tapahtumaRepository.count()).isEqualTo(4);
->    }
->
->    @Test
->    void testId4MuokkaaTapahtumaa() {
->        Optional<Tapahtuma> tapahtuma = tapahtumaRepository.findById((long) 1);
->        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Rock Festivaali");
->
->        tapahtuma.get().setTapahtumaNimi("Humppafest");
->        assertThat(tapahtuma.get().getTapahtumaNimi()).isEqualTo("Humppafest");
->
->    }
-
-#### Myyntiapahtumat-luokan testit
-
-> Testin id | Kuvaus | Lähtötilanne | Toimenpiteet | Oletettu lopputulos 
-> --------- | ------ | ------------ | ------------ | ------------------
-> 5 | Etsi kaikki myyntitapahtumat | Listalla on monia tapahtumia | Testi hakee lista. Listalla on oltavaa yli 0 | Testi löytää listan, ja kertoo tapahtumien määrän
-> 6 | Lisää yksi myyntitapahtuma | Myyntitapahtuma-lista on tyhjä | Listaan lisätään yksi myyntitapahtumatapahtuma. | Lista sisältää yhden myyntitapahtuman.
-
 #### TapahtumaRestController-luokan testit
 
 > Testin id | Kuvaus | Lähtötilanne | Toimenpiteet | Oletettu lopputulos 
@@ -80,4 +32,13 @@ Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poist
 > 2 | Hae yksi tapahtuma, id ei löydy | Tietokannassa ei ole tapahtumaa ID:llä 1 | Lähetä GET-pyyntö /tapahtumat/1 | Palauta statuskoodi 404 (Not Found)
 > 3 | Lisää uusi tapahtuma | Tietokannassa ei ole tapahtumaa ID:llä 1 | Lähetä POST-pyyntö /tapahtumat | Palauta statuskoodi 201 (Created)
 > 4 | Poista tapahtuma | Tietokannassa on tapahtuma ID:llä 1 | Lähetä DELETE-pyyntö /tapahtumat/1 | Palauta statuskoodi 204 (No Content)
+
+#### End-to-End -testi
+
+End-to-End-testi suoritetaan muista testeistä poiketen Robot Frameworkilla. Testillä halutaan selvittää, miten sovellus reagoi samanaikaiseen käyttöön.
+Testissä avataan kahteen eri ikkunaan Ticketgurun Client-sovellus. Toisessa ikkunassa edetään ohjelmassa eteenpäin, kun taas toisessa ikkunassa halutaan pysyä etusivulla. Testillä halutaan selvittää, että miten ohjelma reagoi kahden käyttäjän samanaikaiseen toimintaan.
+
+Testissä ensimmäisessä selaimessa kirjaudutaan sisään ja avataan lipunmyyntitoiminto. Tämän aikana toisessa ikkunassa ei pitäisi tapahtua mitään.
+
+
 
