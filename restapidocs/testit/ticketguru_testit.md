@@ -24,6 +24,10 @@ Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poist
 > 3 | Lisää tapahtuma | Listalla on kolme tapahtumaa | Listaan lisätään yksi tapahtuma. | Lista sisältää 4 tapahtumaa.
 > 4 | Muokkaa tapahtumaa | Listalla on yksi "Rock Festivaali" -niminen tapahtuma. | Testi muokkaa tapahtuman nimeksi "Humppafest". | Testi löytää listalta "Humppafest"-nimisen tapahtuman.
 
+#### Testien tulokset
+
+    ![Testitulokset](../../pictures/Testitulokset_TapahtumatRepository.PNG)
+
 #### TapahtumaRestController-luokan testit
 
 > Testin id | Kuvaus | Lähtötilanne | Toimenpiteet | Oletettu lopputulos 
