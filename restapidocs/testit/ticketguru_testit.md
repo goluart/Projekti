@@ -13,7 +13,7 @@ Back-End -testeissä halutaan selvittää eritysesti toimintoja, jotka liittyvä
 
 Ensimmäisissä testeissä halutaan varmistaa, että tapahtumien lisäys-, poisto-, ja muokkausominaisuudet toimivat. Myyntitapahtumista halutaan pystyä hakemaan ja lisäämään myyntitapahtumia tässä vaiheessa.
 
-#### ![Tapahtumat-luokan testit](ticketguru/src/main/java/ohjelmistoprojekti/ticketguru/test/java(ohjelmistoprojekti/ticketguru/TapahtumatRepositoryTest.java))
+#### ![Tapahtumat-luokan testit](ticketguru/src/main/java/ohjelmistoprojekti/ticketguru/test/java/ohjelmistoprojekti/ticketguru/TapahtumatRepositoryTest.java)
 
 #### Testien suunnitelmat
 
