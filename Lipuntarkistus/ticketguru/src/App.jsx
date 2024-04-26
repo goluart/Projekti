@@ -9,11 +9,11 @@ const router = createBrowserRouter([
     element: <SignIn />
   },
   {
-    path: '/get/:accessToken',
+    path: '/get',
     element: <GetTicket />
   },
   {
-    path: '/check/:accessToken',
+    path: '/check',
     element: <CheckTicket />
   },
 ]);

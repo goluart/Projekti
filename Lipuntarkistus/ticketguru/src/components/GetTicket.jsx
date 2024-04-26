@@ -1,9 +1,11 @@
+import { Button, TextField, Alert, Grid, Stack, Paper, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const GetTicket = () => {
 
-    let { accessToken } = useParams();
+    const username = 'hallinto';
+    const password = 'hallinto';
     const [ticket, setTicket] = useState({});
     const [ticketUUID, setTicketUUID] = useState("");
     const [err, setErr] = useState('');
@@ -12,9 +14,11 @@ const GetTicket = () => {
 
     const requestOptions = {
         method: 'GET',
+        cache: 'no-cache',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
+            'Authorization': `Basic ${btoa(username + ':' + password)}`
         }
     };
 
@@ -24,7 +28,7 @@ const GetTicket = () => {
 
     const fetchTicket = async () => {
         try {
-            const response = await fetch(`https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi/api/tickets/byUuid?uuid=${ticketUUID}`, requestOptions)
+            const response = await fetch(`http://localhost:8080/tarkastukset/${ticketUUID}`, requestOptions)
             const json = await response.json();
             setTicket(json)
         } catch (error) {
@@ -33,36 +37,47 @@ const GetTicket = () => {
         showTicket();
     };
 
+    console.log(ticket)
+
     const showTicket = () => {
-        if (ticket.used == true) {
-            setUsed('yes');
-        } if (ticket.used == false) {
-            setUsed('no')
-        }
-        if (ticket == null) {
+        if (ticket.kayttoPvm > 0) {
+            setUsed(ticket.kayttoPvm.getDate() + "." + ticket.kayttoPvm.getMonth() + "." + ticket.kayttoPvm.getYear());
+        } if (ticket.kayttoPvm == null) {
+            setUsed('Not used')
+        } if (ticket == null) {
             setData(<p>Fetch failed: {err}</p>)
         } else {
             setData( // tieto tulee json muodossa, mutta lipputyypin nimeä ei pysty lukemaan
-                <div>
-                    <p>Ticket type: {ticket.ticketType.name}</p>
-                    <p>Ticket event id: {ticket.event}</p>
-                    <p>Ticket used: {used}</p>
-                </div>
+                <List>
+                    <ListItem>
+                        <Typography variant="body1">Event: {ticket.tapahtumaNimi}</Typography>
+                    </ListItem>
+                    <ListItem>
+                        <Typography variant="body1">Place: {ticket.paikkaNimi}</Typography>
+                    </ListItem>
+                    <ListItem>
+                        <Typography variant="body1">Ticket type: {ticket.lipputyyppi}</Typography>
+                    </ListItem>
+                    <ListItem>
+                        <Typography variant="body1">Ticket used: {used}</Typography>
+                    </ListItem>
+                </List>
             )
         }
     };
 
     return (
-        <div>
-            <form>
-                <label>Fetch ticket info
-                    <input type='text' onChange={handleChangeTicketUUID} name='ticketUUID' placeholder="Write the code" /><br />
-                </label>
-                <input type='button' onClick={fetchTicket} value='Search' />
-            </form>
-            {data}
-            <Link to={'/check/' + accessToken}>Check ticket</Link>
-        </div>)
+        <Paper elevation={24} style={{ padding: '20px', maxWidth: '500px' }}>
+            <Stack container spacing={2}>
+                <TextField id="standard-basic" label="Write ticket code" variant="standard" onChange={handleChangeTicketUUID} name="ticketUUID" />
+                <Button variant="contained" onClick={fetchTicket}>Fetch ticket</Button>
+                {data}
+                <Button href="/check" variant="text">
+                    Back to checks ticket
+                </Button>
+            </Stack>
+        </Paper>
+    )
 };
 
 export default GetTicket

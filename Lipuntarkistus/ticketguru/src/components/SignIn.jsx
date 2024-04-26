@@ -1,11 +1,14 @@
+import { Button, TextField, Alert, Stack, Paper } from "@mui/material";
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const SignIn = () => {
 
+    const username = 'hallinto';
+    const password = 'hallinto';
     const [accessToken, setAccessToken] = useState('');
-    const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
+  //  const [password, setPassword] = useState('');
+  //  const [username, setUsername] = useState('');
     const [answer, setAnswer] = useState('');
 
     const handleChangeUsername = (event) => {
@@ -16,45 +19,41 @@ const SignIn = () => {
         setPassword(event.target.value);
     };
 
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            'username': username,
-            'password': password
-        }),
+const requestOptions = {
+    method: 'GET',
+    cache: 'no-cache',
+    credentials: 'include',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Basic ${btoa(username + ':' + password)}`
+    }
     };
 
-    const getToken = async () => {
+    const signIn = async () => {
         try {
-            const response = await fetch('https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi/api/login', requestOptions);
-            const json = await response.json();
-            setAccessToken(json.token)
+            const response = await fetch('http://localhost:8080/tapahtumat', requestOptions);
         } catch (error) {
-            alert('Error signing in: ', error.message)
+            setAnswer(<Alert severity="error">{error}</Alert>)
         }
-        setAnswer(<p>Token ready</p>)
+        setAnswer(<Alert severity="success">Signed in</Alert>)
     };
 
     return (
-        <div>
-            <form>
-                <label>User
-                    <input type='text' onChange={handleChangeUsername} name='username' /><br />
-                </label>
-                <label>Password
-                    <input type='text' onChange={handleChangePassword} name='password' /><br />
-                </label>
-                <input type='button' onClick={getToken} value='Sign in' />
-            </form>
+        <Paper elevation={24} style={{ padding: '20px', maxWidth: '500px' }}>
+            <Stack container spacing={2}>
+            <TextField label="Write username" variant="standard" onChange={handleChangeUsername} name="userName" />
+                <TextField label="Write password" variant="standard" onChange={handleChangePassword} name="password" />
+                <Button variant="contained" onClick={signIn}>Sign in</Button>
             {answer}
-            <Link to={'/get/'+ accessToken}>Get ticket</Link>
-            <br/>
-            <Link to={'/check/'+ accessToken}>Check ticket</Link>
-        
-        </div>)
+            <Button href="/get" variant="text">
+                    Fetch ticket
+                </Button>
+                <Button href="/check" variant="text">
+                    Checks ticket
+                </Button>
+            </Stack>
+        </Paper>
+    )
 }
 
 export default SignIn
