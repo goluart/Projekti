@@ -18,17 +18,16 @@ const Events = () => {
     const MyyLippujaButton = (params) => {
         // Funktio, joka käsittelee painikkeen klikkausta
         const handleClick = () => {
-          const data = {
-            tapahtumaId: params.data.tapahtumaId,
-            tapahtumaNimi: params.data.tapahtumaNimi,
-            aika: params.data.alkaaPvm,
-            paikka: params.data.tapahtumapaikka.tapahtumapaikkaNimi,
-            lipputyypit: params.data.lipputyypit
-
-          }
-          console.log(sendData);
-          setSendData(data);
-          setModalIsOpen(true);
+            const data = {
+                tapahtumaId: params.data.tapahtumaId,
+                tapahtumaNimi: params.data.tapahtumaNimi,
+                aika: params.data.alkaaPvm,
+                paikka: params.data.tapahtumapaikka.tapahtumapaikkaNimi,
+                lipputyypit: params.data.lipputyypit
+            }
+            console.log(sendData);
+            setSendData(data);
+            setModalIsOpen(true);
 
           // tämä funktio siirtää sendData muuttujan tiedot toiselle komponentille, joka avautuu buttonia painettaessa
         };
@@ -44,7 +43,7 @@ const Events = () => {
     const closePrint = () => {
         setPrintIsOpen(false);
         setTickets(null);
-
+        fetchEvents();
     };
 
     const handleServerResponse = (data) => {
@@ -83,31 +82,32 @@ const Events = () => {
     ];
 
 
-    useEffect(() => {
-        const fetchEvents = async () => {
-                const credentials = sessionStorage.getItem('credentials'); 
-                try {
-                    const response = await fetch(`${SERVER_URL}/tapahtumat`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Basic ${credentials}`
-                        }
-                    });
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
+    const fetchEvents = async () => {
+        const credentials = sessionStorage.getItem('credentials'); 
+        try {
+            const response = await fetch(`${SERVER_URL}/tapahtumat`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Basic ${credentials}`
                     }
-                    const data = await response.json();
-                    setEvents(data);
-                    console.log(data);
-                    setIsLoading(false);
-                } catch (error) {
-                    setError(error.message);
-                    setIsLoading(false);
-                }
-            };
-            fetchEvents();
-        },[]);
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setEvents(data);
+            console.log(data);
+            setIsLoading(false);
+        } catch (error) {
+            setError(error.message);
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchEvents();
+    },[]);
         
         return (
             <div className="ag-theme-quartz" style={{ height: 'auto', width: '100%' }}>

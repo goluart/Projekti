@@ -73,6 +73,16 @@ public class Tapahtuma {
         luontiPvm = ZonedDateTime.now(ZoneId.of("Europe/Helsinki"));
     }
 
+    public Tapahtuma(String tapahtumaNimi, String kuvaus, double perushinta, Tapahtumapaikka tapahtumapaikka,
+            Jarjestaja jarjestaja, int max_lippuja) {
+        this.tapahtumaNimi = tapahtumaNimi;
+        this.kuvaus = kuvaus;
+        this.perushinta = perushinta;
+        this.tapahtumapaikka = tapahtumapaikka;
+        this.jarjestaja = jarjestaja;
+        this.max_lippuja = max_lippuja;
+    }
+
     public Tapahtuma(String tapahtumaNimi, ZonedDateTime alkaaPvm, ZonedDateTime paattyyPvm, String kuvaus,
             double perushinta, Tapahtumapaikka tapahtumapaikka, Jarjestaja jarjestaja, Set<Lipputyyppi> lipputyypit,
             int max_lippuja) {

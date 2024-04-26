@@ -29,7 +29,19 @@ const requestOptions = {
     }
     };
 
+<<<<<<< HEAD
     const signIn = async () => {
+=======
+    const handleChangeUsername = (event) => {
+        setUsername(event.target.value);
+    }
+
+    const handleChangePassword = (event) => {
+        setPassword(event.target.value);
+    }
+
+    const getToken = async () => {
+>>>>>>> c07605d199c764b0de4ac2290a3b429875afd7b3
         try {
             const response = await fetch('http://localhost:8080/tapahtumat', requestOptions);
         } catch (error) {

@@ -28,13 +28,13 @@ public class WebSecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/").permitAll()
                         .anyRequest().authenticated())
                 // .formLogin(form -> form
-                //         // .loginPage("/login")
-                //         .defaultSuccessUrl("/", true)
-                //         .permitAll())
+                // // .loginPage("/login")
+                // .defaultSuccessUrl("/", true)
+                // .permitAll())
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/")
                         .deleteCookies("JSESSIONID")
