@@ -4,7 +4,7 @@ Tämä dokumentaatio kuvaa, miten lippu tarkistetaan.
 ## API Endpoint
 Merkitse lippu käytetyksi
 
-**URL**: /liput/:tarkistuskoodi
+**URL**: /liput?tarkistuskoodi=16f64e24-feb4-4d53-9ed9-24cadb10a4ce
 
 **URL-parametrit**: tarkistuskoodi=[String], missä `tarkistuskoodi` on lipun yksilöllinen tunniste.
 
