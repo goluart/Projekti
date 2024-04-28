@@ -1,11 +1,10 @@
-import { Button, TextField, Alert, Grid, Stack, Paper, List, ListItem, ListItemText, Typography } from "@mui/material";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Button, TextField, Stack, Paper, List, ListItem, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 
 const GetTicket = () => {
 
-    const username = 'hallinto';
-    const password = 'hallinto';
+    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
     const [ticket, setTicket] = useState({});
     const [ticketUUID, setTicketUUID] = useState("");
     const [err, setErr] = useState('');
@@ -22,22 +21,31 @@ const GetTicket = () => {
         }
     };
 
+    const handleChangeUsername = (event) => {
+        setUsername(event.target.value);
+    };
+
+    const handleChangePassword = (event) => {
+        setPassword(event.target.value);
+    };
+
     const handleChangeTicketUUID = (event) => {
         setTicketUUID(event.target.value);
     };
 
     const fetchTicket = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/tarkastukset/${ticketUUID}`, requestOptions)
+            const response = await fetch(`https://projekti-ticketguru-tiimi4.rahtiapp.fi/liput?tarkistuskoodi=${ticketUUID}`, requestOptions)
             const json = await response.json();
             setTicket(json)
         } catch (error) {
             setErr('Error fetching ticket: ', error.message)
         }
-        showTicket();
     };
 
-    console.log(ticket)
+    useEffect(() => {
+        showTicket();
+    }, [ticket])
 
     const showTicket = () => {
         if (ticket.kayttoPvm > 0) {
@@ -47,13 +55,13 @@ const GetTicket = () => {
         } if (ticket == null) {
             setData(<p>Fetch failed: {err}</p>)
         } else {
-            setData( // tieto tulee json muodossa, mutta lipputyypin nimeä ei pysty lukemaan
+            setData(
                 <List>
                     <ListItem>
-                        <Typography variant="body1">Event: {ticket.tapahtumaNimi}</Typography>
+                        <Typography variant="body1">Event: {ticket.tapahtumanNimi}</Typography>
                     </ListItem>
                     <ListItem>
-                        <Typography variant="body1">Place: {ticket.paikkaNimi}</Typography>
+                        <Typography variant="body1">Place: {ticket.tapahtumaPaikka}</Typography>
                     </ListItem>
                     <ListItem>
                         <Typography variant="body1">Ticket type: {ticket.lipputyyppi}</Typography>
@@ -69,6 +77,8 @@ const GetTicket = () => {
     return (
         <Paper elevation={24} style={{ padding: '20px', maxWidth: '500px' }}>
             <Stack container spacing={2}>
+                <TextField label="Username" variant="standard" onChange={handleChangeUsername} name="username" />
+                <TextField label="Password" variant="standard" onChange={handleChangePassword} name="password" />
                 <TextField id="standard-basic" label="Write ticket code" variant="standard" onChange={handleChangeTicketUUID} name="ticketUUID" />
                 <Button variant="contained" onClick={fetchTicket}>Fetch ticket</Button>
                 {data}

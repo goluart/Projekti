@@ -1,16 +1,23 @@
 import { Button, TextField, Alert, Stack, Paper } from "@mui/material";
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
 
 const CheckTicket = () => {
 
-    const username = 'hallinto';
-    const password = 'hallinto';
+    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
     const [ticketUUID, setTicketUUID] = useState('');
     const [eventName, setEventName] = useState('');
     const [err, setErr] = useState('');
     const [message, setMessage] = useState('');
     const [valid, setValid] = useState('')
+
+    const handleChangeUsername = (event) => {
+        setUsername(event.target.value);
+    };
+
+    const handleChangePassword = (event) => {
+        setPassword(event.target.value);
+    };
 
     const handleChangeEventName = (event) => {
         setEventName(event.target.value);
@@ -29,35 +36,34 @@ const CheckTicket = () => {
             'Authorization': `Basic ${btoa(username + ':' + password)}`
         },
         body: JSON.stringify({
-            "tarkistuskoodi": `${ticketUUID}`,
+            "tarkastuskoodi": `${ticketUUID}`,
             "tapahtumaNimi": `${eventName}`
         })
     };
 
     const usedTicket = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/tarkastukset`, requestOptions)
-            const json = await response.json();
-
             console.log(requestOptions)
+            const response = await fetch(`https://projekti-ticketguru-tiimi4.rahtiapp.fi/tarkastukset`, requestOptions)
+            const json = await response.json();
             setValid(json)
         } catch (error) {
-            setErr(error.message) // tulee vastaus not found, pitäisi palauttaa vain http response 204
+            setErr(error.message)
         }
-
     };
-    // painike käynnistää doCheck tapahtuman
+
     const doCheck = (event) => {
         event.preventDefault();
-        console.log(requestOptions)
-        usedTicket(); // käynnistetään patch pyyntö
-        if (err.length > 0) {  // jos err muuttujassa on tietoa, välitetään syy patchin epäonnistumisesta
-            setMessage(<Alert severity="error">{err}</Alert>)
+        usedTicket();
+        console.log(valid.reason)
+        if (valid.reason === 'lippua ei löytynyt') {
+            setMessage(<Alert severity="error">Ticket not found</Alert>)
         } else {
-            if (json.response == true) {
-                console.log(valid.response)
-                setMessage(<Alert severity="success">Ticket marked as used</Alert>) // viesti päivittyy sen mukaan, palautuuko true/false ja arvo välittyy message muuttujalla käyttäjän näkymään
-            } if (json.response == false) {
+            if (valid === true) {
+                console.log(valid)
+                setMessage(<Alert severity="success">Ticket marked as used</Alert>)
+            } if (valid === false) {
+                console.log(valid)
                 setMessage(<Alert severity="warning">Ticket already used</Alert>)
             }
         }
@@ -66,6 +72,8 @@ const CheckTicket = () => {
     return (
         <Paper elevation={24} style={{ padding: '20px', maxWidth: '500px' }}>
             <Stack container spacing={2}>
+                <TextField label="Username" variant="standard" onChange={handleChangeUsername} name="username" />
+                <TextField label="Password" variant="standard" onChange={handleChangePassword} name="password" />
                 <TextField label="Write event name" variant="standard" onChange={handleChangeEventName} name="eventName" />
                 <TextField label="Write ticket code" variant="standard" onChange={handleChangeTicketUUID} name="ticketUUID" />
                 <Button variant="contained" onClick={doCheck}>Check ticket</Button>
