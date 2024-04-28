@@ -18,7 +18,4 @@ public class TapahtumapaikkaRestController {
     @Autowired
     private TapahtumapaikkaRepository tapahtumapaikkaRepository;
 
-@GetMapping("/tapahtumapaikka")
-
-
 }
