@@ -171,13 +171,81 @@ public class YhteyshenkiloDTO {
 
     }
 
+    public static class TallennaYhteyshenkiloDTO {
 
+        private Long yhtHloId, tapaikkaId;
+        private String etunimi, sukunimi, sahkoposti, puhelin, lisatieto;
 
+        public TallennaYhteyshenkiloDTO() {
+        }
 
+        public TallennaYhteyshenkiloDTO(Long yhtHloId, Long tapaikkaId, String etunimi, String sukunimi,
+                String sahkoposti, String puhelin, String lisatieto) {
+            this.yhtHloId = yhtHloId;
+            this.tapaikkaId = tapaikkaId;
+            this.etunimi = etunimi;
+            this.sukunimi = sukunimi;
+            this.sahkoposti = sahkoposti;
+            this.puhelin = puhelin;
+            this.lisatieto = lisatieto;
+        }
 
+        public Long getYhtHloId() {
+            return yhtHloId;
+        }
 
+        public void setYhtHloId(Long yhtHloId) {
+            this.yhtHloId = yhtHloId;
+        }
 
+        public Long getTapaikkaId() {
+            return tapaikkaId;
+        }
 
+        public void setTapaikkaId(Long tapaikkaId) {
+            this.tapaikkaId = tapaikkaId;
+        }
 
+        public String getEtunimi() {
+            return etunimi;
+        }
+
+        public void setEtunimi(String etunimi) {
+            this.etunimi = etunimi;
+        }
+
+        public String getSukunimi() {
+            return sukunimi;
+        }
+
+        public void setSukunimi(String sukunimi) {
+            this.sukunimi = sukunimi;
+        }
+
+        public String getSahkoposti() {
+            return sahkoposti;
+        }
+
+        public void setSahkoposti(String sahkoposti) {
+            this.sahkoposti = sahkoposti;
+        }
+
+        public String getPuhelin() {
+            return puhelin;
+        }
+
+        public void setPuhelin(String puhelin) {
+            this.puhelin = puhelin;
+        }
+
+        public String getLisatieto() {
+            return lisatieto;
+        }
+
+        public void setLisatieto(String lisatieto) {
+            this.lisatieto = lisatieto;
+        }
+        
+    }
     
 }

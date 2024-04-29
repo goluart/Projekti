@@ -100,11 +100,8 @@ public class TapahtumaDto {
     public static class JarjestajaDTO {
 
         private Long jarjestajaId;
-        private String jarjestajaNimi;        
+        private String jarjestajaNimi;
     
-        public JarjestajaDTO() {
-        }
-
         public JarjestajaDTO(Long jarjestajaId, String jarjestajaNimi) {
             this.jarjestajaId = jarjestajaId;
             this.jarjestajaNimi = jarjestajaNimi;
@@ -171,13 +168,9 @@ public class TapahtumaDto {
     public static class PaikkaDTO {
 
         private Long tapahtumapaikkaId;
-        private String tapahtumapaikkaNimi, tapahtumapaikkaOsoite, tapahtumapaikkaKaupunki;  
-        
-        
-        public PaikkaDTO() {
-
-        }
-        
+        private String tapahtumapaikkaNimi, tapahtumapaikkaOsoite, tapahtumapaikkaKaupunki;    
+    
+    
         public PaikkaDTO(Long tapahtumapaikkaId, String tapahtumapaikkaNimi, String tapahtumapaikkaOsoite,
                 String tapahtumapaikkaKaupunki) {
             this.tapahtumapaikkaId = tapahtumapaikkaId;
