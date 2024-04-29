@@ -23,6 +23,7 @@ public class LippuRestController {
     @Autowired
     private TarkastusService tarkastusService;
 
+    // Hakee kaikki liput
     @PreAuthorize("hasAnyAuthority('lipuntarkastaja','myyja')")
     @GetMapping("/lippu")
     public ResponseEntity<List<LippuDto>> getAllTickets() {
@@ -37,6 +38,7 @@ public class LippuRestController {
         }
     }
 
+    // Hakee lipun ID:n perusteella
     @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
     @GetMapping("/lippu/{id}")
     public ResponseEntity<LippuDto> getTicketById(@PathVariable Long id) {
@@ -46,6 +48,7 @@ public class LippuRestController {
         return ResponseEntity.ok(lippuDto);
     }
 
+    // Luo uuden lipun
     @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
     @PostMapping("/lippu")
     public ResponseEntity<Lippu> createTicket(@RequestBody Lippu lippu) {
@@ -53,6 +56,7 @@ public class LippuRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedLippu);
     }
 
+    // Päivittää lipun
     @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
     @PutMapping("/lippu/{id}")
     public ResponseEntity<Lippu> updateTicket(@PathVariable Long id, @RequestBody Lippu updatedLippu) {
@@ -61,6 +65,7 @@ public class LippuRestController {
         return ResponseEntity.ok(savedLippu);
     }
 
+    // Poistaa lipun
     @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
     @DeleteMapping("/lippu/{id}")
     public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
@@ -68,6 +73,8 @@ public class LippuRestController {
         return ResponseEntity.noContent().build();
     }
 
+    // Tarkistetaan lippu tarkistuskoodilla
+    // /liput?tarkistuskoodi=TARKISTUSKOODI
     @PreAuthorize("hasAnyAuthority('lipuntarkastaja','myyja')")
     @GetMapping("/liput")
     public ResponseEntity<?> haeLippuId(@RequestParam(name = "tarkistuskoodi") String tarkistuskoodi) {
