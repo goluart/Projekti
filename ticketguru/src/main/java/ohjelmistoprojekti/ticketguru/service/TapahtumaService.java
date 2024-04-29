@@ -28,8 +28,11 @@ public class TapahtumaService {
     }
 
     private TapahtumaDto.PaikkaDTO muunnaPaikka(Tapahtumapaikka paikka) {
-        return new TapahtumaDto.PaikkaDTO(paikka.getTapaikkaId(), paikka.getPaikkaNimi(), paikka.getOsoite(),
-                paikka.getPostitoimipaikka().getKaupunki());
+        if (paikka != null) {
+            return new TapahtumaDto.PaikkaDTO(paikka.getTapaikkaId(), paikka.getPaikkaNimi(), paikka.getOsoite(),
+                    paikka.getPostitoimipaikka().getKaupunki());
+        }
+        return null;
 
     }
 
@@ -56,7 +59,7 @@ public class TapahtumaService {
 
     public YhteyshenkiloDTO muunnaYhteyshenkilotDTO(Yhteyshenkilo yhteyshenkilo) {
 
-        return new YhteyshenkiloDTO(yhteyshenkilo.getYhtHloId(), yhteyshenkilo.getEtunimi(), yhteyshenkilo.getSukunimi(), yhteyshenkilo.getSahkoposti(), yhteyshenkilo.getPuhelin(), yhteyshenkilo.getLisatieto(), muunnaJarjestajat(yhteyshenkilo.getJarjestajat()));
+        return new YhteyshenkiloDTO(yhteyshenkilo.getYhtHloId(), yhteyshenkilo.getEtunimi(), yhteyshenkilo.getSukunimi(), yhteyshenkilo.getSahkoposti(), yhteyshenkilo.getPuhelin(), yhteyshenkilo.getLisatieto(), muunnaJarjestajat(yhteyshenkilo.getJarjestajat()), muunnaPaikka(yhteyshenkilo.getTapahtumapaikka()));
 
     }
 

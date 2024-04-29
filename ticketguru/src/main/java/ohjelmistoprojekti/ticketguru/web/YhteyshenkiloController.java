@@ -26,7 +26,7 @@ public class YhteyshenkiloController {
     private TapahtumaService tapahtumaService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('hallinto')")
+    @PreAuthorize("hasAnyAuthority('hallinto', 'myyja')")
     public ResponseEntity<List<YhteyshenkiloDTO>> haeYhteyshenkilot() {
 
         List<YhteyshenkiloDTO> yhteyshenkilotDTO = yhtHloRepo.findAll().stream()

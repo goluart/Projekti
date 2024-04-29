@@ -2,14 +2,16 @@ package ohjelmistoprojekti.ticketguru.dto;
 
 import java.util.List;
 
+import ohjelmistoprojekti.ticketguru.domain.Postitoimipaikka;
 import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.JarjestajaDTO;
 import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.PaikkaDTO;
+
 
 public class YhteyshenkiloDTO {
     private Long yhtHloId;
     private String etunimi, sukunimi, sahkoposti, puhelin, lisatieto;
     private List<TapahtumaDto.JarjestajaDTO> jarjestajat;
-    private TapahtumaDto.PaikkaDTO tapahtumapaikka;    
+    private PaikkaDTO tapahtumapaikka;    
 
 
     public YhteyshenkiloDTO() {
@@ -17,7 +19,7 @@ public class YhteyshenkiloDTO {
 
 
     public YhteyshenkiloDTO(Long yhtHloId, String etunimi, String sukunimi, String sahkoposti, String puhelin,
-            String lisatieto, List<JarjestajaDTO> jarjestajat) {
+            String lisatieto, List<JarjestajaDTO> jarjestajat, PaikkaDTO tapahtumapaikka) {
         this.yhtHloId = yhtHloId;
         this.etunimi = etunimi;
         this.sukunimi = sukunimi;
@@ -25,6 +27,7 @@ public class YhteyshenkiloDTO {
         this.puhelin = puhelin;
         this.lisatieto = lisatieto;
         this.jarjestajat = jarjestajat;
+        this.tapahtumapaikka = tapahtumapaikka;
     }
 
     public Long getYhtHloId() {
@@ -96,7 +99,10 @@ public class YhteyshenkiloDTO {
         this.jarjestajat = jarjestajat;
     }
 
-
+    public void setJarjestajat(List<TapahtumaDto.JarjestajaDTO> jarjestajat) {
+        this.jarjestajat = jarjestajat;
+    }   
+    
     public PaikkaDTO getTapahtumapaikka() {
         return tapahtumapaikka;
     }
@@ -104,6 +110,74 @@ public class YhteyshenkiloDTO {
 
     public void setTapahtumapaikka(PaikkaDTO tapahtumapaikka) {
         this.tapahtumapaikka = tapahtumapaikka;
-    }        
+    }
+    
+    public static class TapahtumapaikkaDTO {
+
+        private Long tapaikkaId;
+        private String paikkaNimi, osoite, ytunnus, sposti;
+        
+        public TapahtumapaikkaDTO() {
+        }        
+
+        public TapahtumapaikkaDTO(Long tapaikkaId, String paikkaNimi, String osoite, String ytunnus, String sposti,
+                Postitoimipaikka postitoimipaikka) {
+            this.tapaikkaId = tapaikkaId;
+            this.paikkaNimi = paikkaNimi;
+            this.osoite = osoite;
+            this.ytunnus = ytunnus;
+            this.sposti = sposti;
+        }
+
+        public Long getTapaikkaId() {
+            return tapaikkaId;
+        }
+
+        public void setTapaikkaId(Long tapaikkaId) {
+            this.tapaikkaId = tapaikkaId;
+        }
+
+        public String getPaikkaNimi() {
+            return paikkaNimi;
+        }
+
+        public void setPaikkaNimi(String paikkaNimi) {
+            this.paikkaNimi = paikkaNimi;
+        }
+
+        public String getOsoite() {
+            return osoite;
+        }
+
+        public void setOsoite(String osoite) {
+            this.osoite = osoite;
+        }
+
+        public String getYtunnus() {
+            return ytunnus;
+        }
+
+        public void setYtunnus(String ytunnus) {
+            this.ytunnus = ytunnus;
+        }
+
+        public String getSposti() {
+            return sposti;
+        }
+
+        public void setSposti(String sposti) {
+            this.sposti = sposti;
+        }      
+
+    }
+
+
+
+
+
+
+
+
+
     
 }
