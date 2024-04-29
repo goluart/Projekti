@@ -20,7 +20,8 @@ public class TapahtumaService {
     public TapahtumaDto naytaTapahtumaDto(Tapahtuma tapahtuma) {
 
         TapahtumaDto tDto = new TapahtumaDto(tapahtuma.getTapahtumaId(), tapahtuma.getTapahtumaNimi(),
-                tapahtuma.getKuvaus(), tapahtuma.getAlkaaPvm(), tapahtuma.getPaattyyPvm(), tapahtuma.getMax_lippuja(), tapahtuma.getLippujaJaljella(), muunnaPaikka(tapahtuma.getTapahtumapaikka()),
+                tapahtuma.getKuvaus(), tapahtuma.getAlkaaPvm(), tapahtuma.getPaattyyPvm(), tapahtuma.getMax_lippuja(),
+                tapahtuma.getLippujaJaljella(), muunnaPaikka(tapahtuma.getTapahtumapaikka()),
                 muunnaJarjestaja(tapahtuma.getJarjestaja()), tapahtuma.getPerushinta(),
                 muunnaLipputyyppiLista(tapahtuma.getLipputyypit()));
 
@@ -39,10 +40,9 @@ public class TapahtumaService {
 
     private List<TapahtumaDto.JarjestajaDTO> muunnaJarjestajat(List<Jarjestaja> jarjestajat) {
         return jarjestajat.stream()
-            .map(jarjestaja -> new TapahtumaDto.JarjestajaDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi()))
-            .collect(Collectors.toList());
+                .map(jarjestaja -> new TapahtumaDto.JarjestajaDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi()))
+                .collect(Collectors.toList());
     }
-    
 
     private List<TapahtumaDto.LipputyyppiDto> muunnaLipputyyppiLista(Set<Lipputyyppi> lipputyypit) {
         return lipputyypit.stream()
@@ -54,9 +54,20 @@ public class TapahtumaService {
                 .collect(Collectors.toList());
     }
 
+    // Lisätty LipputyyppiRestControlleria varten
+    public TapahtumaDto.LipputyyppiDto muunnaLipputyyppiDto(Lipputyyppi lipputyyppi) {
+        return new TapahtumaDto.LipputyyppiDto(
+                lipputyyppi.getLipputyyppiId(),
+                lipputyyppi.getNimi(),
+                lipputyyppi.getAsiakasryhma().getNimi(),
+                lipputyyppi.getHintakerroin());
+    }
+
     public YhteyshenkiloDTO muunnaYhteyshenkilotDTO(Yhteyshenkilo yhteyshenkilo) {
 
-        return new YhteyshenkiloDTO(yhteyshenkilo.getYhtHloId(), yhteyshenkilo.getEtunimi(), yhteyshenkilo.getSukunimi(), yhteyshenkilo.getSahkoposti(), yhteyshenkilo.getPuhelin(), yhteyshenkilo.getLisatieto(), muunnaJarjestajat(yhteyshenkilo.getJarjestajat()));
+        return new YhteyshenkiloDTO(yhteyshenkilo.getYhtHloId(), yhteyshenkilo.getEtunimi(),
+                yhteyshenkilo.getSukunimi(), yhteyshenkilo.getSahkoposti(), yhteyshenkilo.getPuhelin(),
+                yhteyshenkilo.getLisatieto(), muunnaJarjestajat(yhteyshenkilo.getJarjestajat()));
 
     }
 
