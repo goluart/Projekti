@@ -38,7 +38,7 @@ Merkitse lippu käytetyksi
 
 **Ehto**: Jos tarkistuskoodilla ei löydy lippua
 
-**Koodi**: `404 OK`
+**Koodi**: `404 Not found`
 
 **Sisällön esimerkki**
 ```json
