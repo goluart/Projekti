@@ -1,14 +1,22 @@
 import { Button, TextField, Stack, Paper, List, ListItem, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { SERVER_URL } from '../constants/Constants';
+import { useNavigate } from "react-router-dom";
 
 const GetTicket = () => {
 
-    const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
     const [ticket, setTicket] = useState({});
     const [ticketUUID, setTicketUUID] = useState("");
     const [err, setErr] = useState('');
     const [data, setData] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const credentials = sessionStorage.getItem('credentials');
+        if (credentials === null) {
+            navigate("/login", { replace: true });
+        }
+    }, [navigate]);
 
     const requestOptions = {
         method: 'GET',
@@ -16,16 +24,8 @@ const GetTicket = () => {
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Basic ${btoa(username + ':' + password)}`
+            'Authorization': `Basic ${sessionStorage.getItem('credentials')}`
         }
-    };
-
-    const handleChangeUsername = (event) => {
-        setUsername(event.target.value);
-    };
-
-    const handleChangePassword = (event) => {
-        setPassword(event.target.value);
     };
 
     const handleChangeTicketUUID = (event) => {
@@ -34,7 +34,8 @@ const GetTicket = () => {
 
     const fetchTicket = async () => {
         try {
-            const response = await fetch(`https://projekti-ticketguru-tiimi4.rahtiapp.fi/liput?tarkistuskoodi=${ticketUUID}`, requestOptions)
+            const response = await fetch(`${SERVER_URL}/liput?tarkistuskoodi=${ticketUUID}`, requestOptions)
+            console.log(requestOptions)
             const json = await response.json();
             setTicket(json)
         } catch (error) {
@@ -47,7 +48,7 @@ const GetTicket = () => {
     }, [ticket])
 
     const showTicket = () => {
-         if (ticket == null) {
+        if (ticket == null) {
             setData(<p>Haku epäonnistui: {err}</p>)
         } else {
             setData(
@@ -69,8 +70,6 @@ const GetTicket = () => {
     return (
         <Paper elevation={24} style={{ padding: '20px', maxWidth: '500px' }}>
             <Stack container spacing={2}>
-                <TextField label="Käyttäjä" variant="standard" onChange={handleChangeUsername} name="username" />
-                <TextField label="Salasana" variant="standard" onChange={handleChangePassword} name="password" />
                 <TextField label="Lipun tarkistuskoodi" variant="standard" onChange={handleChangeTicketUUID} name="ticketUUID" />
                 <Button variant="contained" onClick={fetchTicket}>Hae lippu</Button>
                 {data}

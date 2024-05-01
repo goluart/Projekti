@@ -1,5 +1,4 @@
 import './styles/bootstrap.min.css';
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Login from './components/Login';
 import Events from './components/Events';
@@ -7,6 +6,7 @@ import GetTicket from './components/GetTicket'
 import CheckTicket from './components/CheckTicket'
 
 const App = () => {
+
   return (
     <Router>
         <div className="App" style={{ paddingTop: '4rem', width: '100vw' }}> 
@@ -16,8 +16,8 @@ const App = () => {
               <div className="navbar-nav mx-auto">
                 <Link className="nav-link" to="/login">Kirjaudu</Link>
                 <Link className="nav-link" to="/events">Tapahtumat</Link>
-                <Link className='nav-link' to="/get">Hae lippu</Link>
-                <Link className='nav-Link' to="/check">Tarkista lippu</Link>
+                <Link className="nav-link" to="/get">Hae lippu</Link>
+                <Link className="nav-link" to="/check">Tarkista lippu</Link>
               </div>
             </div>
           </nav>
@@ -31,7 +31,7 @@ const App = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/events" element={<Events />} />
                     <Route path="/get" element={<GetTicket />} />
-                    <Route path='/check' element={<CheckTicket/>} />
+                    <Route path='/check/' element={<CheckTicket/>} />
                   </Routes>
                 </div>
               </div>

@@ -3,12 +3,12 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-function PrintticketData({isOpen, onRequestClose, ticketData}) {
+function PrintticketData({ isOpen, onRequestClose, ticketData }) {
 
     if (!isOpen) {
         return null;
     }
-    
+
     return (
         <Modal
             isOpen={isOpen}
@@ -35,29 +35,29 @@ function PrintticketData({isOpen, onRequestClose, ticketData}) {
                     background: '#fff'  // Taustaväri
                 }
             }}
-            >
-                {/* <p>Server Response: {JSON.stringify(ticketData)}</p> */}
-                <div className='card'>
-                    <div className='card-body'>
-                        <h1>TicketGuru</h1>
-                        <p>Myyntitapahtuma: {ticketData.myyntitapahtumaId}</p>
-                        <p>Päivämäärä: {ticketData.myyntitapahtumaPvm}</p>
-                        <p>Loppusumma: {ticketData.loppusumma}</p>
-                        <h4 className='card-title'>Liput</h4>
-                        <ul class="list-group list-group-flush">
+        >
+            {/* <p>Server Response: {JSON.stringify(ticketData)}</p> */}
+            <div className='card'>
+                <div className='card-body'>
+                    <h1>TicketGuru</h1>
+                    <p>Myyntitapahtuma: {ticketData.myyntitapahtumaId}</p>
+                    <p>Päivämäärä: {ticketData.myyntitapahtumaPvm}</p>
+                    <p>Loppusumma: {ticketData.loppusumma}</p>
+                    <h4 className='card-title'>Liput</h4>
+                    <ul class="list-group list-group-flush">
                         {ticketData.liputDto.map((lippu, index) => (
-                                <li key={index} className="list-group-item">
-                                    <h4 class>{lippu.tapahtumanNimi}</h4>
-                                    <p>{lippu.tapahtumaAika}</p>
-                                    <p>{lippu.tapahtumaPaikka}</p>
-                                    <p>{lippu.lipputyyppi} {lippu.hinta} €</p>
-                                    <p>{lippu.tarkistuskoodi}</p>
-                                </li>                    
-                ))}
-                </ul>
-            <button onClick={onRequestClose}>Sulje Tapahtuma</button>
-                    </div>
+                            <li key={index} className="list-group-item">
+                                <h4 class>{lippu.tapahtumanNimi}</h4>
+                                <p>{lippu.tapahtumaAika}</p>
+                                <p>{lippu.tapahtumaPaikka}</p>
+                                <p>{lippu.lipputyyppi} {lippu.hinta} €</p>
+                                <p>{lippu.tarkistuskoodi}</p>
+                            </li>
+                        ))}
+                    </ul>
+                    <button onClick={onRequestClose}>Sulje Tapahtuma</button>
                 </div>
+            </div>
         </Modal>
     )
 }
