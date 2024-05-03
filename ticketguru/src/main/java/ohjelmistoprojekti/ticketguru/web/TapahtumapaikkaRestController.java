@@ -28,8 +28,8 @@ public class TapahtumapaikkaRestController {
     @Autowired
     private TapahtumapaikkaRepository tapahtumapaikkaRepository;
 
-    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
-    @GetMapping("/tapahtumapaikat")
+    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')") // Haetaan kaikki tapahtumat repositorysta
+    @GetMapping("/tapahtumapaikat") // Jos repository on tyhjä näytetään virheilmoitus
     public List<Tapahtumapaikka> haeKaikkiTapahtumapaikat() {
         if (tapahtumapaikkaRepository.findAll().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumapaikkoja, ei löytynyt");
@@ -37,8 +37,8 @@ public class TapahtumapaikkaRestController {
         return tapahtumapaikkaRepository.findAll();
     }
 
-    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
-    @GetMapping("/tapahtumapaikat/{id}")
+    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')") // Haetaan yksi tapahtuma reposta
+    @GetMapping("/tapahtumapaikat/{id}") // Jos repossa ei ole pyydettyä tapahtumapaikkaa, näytetään virheilmoitus
     public Optional<Tapahtumapaikka> haeTaphtumapaikkaById(@PathVariable("id") @NonNull Long tapaikkaId) {
         if (tapahtumapaikkaRepository.findById(tapaikkaId).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa " + tapaikkaId + " ei löytynyt");
@@ -46,8 +46,8 @@ public class TapahtumapaikkaRestController {
         return tapahtumapaikkaRepository.findById(tapaikkaId);
     }
 
-    @PreAuthorize("hasAnyAuthority('hallinto')")
-    @DeleteMapping("/tapahtumapaikat/{id}")
+    @PreAuthorize("hasAnyAuthority('hallinto')") // Poistetaan valittu tapahtumapaikka reposta
+    @DeleteMapping("/tapahtumapaikat/{id}") // Jos tapahtumaa ei löydy näytetään virheilmoitus
     public ResponseEntity<?> poistaTapahtumapaikka(@PathVariable("id") Long tapaikkaId) {
         if (!tapahtumapaikkaRepository.existsById(tapaikkaId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -58,8 +58,8 @@ public class TapahtumapaikkaRestController {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
-    @PutMapping("/tapahtumapaikat/{id}")
+    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')") // Muokataan valittua tapahtumapaikkaa
+    @PutMapping("/tapahtumapaikat/{id}") // Jos tapahtumaa ei löydy näytetään virheilmoitus
     public ResponseEntity<Tapahtumapaikka> editTapahtumapaikka(@PathVariable("id") Long tapaikkaId,
             @RequestBody Tapahtumapaikka uusiTapahtumapaikka) {
         @SuppressWarnings("null")
@@ -73,8 +73,8 @@ public class TapahtumapaikkaRestController {
         return ResponseEntity.ok(editTapahtumapaikka);
     }
 
-    @PreAuthorize("hasAuthority('hallinto')")
-    @PostMapping("/tapahtumapaikat")
+    @PreAuthorize("hasAuthority('hallinto')") // Luodaan uusi tapahtumapaikka
+    @PostMapping("/tapahtumapaikat") // Luonnin jälkeen näytetään HTTP-status ilmoitus onnistuneesta luonnista
     @ResponseStatus(value = HttpStatus.CREATED, reason = "Uusi tapahtumapaikka luotu")
     public Tapahtumapaikka uusiTapahtumapaikka(@RequestBody @Valid @NonNull Tapahtumapaikka uusiTapahtumapaikka) {
         return tapahtumapaikkaRepository.save(uusiTapahtumapaikka);
