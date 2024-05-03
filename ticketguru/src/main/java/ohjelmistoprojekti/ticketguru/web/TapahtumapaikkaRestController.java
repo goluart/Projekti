@@ -5,10 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.web.server.ServerHttpSecurity.HttpsRedirectSpec;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -38,5 +41,32 @@ public class TapahtumapaikkaRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumaa " + tapaikkaId + " ei löytynyt");
         }
         return tapahtumapaikkaRepository.findById(tapaikkaId);
+    }
+
+    @PreAuthorize("hasAnyAuthority('hallinto')")
+    @DeleteMapping("/tapahtumapaikat/{id}")
+    public ResponseEntity<?> poistaTapahtumapaikka(@PathVariable("id") Long tapaikkaId) {
+        if (!tapahtumapaikkaRepository.existsById(tapaikkaId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Tapahtumapaikkaa " + tapaikkaId + " ei löytynyt.");
+        }
+
+        tapahtumapaikkaRepository.deleteById(tapaikkaId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
+    @PutMapping("/tapahtumapaikat/{id}")
+    public ResponseEntity<Tapahtumapaikka> editTapahtumapaikka(@PathVariable("id") Long tapaikkaId,
+            @RequestBody Tapahtumapaikka uusiTapahtumapaikka) {
+        @SuppressWarnings("null")
+        Tapahtumapaikka editTapahtumapaikka = tapahtumapaikkaRepository.findById(tapaikkaId)
+                .orElseThrow(() -> new ResponseStatusException( // 404 virhekoodin käsittely
+                        HttpStatus.NOT_FOUND,
+                        "Tapahtumaa " + tapaikkaId + " ei voi muokata, koska sitä ei ole olemassa"));
+        editTapahtumapaikka.setTapaikkaId(uusiTapahtumapaikka.getTapaikkaId());
+        tapahtumapaikkaRepository.save(uusiTapahtumapaikka);
+
+        return ResponseEntity.ok(editTapahtumapaikka);
     }
 }
