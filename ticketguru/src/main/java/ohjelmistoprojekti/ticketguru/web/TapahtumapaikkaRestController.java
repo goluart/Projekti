@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import io.micrometer.common.lang.NonNull;
+import org.springframework.lang.NonNull;
 import jakarta.validation.Valid;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtumapaikka;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumapaikkaRepository;
