@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,8 +39,8 @@ public class Kayttaja {
 	@Size(max = 500, message = "Lisätietojen maksimipituus on 500 merkkiä")
 	private String lisatiedot;
 
-	@JsonIgnore
 	@ManyToOne
+	@JsonIgnoreProperties("kayttajat")
 	@JoinColumn(name = "rooli_id")
 	private Rooli rooli;
 
