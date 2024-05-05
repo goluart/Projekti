@@ -19,7 +19,10 @@ public class TarkastusDTO {
     private String lipputyyppi; // Lipputyyppi
     @NotEmpty(message = "Tapahtumapaikka pitää määrittää")
     private String paikkaNimi; // Tapahtumapaikka
-    private Boolean response; // Vastausviestin palautus jsonina
+    private Boolean response; // Vastausviestin palautus jsonina    
+
+    public TarkastusDTO() {
+    }
 
     public Long getTarkastusId() {
         return tarkastusId;

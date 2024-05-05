@@ -1,10 +1,10 @@
-# Luo uusi tapahtumat
+# Merkitse lippu käytetyksi
 Tämä dokumentaatio kuvaa, miten lippu tarkistetaan.
 
 ## API Endpoint
 Merkitse lippu käytetyksi
 
-**URL**: /tapahtumat/:tarkistuskoodi
+**URL**: /tarkastukset/:tarkistuskoodi
 
 **URL-parametrit**: tarkistuskoodi=[String], missä `tarkistuskoodi` on lipun yksilöllinen tunniste.
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.12.1 on win32)" generated="2024-04-22T12:54:25.595276" rpa="false" schemaversion="5">
+<suite id="s1" name="TicketguruE2ETest" source="c:\ohjelmistoprojekti\Projekti\ticketguru\src\test\java\ohjelmistoprojekti\ticketguru\E2E\TicketguruE2ETest.robot">
+<test id="s1-t1" name="Buy A Ticket To An Event" line="32">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-04-22T12:54:25.830501" level="INFO">Clicking button '//*[@id="root"]/div/div/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[8]/button'.</msg>
+<msg time="2024-04-22T12:54:25.835484" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<msg time="2024-04-22T12:54:25.835484" level="FAIL">No browser is open.</msg>
+<arg>//*[@id="root"]/div/div/div/div/div/div/div/div/div[2]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[8]/button</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="FAIL" start="2024-04-22T12:54:25.829502" elapsed="0.011969">No browser is open.</status>
+</kw>
+<kw name="Set Focus To Element" owner="SeleniumLibrary">
+<arg>/html/body/div[4]/div/div</arg>
+<doc>Sets the focus to the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-04-22T12:54:25.842465" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2024-04-22T12:54:25.828528" elapsed="0.014934">No browser is open.</status>
+</test>
+<doc>Simultaneous users 1</doc>
+<status status="FAIL" start="2024-04-22T12:54:25.603424" elapsed="0.243033"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="TicketguruE2ETest">TicketguruE2ETest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

@@ -36,13 +36,13 @@ public class Yhteyshenkilo {
 	@Size(max = 700, message = "Suurin sallittu merkkimäärä on 700")
 	private String lisatieto;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "yhteyshenkilo")
+	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "yhteyshenkilo")
 	@JsonIgnoreProperties("yhteyshenkilo")
 	private List<Jarjestaja> jarjestajat;
 
 	@ManyToOne
 	@JsonIgnoreProperties("yhteyshenkilo")
-	@JoinColumn(name = "tapaikkaId")
+	@JoinColumn(name = "tapaikka_id")
 	private Tapahtumapaikka tapahtumapaikka;
 
     // Myöhemmin Yhteyshenkilo OneToMany Tapahtumapaikka

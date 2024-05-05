@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,11 +23,13 @@ public class Kayttaja {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "hlo_id")
 	private Long hloId;
-	//@Size(min = 6)
+	// @Size(min = 6)
 	private String tunnus;
 	@NotBlank(message = "Salasana ei saa olla tyhjä")
-    //@Size(min = 8, message = "Salasanan on oltava vähintään 8 merkkiä pitkä")
-    //@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-\\[\\]{}|;:'\",.<>\\/?]).+$", message = "Salasanan on sisällettävä vähintään yksi iso kirjain ja yksi erikoismerkki")
+	// @Size(min = 8, message = "Salasanan on oltava vähintään 8 merkkiä pitkä")
+	// @Pattern(regexp =
+	// "^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-\\[\\]{}|;:'\",.<>\\/?]).+$", message =
+	// "Salasanan on sisällettävä vähintään yksi iso kirjain ja yksi erikoismerkki")
 	@JsonIgnore
 	private String salasana;
 	@NotBlank(message = "Sukunimi ei saa olla tyhjä")
@@ -36,8 +39,8 @@ public class Kayttaja {
 	@Size(max = 500, message = "Lisätietojen maksimipituus on 500 merkkiä")
 	private String lisatiedot;
 
-	@JsonIgnore
 	@ManyToOne
+	@JsonIgnoreProperties("kayttajat")
 	@JoinColumn(name = "rooli_id")
 	private Rooli rooli;
 
@@ -55,15 +58,15 @@ public class Kayttaja {
 		this.lisatiedot = lisatiedot;
 		this.rooli = rooli;
 	}
-	
+
 	public Long getHloId() {
 		return hloId;
 	}
-	
+
 	public void setHloId(Long hloId) {
 		this.hloId = hloId;
 	}
-	
+
 	public String getTunnus() {
 		return tunnus;
 	}

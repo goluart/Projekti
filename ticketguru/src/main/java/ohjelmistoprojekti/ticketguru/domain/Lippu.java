@@ -137,6 +137,4 @@ public class Lippu {
 				+ myyntitapahtuma + ", kayttoPvm=" + kayttoPvm + "]";
 	}
 
-	
-
 }

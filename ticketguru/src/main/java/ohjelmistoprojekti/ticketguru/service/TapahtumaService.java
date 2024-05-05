@@ -26,9 +26,12 @@ public class TapahtumaService {
         return tDto;
     }
 
-    private TapahtumaDto.PaikkaDTO muunnaPaikka(Tapahtumapaikka paikka) {
-        return new TapahtumaDto.PaikkaDTO(paikka.getTapaikkaId(), paikka.getPaikkaNimi(), paikka.getOsoite(),
-                paikka.getPostitoimipaikka().getKaupunki());
+    public TapahtumaDto.PaikkaDTO muunnaPaikka(Tapahtumapaikka paikka) {
+        if (paikka != null) {
+            return new TapahtumaDto.PaikkaDTO(paikka.getTapaikkaId(), paikka.getPaikkaNimi(), paikka.getOsoite(),
+                    paikka.getPostitoimipaikka().getKaupunki());
+        }
+        return null;
 
     }
 
@@ -46,4 +49,12 @@ public class TapahtumaService {
                 .collect(Collectors.toList());
     }
 
+    // Lisätty LipputyyppiRestControlleria varten
+    public TapahtumaDto.LipputyyppiDto muunnaLipputyyppiDto(Lipputyyppi lipputyyppi) {
+        return new TapahtumaDto.LipputyyppiDto(
+                lipputyyppi.getLipputyyppiId(),
+                lipputyyppi.getNimi(),
+                lipputyyppi.getAsiakasryhma().getNimi(),
+                lipputyyppi.getHintakerroin());
+    }
 }

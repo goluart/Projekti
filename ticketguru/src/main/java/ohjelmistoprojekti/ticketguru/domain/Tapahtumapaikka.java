@@ -22,30 +22,29 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Tapahtumapaikka {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tapaikka_id")
-    private Long tapaikkaId;
-    @NotBlank(message = "Paikan nimi ei saa olla tyhjä")
-    @Size(max = 100, message = "Paikan nimen maksimipituus on 100 merkkiä")
-    @Column(name = "paikka_nimi")    
-    private String paikkaNimi;
-    @NotBlank(message = "Osoite ei saa olla tyhjä")
-    @Size(max = 150, message = "Osoitteen maksimipituus on 150 merkkiä")
-    private String osoite;
-    @Size(max = 500, message = "Kuvauksen maksimipituus on 500 merkkiä")
-    private String kuvaus;
-    @Pattern(regexp = "^[0-9]{7}-[0-9]$", message = "Y-tunnuksen tulee olla muodossa 1234567-8")
-    private String ytunnus;
-    @Email(message = "Sähköpostiosoitteen tulee olla kelvollinen")
-    private String sposti;
-    @Size(max = 500, message = "Lisätietojen maksimipituus on 500 merkkiä")
-    private String lisatiedot;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumapaikka")
-    private List<Yhteyshenkilo> yhteyshenkilo;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumapaikka")
-    private List<Tapahtuma> tapahtuma;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "tapaikka_id")
+	private Long tapaikkaId;
+	@NotBlank(message = "Paikan nimi ei saa olla tyhjä")
+	@Size(max = 100, message = "Paikan nimen maksimipituus on 100 merkkiä")
+	@Column(name = "paikka_nimi")
+	private String paikkaNimi;
+	@Size(max = 150, message = "Osoitteen maksimipituus on 150 merkkiä")
+	private String osoite;
+	@Size(max = 500, message = "Kuvauksen maksimipituus on 500 merkkiä")
+	private String kuvaus;
+	@Pattern(regexp = "^[0-9]{7}-[0-9]$", message = "Y-tunnuksen tulee olla muodossa 1234567-8")
+	private String ytunnus;
+	@Email(message = "Sähköpostiosoitteen tulee olla kelvollinen")
+	private String sposti;
+	@Size(max = 500, message = "Lisätietojen maksimipituus on 500 merkkiä")
+	private String lisatiedot;
+	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "tapahtumapaikka")
+	private List<Yhteyshenkilo> yhteyshenkilo;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "tapahtumapaikka")
+	private List<Tapahtuma> tapahtuma;
 
 	@ManyToOne
 	@JsonIgnoreProperties("tapahtumapaikat")
@@ -53,6 +52,10 @@ public class Tapahtumapaikka {
 	private Postitoimipaikka postitoimipaikka;
 
 	public Tapahtumapaikka() {
+	}
+
+	public Tapahtumapaikka(String paikkaNimi) {
+		this.paikkaNimi = paikkaNimi;
 	}
 
 	public Tapahtumapaikka(String paikkaNimi, String osoite, String kuvaus, String ytunnus, String sposti,

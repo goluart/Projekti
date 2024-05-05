@@ -27,6 +27,14 @@ const SignIn = () => {
         }),
     };
 
+    const handleChangeUsername = (event) => {
+        setUsername(event.target.value);
+    }
+
+    const handleChangePassword = (event) => {
+        setPassword(event.target.value);
+    }
+
     const getToken = async () => {
         try {
             const response = await fetch('https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi/api/login', requestOptions);
