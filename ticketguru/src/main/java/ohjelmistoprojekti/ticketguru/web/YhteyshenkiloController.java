@@ -9,6 +9,7 @@ import ohjelmistoprojekti.ticketguru.domain.YhteyshenkiloRepository;
 import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO;
 import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO.TallennaYhteyshenkiloDTO;
 import ohjelmistoprojekti.ticketguru.service.TapahtumaService;
+import ohjelmistoprojekti.ticketguru.service.YhteyshenkiloService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,25 +34,37 @@ public class YhteyshenkiloController {
     @Autowired
     private YhteyshenkiloRepository yhtHloRepo;
     @Autowired
-    private TapahtumaService tapahtumaService;
+    YhteyshenkiloService yhteyshenkiloService;
+
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('hallinto', 'myyja')")
     public ResponseEntity<List<YhteyshenkiloDTO>> haeYhteyshenkilot() {
 
         List<YhteyshenkiloDTO> yhteyshenkilotDTO = yhtHloRepo.findAll().stream()
-            .map(yhteyshenkilo -> tapahtumaService.muunnaYhteyshenkilotDTO(yhteyshenkilo))
+            .map(yhteyshenkilo -> yhteyshenkiloService.muunnaYhteyshenkilotDTO(yhteyshenkilo))
             .collect(Collectors.toList());
         return ResponseEntity.ok(yhteyshenkilotDTO);
 
     }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('hallinto', 'myyja')")
+    public ResponseEntity<YhteyshenkiloDTO> haeYhteyshenkilo(@PathVariable("id") Long yhtHloId) {
+        if (!yhtHloRepo.existsById(yhtHloId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Yhteyshenkilöä " + yhtHloId + " ei löytynyt");
+        }
+        Yhteyshenkilo yhteyshenkilo = yhtHloRepo.findById(yhtHloId).orElse(null);
+        return ResponseEntity.ok(yhteyshenkiloService.muunnaYhteyshenkilotDTO(yhteyshenkilo));
+    }
+
 
     // tallentaa uuden ja päivitää vanhan tiedon
     @PostMapping
     @PreAuthorize("hasAuthority('hallinto')")
     public ResponseEntity<?> lisaaYhteyshenkilo(@RequestBody TallennaYhteyshenkiloDTO yhteyshenkiloDTO) {
 
-        Yhteyshenkilo yhteyshenkilo = tapahtumaService.tallennaYhteyshenkiloDTO(yhteyshenkiloDTO);
+        Yhteyshenkilo yhteyshenkilo = yhteyshenkiloService.tallennaYhteyshenkiloDTO(yhteyshenkiloDTO);
         
         return ResponseEntity.ok(yhteyshenkilo);
     }
