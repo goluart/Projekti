@@ -36,6 +36,13 @@ function Login() {
       }
       if (response.status == 200) {
         sessionStorage.setItem("credentials", base64Credentials);
+        if (username == 'lipuntarkastaja') {
+          sessionStorage.setItem("role", "lipuntarkastaja")
+        } if (username == 'myyja') {
+          sessionStorage.setItem("role", "myyja")
+        } if (username == 'hallinto') {
+          sessionStorage.setItem("role", "hallinto")
+        }
         setMessage(<Alert severity="success">Kirjautuminen onnistui</Alert>)
       }
     } catch (error) {

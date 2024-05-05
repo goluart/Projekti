@@ -21,6 +21,9 @@ const Events = () => {
         const credentials = sessionStorage.getItem('credentials');
         if (credentials === null) {
             navigate("/login", { replace: true });
+        } const role = sessionStorage.getItem('role')
+        if (role == 'lipuntarkastaja') {
+            navigate("/login", { replace: true });
         }
     }, [navigate]);
 
