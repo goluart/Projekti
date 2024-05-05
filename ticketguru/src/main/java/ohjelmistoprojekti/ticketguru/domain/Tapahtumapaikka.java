@@ -40,10 +40,10 @@ public class Tapahtumapaikka {
 	private String sposti;
 	@Size(max = 500, message = "Lisätietojen maksimipituus on 500 merkkiä")
 	private String lisatiedot;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumapaikka")
+	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "tapahtumapaikka")
 	private List<Yhteyshenkilo> yhteyshenkilo;
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "tapahtumapaikka")
+	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "tapahtumapaikka")
 	private List<Tapahtuma> tapahtuma;
 
 	@ManyToOne

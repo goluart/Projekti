@@ -95,12 +95,15 @@ public class TicketguruApplication {
 		kayttajaRepository.save(new Kayttaja("testi", "testi", "Testaaja", "Liisa",
 		"Myyntialue", myyja));
 
+		List<Yhteyshenkilo> yhteyshenkilox = new ArrayList<>();
+		yhteyshenkilox.add(yhteys3);
+
 		// Luodaan tapahtumapaikkoja
 		Tapahtumapaikka paikka1 = tapahtumapaikkaRepository.save(new Tapahtumapaikka(
 		"Kulttuuritalo",
 		"Sturenkatu 4, Helsinki", "Kulttuuritapahtumien keskus", "1234567-8",
 		"info@kulttuuritalo.fi",
-		"Esteetön pääsy", new ArrayList<>(), new ArrayList<>(), helsinki));
+		"Esteetön pääsy", yhteyshenkilox, new ArrayList<>(), helsinki));
 		Tapahtumapaikka paikka2 = tapahtumapaikkaRepository
 		.save(new Tapahtumapaikka("Messukeskus",
 		"Messuaukio 1, Helsinki", "Suomen suurin messukeskus",
@@ -112,7 +115,7 @@ public class TicketguruApplication {
 		"Tivolikuja 1, Helsinki", "Huvipuisto kaikenikäisille",
 		"3456789-0", "info@linnanmaki.fi",
 		"Koirat sallittu hihnassa", new ArrayList<>(),
-		new ArrayList<>(), helsinki));
+		new ArrayList<>(), helsinki));		
 
 		// Luodaan järjestäjiä
 		Jarjestaja jarjestaja1 = jarjestajaRepository

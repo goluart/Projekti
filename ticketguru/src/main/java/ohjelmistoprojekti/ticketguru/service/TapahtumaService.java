@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
-import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Lipputyyppi;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtumapaikka;
@@ -22,8 +21,6 @@ import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO.TallennaYhteyshenkiloD
 @Service
 public class TapahtumaService {
 
-    @Autowired
-    private JarjestajaRepository jarjestajaRepository;
     @Autowired
     private TapahtumapaikkaRepository tapahtumapaikkaRepository; 
     @Autowired
