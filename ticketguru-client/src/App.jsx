@@ -1,4 +1,14 @@
 import './styles/bootstrap.min.css';
+<<<<<<< HEAD
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Login from './components/Login';
+import Events from './components/Events';
+import GetTicket from './components/GetTicket'
+import CheckTicket from './components/CheckTicket'
+
+const App = () => {
+
+=======
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Login from './components/Login';
@@ -6,6 +16,7 @@ import Events from './components/Events';
 import CheckTicket from './components/CheckTicket';
 
 const App = () => {
+>>>>>>> 9f02a4744106953f554737d5cf7e872e0ad8e998
   return (
     <Router>
         <div className="App" style={{ paddingTop: '4rem', width: '100vw' }}> 
@@ -15,6 +26,10 @@ const App = () => {
               <div className="navbar-nav mx-auto">
                 <Link className="nav-link" to="/login">Kirjaudu</Link>
                 <Link className="nav-link" to="/events">Tapahtumat</Link>
+<<<<<<< HEAD
+                <Link className="nav-link" to="/get">Hae lippu</Link>
+=======
+>>>>>>> 9f02a4744106953f554737d5cf7e872e0ad8e998
                 <Link className="nav-link" to="/check">Tarkista lippu</Link>
               </div>
             </div>
@@ -28,7 +43,12 @@ const App = () => {
                   <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/events" element={<Events />} />
+<<<<<<< HEAD
+                    <Route path="/get" element={<GetTicket />} />
+                    <Route path='/check/' element={<CheckTicket/>} />
+=======
                     <Route path="/check" element={<CheckTicket />} />
+>>>>>>> 9f02a4744106953f554737d5cf7e872e0ad8e998
                   </Routes>
                 </div>
               </div>
