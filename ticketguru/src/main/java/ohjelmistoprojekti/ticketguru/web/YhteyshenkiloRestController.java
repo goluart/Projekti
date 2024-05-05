@@ -8,14 +8,12 @@ import ohjelmistoprojekti.ticketguru.domain.Yhteyshenkilo;
 import ohjelmistoprojekti.ticketguru.domain.YhteyshenkiloRepository;
 import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO;
 import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO.TallennaYhteyshenkiloDTO;
-import ohjelmistoprojekti.ticketguru.service.TapahtumaService;
 import ohjelmistoprojekti.ticketguru.service.YhteyshenkiloService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,21 +24,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-
 @RestController
 @RequestMapping("/yhteyshenkilot")
-public class YhteyshenkiloController {
+public class YhteyshenkiloRestController {
 
     @Autowired
     private YhteyshenkiloRepository yhtHloRepo;
     @Autowired
-    YhteyshenkiloService yhteyshenkiloService;
+    private YhteyshenkiloService yhteyshenkiloService;
 
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('hallinto', 'myyja')")
     public ResponseEntity<List<YhteyshenkiloDTO>> haeYhteyshenkilot() {
-
         List<YhteyshenkiloDTO> yhteyshenkilotDTO = yhtHloRepo.findAll().stream()
             .map(yhteyshenkilo -> yhteyshenkiloService.muunnaYhteyshenkilotDTO(yhteyshenkilo))
             .collect(Collectors.toList());
@@ -59,7 +55,7 @@ public class YhteyshenkiloController {
     }
 
 
-    // tallentaa uuden ja päivitää vanhan tiedon
+    // tallentaa uuden tai päivitää tietokannassa olevan tiedon
     @PostMapping
     @PreAuthorize("hasAuthority('hallinto')")
     public ResponseEntity<?> lisaaYhteyshenkilo(@RequestBody TallennaYhteyshenkiloDTO yhteyshenkiloDTO) {
@@ -69,23 +65,14 @@ public class YhteyshenkiloController {
         return ResponseEntity.ok(yhteyshenkilo);
     }
 
+    // Yhteyshenkilön voi poistaa, vaikka se olisi kiinnitettynä Järjestäjä tai Tapahtumapaikka -entiteetteihin
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('hallinto')")
     public ResponseEntity<?> deleteYhteyshenkilo(@PathVariable("id") Long yhtHloId) {
         if (!yhtHloRepo.existsById(yhtHloId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Yhteyshenkilöä " + yhtHloId + " ei löytynyt");
         }
-        try {
-            yhtHloRepo.deleteById(yhtHloId);
+        yhtHloRepo.deleteById(yhtHloId);
             return ResponseEntity.ok("Yhteyshenkilö " + yhtHloId + " poistettu");
-        } catch (DataIntegrityViolationException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Yhteyshenkilöä " + yhtHloId + " ei voi poistaa");
-        }
     }
-    
-
-
-
-
-
 }
