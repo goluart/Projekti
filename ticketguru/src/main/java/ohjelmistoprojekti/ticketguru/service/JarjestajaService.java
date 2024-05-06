@@ -44,7 +44,7 @@ public class JarjestajaService {
         }
         
         if (jarjestajaDTO.getNimi() == null || jarjestajaDTO.getNimi() == "") {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nimi on tyhjä"); 
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nimi on tyhjä"); 
         }
 
         jarjestaja.setNimi(jarjestajaDTO.getNimi());

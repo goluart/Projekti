@@ -73,6 +73,6 @@ public class YhteyshenkiloRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Yhteyshenkilöä " + yhtHloId + " ei löytynyt");
         }
         yhtHloRepo.deleteById(yhtHloId);
-            return ResponseEntity.ok("Yhteyshenkilö " + yhtHloId + " poistettu");
+            return ResponseEntity.noContent().build();
     }
 }
