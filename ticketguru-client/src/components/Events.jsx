@@ -37,7 +37,6 @@ const Events = () => {
                 paikka: params.data.tapahtumapaikka.tapahtumapaikkaNimi,
                 lipputyypit: params.data.lipputyypit
             }
-            console.log(sendData);
             setSendData(data);
             setModalIsOpen(true);
 
@@ -122,7 +121,7 @@ const Events = () => {
 
     useEffect(() => {
         fetchEvents();
-    }, []);
+    }, [sendData]);
 
     return (
         <div className="ag-theme-quartz" style={{ height: 'auto', width: '100%' }}>
