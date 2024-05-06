@@ -21,7 +21,6 @@ import java.util.List;
 public class Jarjestaja {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	@Column(name = "jarjestaja_id")
 	private Long jarjestajaId;
 	@NotEmpty(message = "Anna järjestäjän nimi")
@@ -34,13 +33,12 @@ public class Jarjestaja {
 	@JsonIgnore
 	private List<Tapahtuma> tapahtumat;
 
-	@ManyToOne
-	@JsonIgnoreProperties("jarjestajat")
-	@JoinColumn(name = "yht_hlo_id")
-	private Yhteyshenkilo yhteyshenkilo;
+	@JsonIgnoreProperties("jarjestaja")
+	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "jarjestaja")
+	private List<Yhteyshenkilo> yhteyshenkilo;
 
 	@ManyToOne
-	@JsonIgnoreProperties("jarjestajat")
+	@JsonIgnoreProperties("jarjestaja")
 	@JoinColumn(name = "postitoimipaikka_id")
 	private Postitoimipaikka postitoimipaikka;
 
@@ -55,7 +53,7 @@ public class Jarjestaja {
 	}
 
 	public Jarjestaja(String nimi, String ytunnus, String osoite, Postitoimipaikka postitoimipaikka,
-			Yhteyshenkilo yhteyshenkilo) {
+			List<Yhteyshenkilo> yhteyshenkilo) {
 		super();
 		this.nimi = nimi;
 		this.ytunnus = ytunnus;
@@ -96,11 +94,11 @@ public class Jarjestaja {
 		this.osoite = osoite;
 	}
 
-	public Yhteyshenkilo getyhteyshenkilo() {
+	public List<Yhteyshenkilo> getyhteyshenkilo() {
 		return yhteyshenkilo;
 	}
 
-	public void setyhteyshenkilo(Yhteyshenkilo yhteyshenkilo) {
+	public void setyhteyshenkilo(List<Yhteyshenkilo> yhteyshenkilo) {
 		this.yhteyshenkilo = yhteyshenkilo;
 	}
 
@@ -123,7 +121,9 @@ public class Jarjestaja {
 	@Override
 	public String toString() {
 		return "Jarjestaja [jarjestajaId=" + jarjestajaId + ", nimi=" + nimi + ", ytunnus=" + ytunnus + ", osoite="
-				+ osoite + ", yhteyshenkilo=" + yhteyshenkilo + ", postitoimipaikka=" + postitoimipaikka + "]";
+				+ osoite + ", postitoimipaikka=" + postitoimipaikka + "]";
 	}
+
+	
 
 }

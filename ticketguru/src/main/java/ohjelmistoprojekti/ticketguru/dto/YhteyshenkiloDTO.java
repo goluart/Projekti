@@ -1,7 +1,5 @@
 package ohjelmistoprojekti.ticketguru.dto;
 
-import java.util.List;
-
 import ohjelmistoprojekti.ticketguru.domain.Postitoimipaikka;
 import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.JarjestajaDTO;
 import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.PaikkaDTO;
@@ -10,7 +8,7 @@ import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.PaikkaDTO;
 public class YhteyshenkiloDTO {
     private Long yhtHloId;
     private String etunimi, sukunimi, sahkoposti, puhelin, lisatieto;
-    private List<TapahtumaDto.JarjestajaDTO> jarjestajat;
+    private JarjestajaDTO jarjestaja;
     private PaikkaDTO tapahtumapaikka;    
 
 
@@ -19,15 +17,13 @@ public class YhteyshenkiloDTO {
 
 
     public YhteyshenkiloDTO(Long yhtHloId, String etunimi, String sukunimi, String sahkoposti, String puhelin,
-            String lisatieto, List<JarjestajaDTO> jarjestajat, PaikkaDTO tapahtumapaikka) {
+            String lisatieto) {
         this.yhtHloId = yhtHloId;
         this.etunimi = etunimi;
         this.sukunimi = sukunimi;
         this.sahkoposti = sahkoposti;
         this.puhelin = puhelin;
         this.lisatieto = lisatieto;
-        this.jarjestajat = jarjestajat;
-        this.tapahtumapaikka = tapahtumapaikka;
     }
 
     public Long getYhtHloId() {
@@ -90,18 +86,15 @@ public class YhteyshenkiloDTO {
     }
 
 
-    public List<TapahtumaDto.JarjestajaDTO> getJarjestajat() {
-        return jarjestajat;
+    public JarjestajaDTO getJarjestaja() {
+        return jarjestaja;
     }
 
 
-    public void setJarjestaja(List<TapahtumaDto.JarjestajaDTO> jarjestajat) {
-        this.jarjestajat = jarjestajat;
-    }
+    public void setJarjestaja(JarjestajaDTO jarjestaja) {
+        this.jarjestaja = jarjestaja;
+    }  
 
-    public void setJarjestajat(List<TapahtumaDto.JarjestajaDTO> jarjestajat) {
-        this.jarjestajat = jarjestajat;
-    }   
     
     public PaikkaDTO getTapahtumapaikka() {
         return tapahtumapaikka;
@@ -173,16 +166,17 @@ public class YhteyshenkiloDTO {
 
     public static class TallennaYhteyshenkiloDTO {
 
-        private Long yhtHloId, tapaikkaId;
+        private Long yhtHloId, tapaikkaId, jarjestajaId;
         private String etunimi, sukunimi, sahkoposti, puhelin, lisatieto;
 
         public TallennaYhteyshenkiloDTO() {
         }
 
-        public TallennaYhteyshenkiloDTO(Long yhtHloId, Long tapaikkaId, String etunimi, String sukunimi,
+        public TallennaYhteyshenkiloDTO(Long yhtHloId, Long tapaikkaId, Long jarjastajaId, String etunimi, String sukunimi,
                 String sahkoposti, String puhelin, String lisatieto) {
             this.yhtHloId = yhtHloId;
             this.tapaikkaId = tapaikkaId;
+            this.jarjestajaId = jarjastajaId;
             this.etunimi = etunimi;
             this.sukunimi = sukunimi;
             this.sahkoposti = sahkoposti;
@@ -204,6 +198,13 @@ public class YhteyshenkiloDTO {
 
         public void setTapaikkaId(Long tapaikkaId) {
             this.tapaikkaId = tapaikkaId;
+        }
+        public Long getJarjestajaId() {
+            return jarjestajaId;
+        }
+
+        public void setJarjestajaId(Long jarjestajaId) {
+            this.jarjestajaId = jarjestajaId;
         }
 
         public String getEtunimi() {

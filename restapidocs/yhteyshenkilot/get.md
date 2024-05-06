@@ -12,6 +12,8 @@ Tämä dokumentaatio kuvaa, miten yhteyshenkilon tiedot haetaan.
 
 **Käyttäjäroolit**: `myyja`, `hallinto`
 
+## Pyyntö
+Pyynnön runkoa ei vaadita, sillä tieto haetaan URL:n avulla.
 
 ## Onnistunut Vastaus
 
