@@ -67,5 +67,12 @@ public class JarjestajaTiedotDTO {
         this.kaupunki = kaupunki;
     }
 
+    @Override
+    public String toString() {
+        return "JarjestajaTiedotDTO [jarjestajaId=" + jarjestajaId + ", nimi=" + nimi + ", ytunnus=" + ytunnus
+                + ", osoite=" + osoite + ", postinumero=" + postinumero + ", kaupunki=" + kaupunki + "]";
+    }
+
+    
     
 }

@@ -1,6 +1,7 @@
 package ohjelmistoprojekti.ticketguru.web;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -50,6 +53,17 @@ public class JarjestajaRestController {
 
         return ResponseEntity.ok(jarjestajaDTO);
     }
+
+        @PostMapping
+        @PreAuthorize("hasAuthority('hallinto')")
+        public ResponseEntity<JarjestajaTiedotDTO> tallennaJarjestaja(@RequestBody JarjestajaTiedotDTO jarjestajaTiedotDTO) {   
+            System.out.println("DTO-tiedot: " + jarjestajaTiedotDTO);  
+            Map<String, Object> vastaus = jarjestajaService.tallennaJarjestaja(jarjestajaTiedotDTO);
+            boolean isUusiTieto = (boolean) vastaus.get("Status");
+            HttpStatus httpStatus = isUusiTieto ? HttpStatus.CREATED : HttpStatus.OK;
+            return ResponseEntity.status(httpStatus).body((JarjestajaTiedotDTO) vastaus.get("DTO"));
+        }
+
     
 
     
