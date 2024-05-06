@@ -62,7 +62,7 @@ public class TapahtumapaikkaRestController {
     @PutMapping("/tapahtumapaikat/{id}") // Jos tapahtumaa ei löydy näytetään virheilmoitus
     public ResponseEntity<Tapahtumapaikka> editTapahtumapaikka(@PathVariable("id") Long tapaikkaId,
             @RequestBody Tapahtumapaikka uusiTapahtumapaikka) {
-        @SuppressWarnings("null")
+        //@SuppressWarnings("null")
         Tapahtumapaikka editTapahtumapaikka = tapahtumapaikkaRepository.findById(tapaikkaId)
                 .orElseThrow(() -> new ResponseStatusException( // 404 virhekoodin käsittely
                         HttpStatus.NOT_FOUND,

@@ -53,7 +53,7 @@ public class MyyntitapahtumaRestController {
     }
 
     @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
-    @SuppressWarnings("null")
+    //@SuppressWarnings("null")
     @GetMapping("/{id}")
     public ResponseEntity<MyyntitapahtumaDTO> haeYksiMyyntitapahtuma(@PathVariable("id") Long myyntitapahtumaId) {
         return myyntitapahtumaRepository.findById(myyntitapahtumaId)
@@ -71,7 +71,7 @@ public class MyyntitapahtumaRestController {
          * Hakee tapahtuman tietokannasta, käyttämällä tapahtumaId:tä POST-pyynnön
          * Body'sta. Jos tapahtumaId:tä ei löydy palautetaan poikkeus
          */
-        @SuppressWarnings("null")
+        //@SuppressWarnings("null")
         Tapahtuma tapahtuma = tapahtumaRepository.findById(mtDto.getTapahtumaId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Tapahtumaa " + mtDto.getTapahtumaId() + " ei löydy"));
@@ -93,7 +93,7 @@ public class MyyntitapahtumaRestController {
              * Lipputyyppi-objektin tai olla tyhjä, jos lipputyyppiä ei löydy annetulla
              * ID:llä.
              */
-            @SuppressWarnings("null")
+            //@SuppressWarnings("null")
             Lipputyyppi lt = lipputyyppiRepository.findById(ltm.getLipputyyppiId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                             "Lipputyyppiä " + ltm.getLipputyyppiId() + " ei löytynyt"));
