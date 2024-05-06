@@ -67,7 +67,6 @@ public class JarjestajaService {
         vastaus.put("Status", uusiTieto);
         vastaus.put("DTO", jarjestajaTiedotDTO);
 
-
         return vastaus;
     }
 }
