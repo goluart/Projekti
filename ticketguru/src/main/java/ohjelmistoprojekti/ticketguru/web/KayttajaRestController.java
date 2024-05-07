@@ -45,7 +45,7 @@ public class KayttajaRestController {
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @GetMapping("/kayttajat/{id}")
-    public ResponseEntity<KayttajaDTO> haeKayttajaById(@PathVariable("id") @NonNull Long hloId) {
+    public ResponseEntity<KayttajaDTO> haeYksiKayttaja(@PathVariable("id") @NonNull Long hloId) {
         Optional<KayttajaDTO> kayttaja = kayttajaService.haeKayttajaById(hloId);
 
         if (kayttaja.isPresent()) {
