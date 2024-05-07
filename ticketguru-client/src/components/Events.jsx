@@ -21,6 +21,9 @@ const Events = () => {
         const credentials = sessionStorage.getItem('credentials');
         if (credentials === null) {
             navigate("/login", { replace: true });
+        } const role = sessionStorage.getItem('role')
+        if (role == 'lipuntarkastaja') {
+            navigate("/login", { replace: true });
         }
     }, [navigate]);
 
@@ -34,7 +37,6 @@ const Events = () => {
                 paikka: params.data.tapahtumapaikka.tapahtumapaikkaNimi,
                 lipputyypit: params.data.lipputyypit
             }
-            console.log(sendData);
             setSendData(data);
             setModalIsOpen(true);
 
@@ -119,7 +121,7 @@ const Events = () => {
 
     useEffect(() => {
         fetchEvents();
-    }, []);
+    }, [sendData]);
 
     return (
         <div className="ag-theme-quartz" style={{ height: 'auto', width: '100%' }}>

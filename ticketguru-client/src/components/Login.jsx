@@ -28,7 +28,6 @@ function Login() {
 
   const authorize = async (event) => {
     event.preventDefault();
-    sessionStorage.setItem("credentials", base64Credentials);
     try {
       const response = await fetch(`${url}/tarkastukset`, requestOptions);
       console.log(response.status)
@@ -36,6 +35,14 @@ function Login() {
         setMessage(<Alert severity="error">Käyttäjätunnus tai salasana ei kelpaa</Alert>);
       }
       if (response.status == 200) {
+        sessionStorage.setItem("credentials", base64Credentials);
+        if (username == 'lipuntarkastaja') {
+          sessionStorage.setItem("role", "lipuntarkastaja")
+        } if (username == 'myyja') {
+          sessionStorage.setItem("role", "myyja")
+        } if (username == 'hallinto') {
+          sessionStorage.setItem("role", "hallinto")
+        }
         setMessage(<Alert severity="success">Kirjautuminen onnistui</Alert>)
       }
     } catch (error) {

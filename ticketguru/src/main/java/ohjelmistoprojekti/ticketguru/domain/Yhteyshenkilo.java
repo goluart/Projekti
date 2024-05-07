@@ -1,10 +1,5 @@
 package ohjelmistoprojekti.ticketguru.domain;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -36,13 +30,12 @@ public class Yhteyshenkilo {
 	@Size(max = 700, message = "Suurin sallittu merkkimäärä on 700")
 	private String lisatieto;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "yhteyshenkilo")
-	@JsonIgnoreProperties("yhteyshenkilo")
-	private List<Jarjestaja> jarjestajat;
+	@ManyToOne
+	@JoinColumn(name = "jarjestaja_id")
+	private Jarjestaja jarjestaja;
 
 	@ManyToOne
-	@JsonIgnoreProperties("yhteyshenkilo")
-	@JoinColumn(name = "tapaikkaId")
+	@JoinColumn(name = "tapaikka_id")
 	private Tapahtumapaikka tapahtumapaikka;
 
     // Myöhemmin Yhteyshenkilo OneToMany Tapahtumapaikka
@@ -109,12 +102,12 @@ public class Yhteyshenkilo {
 		this.lisatieto = lisatieto;
 	}
 
-	public List<Jarjestaja> getJarjestajat() {
-		return jarjestajat;
+	public Jarjestaja getJarjestaja() {
+		return jarjestaja;
 	}
 
-	public void setJarjestajat(List<Jarjestaja> jarjestajat) {
-		this.jarjestajat = jarjestajat;
+	public void setJarjestaja(Jarjestaja jarjestaja) {
+		this.jarjestaja = jarjestaja;
 	}
 
 	public Tapahtumapaikka getTapahtumapaikka() {
@@ -128,8 +121,8 @@ public class Yhteyshenkilo {
 	@Override
 	public String toString() {
 		return "Yhteyshenkilo [yhtHloId=" + yhtHloId + ", etunimi=" + etunimi + ", sukunimi=" + sukunimi
-				+ ", sahkoposti=" + sahkoposti + ", puhelin=" + puhelin + ", lisatieto=" + lisatieto + ", jarjestajat="
-				+ jarjestajat + ", tapahtumapaikka=" + tapahtumapaikka + "]";
+				+ ", sahkoposti=" + sahkoposti + ", puhelin=" + puhelin + ", lisatieto=" + lisatieto + ", jarjestaja="
+				+ jarjestaja + ", tapahtumapaikka=" + tapahtumapaikka + "]";
 	}
 
 }

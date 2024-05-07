@@ -95,12 +95,19 @@ public class TicketguruApplication {
 		kayttajaRepository.save(new Kayttaja("testi", "testi", "Testaaja", "Liisa",
 		"Myyntialue", myyja));
 
+		List<Yhteyshenkilo> yhteyshenkilox = new ArrayList<>();
+		yhteyshenkilox.add(yhteys1);
+		List<Yhteyshenkilo> yhteyshenkiloy = new ArrayList<>();
+		yhteyshenkilox.add(yhteys2);
+		List<Yhteyshenkilo> yhteyshenkiloz = new ArrayList<>();
+		yhteyshenkilox.add(yhteys3);
+		
 		// Luodaan tapahtumapaikkoja
 		Tapahtumapaikka paikka1 = tapahtumapaikkaRepository.save(new Tapahtumapaikka(
 		"Kulttuuritalo",
 		"Sturenkatu 4, Helsinki", "Kulttuuritapahtumien keskus", "1234567-8",
 		"info@kulttuuritalo.fi",
-		"Esteetön pääsy", new ArrayList<>(), new ArrayList<>(), helsinki));
+		"Esteetön pääsy", yhteyshenkilox, new ArrayList<>(), helsinki));
 		Tapahtumapaikka paikka2 = tapahtumapaikkaRepository
 		.save(new Tapahtumapaikka("Messukeskus",
 		"Messuaukio 1, Helsinki", "Suomen suurin messukeskus",
@@ -112,18 +119,25 @@ public class TicketguruApplication {
 		"Tivolikuja 1, Helsinki", "Huvipuisto kaikenikäisille",
 		"3456789-0", "info@linnanmaki.fi",
 		"Koirat sallittu hihnassa", new ArrayList<>(),
-		new ArrayList<>(), helsinki));
+		new ArrayList<>(), helsinki));		
 
 		// Luodaan järjestäjiä
 		Jarjestaja jarjestaja1 = jarjestajaRepository
 		.save(new Jarjestaja("Musiikki Oy", "1234567-8", "Mannerheimintie 13",
-		helsinki, yhteys1));
+		helsinki, yhteyshenkilox));
 		Jarjestaja jarjestaja2 = jarjestajaRepository
 		.save(new Jarjestaja("Festivaali Oy", "2234567-8", "Bulevardi 14",
-		helsinki, yhteys2));
+		helsinki, yhteyshenkiloy));
 		Jarjestaja jarjestaja3 = jarjestajaRepository
 		.save(new Jarjestaja("Konsertti Oy", "3234567-8", "Fredrikinkatu 15",
-		helsinki2, yhteys3));
+		helsinki2, yhteyshenkiloz));
+
+		yhteys1.setJarjestaja(jarjestaja1);
+		yhteyshenkiloRepository.save(yhteys1);
+		yhteys2.setJarjestaja(jarjestaja2);
+		yhteyshenkiloRepository.save(yhteys2);
+		yhteys3.setTapahtumapaikka(paikka3);
+		yhteyshenkiloRepository.save(yhteys3);
 
 		// Luodaan asiakaryhmiä
 		Asiakasryhma aikuinen = asryhRepository
@@ -132,8 +146,6 @@ public class TicketguruApplication {
 		.save(new Asiakasryhma("Lapsi", "Alle 18-vuotiaat"));
 		Asiakasryhma elakelainen = asryhRepository
 		.save(new Asiakasryhma("Elakelainen", "Eläkkeellä olevat henkilöt"));
-		Asiakasryhma tyoton = asryhRepository
-		.save(new Asiakasryhma("Tyoton", "Työttömät henkilöt"));
 
 		Lipputyyppi normaali = lipputyyppiRepository
 		.save(new Lipputyyppi("Aikuinen", 0.5, aikuinen));

@@ -178,6 +178,7 @@ public class TapahtumaDto {
             this.tapahtumapaikkaOsoite = tapahtumapaikkaOsoite;
             this.tapahtumapaikkaKaupunki = tapahtumapaikkaKaupunki;
         }
+        
         public Long getTapahtumapaikkaId() {
             return tapahtumapaikkaId;
         }
