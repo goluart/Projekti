@@ -21,10 +21,10 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
 **Ehto**: Jos ID:n avulla löytyy yhteyshenkilö, jota ei ole kiinnitetty järjestäjään
 
-**Koodi**: `200 OK`
+**Koodi**: `204 No Content`
 
 **Sisällön esimerkki**
-`Yhteyshenkilö 4 poistettu`
+
 
 ### Epäonnistunut vastaus
 

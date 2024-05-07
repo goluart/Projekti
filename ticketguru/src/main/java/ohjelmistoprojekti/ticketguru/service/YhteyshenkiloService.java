@@ -1,18 +1,17 @@
 package ohjelmistoprojekti.ticketguru.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
+import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtumapaikka;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumapaikkaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Yhteyshenkilo;
 import ohjelmistoprojekti.ticketguru.domain.YhteyshenkiloRepository;
-import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto;
 import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO;
+import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.JarjestajaDTO;
+import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.PaikkaDTO;
 import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO.TallennaYhteyshenkiloDTO;
 
 @Service
@@ -24,12 +23,24 @@ public class YhteyshenkiloService {
     TapahtumapaikkaRepository tapahtumapaikkaRepository;
     @Autowired
     TapahtumaService tapahtumaService;
+    @Autowired
+    JarjestajaRepository jarjestajaRepository;
 
 
     public YhteyshenkiloDTO muunnaYhteyshenkilotDTO(Yhteyshenkilo yhteyshenkilo) {
 
-        return new YhteyshenkiloDTO(yhteyshenkilo.getYhtHloId(), yhteyshenkilo.getEtunimi(), yhteyshenkilo.getSukunimi(), yhteyshenkilo.getSahkoposti(), yhteyshenkilo.getPuhelin(), yhteyshenkilo.getLisatieto(), muunnaJarjestajat(yhteyshenkilo.getJarjestajat()), tapahtumaService.muunnaPaikka(yhteyshenkilo.getTapahtumapaikka()));
+        YhteyshenkiloDTO yhteyshenkiloDTO = new YhteyshenkiloDTO(yhteyshenkilo.getYhtHloId(), yhteyshenkilo.getEtunimi(), yhteyshenkilo.getSukunimi(), yhteyshenkilo.getSahkoposti(), yhteyshenkilo.getPuhelin(), yhteyshenkilo.getLisatieto());
 
+        if (yhteyshenkilo.getJarjestaja() != null) {
+            JarjestajaDTO jarjestajaDTO = new JarjestajaDTO(yhteyshenkilo.getJarjestaja().getJarjestajaId(), yhteyshenkilo.getJarjestaja().getNimi());
+            yhteyshenkiloDTO.setJarjestaja(jarjestajaDTO);
+        }
+        if (yhteyshenkilo.getTapahtumapaikka() != null) {
+            PaikkaDTO tapahtumapaikka = new PaikkaDTO(yhteyshenkilo.getTapahtumapaikka().getTapaikkaId(), yhteyshenkilo.getTapahtumapaikka().getPaikkaNimi(), yhteyshenkilo.getTapahtumapaikka().getOsoite(), yhteyshenkilo.getTapahtumapaikka().getPostitoimipaikka().getKaupunki());
+            yhteyshenkiloDTO.setTapahtumapaikka(tapahtumapaikka);
+        }
+
+        return yhteyshenkiloDTO;
     }
 
     public Yhteyshenkilo tallennaYhteyshenkiloDTO(TallennaYhteyshenkiloDTO yhteyshenkiloDTO) {
@@ -47,20 +58,18 @@ public class YhteyshenkiloService {
         yhteyshenkilo.setPuhelin(yhteyshenkiloDTO.getPuhelin());
         yhteyshenkilo.setLisatieto(yhteyshenkiloDTO.getLisatieto());
         
-        if (yhteyshenkiloDTO.getTapaikkaId() != null) {
+        if (yhteyshenkiloDTO.getTapaikkaId() != null || yhteyshenkiloDTO.getTapaikkaId() != 0) {
             Tapahtumapaikka tapahtumapaikka = tapahtumapaikkaRepository.findById(yhteyshenkiloDTO.getTapaikkaId()).orElse(null);
             yhteyshenkilo.setTapahtumapaikka(tapahtumapaikka);
-        }        
+        }    
+        if (yhteyshenkiloDTO.getJarjestajaId() != null || yhteyshenkiloDTO.getJarjestajaId() != 0) {
+            Jarjestaja jarjestaja = jarjestajaRepository.findById(yhteyshenkiloDTO.getJarjestajaId()).orElse(null);
+            yhteyshenkilo.setJarjestaja(jarjestaja);
+        }    
 
         yhteyshenkiloRepository.save(yhteyshenkilo);
         
         return yhteyshenkilo;
-    }
-
-    private List<TapahtumaDto.JarjestajaDTO> muunnaJarjestajat(List<Jarjestaja> jarjestajat) {
-        return jarjestajat.stream()
-                .map(jarjestaja -> new TapahtumaDto.JarjestajaDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi()))
-                .collect(Collectors.toList());
     }
 
 

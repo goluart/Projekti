@@ -65,7 +65,6 @@ public class KayttajaRestController {
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @PutMapping("/kayttajat/{id}")
     public ResponseEntity<Kayttaja> editKayttaja(@PathVariable("id") Long hloId, @RequestBody Kayttaja uusiKayttaja) {
-        @SuppressWarnings("null")
         Kayttaja editKayttaja = kayttajaRepository.findById(hloId)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,

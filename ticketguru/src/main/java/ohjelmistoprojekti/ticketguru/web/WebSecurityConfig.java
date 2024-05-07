@@ -50,7 +50,7 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // configuration.setAllowedOrigins(Arrays.asList("*")); // change origin accordingly
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi", "https://projekti-ticketguru-tiimi4.rahtiapp.fi"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://copypaste-ohjelmistoprojekti-copypaste-ticketguru.rahtiapp.fi", "https://projekti-ticketguru-tiimi4.rahtiapp.fi", "https://goluart.github.io"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setExposedHeaders(Arrays.asList("Cache-Control"));
