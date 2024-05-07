@@ -2,6 +2,7 @@ package ohjelmistoprojekti.ticketguru.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,10 @@ public class JarjestajaService {
     PostitoimipaikkaRepository postitoimipaikkaRepository;
 
     public JarjestajaTiedotDTO muunnaJarjestajaDTO(Jarjestaja jarjestaja) {
-        
-        JarjestajaTiedotDTO jarjestajaDTO = new JarjestajaTiedotDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi(), jarjestaja.getYtunnus(), jarjestaja.getOsoite(), jarjestaja.getPostitoimipaikka().getPostinumero(), jarjestaja.getPostitoimipaikka().getKaupunki());
+
+        JarjestajaTiedotDTO jarjestajaDTO = new JarjestajaTiedotDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi(),
+                jarjestaja.getYtunnus(), jarjestaja.getOsoite(), jarjestaja.getPostitoimipaikka().getPostinumero(),
+                jarjestaja.getPostitoimipaikka().getKaupunki());
         return jarjestajaDTO;
     }
 
@@ -35,16 +38,17 @@ public class JarjestajaService {
         boolean uusiTieto = false;
 
         Jarjestaja jarjestaja;
-        
-        if (jarjestajaDTO.getJarjestajaId() != null && jarjestajaRepository.existsById(jarjestajaDTO.getJarjestajaId())) {
+
+        if (jarjestajaDTO.getJarjestajaId() != null
+                && jarjestajaRepository.existsById(jarjestajaDTO.getJarjestajaId())) {
             jarjestaja = jarjestajaRepository.findById(jarjestajaDTO.getJarjestajaId()).orElse(new Jarjestaja());
         } else {
             jarjestaja = new Jarjestaja();
             uusiTieto = true;
         }
-        
+
         if (jarjestajaDTO.getNimi() == null || jarjestajaDTO.getNimi() == "") {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nimi on tyhjä"); 
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nimi on tyhjä");
         }
 
         jarjestaja.setNimi(jarjestajaDTO.getNimi());
@@ -52,10 +56,12 @@ public class JarjestajaService {
         jarjestaja.setYtunnus(jarjestajaDTO.getYtunnus());
 
         if (postitoimipaikkaRepository.findByPostinumero(jarjestajaDTO.getPostinumero()) != null) {
-            Postitoimipaikka postitoimipaikka = postitoimipaikkaRepository.findByPostinumero(jarjestajaDTO.getPostinumero());
+            Postitoimipaikka postitoimipaikka = postitoimipaikkaRepository
+                    .findByPostinumero(jarjestajaDTO.getPostinumero());
             jarjestaja.setPostitoimipaikka(postitoimipaikka);
         } else {
-            Postitoimipaikka postitoimipaikka = new Postitoimipaikka(jarjestajaDTO.getPostinumero(), jarjestajaDTO.getKaupunki());
+            Postitoimipaikka postitoimipaikka = new Postitoimipaikka(jarjestajaDTO.getPostinumero(),
+                    jarjestajaDTO.getKaupunki());
             jarjestaja.setPostitoimipaikka(postitoimipaikka);
         }
 

@@ -3,7 +3,9 @@ package ohjelmistoprojekti.ticketguru.web;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.tomcat.util.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import org.springframework.lang.NonNull;
+
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtumapaikka;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumapaikkaRepository;
@@ -49,12 +53,22 @@ public class TapahtumapaikkaRestController {
     @PreAuthorize("hasAnyAuthority('hallinto')") // Poistetaan valittu tapahtumapaikka reposta
     @DeleteMapping("/tapahtumapaikat/{id}") // Jos tapahtumaa ei löydy näytetään virheilmoitus
     public ResponseEntity<?> poistaTapahtumapaikka(@PathVariable("id") Long tapaikkaId) {
-        if (!tapahtumapaikkaRepository.existsById(tapaikkaId)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Tapahtumapaikkaa " + tapaikkaId + " ei löytynyt.");
-        }
+        Tapahtumapaikka tapahtumapaikka = tapahtumapaikkaRepository.findById(tapaikkaId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Tapahtumapaikkaa " + tapaikkaId + " ei löytynyt"));
 
-        tapahtumapaikkaRepository.deleteById(tapaikkaId);
+        try {
+            tapahtumapaikkaRepository.delete(tapahtumapaikka);
+        } catch (DataIntegrityViolationException ex) {
+
+            if (ex.getMessage().contains("Referential integrity constraint violation")) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT,
+                        "Tapahtumaa " + tapaikkaId + " ei voi poistaa, koska siihen liittyy muita tietoja");
+
+            }
+
+            throw ex;
+        }
         return ResponseEntity.ok().build();
     }
 
@@ -62,7 +76,7 @@ public class TapahtumapaikkaRestController {
     @PutMapping("/tapahtumapaikat/{id}") // Jos tapahtumaa ei löydy näytetään virheilmoitus
     public ResponseEntity<Tapahtumapaikka> editTapahtumapaikka(@PathVariable("id") Long tapaikkaId,
             @RequestBody Tapahtumapaikka uusiTapahtumapaikka) {
-        //@SuppressWarnings("null")
+        // @SuppressWarnings("null")
         Tapahtumapaikka editTapahtumapaikka = tapahtumapaikkaRepository.findById(tapaikkaId)
                 .orElseThrow(() -> new ResponseStatusException( // 404 virhekoodin käsittely
                         HttpStatus.NOT_FOUND,
