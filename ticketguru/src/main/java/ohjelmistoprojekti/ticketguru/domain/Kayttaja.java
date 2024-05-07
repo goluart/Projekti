@@ -30,7 +30,7 @@ public class Kayttaja {
 	// @Pattern(regexp =
 	// "^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-\\[\\]{}|;:'\",.<>\\/?]).+$", message =
 	// "Salasanan on sisällettävä vähintään yksi iso kirjain ja yksi erikoismerkki")
-	@JsonIgnore
+
 	private String salasana;
 	@NotBlank(message = "Sukunimi ei saa olla tyhjä")
 	private String snimi;
