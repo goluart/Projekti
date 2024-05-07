@@ -17,6 +17,9 @@ import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;
 import ohjelmistoprojekti.ticketguru.domain.Kayttaja;
 import ohjelmistoprojekti.ticketguru.domain.KayttajaRepository;
+import ohjelmistoprojekti.ticketguru.dto.KayttajaDTO;
+import ohjelmistoprojekti.ticketguru.service.KayttajaService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,24 +31,28 @@ public class KayttajaRestController {
     @Autowired
     private KayttajaRepository kayttajaRepository;
 
+    @Autowired
+    private KayttajaService kayttajaService;
+
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @GetMapping("/kayttajat")
-    public List<Kayttaja> haeKaikkiKayttajat() {
+    public List<KayttajaDTO> haeKaikkiKayttajatDTO() {
         if (kayttajaRepository.findAll().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Käyttäjiä ei löytynyt");
-
         }
-        return kayttajaRepository.findAll();
+        return kayttajaService.haeKaikkiKayttajat();
     }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @GetMapping("/kayttajat/{id}")
-    public Optional<Kayttaja> haeKayttajaById(@PathVariable("id") @NonNull Long hloId) {
-        if (kayttajaRepository.findById(hloId).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Käyttäjää " + hloId + " ei löytynyt");
+    public ResponseEntity<KayttajaDTO> haeKayttajaById(@PathVariable("id") @NonNull Long hloId) {
+        Optional<KayttajaDTO> kayttaja = kayttajaService.haeKayttajaById(hloId);
 
+        if (kayttaja.isPresent()) {
+            return ResponseEntity.ok(kayttaja.get());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Käyttäjää " + hloId + " ei löytynyt.");
         }
-        return kayttajaRepository.findById(hloId);
     }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
