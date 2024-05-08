@@ -38,11 +38,11 @@ public class Yhteyshenkilo {
 	@JoinColumn(name = "tapaikka_id")
 	private Tapahtumapaikka tapahtumapaikka;
 
-    // Myöhemmin Yhteyshenkilo OneToMany Tapahtumapaikka
-    // Liittyy luokkiin Tapahtumapaikka ja Jarjestaja
+	// Myöhemmin Yhteyshenkilo OneToMany Tapahtumapaikka
+	// Liittyy luokkiin Tapahtumapaikka ja Jarjestaja
 
-    public Yhteyshenkilo() {
-        super();
+	public Yhteyshenkilo() {
+		super();
 	}
 
 	public Yhteyshenkilo(String etunimi, String sukunimi, String sahkoposti, String puhelin, String lisatieto) {
