@@ -1,7 +1,6 @@
 package ohjelmistoprojekti.ticketguru.web;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
 import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO;
-import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO;
 import ohjelmistoprojekti.ticketguru.service.JarjestajaService;
 import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
 
@@ -76,8 +74,7 @@ public class JarjestajaRestController {
                     });
         } else {
             return ResponseEntity.status(HttpStatus.CREATED).body(jarjestajaService.tallennaJarjestaja(jarjestajaTiedotDTO));
-        }        
-        
+        }          
     }
 
     @PutMapping("/{id}")

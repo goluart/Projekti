@@ -73,9 +73,7 @@ public class YhteyshenkiloRestController {
                     });
         } else {
             return ResponseEntity.status(HttpStatus.CREATED).body(yhteyshenkiloService.tallennaYhteyshenkiloDTO(yhteyshenkiloDTO));
-        }
-
-        
+        }        
     }
 
     @PutMapping("/{id}")
