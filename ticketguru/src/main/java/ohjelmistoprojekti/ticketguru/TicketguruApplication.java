@@ -35,8 +35,6 @@ import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtumapaikka;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumapaikkaRepository;
-import ohjelmistoprojekti.ticketguru.domain.Tarkastus;
-import ohjelmistoprojekti.ticketguru.domain.TarkastusRepository;
 import ohjelmistoprojekti.ticketguru.domain.Yhteyshenkilo;
 import ohjelmistoprojekti.ticketguru.domain.YhteyshenkiloRepository;
 
@@ -63,7 +61,6 @@ public class TicketguruApplication {
 		LipputyyppiRepository lipputyyppiRepository,
 		MyyntitapahtumaRepository myyntitapahtumaRepository,
 		LippuRepository lippuRepository, 
-		TarkastusRepository tarkastusRepository,
 		KayttajaRepository kayttajaRepository) {
 		return args -> {
 		// Luodaan postitoimipaikat
@@ -204,21 +201,7 @@ public class TicketguruApplication {
 		myyntitapahtumaRepository.save(myyntitapahtuma);
 
 		// Generoidaan tarkastustapahtuma tietokantaan testejä varten
-		Tarkastus tarkastus = new Tarkastus();
-		tarkastus.setKayttoPvm(ZonedDateTime.now());
-		tarkastus.setLippu(lippu1);
-		tarkastus.setTapahtuma(lippu1.getTapahtuma());
-		tarkastus.setLipputyyppi(lippu1.getLipputyyppi());
-		tarkastus.setTapahtumapaikka(lippu1.getTapahtuma().getTapahtumapaikka());
-		tarkastusRepository.save(tarkastus);
-
-		Tarkastus tarkastus2 = new Tarkastus();
-		tarkastus2.setKayttoPvm(ZonedDateTime.now());
-		tarkastus2.setLippu(lippu2);
-		tarkastus2.setTapahtuma(lippu2.getTapahtuma());
-		tarkastus2.setLipputyyppi(lippu2.getLipputyyppi());
-		tarkastus2.setTapahtumapaikka(lippu2.getTapahtuma().getTapahtumapaikka());
-		tarkastusRepository.save(tarkastus2);
+		
 
 		};
 		}

@@ -104,4 +104,15 @@ public class MyyntitapahtumaService {
             lippu.getTarkistuskoodi())
         ).collect(Collectors.toList());
     }
+
+    public Boolean kaytettyjaLippuja(Myyntitapahtuma myyntitapahtuma) {
+
+        Boolean kaytettyjaLippuja = myyntitapahtuma.getLiput().stream()
+            .anyMatch(lippu -> lippu.getKayttoPvm() != null);
+
+        if (kaytettyjaLippuja) {
+            return true;            
+        }
+        return false;
+    }
 }
