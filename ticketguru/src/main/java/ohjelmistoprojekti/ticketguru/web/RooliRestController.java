@@ -3,6 +3,7 @@ package ohjelmistoprojekti.ticketguru.web;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;
 import ohjelmistoprojekti.ticketguru.domain.Rooli;
 import ohjelmistoprojekti.ticketguru.domain.RooliRepository;
+import ohjelmistoprojekti.ticketguru.dto.RooliDTO;
+import ohjelmistoprojekti.ticketguru.service.RooliKayttajaService;
 
 @RestController
 public class RooliRestController {
@@ -29,24 +32,28 @@ public class RooliRestController {
     @Autowired
     private RooliRepository rooliRepository;
 
+    @Autowired
+    private RooliKayttajaService rooliKayttajaService;
+
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @GetMapping("/roolit")
-    public List<Rooli> haeKaikkiRoolit() {
+    public List<RooliDTO> haeKaikkiRoolit() {
         if (rooliRepository.findAll().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Rooleja ei löytynyt");
         }
 
-        return rooliRepository.findAll();
+        return rooliKayttajaService.haeKaikkiRoolit();
     }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @GetMapping("/roolit/{id}")
-    public Optional<Rooli> haeRooliById(@PathVariable("id") @NonNull Long rooliId) {
-        if (rooliRepository.findById(rooliId).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Roolia " + rooliId + " ei löytynyt");
-
+    public ResponseEntity<RooliDTO> haeRooliById(@PathVariable("id") @NonNull Long rooliId) {
+        Optional<RooliDTO> rooli = rooliKayttajaService.haeRooliById(rooliId);
+        if (rooli.isPresent()) {
+            return ResponseEntity.ok(rooli.get());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Roolia " + rooliId + " ei löytynyt.");
         }
-        return rooliRepository.findById(rooliId);
     }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
