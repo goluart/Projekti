@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -58,11 +59,33 @@ public class YhteyshenkiloRestController {
     // tallentaa uuden tai päivitää tietokannassa olevan tiedon
     @PostMapping
     @PreAuthorize("hasAuthority('hallinto')")
-    public ResponseEntity<?> lisaaYhteyshenkilo(@RequestBody TallennaYhteyshenkiloDTO yhteyshenkiloDTO) {
+    public ResponseEntity<YhteyshenkiloDTO> lisaaYhteyshenkilo(@RequestBody TallennaYhteyshenkiloDTO yhteyshenkiloDTO) {
 
-        Yhteyshenkilo yhteyshenkilo = yhteyshenkiloService.tallennaYhteyshenkiloDTO(yhteyshenkiloDTO);
+        if (yhteyshenkiloDTO.getYhtHloId() != null) {
+            return yhtHloRepo.findById(yhteyshenkiloDTO.getYhtHloId())
+                    .map(yhteyshenkilo ->  {
+                        YhteyshenkiloDTO tallennettuYhteyshenkiloDTO = yhteyshenkiloService.tallennaYhteyshenkiloDTO(yhteyshenkiloDTO);
+                        return ResponseEntity.ok(tallennettuYhteyshenkiloDTO);
+                    })
+                    .orElseGet(() -> {
+                        YhteyshenkiloDTO tallennettuYhteyshenkiloDTO = yhteyshenkiloService.tallennaYhteyshenkiloDTO(yhteyshenkiloDTO);
+                        return ResponseEntity.status(HttpStatus.CREATED).body(tallennettuYhteyshenkiloDTO);
+                    });
+        } else {
+            return ResponseEntity.status(HttpStatus.CREATED).body(yhteyshenkiloService.tallennaYhteyshenkiloDTO(yhteyshenkiloDTO));
+        }
+
         
-        return ResponseEntity.ok(yhteyshenkilo);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('hallinto')")
+    public ResponseEntity<YhteyshenkiloDTO> tallennaYhteyshenkilo(@RequestBody TallennaYhteyshenkiloDTO yhteyshenkiloDTO) {
+        if (!yhtHloRepo.existsById(yhteyshenkiloDTO.getYhtHloId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Yhteyshenkilöä " + yhteyshenkiloDTO.getYhtHloId() + " ei löytynyt");
+        }
+        YhteyshenkiloDTO tallennettuYhteyshenkiloDTO = yhteyshenkiloService.tallennaYhteyshenkiloDTO(yhteyshenkiloDTO);
+        return ResponseEntity.ok(tallennettuYhteyshenkiloDTO);
     }
 
     // Yhteyshenkilön voi poistaa, vaikka se olisi kiinnitettynä Järjestäjä tai Tapahtumapaikka -entiteetteihin

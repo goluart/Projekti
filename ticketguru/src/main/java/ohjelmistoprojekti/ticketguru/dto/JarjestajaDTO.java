@@ -1,15 +1,15 @@
 package ohjelmistoprojekti.ticketguru.dto;
 
-public class JarjestajaTiedotDTO {
+public class JarjestajaDTO {
 
     private Long jarjestajaId;
     private String nimi, ytunnus, osoite, postinumero, kaupunki;
 
-    public JarjestajaTiedotDTO() {
+    public JarjestajaDTO() {
 
     }
 
-    public JarjestajaTiedotDTO(Long jarjestajaId, String nimi, String ytunnus, String osoite, String postinumero,
+    public JarjestajaDTO(Long jarjestajaId, String nimi, String ytunnus, String osoite, String postinumero,
             String kaupunki) {
         this.jarjestajaId = jarjestajaId;
         this.nimi = nimi;
@@ -71,6 +71,38 @@ public class JarjestajaTiedotDTO {
     public String toString() {
         return "JarjestajaTiedotDTO [jarjestajaId=" + jarjestajaId + ", nimi=" + nimi + ", ytunnus=" + ytunnus
                 + ", osoite=" + osoite + ", postinumero=" + postinumero + ", kaupunki=" + kaupunki + "]";
+    }
+    
+    public static class JarjestajaNimiDTO {
+
+        private Long jarjestajaId;
+        private String jarjestajaNimi;
+    
+        public JarjestajaNimiDTO(Long jarjestajaId, String jarjestajaNimi) {
+            this.jarjestajaId = jarjestajaId;
+            this.jarjestajaNimi = jarjestajaNimi;
+        }
+    
+        public JarjestajaNimiDTO() {
+            
+        }
+
+        public Long getJarjestajaId() {
+            return jarjestajaId;
+        }
+    
+        public void setJarjestajaId(Long jarjestajaId) {
+            this.jarjestajaId = jarjestajaId;
+        }
+    
+        public String getJarjestajaNimi() {
+            return jarjestajaNimi;
+        }
+    
+        public void setJarjestajaNimi(String jarjestajaNimi) {
+            this.jarjestajaNimi = jarjestajaNimi;
+        }         
+    
     }
 
     

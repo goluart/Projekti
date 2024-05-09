@@ -10,7 +10,9 @@ import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
 import ohjelmistoprojekti.ticketguru.domain.Lipputyyppi;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtumapaikka;
+import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO.JarjestajaNimiDTO;
 import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto;
+import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.PaikkaDTO;
 
 @Service
 public class TapahtumaService {
@@ -26,7 +28,7 @@ public class TapahtumaService {
         return tDto;
     }
 
-    public TapahtumaDto.PaikkaDTO muunnaPaikka(Tapahtumapaikka paikka) {
+    public PaikkaDTO muunnaPaikka(Tapahtumapaikka paikka) {
         if (paikka != null) {
             return new TapahtumaDto.PaikkaDTO(paikka.getTapaikkaId(), paikka.getPaikkaNimi(), paikka.getOsoite(),
                     paikka.getPostitoimipaikka().getKaupunki());
@@ -35,8 +37,8 @@ public class TapahtumaService {
 
     }
 
-    private TapahtumaDto.JarjestajaDTO muunnaJarjestaja(Jarjestaja jarjestaja) {
-        return new TapahtumaDto.JarjestajaDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi());
+    private JarjestajaNimiDTO muunnaJarjestaja(Jarjestaja jarjestaja) {
+        return new JarjestajaNimiDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi());
     }
 
     private List<TapahtumaDto.LipputyyppiDto> muunnaLipputyyppiLista(Set<Lipputyyppi> lipputyypit) {

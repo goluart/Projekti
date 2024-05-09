@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
-import ohjelmistoprojekti.ticketguru.dto.JarjestajaTiedotDTO;
+import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO;
+import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO;
 import ohjelmistoprojekti.ticketguru.service.JarjestajaService;
 import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
 
@@ -36,8 +38,8 @@ public class JarjestajaRestController {
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('hallinto', 'myyja')")
-    public ResponseEntity<List<JarjestajaTiedotDTO>> haeKaikkiJarjestajat() {
-        List<JarjestajaTiedotDTO> jarjestajatDTO = jarjestajaRepository.findAll().stream()
+    public ResponseEntity<List<JarjestajaDTO>> haeKaikkiJarjestajat() {
+        List<JarjestajaDTO> jarjestajatDTO = jarjestajaRepository.findAll().stream()
             .map(jarjestaja -> jarjestajaService.muunnaJarjestajaDTO(jarjestaja))
             .collect(Collectors.toList());
         return ResponseEntity.ok(jarjestajatDTO);
@@ -46,46 +48,64 @@ public class JarjestajaRestController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('hallinto', 'myyja')")
-    public ResponseEntity<JarjestajaTiedotDTO> haeJarjestaja(@PathVariable("id") Long id) {
+    public ResponseEntity<JarjestajaDTO> haeJarjestaja(@PathVariable("id") Long id) {
         if (!jarjestajaRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Järjestäjää " + id + " ei löytynyt");
         }
         Jarjestaja jarjestaja = jarjestajaRepository.findById(id).orElse(null);
-        JarjestajaTiedotDTO jarjestajaDTO = jarjestajaService.muunnaJarjestajaDTO(jarjestaja);
+        JarjestajaDTO jarjestajaDTO = jarjestajaService.muunnaJarjestajaDTO(jarjestaja);
 
         return ResponseEntity.ok(jarjestajaDTO);
     }
 
-        @PostMapping
-        @PreAuthorize("hasAuthority('hallinto')")
-        public ResponseEntity<JarjestajaTiedotDTO> tallennaJarjestaja(@RequestBody JarjestajaTiedotDTO jarjestajaTiedotDTO) {   
-            System.out.println("DTO-tiedot: " + jarjestajaTiedotDTO);  
-            Map<String, Object> vastaus = jarjestajaService.tallennaJarjestaja(jarjestajaTiedotDTO);
-            boolean isUusiTieto = (boolean) vastaus.get("Status");
-            HttpStatus httpStatus = isUusiTieto ? HttpStatus.CREATED : HttpStatus.OK;
-            return ResponseEntity.status(httpStatus).body((JarjestajaTiedotDTO) vastaus.get("DTO"));
+
+    // tallentaa uuden ja jo olemassa olevan tiedon tietokantaan
+    @PostMapping
+    @PreAuthorize("hasAuthority('hallinto')")
+    public ResponseEntity<JarjestajaDTO> tallennaPostJarjestaja(@RequestBody JarjestajaDTO jarjestajaTiedotDTO) { 
+
+          if (jarjestajaTiedotDTO.getJarjestajaId() != null) {
+            return jarjestajaRepository.findById(jarjestajaTiedotDTO.getJarjestajaId())
+                    .map(jarjestaja ->  {
+                        JarjestajaDTO tallennettuJarjestajaDTO = jarjestajaService.tallennaJarjestaja(jarjestajaTiedotDTO);
+                        return ResponseEntity.ok(tallennettuJarjestajaDTO);
+                    })
+                    .orElseGet(() -> {
+                        JarjestajaDTO tallennettuJarjestajaDTO = jarjestajaService.tallennaJarjestaja(jarjestajaTiedotDTO);
+                        return ResponseEntity.status(HttpStatus.CREATED).body(tallennettuJarjestajaDTO);
+                    });
+        } else {
+            return ResponseEntity.status(HttpStatus.CREATED).body(jarjestajaService.tallennaJarjestaja(jarjestajaTiedotDTO));
+        }        
+        
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('hallinto')")
+    public ResponseEntity<JarjestajaDTO> muutaJarjestaja(@PathVariable("id") Long id, @RequestBody JarjestajaDTO jarjestajaDTO) {
+        if (!jarjestajaRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Järjestäjää " + id + " ei löytynyt");
         }
+        JarjestajaDTO tallennettuJarjestaja = jarjestajaService.tallennaJarjestaja(jarjestajaDTO);
+        return ResponseEntity.ok(tallennettuJarjestaja);
+    }
 
 
-        // Yhteyshenkilön voi poistaa, vaikka se olisi kiinnitettynä Järjestäjä tai Tapahtumapaikka -entiteetteihin
-        @DeleteMapping("/{id}")
-        @PreAuthorize("hasAuthority('hallinto')")
-        public ResponseEntity<?> deleteJarjestaja(@PathVariable("id") Long id) {
-            if (!jarjestajaRepository.existsById(id)) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Järjestäjää " + id + " ei löytynyt");
-            } else {
-                try {
-                    jarjestajaRepository.deleteById(id);
-                    return ResponseEntity.noContent().build();
-                } catch (DataIntegrityViolationException e) {
-                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Järjestäjää ei voi poistaa");
-                }
+    // Yhteyshenkilön voi poistaa, vaikka se olisi kiinnitettynä Järjestäjä tai Tapahtumapaikka -entiteetteihin
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('hallinto')")
+    public ResponseEntity<?> deleteJarjestaja(@PathVariable("id") Long id) {
+        if (!jarjestajaRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Järjestäjää " + id + " ei löytynyt");
+        } else {
+            try {
+                jarjestajaRepository.deleteById(id);
+                return ResponseEntity.noContent().build();
+            } catch (DataIntegrityViolationException e) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Järjestäjää ei voi poistaa");
             }
         }
-
-    
-
-    
+    }
 
 
 }

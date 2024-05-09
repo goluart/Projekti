@@ -1,14 +1,14 @@
 package ohjelmistoprojekti.ticketguru.dto;
 
 import ohjelmistoprojekti.ticketguru.domain.Postitoimipaikka;
-import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.JarjestajaDTO;
+import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO.JarjestajaNimiDTO;
 import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.PaikkaDTO;
 
 
 public class YhteyshenkiloDTO {
     private Long yhtHloId;
     private String etunimi, sukunimi, sahkoposti, puhelin, lisatieto;
-    private JarjestajaDTO jarjestaja;
+    private JarjestajaNimiDTO jarjestaja;
     private PaikkaDTO tapahtumapaikka;    
 
 
@@ -86,12 +86,12 @@ public class YhteyshenkiloDTO {
     }
 
 
-    public JarjestajaDTO getJarjestaja() {
+    public JarjestajaNimiDTO getJarjestaja() {
         return jarjestaja;
     }
 
 
-    public void setJarjestaja(JarjestajaDTO jarjestaja) {
+    public void setJarjestaja(JarjestajaNimiDTO jarjestaja) {
         this.jarjestaja = jarjestaja;
     }  
 

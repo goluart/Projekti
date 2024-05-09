@@ -13,7 +13,7 @@ import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
 import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Postitoimipaikka;
 import ohjelmistoprojekti.ticketguru.domain.PostitoimipaikkaRepository;
-import ohjelmistoprojekti.ticketguru.dto.JarjestajaTiedotDTO;
+import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO;
 
 @Service
 public class JarjestajaService {
@@ -23,28 +23,23 @@ public class JarjestajaService {
     @Autowired
     PostitoimipaikkaRepository postitoimipaikkaRepository;
 
-    public JarjestajaTiedotDTO muunnaJarjestajaDTO(Jarjestaja jarjestaja) {
+    public JarjestajaDTO muunnaJarjestajaDTO(Jarjestaja jarjestaja) {
 
-        JarjestajaTiedotDTO jarjestajaDTO = new JarjestajaTiedotDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi(),
+        JarjestajaDTO jarjestajaDTO = new JarjestajaDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi(),
                 jarjestaja.getYtunnus(), jarjestaja.getOsoite(), jarjestaja.getPostitoimipaikka().getPostinumero(),
                 jarjestaja.getPostitoimipaikka().getKaupunki());
         return jarjestajaDTO;
     }
 
-    public Map<String, Object> tallennaJarjestaja(JarjestajaTiedotDTO jarjestajaDTO) {
-
-        System.out.println(jarjestajaDTO);
-
-        boolean uusiTieto = false;
+    public JarjestajaDTO tallennaJarjestaja(JarjestajaDTO jarjestajaDTO) {
 
         Jarjestaja jarjestaja;
 
-        if (jarjestajaDTO.getJarjestajaId() != null
-                && jarjestajaRepository.existsById(jarjestajaDTO.getJarjestajaId())) {
-            jarjestaja = jarjestajaRepository.findById(jarjestajaDTO.getJarjestajaId()).orElse(new Jarjestaja());
+        if (jarjestajaDTO.getJarjestajaId() != null) {
+            jarjestaja = jarjestajaRepository.findById(jarjestajaDTO.getJarjestajaId())
+            .orElseGet(Jarjestaja::new);
         } else {
             jarjestaja = new Jarjestaja();
-            uusiTieto = true;
         }
 
         if (jarjestajaDTO.getNimi() == null || jarjestajaDTO.getNimi() == "") {
@@ -67,12 +62,9 @@ public class JarjestajaService {
 
         jarjestajaRepository.save(jarjestaja);
 
-        JarjestajaTiedotDTO jarjestajaTiedotDTO = muunnaJarjestajaDTO(jarjestaja);
+        JarjestajaDTO jarjestajaTiedotDTO = muunnaJarjestajaDTO(jarjestaja);
 
-        Map<String, Object> vastaus = new HashMap<>();
-        vastaus.put("Status", uusiTieto);
-        vastaus.put("DTO", jarjestajaTiedotDTO);
-
-        return vastaus;
+        return jarjestajaTiedotDTO;
     }
+
 }
