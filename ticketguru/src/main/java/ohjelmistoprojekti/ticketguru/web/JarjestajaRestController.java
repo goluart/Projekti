@@ -82,7 +82,8 @@ public class JarjestajaRestController {
     public ResponseEntity<JarjestajaDTO> muutaJarjestaja(@PathVariable("id") Long id, @RequestBody JarjestajaDTO jarjestajaDTO) {
         if (!jarjestajaRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Järjestäjää " + id + " ei löytynyt");
-        }
+        } 
+        jarjestajaDTO.setJarjestajaId(id);
         JarjestajaDTO tallennettuJarjestaja = jarjestajaService.tallennaJarjestaja(jarjestajaDTO);
         return ResponseEntity.ok(tallennettuJarjestaja);
     }

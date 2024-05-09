@@ -78,10 +78,11 @@ public class YhteyshenkiloRestController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('hallinto')")
-    public ResponseEntity<YhteyshenkiloDTO> tallennaYhteyshenkilo(@RequestBody TallennaYhteyshenkiloDTO yhteyshenkiloDTO) {
-        if (!yhtHloRepo.existsById(yhteyshenkiloDTO.getYhtHloId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Yhteyshenkilöä " + yhteyshenkiloDTO.getYhtHloId() + " ei löytynyt");
+    public ResponseEntity<YhteyshenkiloDTO> tallennaYhteyshenkilo(@PathVariable("id") Long id, @RequestBody TallennaYhteyshenkiloDTO yhteyshenkiloDTO) {
+        if (!yhtHloRepo.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Yhteyshenkilöä " + id + " ei löytynyt");
         }
+        yhteyshenkiloDTO.setYhtHloId(id);
         YhteyshenkiloDTO tallennettuYhteyshenkiloDTO = yhteyshenkiloService.tallennaYhteyshenkiloDTO(yhteyshenkiloDTO);
         return ResponseEntity.ok(tallennettuYhteyshenkiloDTO);
     }

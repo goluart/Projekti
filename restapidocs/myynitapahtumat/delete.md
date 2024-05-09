@@ -35,11 +35,11 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 **Sisällön esimerkki**: 
 ```json
 {
-    "timestamp": "2024-05-06T19:03:37.838+00:00",
+    "timestamp": "2024-05-09T18:53:56.507+00:00",
     "status": 404,
     "error": "Not Found",
-    "message": "Järjestäjää 10 ei löytynyt",
-    "path": "/jarjestajat/10"
+    "message": "Myyntitapahtumaa 5 ei löytynyt",
+    "path": "/myyntitapahtumat/5"
 }
 ```
 
