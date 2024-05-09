@@ -48,14 +48,14 @@ public class LipputyyppiRestController {
         return ResponseEntity.ok(lipputyyppiDto);
     }
 
-    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
+    @PreAuthorize("hasAnyAuthority('hallinto')")
     @PostMapping("/lipputyyppi")
     public ResponseEntity<Lipputyyppi> createLipputyyppi(@RequestBody Lipputyyppi lipputyyppi) {
         Lipputyyppi savedLipputyyppi = lipputyyppiRepository.save(lipputyyppi);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedLipputyyppi);
     }
 
-    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
+    @PreAuthorize("hasAnyAuthority('hallinto')")
     @PutMapping("/lipputyyppi/{id}")
     public ResponseEntity<Lipputyyppi> updateLipputyyppi(@PathVariable Long id,
             @RequestBody Lipputyyppi updatedLipputyyppi) {
@@ -64,7 +64,7 @@ public class LipputyyppiRestController {
         return ResponseEntity.ok(savedLipputyyppi);
     }
 
-    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
+    @PreAuthorize("hasAnyAuthority('hallinto')")
     @DeleteMapping("/lipputyyppi/{id}")
     public ResponseEntity<Void> deleteLipputyyppi(@PathVariable Long id) {
         lipputyyppiRepository.deleteById(id);

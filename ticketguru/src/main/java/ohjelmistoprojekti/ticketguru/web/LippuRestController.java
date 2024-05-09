@@ -66,7 +66,7 @@ public class LippuRestController {
     }
 
     // Poistaa lipun
-    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
+    @PreAuthorize("hasAnyAuthority('hallinto')")
     @DeleteMapping("/lippu/{id}")
     public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
         lippuRepository.deleteById(id);
