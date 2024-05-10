@@ -9,15 +9,12 @@ import org.springframework.stereotype.Service;
 
 import ohjelmistoprojekti.ticketguru.domain.Lippu;
 import ohjelmistoprojekti.ticketguru.domain.LippuRepository;
-import ohjelmistoprojekti.ticketguru.domain.TarkastusRepository;
 import ohjelmistoprojekti.ticketguru.dto.TarkastusDTO;
 import ohjelmistoprojekti.ticketguru.dto.MyyntitapahtumaDTO.LippuDto;
 
 @Service
 public class TarkastusService {
 
-    @Autowired
-    TarkastusRepository tarkastusRepository;
     @Autowired
     LippuRepository lippuRepository;
 

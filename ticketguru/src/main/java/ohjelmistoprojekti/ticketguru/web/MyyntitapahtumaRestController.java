@@ -6,7 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import ohjelmistoprojekti.ticketguru.domain.Lipputyyppi;
 import ohjelmistoprojekti.ticketguru.domain.LipputyyppiRepository;
-
+import ohjelmistoprojekti.ticketguru.domain.Myyntitapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -113,5 +114,24 @@ public class MyyntitapahtumaRestController {
         MyyntitapahtumaDTO myyntitapahtumaDto = myyntitapahtumaService.luoMyyntitapahtuma(mtDto);
         return ResponseEntity.ok(myyntitapahtumaDto);
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
+    public ResponseEntity<?> poistaMyyntitapahtuma(@PathVariable("id") Long id) {
+
+        if (!myyntitapahtumaRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Myyntitapahtumaa " + id + " ei löytynyt");
+        } else {
+            Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id).orElse(null);
+            Boolean kaytettyjaLippuja = myyntitapahtumaService.kaytettyjaLippuja(myyntitapahtuma);
+            if (kaytettyjaLippuja) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Myyntitapahtumaa " + id + " ei voi poistaa käytettyjen lippujen takia"); 
+            } else {
+                myyntitapahtumaRepository.deleteById(id);
+                return ResponseEntity.noContent().build();
+            }
+        }
+    }
+
 
 }
