@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,18 +65,65 @@ public class KayttajaRestController {
     }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
-    @PutMapping("/kayttajat/{id}")
-    public ResponseEntity<Kayttaja> editKayttaja(@PathVariable("id") Long hloId, @RequestBody Kayttaja uusiKayttaja) {
-        Kayttaja editKayttaja = kayttajaRepository.findById(hloId)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Henkiöä " + hloId + " ei voi muokata, koska häntä ei ole olemassa."));
-        editKayttaja.setHloId(uusiKayttaja.getHloId());
-        kayttajaRepository.save(uusiKayttaja);
 
-        return ResponseEntity.ok(editKayttaja);
+    @PutMapping("/kayttajat/{id}")
+    public ResponseEntity<Kayttaja> editKayttaja(@PathVariable("id") Long hloId,
+            @Validated @RequestBody Kayttaja uusiKayttaja, BindingResult bindingResult) {
+        try {
+            if (bindingResult.hasErrors()) {
+                throw new IllegalArgumentException("Pyynnön sisältö on virheellinen");
+            }
+
+            Kayttaja editKayttaja = kayttajaRepository.findById(hloId)
+                    .orElseThrow(() -> new ResponseStatusException(
+                            HttpStatus.NOT_FOUND,
+                            "Henkiöä " + hloId + " ei voi muokata, koska häntä ei ole olemassa."));
+            editKayttaja.setHloId(uusiKayttaja.getHloId());
+            kayttajaRepository.save(uusiKayttaja);
+
+            return ResponseEntity.ok(editKayttaja);
+
+        } catch (IllegalArgumentException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error occurred", ex);
+        }
     }
 
+    /*
+     * @PutMapping("/kayttajat/{id}")
+     * public ResponseEntity<Kayttaja> editKayttaja(
+     * 
+     * @PathVariable("id") Long hloId,
+     * 
+     * @Validated @RequestBody Kayttaja uusiKayttaja,
+     * BindingResult bindingResult) {
+     * try {
+     * if (bindingResult.hasErrors()) {
+     * throw new IllegalArgumentException("Invalid request body");
+     * }
+     * 
+     * Optional<Kayttaja> optionalKayttaja = kayttajaRepository.findById(hloId);
+     * if (!optionalKayttaja.isPresent()) {
+     * throw new ResponseStatusException(
+     * HttpStatus.NOT_FOUND,
+     * "Kayttajaa " + hloId + " ei löytynyt.");
+     * }
+     * 
+     * Kayttaja editKayttaja = optionalKayttaja.get();
+     * editKayttaja.setHloId(uusiKayttaja.getHloId());
+     * kayttajaRepository.save(editKayttaja);
+     * 
+     * return ResponseEntity.ok(editKayttaja);
+     * } catch (IllegalArgumentException ex) {
+     * throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(),
+     * ex);
+     * } catch (Exception ex) {
+     * throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+     * "Internal server error occurred", ex);
+     * }
+     * }
+     */
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @DeleteMapping("/kayttajat/{id}")
     public ResponseEntity<?> poistaKayttaja(@PathVariable("id") Long hloId) {

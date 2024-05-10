@@ -21,7 +21,11 @@ Luo uusi käyttäjä
     "snimi": "Myyjänen",
     "enimi": "Maija",
     "lisatiedot": "Myyntialue",
-    "rooliNimi": "myyja"
+    "rooli": 
+    {
+        "rooliId": 1,
+        "rooliNimi": "myyja"
+    }
 }
 ```
 

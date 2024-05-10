@@ -15,8 +15,8 @@ Muokkaa olemassa olevaa tapahtumaa.
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
-## Onnistunut Vastaus
-**Ehto**: Jos uusi tapahtuma on muokattu ja  tallennettu onnistuneesti.
+## Onnistunut vastaus
+**Ehto**: Jos olemassa olevan tapahtuman teidot on muokattu ja tallennettu onnistuneesti.
 
 **Koodi**: `200 OK`
 
