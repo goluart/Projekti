@@ -85,45 +85,9 @@ public class KayttajaRestController {
 
         } catch (IllegalArgumentException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
-        } catch (Exception ex) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error occurred", ex);
         }
     }
 
-    /*
-     * @PutMapping("/kayttajat/{id}")
-     * public ResponseEntity<Kayttaja> editKayttaja(
-     * 
-     * @PathVariable("id") Long hloId,
-     * 
-     * @Validated @RequestBody Kayttaja uusiKayttaja,
-     * BindingResult bindingResult) {
-     * try {
-     * if (bindingResult.hasErrors()) {
-     * throw new IllegalArgumentException("Invalid request body");
-     * }
-     * 
-     * Optional<Kayttaja> optionalKayttaja = kayttajaRepository.findById(hloId);
-     * if (!optionalKayttaja.isPresent()) {
-     * throw new ResponseStatusException(
-     * HttpStatus.NOT_FOUND,
-     * "Kayttajaa " + hloId + " ei löytynyt.");
-     * }
-     * 
-     * Kayttaja editKayttaja = optionalKayttaja.get();
-     * editKayttaja.setHloId(uusiKayttaja.getHloId());
-     * kayttajaRepository.save(editKayttaja);
-     * 
-     * return ResponseEntity.ok(editKayttaja);
-     * } catch (IllegalArgumentException ex) {
-     * throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(),
-     * ex);
-     * } catch (Exception ex) {
-     * throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-     * "Internal server error occurred", ex);
-     * }
-     * }
-     */
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @DeleteMapping("/kayttajat/{id}")
     public ResponseEntity<?> poistaKayttaja(@PathVariable("id") Long hloId) {

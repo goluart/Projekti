@@ -1,4 +1,4 @@
-# Luo uusi käyttäjä
+# Luo uusi rooli
 Tämä dokumentaatio kuvaa, miten järjestelmään voi luoda uusia rooleja
 
 ## API Endpoint

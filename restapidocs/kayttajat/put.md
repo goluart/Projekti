@@ -1,8 +1,8 @@
-# Luo uusi tapahtumat
+# Muokkaa käyttäjän tietoja
 Tämä dokumentaatio kuvaa, miten olemassa olevaa käyttäjän tietoja voi muokata.
 
 ## API Endpoint
-Muokkaa olemassa olevaa käyttäkää.
+Muokkaa olemassa olevaa käyttäjää.
 
 **URL**: /kayttajat/{id}
 
@@ -43,7 +43,7 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-polun avulla.
 
 **Ehto**: Pyyntö on viallinen. Pyynnöstä puuttu attribuutteja tai ne eivät ovat vaaditussa muodossa.
 
-**Koodi**: 400 Bad Request
+**Koodi**: `400 Bad Request`
 
 **Sisältö**:
 ```json
@@ -52,6 +52,23 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-polun avulla.
     "status": 400,
     "error": "Bad Request",
     "message": "Pyynnön sisältö on virheellinen",
+    "path": "/kayttajat/5"
+}
+```
+
+### Tai
+
+**Ehto**: Haettavaa id:tä ei ole olemassa.
+
+**Koodi**: `404 Not Found`
+
+**Sisältö**
+```json
+{
+    "timestamp": "2024-05-10T12:19:31.461+00:00",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Henkiöä 5 ei voi muokata, koska häntä ei ole olemassa.",
     "path": "/kayttajat/5"
 }
 ```

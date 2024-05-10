@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,15 +66,25 @@ public class RooliRestController {
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @PutMapping("/roolit/{id}")
-    public ResponseEntity<Rooli> editRooli(@PathVariable("id") Long rooliId, @RequestBody Rooli uusiRooli) {
+    public ResponseEntity<Rooli> editRooli(@PathVariable("id") Long rooliId, @Validated @RequestBody Rooli uusiRooli,
+            BindingResult bindingResult) {
 
-        Rooli editRooli = rooliRepository.findById(rooliId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Roolia " + rooliId + " ei voi muokata, koska sitä ei löytynyt"));
-        editRooli.setRooliId(uusiRooli.getRooliId());
-        rooliRepository.save(uusiRooli);
+        try {
+            if (bindingResult.hasErrors()) {
+                throw new IllegalArgumentException("Pyynnön sisältö on virheellinen");
+            }
 
-        return ResponseEntity.ok(uusiRooli);
+            Rooli editRooli = rooliRepository.findById(rooliId)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            "Roolia " + rooliId + " ei voi muokata, koska sitä ei löytynyt"));
+            editRooli.setRooliId(uusiRooli.getRooliId());
+            rooliRepository.save(uusiRooli);
+
+            return ResponseEntity.ok(uusiRooli);
+
+        } catch (IllegalArgumentException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
+        }
     }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
