@@ -233,11 +233,63 @@ Method: `GET`
 
 Method: `POST`
 
-- URL: "/myyntitapahtumat" Luo uuden myyntitapahtuman. Palauttaa myyntipäivämäärän, loppusumman sekä listan lipuista.
+- URL: "/myyntitapahtumat". Luo uuden myyntitapahtuman. Palauttaa myyntipäivämäärän, loppusumman sekä listan lipuista.
 
 [Tarkempi kuvaus POST-pyynnöstä](restapidocs/myynitapahtumat/post.md)
 
+#### Endpoint Kayttaja-luokalla on muotoa: /kayttajat
 
+Method: `GET`
+
+- URL: "/kayttajat". Hakee kaikki järjestelmän käyttäjät.
+- URL: "/kayttajat/{id}". Hakee valitun id:n mukaisen käyttäjän.
+
+[Tarkempi kuvaus GET-pyynnöistä](restapidocs/kayttajat/get.md)
+
+Method: `POST`
+
+- URL: "/kayttajat". Luo uuden käyttäjän. Palauttaa id:n, nimen ja tyhjän listan käyttäjistä.
+
+[Tarkempi kuvaus POST-pyynnöistä](restapidocs/kayttajat/post.md)
+
+Method: `PUT`
+
+- URL: "/kayttajat/{id}". Muokkaa olemassa olevan id:n mukaisen käyttäjän tietoja.
+
+[Tarkempi kuvaus PUT-pyynnöistä](restapidocs/kayttajat/put.md)
+
+Method: `DELETE`
+
+- URL: "/kayttajat/{id}". Poistaa id:n mukaisen käyttäjän tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/kayttajat/delete.md)
+
+#### Endpoint Rooli-luokalla on muotoa: /roolit
+
+Method: `GET`
+
+ - URL: "/roolit". Hakee kaikki järjestelmän roolit.
+ - URL: "/roolit/{id}". Hakee valitun id:n mukaisen roolin.
+
+ [Tarkempi kuvaus GET-pyynnöistä](restapidocs/roolit/get.md)
+
+Method: `POST`
+
+ - URL: "/roolit". Luo uuden roolin. Palauttaa id:n, nimen ja listauksen käyttäjistä jotka operoivat valitulla roolilla.
+
+ [Tarkempi kuvaus POST-pyynnöistä](restapidocs/roolit/post.md)
+
+Method: `PUT`
+ 
+ - URL: "/roolit/{id}". Muokkaa olemassa olevan id:n mukaisen roolin tietoja.
+
+ [Tarkempi kuvaus PUT-pyynnöistä](restapidocs/roolit/put.md)
+
+Method: `DELETE`
+
+ - URL: "/roolit/{id}". Poistaa id:n mukaisen roolin tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/roolit/delete.md)
 
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
 ratkaisut, esim.
