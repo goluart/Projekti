@@ -38,44 +38,46 @@ public class RooliRestController {
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @GetMapping("/roolit")
-    public List<RooliDTO> haeKaikkiRoolit() {
+    public List<RooliDTO> haeKaikkiRoolit() { // Haetaan kaikki rooli
         if (rooliRepository.findAll().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Rooleja ei löytynyt");
+            // Virheenkäsittely, jos rooleja ei ole
         }
-
         return rooliKayttajaService.haeKaikkiRoolit();
     }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @GetMapping("/roolit/{id}")
-    public ResponseEntity<RooliDTO> haeRooliById(@PathVariable("id") @NonNull Long rooliId) {
+    public ResponseEntity<RooliDTO> haeRooliById(@PathVariable("id") @NonNull Long rooliId) { // Haetaan yksi rooli
         Optional<RooliDTO> rooli = rooliKayttajaService.haeRooliById(rooliId);
         if (rooli.isPresent()) {
             return ResponseEntity.ok(rooli.get());
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Roolia " + rooliId + " ei löytynyt.");
+            // Virheenkäsittely jos pyydettyä roolia ei ole
         }
     }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @PostMapping("/roolit")
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "Uusi rooli luotu")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Uusi rooli luotu") // Luodaan uusi rooli
     public Rooli uusiRooli(@RequestBody @Valid @NonNull Rooli uusiRooli) {
         return rooliRepository.save(uusiRooli);
     }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
-    @PutMapping("/roolit/{id}")
+    @PutMapping("/roolit/{id}") // Muokataan valittua roolia
     public ResponseEntity<Rooli> editRooli(@PathVariable("id") Long rooliId, @Validated @RequestBody Rooli uusiRooli,
             BindingResult bindingResult) {
 
         try {
-            if (bindingResult.hasErrors()) {
+            if (bindingResult.hasErrors()) { // Virheenkäsittely, jos JSON on virheellinen
                 throw new IllegalArgumentException("Pyynnön sisältö on virheellinen");
             }
 
             Rooli editRooli = rooliRepository.findById(rooliId)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, // Virheenkäsittely jos roolia
+                                                                                         // ei löydy
                             "Roolia " + rooliId + " ei voi muokata, koska sitä ei löytynyt"));
             editRooli.setRooliId(uusiRooli.getRooliId());
             rooliRepository.save(uusiRooli);
@@ -89,14 +91,16 @@ public class RooliRestController {
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @DeleteMapping("/roolit/{id}")
-    public ResponseEntity<?> poistaRooli(@PathVariable("id") Long rooliId) {
+    public ResponseEntity<?> poistaRooli(@PathVariable("id") Long rooliId) { // Roolin poisto
         Rooli rooli = rooliRepository.findById(rooliId)
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Roolia " + rooliId + " ei löytynyt"));
+        // Virheenkäsittely jos roolia ei löydy
         try {
             rooliRepository.delete(rooli);
         } catch (DataIntegrityViolationException ex) {
             if (ex.getMessage().contains("Referential integrity constraint violation")) {
+                // Virheekäsittely, jos yritetään poistoa, joka ei ole sallittu
                 throw new ResponseStatusException(HttpStatus.CONFLICT,
                         "Rooli " + rooliId + " ei voi poistaa, koska siihen liityy muita tietoja");
             }

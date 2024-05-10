@@ -1,6 +1,6 @@
 package ohjelmistoprojekti.ticketguru.dto;
 
-public class KayttajaDTO {
+public class KayttajaDTO { // Luodaan käyttjä-luokasta dto, jotta salasanaa ei tarvitse näyttää turhaan.
 
     private Long hloId;
     private String tunnus;

@@ -36,11 +36,12 @@ public class KayttajaRestController {
     @Autowired
     private KayttajaService kayttajaService;
 
-    @PreAuthorize("hasAnyAuthority('hallinto')")
+    @PreAuthorize("hasAnyAuthority('hallinto')") // Haetaan kaikki käyttäjät järjestelmästä
     @GetMapping("/kayttajat")
     public List<KayttajaDTO> haeKaikkiKayttajatDTO() {
         if (kayttajaRepository.findAll().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Käyttäjiä ei löytynyt");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Käyttäjiä ei löytynyt"); // Virheenkäsittely, jos
+                                                                                              // tietokanta on tyhjä
         }
         return kayttajaService.haeKaikkiKayttajat();
     }
@@ -48,34 +49,38 @@ public class KayttajaRestController {
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @GetMapping("/kayttajat/{id}")
     public ResponseEntity<KayttajaDTO> haeYksiKayttaja(@PathVariable("id") @NonNull Long hloId) {
-        Optional<KayttajaDTO> kayttaja = kayttajaService.haeKayttajaById(hloId);
+        Optional<KayttajaDTO> kayttaja = kayttajaService.haeKayttajaById(hloId); // Haetaan yksi käyttäjä tietokannasta
 
         if (kayttaja.isPresent()) {
             return ResponseEntity.ok(kayttaja.get());
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Käyttäjää " + hloId + " ei löytynyt.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Käyttäjää " + hloId + " ei löytynyt."); // Virheenkäsittely,
+                                                                                                             // jos
+                                                                                                             // haetulla
+                                                                                                             // id:llä
+                                                                                                             // ei löydy
+                                                                                                             // käyttäjää
         }
     }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @PostMapping("/kayttajat")
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "Uusi käyttäjä luotu")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Uusi käyttäjä luotu") // Lisätään uusi käyttäjä järjestelmään
     public Kayttaja uusiKayttaja(@RequestBody @Valid @NonNull Kayttaja uusiKayttaja) {
         return kayttajaRepository.save(uusiKayttaja);
     }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
-
     @PutMapping("/kayttajat/{id}")
-    public ResponseEntity<Kayttaja> editKayttaja(@PathVariable("id") Long hloId,
+    public ResponseEntity<Kayttaja> editKayttaja(@PathVariable("id") Long hloId, // Muokataan olemassa olevaa käyttäjää
             @Validated @RequestBody Kayttaja uusiKayttaja, BindingResult bindingResult) {
         try {
-            if (bindingResult.hasErrors()) {
+            if (bindingResult.hasErrors()) { // Lisätään virheenkäsittely, jos JSON on virheellinen
                 throw new IllegalArgumentException("Pyynnön sisältö on virheellinen");
             }
 
             Kayttaja editKayttaja = kayttajaRepository.findById(hloId)
-                    .orElseThrow(() -> new ResponseStatusException(
+                    .orElseThrow(() -> new ResponseStatusException( // Virheenkäsittely, jos käyttäjää ei löydy
                             HttpStatus.NOT_FOUND,
                             "Henkiöä " + hloId + " ei voi muokata, koska häntä ei ole olemassa."));
             editKayttaja.setHloId(uusiKayttaja.getHloId());
@@ -90,10 +95,10 @@ public class KayttajaRestController {
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @DeleteMapping("/kayttajat/{id}")
-    public ResponseEntity<?> poistaKayttaja(@PathVariable("id") Long hloId) {
+    public ResponseEntity<?> poistaKayttaja(@PathVariable("id") Long hloId) { // Poistetaan käyttäjä järjestelmästä
         if (!kayttajaRepository.existsById(hloId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Käyttäjää " + hloId + " ei löytynyt");
-
+            // Virheenkäsittely jos käyttäjää ei löydy
         }
         kayttajaRepository.deleteById(hloId);
         return ResponseEntity.ok().build();
