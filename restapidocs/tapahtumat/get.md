@@ -129,7 +129,7 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
 ### Tai
 
-**Ehto**: Jos tapahtumaa ei löydy annetulla ID:llä tai järjestlmästä ei löydy yhtäkään tapahtumaa.
+**Ehto**: Jos tapahtumaa ei löydy annetulla ID:llä tai järjestelmästä ei löydy yhtäkään tapahtumaa.
 
 **Koodi**: `404 Not Found`
 

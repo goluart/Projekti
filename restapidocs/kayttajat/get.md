@@ -40,3 +40,31 @@ Pyynnön runkoa ei vaadita, koska data haetaan URL-polun avulla.
     "rooliNimi": "myyja"
 }
 ```
+
+## Virhevastaukset
+
+**Ehto**: Jos autentikointi on virheellinen
+
+**Koodi**: `401 Unauthorized`
+
+**Sisältö**: 
+
+## Tai 
+
+**Ehto**: Jos järjestelmä on tyhjä tai annetulla id:llä ei löydy käyttäjää.
+
+**Koodi**: `404 Not Found`
+
+**Sisältö**:
+```json
+{
+    "timestamp": "2024-05-10T08:29:45.248+00:00",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Käyttäjää 10 ei löytynyt.",
+    "path": "/kayttajat/10"
+}
+```
+
+## Huomautukset
+Varmista, että käytät oikeaa id-arvoa käyttäjän tietojen hakemiseen. GET-metodi palauttaa vain käyttäjän julkiset tiedot. Osa käyttäjän tiedoista on piilotettu tietoturvasyistä. Rajapinta palauttaa myös käyttäjän roolin. 
