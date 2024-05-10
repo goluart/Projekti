@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ohjelmistoprojekti.ticketguru.domain.Kayttaja;
-import ohjelmistoprojekti.ticketguru.domain.KayttajaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Rooli;
 import ohjelmistoprojekti.ticketguru.domain.RooliRepository;
 import ohjelmistoprojekti.ticketguru.dto.RooliDTO;
@@ -16,9 +14,6 @@ import ohjelmistoprojekti.ticketguru.dto.RooliKayttajaDTO;
 
 @Service
 public class RooliKayttajaService {
-
-    @Autowired
-    private KayttajaRepository kayttajaRepository;
 
     @Autowired
     private RooliRepository rooliRepository;
