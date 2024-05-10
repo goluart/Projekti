@@ -319,7 +319,7 @@ erillisiin dokumentteihin.
 
 Tänne kirjataan myös lopuksi järjestelmän tunnetut ongelmat, joita ei ole korjattu.
 
-![Testausdokumentti](../Projekti/restapidocs/testit/ticketguru_testit.md)
+[Testausdokumentti](../Projekti/restapidocs/testit/ticketguru_testit.md)
 
 ## Asennustiedot
 
