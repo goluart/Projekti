@@ -68,4 +68,4 @@ Luo uusi käyttäjä
 }
 ```
 ## Huomatukset
-Varmista, että käytät käyttäjän luonnin yhteydessä oikeita attribuutien arvoja.
+Varmista, että käytät käyttäjän luonnin yhteydessä oikeita attribuutien arvoja. Pidä huoli myös, että pyynnön runko on samanlainen kuin dokumentaatiossa.
