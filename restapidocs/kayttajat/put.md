@@ -6,16 +6,19 @@ Muokkaa olemassa olevaa käyttäkää.
 
 **URL**: /kayttajat/{id}
 
+**URL-polku**: {id} = hloId = [integer], missä hloId on palvelimella olevan käyttäjän generoitu yksilöllinen tunniste.
+
 **Metodi**: `PUT`
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Käyttäjäroolit**: `hallinto`
+**Käyttäjärooli**: `hallinto`
 
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-polun avulla.
 
 ## Onnistunut vastaus
+
 **Ehto**: Jos olemassa olevan käyttäjän tiedot on muokattu ja tallennettu onnistuneesti.
 
 **Koodi**: `200 OK`
@@ -37,6 +40,7 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-polun avulla.
 }
 ```
 ## Virhevastaukset
+
 **Ehto**: Pyyntö on viallinen. Pyynnöstä puuttu attribuutteja tai ne eivät ovat vaaditussa muodossa.
 
 **Koodi**: 400 Bad Request

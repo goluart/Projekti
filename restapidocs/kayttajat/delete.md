@@ -6,11 +6,13 @@ Poista olemassa oleva käyttäjä
 
 **URL**: /tapahtumat/{id}
 
+**URL-polku**: {id} = hloId = [integer], missä hloId on palvelimella olevan käyttäjän generoitu yksilöllinen tunniste.
+
 **Metodi**: `DELETE`
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Käyttäjäroolit**: `hallinto`
+**Käyttäjärooli**: `hallinto`
 
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-polun avulla.

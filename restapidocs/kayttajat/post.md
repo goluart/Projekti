@@ -10,7 +10,7 @@ Luo uusi käyttäjä
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Käyttäjäroolit**: `hallinto`
+**Käyttäjärooli**: `hallinto`
 
 ## Pyyntö
 

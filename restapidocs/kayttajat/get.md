@@ -10,15 +10,15 @@ Hae käyttäjän tai käyttäjien tiedot.
 
 **Kaikkien käyttäjien tiedot**
 
-**URL**: /käyttäjät
+**URL**: /kayttajat
 
-**URL-polku**: hloId = [integer], missä hloId on palvelimella olevan käyttäjän generoitu yksilöllinen tunniste.
+**URL-polku**: {id} = hloId = [integer], missä hloId on palvelimella olevan käyttäjän generoitu yksilöllinen tunniste.
 
 **Metodi**: `GET`
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Käyttäjäroolit**: `hallinto`
+**Käyttäjärooli**: `hallinto`
 
 ## Pyyntö
 Pyynnön runkoa ei vaadita, koska data haetaan URL-polun avulla.
