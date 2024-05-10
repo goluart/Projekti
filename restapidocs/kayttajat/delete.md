@@ -1,10 +1,10 @@
-# Luo uusi tapahtumat
-Tämä dokumentaatio kuvaa, miten järjestelmästä voi poistaa käyttäjä.
+# Poista käyttäjä
+Tämä dokumentaatio kuvaa, miten järjestelmästä voi poistaa käyttäjän.
 
 ## API Endpoint
 Poista olemassa oleva käyttäjä
 
-**URL**: /tapahtumat/{id}
+**URL**: /kayttajat/{id}
 
 **URL-polku**: {id} = hloId = [integer], missä hloId on palvelimella olevan käyttäjän generoitu yksilöllinen tunniste.
 
@@ -23,7 +23,7 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-polun avulla.
 
 **Koodi**: `200 OK`
 
-**Sisältä**:
+**Sisältö**:
 
 ## Virhevastaukset
 
@@ -35,7 +35,7 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-polun avulla.
 
 ### Tai
 
-**Ehto**: Jos tapahtumaa ei löydy
+**Ehto**: Jos tapahtumaa ei löydy.
 
 **Koodi**: `404 Not Found`
 
