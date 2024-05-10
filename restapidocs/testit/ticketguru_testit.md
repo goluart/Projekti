@@ -5,13 +5,13 @@ Dokumentista käy ilmi eri testaustasot, testikokonaisuuksien suunnitelmat, yksi
 ## Testeihin käytetyt ohjelmistot
 Komponenttitesteihin käytetään Junitia, jolla tehdään back-endin testit. Integraatiotesteihin ja End-to-End-testeihin käytetään sekä Junitia ja  Robot Frameworkia.
 
-#### ![Tapahtuma-luokan komponenttitestit](../../ticketguru/src/test/java/ohjelmistoprojekti/ticketguru/domain/TapahtumatRepositoryTest.java)
+#### [Tapahtuma-luokan komponenttitestit](../../ticketguru/src/test/java/ohjelmistoprojekti/ticketguru/domain/TapahtumatRepositoryTest.java)
 
 Komponenttitestien tarkoitus on testata yhden yksittäisen komponentin toimintaa. Testeillä halutaan selvittää toimiiko komponentti tai komponentin osa kuten halutaan. Komponentin läpäistessä vaaditut testit, voidaan todeta, että ohjelman osa toimii. Tämän jälkeen voidaan siirtyä ohjelmoinnissa ja testauksessa seuraavaan vaiheeseen.
 
 Yksikkötason testeihin valittiin repositorytestit, koska sovelluksen ytimessä on tiedon tallentaminen. Ilman toimivaa tietokantaa toimivaa sovellusta on lähes mahdotonta toimittaa asiakkaalle. 
 
-#### ![Tapahtuma-luokan integraatiotestit](../../ticketguru/src/test/java/ohjelmistoprojekti/ticketguru/web/TapahtumaRestControllerTest.java)
+#### [Tapahtuma-luokan integraatiotestit](../../ticketguru/src/test/java/ohjelmistoprojekti/ticketguru/web/TapahtumaRestControllerTest.java)
 
 TapahtumaRestControllerTest.java tämä luokka sisältää yksikkötestejä TapahtumaRestControllerille, joka vastaa HTTP-pyyntöihin. Tapahtuma -entiteetteihin liittyen TicketGuru-sovelluksessa. Nämä testit kattavat perus CRUD (Create, Read, Update, Delete) toiminnot, varmistaen että tapahtumat voidaan noutaa, luoda ja poistaa onnistuneesti.
  
@@ -30,7 +30,7 @@ Näiden testien keskiössä on tietokannan ja sovelluksen välinen liikenne sek�
 
 #### Komponenttitestien tulokset
 
-![Testitulokset](../../pictures/Testitulokset_TapahtumatRepository.PNG)
+[Testitulokset](../../pictures/Testitulokset_TapahtumatRepository.PNG)
 
 #### TapahtumaRestController-luokan testisuunnitelmat
 
@@ -43,7 +43,7 @@ Näiden testien keskiössä on tietokannan ja sovelluksen välinen liikenne sek�
 
 #### Integraatiotestien tulokset
 
-![Testitulokset](../../pictures/TapahtumaRestController_testitulokset.PNG)
+[Testitulokset](../../pictures/TapahtumaRestController_testitulokset.PNG)
 
 #### ![End-to-End -testi](../../ticketguru/src/test/java/ohjelmistoprojekti/ticketguru/E2E/TicketguruE2ETest.robot)
 
@@ -56,7 +56,7 @@ Testissä ensimmäisessä selaimessa kirjaudutaan sisään ja avataan lipunmyynt
 
 #### End-to-End -testien tulokset
 
-![Testitulokset](../../pictures/e2e_tulokset.PNG)
+[Testitulokset](../../pictures/e2e_tulokset.PNG)
 
 
 
