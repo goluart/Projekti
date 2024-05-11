@@ -27,7 +27,7 @@ public class LipputyyppiRestController {
     private TapahtumaService tapahtumaService;
 
     @Autowired
-private AsiakasryhmaRepository asiakasryhmaRepository;
+    private AsiakasryhmaRepository asiakasryhmaRepository;
 
     @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
     @GetMapping("/lipputyyppi")
@@ -53,18 +53,18 @@ private AsiakasryhmaRepository asiakasryhmaRepository;
         return ResponseEntity.ok(lipputyyppiDto);
     }
 
-@PostMapping("/lipputyyppi")
-public ResponseEntity<Lipputyyppi> createLipputyyppi(@RequestBody Lipputyyppi lipputyyppi) {
-    Long asiakasryhmaId = lipputyyppi.getAsiakasryhma().getId(); // Assuming getId() returns the ID of Asiakasryhma
-    Asiakasryhma asiakasryhma = asiakasryhmaRepository.findById(asiakasryhmaId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Asiakasryhma with ID " + asiakasryhmaId + " not found"));
+    @PostMapping("/lipputyyppi")
+    public ResponseEntity<Lipputyyppi> createLipputyyppi(@RequestBody Lipputyyppi lipputyyppi) {
+        Long asiakasryhmaId = lipputyyppi.getAsiakasryhma().getId();
+        Asiakasryhma asiakasryhma = asiakasryhmaRepository.findById(asiakasryhmaId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Asiakasryhma ID " + asiakasryhmaId + " ei löytynyt."));
 
-    lipputyyppi.setAsiakasryhma(asiakasryhma);
+        lipputyyppi.setAsiakasryhma(asiakasryhma);
 
-    Lipputyyppi savedLipputyyppi = lipputyyppiRepository.save(lipputyyppi);
-    return ResponseEntity.status(HttpStatus.CREATED).body(savedLipputyyppi);
-}
+        Lipputyyppi savedLipputyyppi = lipputyyppiRepository.save(lipputyyppi);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedLipputyyppi);
+    }
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @PutMapping("/lipputyyppi/{id}")
