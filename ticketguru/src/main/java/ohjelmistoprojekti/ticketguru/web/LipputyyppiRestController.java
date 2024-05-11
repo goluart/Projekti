@@ -7,6 +7,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import ohjelmistoprojekti.ticketguru.domain.Asiakasryhma;
+import ohjelmistoprojekti.ticketguru.domain.AsiakasryhmaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Lipputyyppi;
 import ohjelmistoprojekti.ticketguru.domain.LipputyyppiRepository;
 import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.LipputyyppiDto;
@@ -23,6 +25,9 @@ public class LipputyyppiRestController {
 
     @Autowired
     private TapahtumaService tapahtumaService;
+
+    @Autowired
+private AsiakasryhmaRepository asiakasryhmaRepository;
 
     @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
     @GetMapping("/lipputyyppi")
@@ -48,12 +53,18 @@ public class LipputyyppiRestController {
         return ResponseEntity.ok(lipputyyppiDto);
     }
 
-    @PreAuthorize("hasAnyAuthority('hallinto')")
-    @PostMapping("/lipputyyppi")
-    public ResponseEntity<Lipputyyppi> createLipputyyppi(@RequestBody Lipputyyppi lipputyyppi) {
-        Lipputyyppi savedLipputyyppi = lipputyyppiRepository.save(lipputyyppi);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedLipputyyppi);
-    }
+@PostMapping("/lipputyyppi")
+public ResponseEntity<Lipputyyppi> createLipputyyppi(@RequestBody Lipputyyppi lipputyyppi) {
+    Long asiakasryhmaId = lipputyyppi.getAsiakasryhma().getId(); // Assuming getId() returns the ID of Asiakasryhma
+    Asiakasryhma asiakasryhma = asiakasryhmaRepository.findById(asiakasryhmaId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Asiakasryhma with ID " + asiakasryhmaId + " not found"));
+
+    lipputyyppi.setAsiakasryhma(asiakasryhma);
+
+    Lipputyyppi savedLipputyyppi = lipputyyppiRepository.save(lipputyyppi);
+    return ResponseEntity.status(HttpStatus.CREATED).body(savedLipputyyppi);
+}
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @PutMapping("/lipputyyppi/{id}")
