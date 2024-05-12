@@ -11,6 +11,8 @@ Tämä dokumentaatio kuvaa, miten järjestäjän tiedot haetaan.
 
 **URL**: /jarjestajat
 
+**URL-polku**: {id} = jarjestajaId = [integer], missä jarjestajaId on palvelimella olevan järjestäjän generoitu yksilöllinen tunniste.
+
 **Metodi**: `GET`
 
 **Autentikointi vaaditaan**: Kyllä
@@ -27,6 +29,17 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL:n avulla.
 **Koodi**: `200 OK`
 
 **Sisällön esimerkki**
+```json
+{
+    "jarjestajaId": 1,
+    "nimi": "Musiikki Oy",
+    "ytunnus": "1234567-8",
+    "osoite": "Mannerheimintie 13",
+    "postinumero": "00100",
+    "kaupunki": "Helsinki"
+}
+```
+
 ```json
 [
     {
@@ -56,5 +69,28 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL:n avulla.
 ]
 ```
 
+## Virhevastaukset
 
+**Ehto**: Autentikointi epäonnistui
+
+**Koodi**: `401 Unauthorized`
+
+**Sisältö**:
+
+### Tai
+
+**Ehto**: Järjestäjää ei löydy id:llä
+
+**Koodi**: `404 Not Found`
+
+**Sisältö**:
+```json
+{
+    "timestamp": "2024-05-12T19:12:44.301+00:00",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Järjestäjää 20 ei löytynyt",
+    "path": "/jarjestajat/20"
+}
+```
 ## Huomautukset

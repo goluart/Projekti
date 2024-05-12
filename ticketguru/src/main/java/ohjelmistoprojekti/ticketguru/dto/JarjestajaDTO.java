@@ -9,21 +9,21 @@ public class JarjestajaDTO {
 
     private Long jarjestajaId;
     private String nimi, ytunnus, osoite, postinumero, kaupunki;
-    private List<YhteyshenkiloYhteystiedotDTO> yhteystiedot;
+    private List<YhteyshenkiloYhteystiedotDTO> yhteyshenkilot;
 
     public JarjestajaDTO() {
 
     }    
 
     public JarjestajaDTO(Long jarjestajaId, String nimi, String ytunnus, String osoite, String postinumero,
-            String kaupunki, List<YhteyshenkiloYhteystiedotDTO> yhteystiedot) {
+            String kaupunki, List<YhteyshenkiloYhteystiedotDTO> yhteyshenkilot) {
         this.jarjestajaId = jarjestajaId;
         this.nimi = nimi;
         this.ytunnus = ytunnus;
         this.osoite = osoite;
         this.postinumero = postinumero;
         this.kaupunki = kaupunki;
-        this.yhteystiedot = yhteystiedot;
+        this.yhteyshenkilot = yhteyshenkilot;
     }
 
     public JarjestajaDTO(Long jarjestajaId, String nimi, String ytunnus, String osoite, String postinumero,
@@ -84,12 +84,12 @@ public class JarjestajaDTO {
         this.kaupunki = kaupunki;
     }
     
-    public List<YhteyshenkiloYhteystiedotDTO> getYhteystiedot() {
-        return yhteystiedot;
+    public List<YhteyshenkiloYhteystiedotDTO> getYhteyshenkilot() {
+        return yhteyshenkilot;
     }
 
-    public void setYhteystiedot(List<YhteyshenkiloYhteystiedotDTO> yhteystiedot) {
-        this.yhteystiedot = yhteystiedot;
+    public void setYhteyshenkilot(List<YhteyshenkiloYhteystiedotDTO> yhteyshenkilot) {
+        this.yhteyshenkilot = yhteyshenkilot;
     }    
     
     @Override

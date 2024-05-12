@@ -4,10 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
 import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Postitoimipaikka;
@@ -47,7 +44,7 @@ public class JarjestajaService {
                 jarjestaja.getYtunnus(), jarjestaja.getOsoite(), jarjestaja.getPostitoimipaikka().getPostinumero(),
                 jarjestaja.getPostitoimipaikka().getKaupunki());
 
-        jarjestajaDTO.setYhteystiedot(yhteystiedot);
+        jarjestajaDTO.setYhteyshenkilot(yhteystiedot);
         
         return jarjestajaDTO;
     }
@@ -64,11 +61,6 @@ public class JarjestajaService {
             jarjestaja = new Jarjestaja();
         }
 
-        if (tallennaJarjestajaDTO.getNimi() == null || tallennaJarjestajaDTO.getNimi() == "") {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nimi on tyhjä");
-        }
-
-        
         jarjestaja.setNimi(tallennaJarjestajaDTO.getNimi());
         jarjestaja.setOsoite(tallennaJarjestajaDTO.getOsoite());
         jarjestaja.setYtunnus(tallennaJarjestajaDTO.getYtunnus());
@@ -101,9 +93,6 @@ public class JarjestajaService {
             jarjestaja.setYhteyshenkilo(yhteyshenkilot);
             jarjestajaRepository.save(jarjestaja);
         }
-
-
-
 
         JarjestajaDTO jarjestajaTiedotDTO = muunnaJarjestajaDTO(jarjestaja);
         

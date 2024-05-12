@@ -58,7 +58,7 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > nimi | varhcar(50) | Järjestäjän nimi
 > ytunnus | varchar(9) | Järjestävän yrityksen y-tunnus
 > osoite | varchar (100) | Järjestäjän osoite
-> postinro | int | Osoitteen oikeaan alueeseen liittävä identifioiva tunnus
+> postitoimipaikka_id | int | Osoitteen oikeaan alueeseen liittävä identifioiva tunnus, viittaus [postoimipaikka](#Postitoimipaikka)-tauluun
 > yht_hlo_id | int FK |Järjestäjän yhteyshenkilö, viittaus [yhteyshenkilo](#Yhteyshenkilo)-tauluun
 >
 >
@@ -194,6 +194,33 @@ Rajapinnan nimeämiskäytännössä käytettiin apuna GitHub-käyttäjä _jameco
 
 Tällä hetkellä käytämme Base-URL:na http://localhost:8080
 Tulevaisuudessa kun tuote etenee tuotantovaiheeseen muuttu Base-URL muotoon https://ticketguru.fi
+
+#### Endpoint Jarjestaja-luokalla on muotoa: /jarjestajat
+
+Method: `GET`
+
+- URL: "/jarjestajat". Hakee kaikki järjestelmän tapahtumajärjestäjän tiedot.
+- URL: "/jarjestajat/{id}". Hakee valitun id:n mukaisen tapahtumajärjestäjän tiedot.
+
+[Tarkempi kuvaus GET-pyynnöistä](restapidocs/jarjestajat/get.md)
+
+Method: `POST`
+
+- URL: "/jarjestajat". Luo uuden järjestäjän ja siihen liittyvät yhteyshenkilöt. Palauttaa tallennetun järjestäjän ja yhteyshenkiöiden tiedot. 
+
+[Tarkempi kuvaus POST-pyynnöistä](restapidocs/jarjestajat/post.md)
+
+Method: `PUT`
+
+- URL: "/jarjestajat/{id}". Muokkaa olemassa olevan id:n mukaisen järjestäjän tietoja. Palauttaa tallennetut järjestäjän ja yhteyshenkilöiden tiedot. 
+
+[Tarkempi kuvaus PUT-pyynnöistä](restapidocs/jarjestajat/put.md)
+
+Method: `DELETE`
+
+- URL: "/jarjestajat/{id}". Poistaa id:n mukaisen jarjestajan tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/jarjestajat/delete.md)
 
 #### Endpoint Tapahtuma-luokalla on muotoa: /tapahtumat
 
