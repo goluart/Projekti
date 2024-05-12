@@ -1,5 +1,8 @@
 package ohjelmistoprojekti.ticketguru.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -9,57 +12,101 @@ import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
 import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Postitoimipaikka;
 import ohjelmistoprojekti.ticketguru.domain.PostitoimipaikkaRepository;
+import ohjelmistoprojekti.ticketguru.domain.Yhteyshenkilo;
+import ohjelmistoprojekti.ticketguru.domain.YhteyshenkiloRepository;
 import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO;
+import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO.TallennaJarjestajaDTO;
+import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO.YhteyshenkiloYhteystiedotDTO;
 
 @Service
 public class JarjestajaService {
 
     @Autowired
-    JarjestajaRepository jarjestajaRepository;
+    private JarjestajaRepository jarjestajaRepository;
     @Autowired
-    PostitoimipaikkaRepository postitoimipaikkaRepository;
+    private PostitoimipaikkaRepository postitoimipaikkaRepository;
+    @Autowired
+    private YhteyshenkiloService yhteyshenkiloService;
+    @Autowired
+    private YhteyshenkiloRepository yhteyshenkiloRepository;
 
     public JarjestajaDTO muunnaJarjestajaDTO(Jarjestaja jarjestaja) {
 
-        JarjestajaDTO jarjestajaDTO = new JarjestajaDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi(),
+        JarjestajaDTO jarjestajaDTO;
+        List<YhteyshenkiloYhteystiedotDTO> yhteystiedot;
+
+        if (jarjestaja.getYhteyshenkilo() == null || jarjestaja.getYhteyshenkilo().isEmpty()) {
+            yhteystiedot = null;
+        } else {
+            yhteystiedot = jarjestaja.getYhteyshenkilo().stream()    
+                .map(yhteyshenkilo -> yhteyshenkiloService.yhteystiedot(yhteyshenkilo))
+                .collect(Collectors.toList());          
+        }
+
+        jarjestajaDTO = new JarjestajaDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi(),
                 jarjestaja.getYtunnus(), jarjestaja.getOsoite(), jarjestaja.getPostitoimipaikka().getPostinumero(),
                 jarjestaja.getPostitoimipaikka().getKaupunki());
+
+        jarjestajaDTO.setYhteystiedot(yhteystiedot);
+        
         return jarjestajaDTO;
     }
 
-    public JarjestajaDTO tallennaJarjestaja(JarjestajaDTO jarjestajaDTO) {
+    public JarjestajaDTO tallennaJarjestaja(TallennaJarjestajaDTO tallennaJarjestajaDTO) {
 
         Jarjestaja jarjestaja;
+        List<Yhteyshenkilo> yhteyshenkilot;
 
-        if (jarjestajaDTO.getJarjestajaId() != null) {
-            jarjestaja = jarjestajaRepository.findById(jarjestajaDTO.getJarjestajaId())
+        if (tallennaJarjestajaDTO.getJarjestajaId() != null) {
+            jarjestaja = jarjestajaRepository.findById(tallennaJarjestajaDTO.getJarjestajaId())
             .orElseGet(Jarjestaja::new);
         } else {
             jarjestaja = new Jarjestaja();
         }
 
-        if (jarjestajaDTO.getNimi() == null || jarjestajaDTO.getNimi() == "") {
+        if (tallennaJarjestajaDTO.getNimi() == null || tallennaJarjestajaDTO.getNimi() == "") {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nimi on tyhjä");
         }
 
-        jarjestaja.setNimi(jarjestajaDTO.getNimi());
-        jarjestaja.setOsoite(jarjestajaDTO.getOsoite());
-        jarjestaja.setYtunnus(jarjestajaDTO.getYtunnus());
-
-        if (postitoimipaikkaRepository.findByPostinumero(jarjestajaDTO.getPostinumero()) != null) {
+        
+        jarjestaja.setNimi(tallennaJarjestajaDTO.getNimi());
+        jarjestaja.setOsoite(tallennaJarjestajaDTO.getOsoite());
+        jarjestaja.setYtunnus(tallennaJarjestajaDTO.getYtunnus());
+        
+        if (postitoimipaikkaRepository.findByPostinumero(tallennaJarjestajaDTO.getPostinumero()) != null) {
             Postitoimipaikka postitoimipaikka = postitoimipaikkaRepository
-                    .findByPostinumero(jarjestajaDTO.getPostinumero());
+            .findByPostinumero(tallennaJarjestajaDTO.getPostinumero());
             jarjestaja.setPostitoimipaikka(postitoimipaikka);
         } else {
-            Postitoimipaikka postitoimipaikka = new Postitoimipaikka(jarjestajaDTO.getPostinumero(),
-                    jarjestajaDTO.getKaupunki());
+            Postitoimipaikka postitoimipaikka = new Postitoimipaikka(tallennaJarjestajaDTO.getPostinumero(),
+            tallennaJarjestajaDTO.getKaupunki());
             jarjestaja.setPostitoimipaikka(postitoimipaikka);
         }
-
+        
         jarjestajaRepository.save(jarjestaja);
+        
+        if (tallennaJarjestajaDTO.getYhteyshenkilot() != null && !tallennaJarjestajaDTO.getYhteyshenkilot().isEmpty()) {
+            yhteyshenkilot = tallennaJarjestajaDTO.getYhteyshenkilot().stream()
+                .map(yhteyshenkiloDTO -> {
+                    Yhteyshenkilo yhteyshenkilo = new Yhteyshenkilo(yhteyshenkiloDTO.getEtunimi(), yhteyshenkiloDTO.getSukunimi(), yhteyshenkiloDTO.getSahkoposti(), yhteyshenkiloDTO.getPuhelin(), yhteyshenkiloDTO.getLisatieto());
+                    if (yhteyshenkiloDTO.getYhtHloId() != null) {
+                        yhteyshenkilo.setYhtHloId(yhteyshenkiloDTO.getYhtHloId());
+                    }                    
+                    yhteyshenkilo.setJarjestaja(jarjestaja);
+                    return yhteyshenkilo;
+
+                })
+                .collect(Collectors.toList());
+            yhteyshenkiloRepository.saveAll(yhteyshenkilot);            
+            jarjestaja.setYhteyshenkilo(yhteyshenkilot);
+            jarjestajaRepository.save(jarjestaja);
+        }
+
+
+
 
         JarjestajaDTO jarjestajaTiedotDTO = muunnaJarjestajaDTO(jarjestaja);
-
+        
         return jarjestajaTiedotDTO;
     }
 }

@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
 import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO;
+import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO.TallennaJarjestajaDTO;
 import ohjelmistoprojekti.ticketguru.service.JarjestajaService;
 import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
 
@@ -60,31 +61,31 @@ public class JarjestajaRestController {
     // tallentaa uuden ja jo olemassa olevan tiedon tietokantaan
     @PostMapping
     @PreAuthorize("hasAuthority('hallinto')")
-    public ResponseEntity<JarjestajaDTO> tallennaPostJarjestaja(@RequestBody JarjestajaDTO jarjestajaTiedotDTO) { 
+    public ResponseEntity<JarjestajaDTO> tallennaPostJarjestaja(@RequestBody TallennaJarjestajaDTO tallennaJarjestajaDTO) { 
 
-          if (jarjestajaTiedotDTO.getJarjestajaId() != null) {
-            return jarjestajaRepository.findById(jarjestajaTiedotDTO.getJarjestajaId())
+          if (tallennaJarjestajaDTO.getJarjestajaId() != null) {
+            return jarjestajaRepository.findById(tallennaJarjestajaDTO.getJarjestajaId())
                     .map(jarjestaja ->  {
-                        JarjestajaDTO tallennettuJarjestajaDTO = jarjestajaService.tallennaJarjestaja(jarjestajaTiedotDTO);
+                        JarjestajaDTO tallennettuJarjestajaDTO = jarjestajaService.tallennaJarjestaja(tallennaJarjestajaDTO);
                         return ResponseEntity.ok(tallennettuJarjestajaDTO);
                     })
                     .orElseGet(() -> {
-                        JarjestajaDTO tallennettuJarjestajaDTO = jarjestajaService.tallennaJarjestaja(jarjestajaTiedotDTO);
+                        JarjestajaDTO tallennettuJarjestajaDTO = jarjestajaService.tallennaJarjestaja(tallennaJarjestajaDTO);
                         return ResponseEntity.status(HttpStatus.CREATED).body(tallennettuJarjestajaDTO);
                     });
         } else {
-            return ResponseEntity.status(HttpStatus.CREATED).body(jarjestajaService.tallennaJarjestaja(jarjestajaTiedotDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(jarjestajaService.tallennaJarjestaja(tallennaJarjestajaDTO));
         }          
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('hallinto')")
-    public ResponseEntity<JarjestajaDTO> muutaJarjestaja(@PathVariable("id") Long id, @RequestBody JarjestajaDTO jarjestajaDTO) {
+    public ResponseEntity<JarjestajaDTO> muutaJarjestaja(@PathVariable("id") Long id, @RequestBody TallennaJarjestajaDTO tallennaJarjestajaDTO) {
         if (!jarjestajaRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Järjestäjää " + id + " ei löytynyt");
         } 
-        jarjestajaDTO.setJarjestajaId(id);
-        JarjestajaDTO tallennettuJarjestaja = jarjestajaService.tallennaJarjestaja(jarjestajaDTO);
+        tallennaJarjestajaDTO.setJarjestajaId(id);
+        JarjestajaDTO tallennettuJarjestaja = jarjestajaService.tallennaJarjestaja(tallennaJarjestajaDTO);
         return ResponseEntity.ok(tallennettuJarjestaja);
     }
 

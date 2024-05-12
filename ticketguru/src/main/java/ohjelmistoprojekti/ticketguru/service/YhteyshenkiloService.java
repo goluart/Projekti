@@ -13,6 +13,7 @@ import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO;
 import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO.JarjestajaNimiDTO;
 import ohjelmistoprojekti.ticketguru.dto.TapahtumaDto.PaikkaDTO;
 import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO.TallennaYhteyshenkiloDTO;
+import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO.YhteyshenkiloYhteystiedotDTO;
 
 @Service
 public class YhteyshenkiloService {
@@ -76,6 +77,18 @@ public class YhteyshenkiloService {
         YhteyshenkiloDTO tallennettuYhteyshenkiloDTO  = muunnaYhteyshenkilotDTO(yhteyshenkilo);
         
         return tallennettuYhteyshenkiloDTO;
+    }
+
+    public YhteyshenkiloYhteystiedotDTO yhteystiedot(Yhteyshenkilo yhteyshenkilo) {
+
+        if (yhteyshenkiloRepository.existsById(yhteyshenkilo.getYhtHloId())) {
+
+            YhteyshenkiloYhteystiedotDTO yhteystiedot = new YhteyshenkiloYhteystiedotDTO(yhteyshenkilo.getYhtHloId(), yhteyshenkilo.getEtunimi(), yhteyshenkilo.getSukunimi(), yhteyshenkilo.getSahkoposti(), yhteyshenkilo.getPuhelin(), yhteyshenkilo.getLisatieto());
+
+            return yhteystiedot;
+        }
+
+        return null;
     }
 
 

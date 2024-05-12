@@ -1,5 +1,5 @@
-# Lisää yhteyshenkilö
-Tämä dokumentaatio kuvaa, miten yhteyshenkilo lisätään tietokantaan.
+# Lisää järjestäjä
+Tämä dokumentaatio kuvaa, miten järjestäjä lisätään tietokantaan.
 
 ## API Endpoint
 

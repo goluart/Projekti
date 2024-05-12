@@ -3,6 +3,11 @@ Tämä dokumentaatio kuvaa, miten järjestäjän tiedot haetaan.
 
 ## API Endpoint
 
+**Yksittäisen järjestäjän tiedot**
+
+**URL**: /jarjestajat/{id}
+
+**Kaikkien käyttäjien tiedot**
 
 **URL**: /jarjestajat
 

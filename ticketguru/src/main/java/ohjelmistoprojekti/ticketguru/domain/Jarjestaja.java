@@ -94,11 +94,11 @@ public class Jarjestaja {
 		this.osoite = osoite;
 	}
 
-	public List<Yhteyshenkilo> getyhteyshenkilo() {
+	public List<Yhteyshenkilo> getYhteyshenkilo() {
 		return yhteyshenkilo;
 	}
 
-	public void setyhteyshenkilo(List<Yhteyshenkilo> yhteyshenkilo) {
+	public void setYhteyshenkilo(List<Yhteyshenkilo> yhteyshenkilo) {
 		this.yhteyshenkilo = yhteyshenkilo;
 	}
 
