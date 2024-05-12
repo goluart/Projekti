@@ -69,12 +69,17 @@ public class LipputyyppiRestController {
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @PutMapping("/lipputyyppi/{id}")
-    public ResponseEntity<Lipputyyppi> updateLipputyyppi(@PathVariable Long id,
+    public ResponseEntity<?> updateLipputyyppi(@PathVariable Long id,
             @RequestBody Lipputyyppi updatedLipputyyppi) {
-        updatedLipputyyppi.setLipputyyppiId(id);
-        Lipputyyppi savedLipputyyppi = lipputyyppiRepository.save(updatedLipputyyppi);
-        return ResponseEntity.ok(savedLipputyyppi);
+        try {
+            updatedLipputyyppi.setLipputyyppiId(id);
+            Lipputyyppi savedLipputyyppi = lipputyyppiRepository.save(updatedLipputyyppi);
+            return ResponseEntity.ok(savedLipputyyppi);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pyynnön sisältö on virheellinen", e);
+        }
     }
+    
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @DeleteMapping("/lipputyyppi/{id}")
