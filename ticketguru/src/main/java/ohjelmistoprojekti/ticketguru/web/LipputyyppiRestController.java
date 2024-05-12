@@ -53,6 +53,7 @@ public class LipputyyppiRestController {
         return ResponseEntity.ok(lipputyyppiDto);
     }
 
+    @PreAuthorize("hasAnyAuthority('hallinto')")
     @PostMapping("/lipputyyppi")
     public ResponseEntity<Lipputyyppi> createLipputyyppi(@RequestBody Lipputyyppi lipputyyppi) {
         Long asiakasryhmaId = lipputyyppi.getAsiakasryhma().getId();
