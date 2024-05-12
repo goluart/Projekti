@@ -2,7 +2,13 @@
 Tämä dokumentaatio kuvaa, miten lipputyyppien tiedot haetaan.
 
 ## API Endpoint
+Hae lipputyyppi tai lipputyypit.
 
+**Yksittäisen lipputyypin tiedot**
+
+**URL**: /lipputyyppi/{id}
+
+**Kaikkien lipputyyppien tiedot**
 
 **URL**: /lipputyyppi
 
@@ -17,11 +23,21 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL:n avulla.
 
 ## Onnistunut Vastaus
 
-**Ehto**: 
+**Ehto**: Kaikki lipputyypit löytyvät tai vaihtoehtoisesti yksi id:n mukainen lipputyyppi löytyy.
 
 **Koodi**: `200 OK`
 
-**Sisällön esimerkki**
+**Sisällön esimerkki /lipputyyppi/{id}**
+```json
+{
+    "lipputyyppiId": 1,
+    "lipputyyppiNimi": "Aikuinen",
+    "asiakasryhma": "Aikuinen",
+    "hintakerroin": 0.5
+}
+```
+
+**Sisällön esimerkki /lipputyyppi**
 ```json
 [
     {
@@ -44,6 +60,27 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL:n avulla.
     }
 ]
 ```
+## Virhevastaukset
 
+**Ehto**: Jos autentikointi on virheellinen
 
-## Huomautukset
+**Koodi**: `401 Unauthorized`
+
+**Sisältö**: 
+
+## Tai 
+
+**Ehto**: Jos järjestelmä on tyhjä tai annetulla id:llä ei löydy käyttäjää.
+
+**Koodi**: `404 Not Found`
+
+**Sisältö**:
+```json
+{
+    "timestamp": "2024-05-12T11:14:42.202+00:00",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Lipputyyppiä 6 ei löytynyt.",
+    "path": "/lipputyyppi/6"
+}
+```
