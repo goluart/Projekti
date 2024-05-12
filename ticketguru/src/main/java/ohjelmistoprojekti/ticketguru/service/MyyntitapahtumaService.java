@@ -32,7 +32,6 @@ public class MyyntitapahtumaService {
     @Autowired private LippuRepository lippuRepository;
     @Autowired private MyyntitapahtumaRepository myyntitapahtumaRepository;
 
-    // @SuppressWarnings("null")
     @Transactional
     public MyyntitapahtumaDTO luoMyyntitapahtuma(LuoMyyntitapahtumaDTO lmDto) {
 
@@ -92,6 +91,7 @@ public class MyyntitapahtumaService {
 
     }
 
+    // Muuntaa liput DTO-muotoon
     private List<MyyntitapahtumaDTO.LippuDto> muunnaLiputDto(List<Lippu> liput) {
 
         return liput.stream().map(lippu -> new MyyntitapahtumaDTO.LippuDto(
@@ -105,6 +105,7 @@ public class MyyntitapahtumaService {
         ).collect(Collectors.toList());
     }
 
+    // Tarkistetaan ennen myyntitapahtuman poistamista, onko lippuja käytetty
     public Boolean kaytettyjaLippuja(Myyntitapahtuma myyntitapahtuma) {
 
         Boolean kaytettyjaLippuja = myyntitapahtuma.getLiput().stream()

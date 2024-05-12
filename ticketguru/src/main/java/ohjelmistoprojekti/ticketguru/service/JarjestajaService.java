@@ -27,11 +27,14 @@ public class JarjestajaService {
     @Autowired
     private YhteyshenkiloRepository yhteyshenkiloRepository;
 
+    // Muunnetaan jarjestaja-objekti DTO-malliksi
     public JarjestajaDTO muunnaJarjestajaDTO(Jarjestaja jarjestaja) {
 
+        // alustetaan objektit/oliot
         JarjestajaDTO jarjestajaDTO;
         List<YhteyshenkiloYhteystiedotDTO> yhteystiedot;
 
+        // Tarkistetaan, löytyykö järjestäjän tiedoista yhteyshenkilöitä, jos löytyy haetaan ne yhteystiedot-listaan
         if (jarjestaja.getYhteyshenkilo() == null || jarjestaja.getYhteyshenkilo().isEmpty()) {
             yhteystiedot = null;
         } else {
@@ -40,10 +43,12 @@ public class JarjestajaService {
                 .collect(Collectors.toList());          
         }
 
+        // Muunnetaan objekti DTO-malliksi
         jarjestajaDTO = new JarjestajaDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi(),
                 jarjestaja.getYtunnus(), jarjestaja.getOsoite(), jarjestaja.getPostitoimipaikka().getPostinumero(),
                 jarjestaja.getPostitoimipaikka().getKaupunki());
 
+        // Lisätään malliin yhteyshenkilöt
         jarjestajaDTO.setYhteyshenkilot(yhteystiedot);
         
         return jarjestajaDTO;
@@ -51,9 +56,11 @@ public class JarjestajaService {
 
     public JarjestajaDTO tallennaJarjestaja(TallennaJarjestajaDTO tallennaJarjestajaDTO) {
 
+        // Alustetaan objektit
         Jarjestaja jarjestaja;
         List<Yhteyshenkilo> yhteyshenkilot;
 
+        // Tarkistetaan, onko jarjestaja jo olemassa
         if (tallennaJarjestajaDTO.getJarjestajaId() != null) {
             jarjestaja = jarjestajaRepository.findById(tallennaJarjestajaDTO.getJarjestajaId())
             .orElseGet(Jarjestaja::new);
@@ -61,10 +68,12 @@ public class JarjestajaService {
             jarjestaja = new Jarjestaja();
         }
 
+        // Muutetaan jarjestajan tiedot 
         jarjestaja.setNimi(tallennaJarjestajaDTO.getNimi());
         jarjestaja.setOsoite(tallennaJarjestajaDTO.getOsoite());
         jarjestaja.setYtunnus(tallennaJarjestajaDTO.getYtunnus());
         
+        // Tarkistetaan postitoimipaikka. Jos postitoimipaikkaa ei ole olemassa lisätään se ensin rekisteriin.
         if (postitoimipaikkaRepository.findByPostinumero(tallennaJarjestajaDTO.getPostinumero()) != null) {
             Postitoimipaikka postitoimipaikka = postitoimipaikkaRepository
             .findByPostinumero(tallennaJarjestajaDTO.getPostinumero());
@@ -77,10 +86,12 @@ public class JarjestajaService {
         
         jarjestajaRepository.save(jarjestaja);
         
+        // Jos yhteyshenkilölista on muu kuin tyhjä, haetaan tiedot ja tallennetaan ne yhteyshenkilot-listaan
         if (tallennaJarjestajaDTO.getYhteyshenkilot() != null && !tallennaJarjestajaDTO.getYhteyshenkilot().isEmpty()) {
             yhteyshenkilot = tallennaJarjestajaDTO.getYhteyshenkilot().stream()
                 .map(yhteyshenkiloDTO -> {
                     Yhteyshenkilo yhteyshenkilo = new Yhteyshenkilo(yhteyshenkiloDTO.getEtunimi(), yhteyshenkiloDTO.getSukunimi(), yhteyshenkiloDTO.getSahkoposti(), yhteyshenkiloDTO.getPuhelin(), yhteyshenkiloDTO.getLisatieto());
+                    // tarkistetaan, onko yhteyshenkilo jo olemassa, jos on, päivitetään olemassa olevan henkilon tiedot
                     if (yhteyshenkiloDTO.getYhtHloId() != null) {
                         yhteyshenkilo.setYhtHloId(yhteyshenkiloDTO.getYhtHloId());
                     }                    
@@ -89,7 +100,9 @@ public class JarjestajaService {
 
                 })
                 .collect(Collectors.toList());
-            yhteyshenkiloRepository.saveAll(yhteyshenkilot);            
+            // Tallennetaan kaikki listan yhteyshenkilot tietokantaan
+            yhteyshenkiloRepository.saveAll(yhteyshenkilot); 
+            // Lisätään vielä tallennetut yhteyshenkilot järjestäjän tietoihin ja tallennetaan järjestäjä uudestaan           
             jarjestaja.setYhteyshenkilo(yhteyshenkilot);
             jarjestajaRepository.save(jarjestaja);
         }

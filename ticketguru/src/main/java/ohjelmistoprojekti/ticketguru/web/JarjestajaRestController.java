@@ -42,8 +42,7 @@ public class JarjestajaRestController {
         List<JarjestajaDTO> jarjestajatDTO = jarjestajaRepository.findAll().stream()
             .map(jarjestaja -> jarjestajaService.muunnaJarjestajaDTO(jarjestaja))
             .collect(Collectors.toList());
-        return ResponseEntity.ok(jarjestajatDTO);
-        
+        return ResponseEntity.ok(jarjestajatDTO);        
     }
 
     @GetMapping("/{id}")
@@ -58,8 +57,7 @@ public class JarjestajaRestController {
         return ResponseEntity.ok(jarjestajaDTO);
     }
 
-
-    // tallentaa uuden ja jo olemassa olevan tiedon tietokantaan
+    // Käytetään uuden järjestäjän tallentamiseen, mutta jos jarjestajaId on annettu, päivittää tiedon
     @PostMapping
     @PreAuthorize("hasAuthority('hallinto')")
     public ResponseEntity<JarjestajaDTO> tallennaPostJarjestaja(@RequestBody @Valid TallennaJarjestajaDTO tallennaJarjestajaDTO) { 
@@ -90,8 +88,6 @@ public class JarjestajaRestController {
         return ResponseEntity.ok(tallennettuJarjestaja);
     }
 
-
-    // Yhteyshenkilön voi poistaa, vaikka se olisi kiinnitettynä Järjestäjä tai Tapahtumapaikka -entiteetteihin
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('hallinto')")
     public ResponseEntity<?> deleteJarjestaja(@PathVariable("id") Long id) {
