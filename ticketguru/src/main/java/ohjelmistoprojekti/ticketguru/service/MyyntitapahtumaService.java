@@ -43,7 +43,7 @@ public class MyyntitapahtumaService {
             .mapToInt(LuoMyyntitapahtumaDTO.LippuTyyppiMaaraDTO::getLippuMaara)
             .sum();            
 
-        // Tarkistetaan, onko riittävästi lippuja jäljellä haluttu määrä
+        // Tarkistetaan, onko lippuja jäljellä haluttu määrä
             if (tapahtuma.getLippujaJaljella() < lippujaYht) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lippujen määrä ylittää jäljellä olevien lippujen määrän (" + tapahtuma.getLippujaJaljella() +")");
             }

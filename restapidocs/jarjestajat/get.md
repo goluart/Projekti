@@ -7,7 +7,7 @@ Tämä dokumentaatio kuvaa, miten järjestäjän tiedot haetaan.
 
 **URL**: /jarjestajat/{id}
 
-**Kaikkien käyttäjien tiedot**
+**Kaikkien järjestäjien tiedot**
 
 **URL**: /jarjestajat
 

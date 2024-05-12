@@ -58,7 +58,7 @@ public class JarjestajaService {
 
         // Alustetaan objektit
         Jarjestaja jarjestaja;
-        List<Yhteyshenkilo> yhteyshenkilot;
+        List<Yhteyshenkilo> yhteyshenkilot = null;
 
         // Tarkistetaan, onko jarjestaja jo olemassa
         if (tallennaJarjestajaDTO.getJarjestajaId() != null) {
@@ -91,21 +91,20 @@ public class JarjestajaService {
             yhteyshenkilot = tallennaJarjestajaDTO.getYhteyshenkilot().stream()
                 .map(yhteyshenkiloDTO -> {
                     Yhteyshenkilo yhteyshenkilo = new Yhteyshenkilo(yhteyshenkiloDTO.getEtunimi(), yhteyshenkiloDTO.getSukunimi(), yhteyshenkiloDTO.getSahkoposti(), yhteyshenkiloDTO.getPuhelin(), yhteyshenkiloDTO.getLisatieto());
-                    // tarkistetaan, onko yhteyshenkilo jo olemassa, jos on, päivitetään olemassa olevan henkilon tiedot
-                    if (yhteyshenkiloDTO.getYhtHloId() != null) {
+                    if (yhteyshenkiloDTO.getYhtHloId() != null && yhteyshenkiloRepository.existsById(yhteyshenkiloDTO.getYhtHloId())) {
                         yhteyshenkilo.setYhtHloId(yhteyshenkiloDTO.getYhtHloId());
                     }                    
+                    // tarkistetaan, onko yhteyshenkilo jo olemassa, jos on, päivitetään olemassa olevan henkilon tiedot
                     yhteyshenkilo.setJarjestaja(jarjestaja);
                     return yhteyshenkilo;
-
                 })
                 .collect(Collectors.toList());
             // Tallennetaan kaikki listan yhteyshenkilot tietokantaan
             yhteyshenkiloRepository.saveAll(yhteyshenkilot); 
             // Lisätään vielä tallennetut yhteyshenkilot järjestäjän tietoihin ja tallennetaan järjestäjä uudestaan           
-            jarjestaja.setYhteyshenkilo(yhteyshenkilot);
-            jarjestajaRepository.save(jarjestaja);
-        }
+        } 
+        jarjestaja.setYhteyshenkilo(yhteyshenkilot);
+        jarjestajaRepository.save(jarjestaja);
 
         JarjestajaDTO jarjestajaTiedotDTO = muunnaJarjestajaDTO(jarjestaja);
         

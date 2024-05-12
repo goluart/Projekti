@@ -134,11 +134,13 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > yht_hlo_id | int PK | Yhteyshenkilön yksilöivä tunniste
-> snimi | varchar (50) | Yhteyshenkilön sukunimi
-> enimi | varchar (20) | Yhteyshenkilön etunimi
-> sposti | varchar (100) | Yhteyshenkilön sähköpostiosoite
+> sukunimi | varchar (50) | Yhteyshenkilön sukunimi
+> etunimi | varchar (20) | Yhteyshenkilön etunimi
+> sahkoposti | varchar (100) | Yhteyshenkilön sähköpostiosoite
 > puhelin | varchar (20) | Yhteyshenkilön puhelinnumero
 > lisatieto | varchar (700) | Yleisiä muistiinpanoja liittyen yhteyshenkilöön
+> jarjestaja_id | int FK | Tapahtuman järjestäjä, viittaus [jarjestaja](#Jarjestaja)-tauluun
+> tapaikka_id | int FK | Tapahtuman järjestämispaikka, viittaus [tapahtumapaikka](#Tapahtumapaikka)-tauluun
 >
 >
 >### _Lippu_
@@ -199,7 +201,7 @@ Tulevaisuudessa kun tuote etenee tuotantovaiheeseen muuttu Base-URL muotoon http
 
 Method: `GET`
 
-- URL: "/jarjestajat". Hakee kaikki järjestelmän tapahtumajärjestäjän tiedot.
+- URL: "/jarjestajat". Hakee kaikki järjestelmän tapahtumajärjestäjät.
 - URL: "/jarjestajat/{id}". Hakee valitun id:n mukaisen tapahtumajärjestäjän tiedot.
 
 [Tarkempi kuvaus GET-pyynnöistä](restapidocs/jarjestajat/get.md)
@@ -317,6 +319,33 @@ Method: `DELETE`
  - URL: "/roolit/{id}". Poistaa id:n mukaisen roolin tiedot pysyvästi.
 
 [Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/roolit/delete.md)
+
+#### Endpoint Yhteyshenkilo-luokalla on muotoa: /yhteyshenkilot
+
+Method: `GET`
+
+- URL: "/yhteyshenkilot". Hakee kaikki järjestelmän yhteyshenkilöt.
+- URL: "/yhteyshenkilot/{id}". Hakee valitun id:n mukaisen yhteyshenkilön tiedot.
+
+[Tarkempi kuvaus GET-pyynnöistä](restapidocs/yhteyshenkilot/get.md)
+
+Method: `POST`
+
+- URL: "/yhteyshenkilot". Luo uuden yhteyshenkilön ja liittää sen tapahtumapaikan tai järjestäjän yhteyshenkilöksi. Palauttaa tallennetun yhteyshenkilön tiedot. 
+
+[Tarkempi kuvaus POST-pyynnöistä](restapidocs/yhteyshenkilot/post.md)
+
+Method: `PUT`
+
+- URL: "/yhteyshenkilot/{id}". Muokkaa olemassa olevan id:n mukaisen yhteyshenkilön tietoja. Palauttaa tallennetun yhteyshenkilön tiedot. 
+
+[Tarkempi kuvaus PUT-pyynnöistä](restapidocs/yhteyshenkilot/put.md)
+
+Method: `DELETE`
+
+- URL: "/yhteyshenkilot/{id}". Poistaa id:n mukaisen yhteyshenkilön tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/yhteyshenkilot/delete.md)
 
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
 ratkaisut, esim.

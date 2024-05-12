@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -18,28 +19,30 @@ public class Yhteyshenkilo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "yht_hlo_id")
 	private Long yhtHloId;
-	@NotEmpty(message = "Anna etunimesi")
+	@Size(max = 20, message = "Etunimi voi olla 20 merkkiä pitkä")
+	@NotEmpty(message = "Anna etunimi")
 	private String etunimi;
-	@NotEmpty(message = "Anna sukunimesi")
+	@Size(max = 50, message = "Sukunimi voi olla 50 merkkiä pitkä")
+	@NotEmpty(message = "Anna sukunimi")
 	private String sukunimi;
-	@NotEmpty(message = "Anna sähköpostiosoitteesi")
+	@Size(max = 100, message = "Sähköposti voi olla 100 merkkiä pitkä")
+	@Email(message = "Tarkista sähköpostiosoitten muoto")
+	@NotEmpty(message = "Anna sähköpostiosoite")
 	private String sahkoposti;
+	@Size(max = 20, message = "Puhelinnumero voi olla 20 merkkiä pitkä")
 	@NotEmpty(message = "Anna puhelinnumero")
-	@Pattern(regexp = "[0-9]+", message = "Anna numero ilman välilyöntejä tai erikoismerkkejä")
+	@Pattern(regexp = "^\\+?[0-9]+$", message = "Anna puehlinnumero muodossa +358401234567 tai 0401234567")
 	private String puhelin;
-	@Size(max = 700, message = "Suurin sallittu merkkimäärä on 700")
+	@Size(max = 700, message = "Lisätiedon suurin sallittu merkkimäärä on 700")
 	private String lisatieto;
-
+	
+	// Liittyy luokkiin Tapahtumapaikka ja Jarjestaja
 	@ManyToOne
 	@JoinColumn(name = "jarjestaja_id")
 	private Jarjestaja jarjestaja;
-
 	@ManyToOne
 	@JoinColumn(name = "tapaikka_id")
 	private Tapahtumapaikka tapahtumapaikka;
-
-	// Myöhemmin Yhteyshenkilo OneToMany Tapahtumapaikka
-	// Liittyy luokkiin Tapahtumapaikka ja Jarjestaja
 
 	public Yhteyshenkilo() {
 		super();

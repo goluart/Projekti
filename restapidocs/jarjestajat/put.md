@@ -1,4 +1,4 @@
-# Muokkaa käyttäjän tietoja
+# Muokkaa järjestäjän tietoja
 Tämä dokumentaatio kuvaa, miten olemassa olevan järjestäjän tietoja voi muokata.
 
 ## API Endpoint
@@ -15,7 +15,15 @@ Muokkaa olemassa olevaa järjestäjää.
 **Käyttäjärooli**: `hallinto`
 
 ## Pyyntö
-Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-polun avulla.
+```json
+{
+    "nimi": "Yritys tmi",
+    "ytunnus": "3234567-8",
+    "osoite": "Fredrikinkatu 15",
+    "postinumero": "00600",
+    "kaupunki": "Helsinki"
+}
+```
 
 ## Onnistunut vastaus
 
@@ -25,18 +33,23 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-polun avulla.
 
 **Sisällön esimerkki**
 ```json
-    {
-    "hloId": 5,
-    "tunnus": "maija123",
-    "salasana": "hyvasalasana",
-    "snimi": "Myyjänen",
-    "enimi": "Maija",
-    "lisatiedot": "Myyntialue",
-    "rooli": 
-    {
-        "rooliId": 1,
-        "rooliNimi": "myyja"
-    }
+ {
+    "jarjestajaId": 2,
+    "nimi": "Yritys tmi",
+    "ytunnus": "3234567-8",
+    "osoite": "Fredrikinkatu 15",
+    "postinumero": "00600",
+    "kaupunki": "Helsinki",
+    "yhteyshenkilot": [
+        {
+            "yhtHloId": 2,
+            "etunimi": "Liisa",
+            "sukunimi": "Laaksonen",
+            "sahkoposti": "liisa@example.com",
+            "puhelin": "0501234567",
+            "lisatieto": "Tuotantopäällikkö"
+        }
+    ]
 }
 ```
 ## Virhevastaukset
@@ -94,5 +107,5 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-polun avulla.
 ```
 
 ## Huomautukset
-Yhteyshenkilöiden lisääminen ei ole pakollista.
+Yhteyshenkilöiden lisääminen ei ole pakollista. Jos yhteyshenkilön tiedot jätetään pois, poistetaan mahdollisen yhteyshenkilön linkitys järjestäjään. Jos yhteyshenkilot lisätään, kaikki pyynnön yhteyshenkilo-parametrit ovat pakollisia, paitsi yhtHloId. Jos yhtHloId puuttuu, luodaan uusi yhteyshenkilo, muussa tapauksessa päivitetään olemassa olevan yhteyshenkilön tietoja.
 

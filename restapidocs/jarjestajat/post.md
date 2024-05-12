@@ -122,4 +122,5 @@ Tämä dokumentaatio kuvaa, miten järjestäjä lisätään tietokantaan.
 ```
 
 ## Huomautukset
-Yhteyshenkilöiden lisääminen ei ole pakollista.
+Jos pyyntöön liitetään `jajrestajaId`, uutta järjestäjää ei tallenneta vaan päivitetään tieto id:n mukaisesti. 
+Yhteyshenkilöiden lisääminen ei ole pakollista. 

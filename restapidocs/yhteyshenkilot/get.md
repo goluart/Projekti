@@ -3,8 +3,15 @@ Tämä dokumentaatio kuvaa, miten yhteyshenkilon tiedot haetaan.
 
 ## API Endpoint
 
+**Yksittäisen yhteyshenkilön tiedot**
+
+**URL**: /yhteyshenkilot/{id}
+
+**Kaikkien yhteyshenkilöiden tiedot**
 
 **URL**: /yhteyshenkilot
+
+**URL-polku**: {id} = yhtHloId = [integer], missä yhtHloId on palvelimella olevan yhteyshenkilön generoitu yksilöllinen tunniste.
 
 **Metodi**: `GET`
 
@@ -23,52 +30,65 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL:n avulla.
 
 **Sisällön esimerkki**
 ```json
+{
+    "yhtHloId": 2,
+    "etunimi": "Liisa",
+    "sukunimi": "Laaksonen",
+    "sahkoposti": "liisa@example.com",
+    "puhelin": "0501234567",
+    "lisatieto": "Tuotantopäällikkö",
+    "jarjestaja": {
+        "jarjestajaId": 2,
+        "jarjestajaNimi": "Festivaali Oy"
+    },
+    "tapahtumapaikka": null
+}
+```
+
+```json
 [
     {
-        "jarjestajaId": 1,
-        "nimi": "Musiikki Oy",
-        "ytunnus": "1234567-8",
-        "osoite": "Mannerheimintie 13",
-        "postinumero": "00100",
-        "kaupunki": "Helsinki",
-        "yhteystiedot": [
-            {
-                "yhtHloId": 1,
-                "etunimi": "Matti",
-                "sukunimi": "Meikäläinen",
-                "sahkoposti": "matti@example.com",
-                "puhelin": "0401234567",
-                "lisatieto": "Markkinointipäällikkö"
-            }
-        ]
+        "yhtHloId": 1,
+        "etunimi": "Matti",
+        "sukunimi": "Meikäläinen",
+        "sahkoposti": "matti@example.com",
+        "puhelin": "0401234567",
+        "lisatieto": "Markkinointipäällikkö",
+        "jarjestaja": {
+            "jarjestajaId": 1,
+            "jarjestajaNimi": "Musiikki Oy"
+        },
+        "tapahtumapaikka": null
     },
     {
-        "jarjestajaId": 2,
-        "nimi": "Festivaali Oy",
-        "ytunnus": "2234567-8",
-        "osoite": "Bulevardi 14",
-        "postinumero": "00100",
-        "kaupunki": "Helsinki",
-        "yhteystiedot": [
-            {
-                "yhtHloId": 2,
-                "etunimi": "Liisa",
-                "sukunimi": "Laaksonen",
-                "sahkoposti": "liisa@example.com",
-                "puhelin": "0501234567",
-                "lisatieto": "Tuotantopäällikkö"
-            }
-        ]
+        "yhtHloId": 2,
+        "etunimi": "Liisa",
+        "sukunimi": "Laaksonen",
+        "sahkoposti": "liisa@example.com",
+        "puhelin": "0501234567",
+        "lisatieto": "Tuotantopäällikkö",
+        "jarjestaja": {
+            "jarjestajaId": 2,
+            "jarjestajaNimi": "Festivaali Oy"
+        },
+        "tapahtumapaikka": null
     },
     {
-        "jarjestajaId": 3,
-        "nimi": "Konsertti Oy",
-        "ytunnus": "3234567-8",
-        "osoite": "Fredrikinkatu 15",
-        "postinumero": "00600",
-        "kaupunki": "Helsinki",
-        "yhteystiedot": null
+        "yhtHloId": 3,
+        "etunimi": "Jukka",
+        "sukunimi": "Järvinen",
+        "sahkoposti": "jukka@example.com",
+        "puhelin": "0451234567",
+        "lisatieto": "Tapahtumakoordinaattori",
+        "jarjestaja": null,
+        "tapahtumapaikka": {
+            "tapahtumapaikkaId": 3,
+            "tapahtumapaikkaNimi": "Linnanmäki",
+            "tapahtumapaikkaOsoite": "Tivolikuja 1, Helsinki",
+            "tapahtumapaikkaKaupunki": "Helsinki"
+        }
     }
 ]
 ```
 ## Huomautukset
+Yhteyshenkilo voi olla liitettynä (tapahtuma)järjestäjään tai tapahtumapaikkaan. 
