@@ -79,12 +79,14 @@ public class LipputyyppiRestController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pyynnön sisältö on virheellinen", e);
         }
     }
-    
 
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @DeleteMapping("/lipputyyppi/{id}")
-    public ResponseEntity<Void> deleteLipputyyppi(@PathVariable Long id) {
+    public ResponseEntity<?> poistaLipputyyppi(@PathVariable("id") Long id) {
+        if (!lipputyyppiRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lipputyyppiä " + id + " ei löytynt");
+        }
         lipputyyppiRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }
