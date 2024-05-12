@@ -1,6 +1,5 @@
 package ohjelmistoprojekti.ticketguru.service;
 
-import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
