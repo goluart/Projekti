@@ -266,6 +266,12 @@ Method: `POST`
 
 [Tarkempi kuvaus POST-pyynnöstä](restapidocs/myynitapahtumat/post.md)
 
+Method: `DELETE`
+
+- URL: "/myyntitapahtumat/{id}". Poistaa  myyntitapahtuman, jos lippuja ei ole käytetty. 
+
+[Tarkempi kuvaus DELETE-pyynnöstä](restapidocs/myynitapahtumat/delete.md)
+
 #### Endpoint Kayttaja-luokalla on muotoa: /kayttajat
 
 Method: `GET`

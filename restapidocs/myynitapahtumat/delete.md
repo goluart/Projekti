@@ -1,5 +1,5 @@
-# Poista järjestäjä
-Tämä dokumentaatio kuvaa, miten järjestäjän tiedot poistetaan tietokannasta.
+# Poista myyntitapahtuma
+Tämä dokumentaatio kuvaa, miten myyntitapahtuman tiedot poistetaan tietokannasta.
 
 ## API Endpoint
 
@@ -11,7 +11,7 @@ Tämä dokumentaatio kuvaa, miten järjestäjän tiedot poistetaan tietokannasta
 
 **Käyttäjäroolit**: `hallinto`, `myyja`
 
-**URL-parametrit**: id=[integer], missä `id` on palvelimella olevan myyntitapahtuman yksilöllinen tunniste.
+**URL-parametrit**: {id}= myyntitapahtumaId = [integer], missä `id` on palvelimella olevan myyntitapahtuman yksilöllinen tunniste.
 
 ### Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
