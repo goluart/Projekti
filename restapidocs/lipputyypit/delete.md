@@ -19,7 +19,7 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-polun avulla.
 
 ## Onnistunut vastaus
 
-**Ehto**: Jos käyttäjä on poistettu onnistuneesti, eikä sitä löydy enää listauksesta.
+**Ehto**: Jos lipputyyppi on poistettu onnistuneesti, eikä sitä löydy enää listauksesta.
 
 **Koodi**: `200 OK`
 

@@ -24,7 +24,7 @@ public class LippuRestController {
     private TarkastusService tarkastusService;
 
     // Hakee kaikki liput
-    @PreAuthorize("hasAnyAuthority('lipuntarkastaja','myyja')")
+    @PreAuthorize("hasAnyAuthority('lipuntarkastaja', 'myyja', 'hallinto')")
     @GetMapping("/lippu")
     public ResponseEntity<List<LippuDto>> getAllTickets() {
         List<Lippu> allTickets = lippuRepository.findAll();
@@ -39,7 +39,7 @@ public class LippuRestController {
     }
 
     // Hakee lipun ID:n perusteella
-    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
+    @PreAuthorize("hasAnyAuthority('lipuntarkastaja', 'myyja', 'hallinto')")
     @GetMapping("/lippu/{id}")
     public ResponseEntity<LippuDto> getTicketById(@PathVariable Long id) {
         Lippu lippu = lippuRepository.findById(id)
@@ -68,9 +68,12 @@ public class LippuRestController {
     // Poistaa lipun
     @PreAuthorize("hasAnyAuthority('hallinto')")
     @DeleteMapping("/lippu/{id}")
-    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
+    public ResponseEntity<?> poistaLippu(@PathVariable("id") Long id) {
+        if (!lippuRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lippua " + id + " ei löytynt");
+        }
         lippuRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     // Tarkistetaan lippu tarkistuskoodilla

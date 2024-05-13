@@ -353,35 +353,63 @@ Method: `DELETE`
 
 [Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/yhteyshenkilot/delete.md)
 
-Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
-ratkaisut, esim.
+#### Endpoint Lippu-luokalla on muotoa: /lippu
 
--   Missä mikäkin järjestelmän komponentti ajetaan (tietokone, palvelinohjelma)
-    ja komponenttien väliset yhteydet (vaikkapa tähän tyyliin:
-    https://security.ufl.edu/it-workers/risk-assessment/creating-an-information-systemdata-flow-diagram/)
--   Palvelintoteutuksen yleiskuvaus: teknologiat, deployment-ratkaisut yms.
--   Keskeisten rajapintojen kuvaukset, esimerkit REST-rajapinta. Tarvittaessa voidaan rajapinnan käyttöä täsmentää
-    UML-sekvenssikaavioilla.
--   Toteutuksen yleisiä ratkaisuja, esim. turvallisuus.
+Method: `GET`
 
-Tämän lisäksi
+- URL: "/lippu". Hakee kaikki järjestelmän liput.
+- URL: "/lippu/{id}". Hakee valitun id:n mukaisen lipun tiedot.
+- URL: "/liput?tarkistuskoodi=TARKISTUSKOODI". Tarkistetaan lippu tarkistuskoodilla
 
--   ohjelmakoodin tulee olla kommentoitua
--   luokkien, metodien ja muuttujien tulee olla kuvaavasti nimettyjä ja noudattaa
-    johdonmukaisia nimeämiskäytäntöjä
--   ohjelmiston pitää olla organisoitu komponentteihin niin, että turhalta toistolta
-    vältytään
+[Tarkempi kuvaus GET-pyynnöistä,](restapidocs/liput/get.md)
+[ GET-Tarkistuskoodi](restapidocs/liput/getTarkistuskoodi.md)
+
+Method: `POST`
+
+- URL: "/lippu". Luo uuden lipun ja liittää sen tapahtumaan. Palauttaa tallennetun lipun tiedot.
+
+[Tarkempi kuvaus POST-pyynnöistä,](restapidocs/liput/post.md)
+
+Method: `DELETE`
+
+- URL: "/lippu/{id}". Poistaa id:n mukaisen lipun tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/liput/delete.md)
+
+#### Endpoint Lipputyyppi-luokalla on muotoa: /lipputyyppi
+
+Method: `GET`
+
+- URL: "/lipputyyppi". Hakee kaikki järjestelmän lipputyypit.
+- URL: "/lipputyyppi/{id}". Hakee valitun id:n mukaisen lipputyypin tiedot.
+
+[Tarkempi kuvaus GET-pyynnöistä,](restapidocs/lipputyypit/get.md)
+
+Method: `POST`
+
+- URL: "/lipputyyppi". Luo uuden lipputyypin ja palauttaa tallennetun lipputyypin tiedot.
+
+[Tarkempi kuvaus POST-pyynnöistä,](restapidocs/lipputyypit/post.md)
+
+Method: `PUT`
+
+- URL: "/lipputyyppi/{id}". Hakee lipputyypin id:n perusteella ja tallentaa tehdyt muutokset. Palauttaa muokatun lipputyypin.
+
+[Tarkempi kuvaus PUT-pyynnöistä,](restapidocs/lipputyypit/put.md)
+
+Method: `DELETE`
+
+- URL: "/lipputyyppi/{id}". Poistaa id:n mukaisen lipputyypin tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/lipputyypit/delete.md)
 
 ## Testaus
 
-Tässä kohdin selvitetään, miten ohjelmiston oikea toiminta varmistetaan
-testaamalla projektin aikana: millaisia testauksia tehdään ja missä vaiheessa.
-Testauksen tarkemmat sisällöt ja testisuoritusten tulosten raportit kirjataan
-erillisiin dokumentteihin.
-
-Tänne kirjataan myös lopuksi järjestelmän tunnetut ongelmat, joita ei ole korjattu.
+Ohjelmistolle on tehty yksikkötestejä sekä integraatiotestejä Junitilla. Ohjelmisto on testattu myös Robot Frameworkilla, jolla tehtiin End-to-End-testausta. Tarkempi kuvaus testeistä, testisuunnitelmista ja -tulokista löytyy Testidokumentaatiosta.
 
 [Testausdokumentti](restapidocs/testit/ticketguru_testit.md)
+
+Järjestelmässä on tällä hetkellä yksi ongelma, jota ei ole korjattu. Back-endiin kirjauduttaessa ohjelma ei siirrä käyttäjää suoraan sisäänkirjauksesta eteenpäin, vaan jää kirjautumissivulle White Label -tilaan.
 
 ## Asennustiedot
 
@@ -397,11 +425,56 @@ Asennusohjeesta tulisi ainakin käydä ilmi, miten käytettävä tietokanta ja
 käyttäjät tulee ohjelmistoa asentaessa määritellä (käytettävä tietokanta,
 käyttäjätunnus, salasana, tietokannan luonti yms.).
 
+**Järjestelmän kehitysympäristön siirtäminen toiselle koneelle:**
+
+-   Ohjelmointiympäristön asentaminen (esim. Visual Studio Code tai Eclipse)
+-   MariaDB:n asentaminen valitulle serverille. Halutessaan voi käyttää myös väliaikaista H2-tietokantaa, jonne ei tallennu pysyvästi mitään tietoa. H2 soveltuu paikalliseen kehitykseen projektin alkuvaiheessa.
+-   GitHub-repositorion kloonaaminen osoitteesta https://github.com/goluart/Projekti/tree/main
+-   Varmista, että kehitysympäristössä on käytössä Java-17. Uudemmat versiot saattavat myös toimia, mutta tästä ei ole takeita.
+-   Kehitysympäristössä on käytetty Spring Bootin versiota 3.2.3. Kuten edellä uudemmat versiot voivat myös toimia, mutta tästä ei ole takeita.
+-   Jos käytössä on pysyvä tietokanta, varmista, että tietokanta on käynnissä. Käynnistä myös Spring Boot sovellus ohjelmointiympäristöstä. H2-tietokantaa käytettäessä, täytyy pitää huoli, että projektiin on asennettu oikeat riippuvuudet pom.xml-tiedostoon, sekä oikeat asetukset dokumentaatiosta löytyvään application.properties -tiedostoon.
+
+**Järjestelmän siirtäminen tuotantoympäristöön**
+
+-   Pysyvän tietokantapalvelun julkaisu vaatii palvelimen, jolle tietokantapalvelu voidaan asentaa Tämä lippujärjestelmä käyttää MariaDB-tietokantapalvelua. Palvelinympäristö on tuettava Javaa, joten siellä on oltava asennettuna Java Developement Kit.
+-   Luotavalle MariaDB-tietokannalle pitää luoda:
+    - Nimi
+    - Käyttäjätunnus SQL-palvelimelle kirjautumista varten
+    - Salasana käyttäjätunnusta varten
+    - Tietokannan nimi
+-   Spring Boot -palvelimen julkaisu Dockerfilen avulla. Toimiva Dockerfile löytyy projektista
+-   GitHub-repositorion sisältämän koodin siirtäminen palvelimelle
+-   Buidin käynnistäminen
+-   Buildin automatisointi. Aina kun päivitetty koodi siirtyy GitHubin palvelin ottaa päivitetyn koodin käyttöön eikä uutta buildia tarvitse käynnistää manuaalisesti
+-   Turvatun HTTPS-yhteyden konfigurointi
+-   CORS-kofiguraatio. Salli valitut yhteydet WebSecurityConfig.java -tiedostossa, jotta Clientin yhteys Spring Boot -sovellukseen onnistuu.
+
 ## Käynnistys- ja käyttöohje
 
-Tyypillisesti tässä riittää kertoa ohjelman käynnistykseen tarvittava URL sekä
-mahdolliset kirjautumiseen tarvittavat tunnukset. Jos järjestelmän
-käynnistämiseen tai käyttöön liittyy joitain muita toimenpiteitä tai toimintajärjestykseen liittyviä asioita, nekin kerrotaan tässä yhteydessä.
+Ohjelmiston client-toteutus käynnistyy osoitteessa https://goluart.github.io/Projekti/. Käynnistys ei vaadi erityisiä toimenpiteitä, mutta ohjelma vaatii kirjautumisen.
 
-Usko tai älä, tulet tarvitsemaan tätä itsekin, kun tauon jälkeen palaat
-järjestelmän pariin !
+Client pitää sisällään lipun myymisen tapahtumaan, lipun haun tarkistuskoodin perusteella, sekä lipun tarkistamisen.
+Lipun haku tarkistuskoodin perusteella palauttaa tapahtuman nimen, tapahtumapaikan sekä lipputyypin.
+
+Lipun tarkistuksessa pitää syöttää Tapahtuman nimi ja lipun tarkistuskoodi. Tämän jälkeen järjestelmä merkkaa lipun käytetyksi ja ilmoittaa siitä sivulla.
+
+Tällä hetkellä QR-koodin generointia ei ole luotu projektiin. Mutta halutessaan sen voi luoda front-endissa, niin että yksilöllisen lipuntarkistuskoodin perusteella luodaan QR-koodi, jonka lipuntarkastaja voi lukea. QR-koodi palauttaa tapahtuman nimen, tapahtumapaikan sekä lipputyypin.
+
+Ohjelmiston back-endin REST API löytyy osoitteesta https://projekti-ticketguru-tiimi4.rahtiapp.fi/login. Kun kirjautuminen on suoritettu, voi osoiterivillä siirtyä valitsemaansa end-pointiin, esim. https://projekti-ticketguru-tiimi4.rahtiapp.fi/tapahtumat.
+
+Tällä hetkellä kirjautumistiedot on luotu seuraaville käyttäjille sekä back-endiin, että clientiin.
+
+### Hallinto
+**Käyttäjätunnus**: hallinto
+**Salasana**: hallinto
+**Muuta**: Kaikki oikeudet
+
+### Myyjä
+**Käyttäjätunnus**: myyja
+**Salasana**: myyja
+**Muuta**: Oikeudet lipun myyntiin
+
+### Lipuntarkastaja
+**Käyttäjätunnus**: lipuntarkastaja
+**Salasana**: lipuntarkastaja
+**Muuta**: Oikeudet lipun tarkastamiseen
