@@ -337,9 +337,23 @@ käyttäjätunnus, salasana, tietokannan luonti yms.).
 
 ## Käynnistys- ja käyttöohje
 
-Tyypillisesti tässä riittää kertoa ohjelman käynnistykseen tarvittava URL sekä
-mahdolliset kirjautumiseen tarvittavat tunnukset. Jos järjestelmän
-käynnistämiseen tai käyttöön liittyy joitain muita toimenpiteitä tai toimintajärjestykseen liittyviä asioita, nekin kerrotaan tässä yhteydessä.
+Ohjelmiston client-toteutus käynnistyy osoitteessa https://goluart.github.io/Projekti/. Käynnistys ei vaadi erityisiä toimenpiteitä, mutta ohjelma vaatii kirjautumisen.
 
-Usko tai älä, tulet tarvitsemaan tätä itsekin, kun tauon jälkeen palaat
-järjestelmän pariin !
+Client pitää sisällään lipun myymisen tapahtumaan, lipun haun tarkistuskoodin perusteella, sekä lipun tarkistamisen.
+
+Tällä hetkellä kirjautumistiedot on luotu seuraaville käyttäjille.
+
+### Hallinto
+**Käyttäjätunnus**: hallinto
+**Salasana**: hallinto
+**Muuta**: Kaikki oikeudet
+
+### Myyjä
+**Käyttäjätunnus**: myyja
+**Salasana**: myyja
+**Muuta**: Oikeudet lipun myyntiin
+
+### Lipuntarkastaja
+**Käyttäjätunnus**: lipuntarkastaja
+**Salasana**: lipuntarkastaja
+**Muuta**: Oikeudet lipun tarkastamiseen
