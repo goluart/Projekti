@@ -368,14 +368,11 @@ Tämän lisäksi
 
 ## Testaus
 
-Tässä kohdin selvitetään, miten ohjelmiston oikea toiminta varmistetaan
-testaamalla projektin aikana: millaisia testauksia tehdään ja missä vaiheessa.
-Testauksen tarkemmat sisällöt ja testisuoritusten tulosten raportit kirjataan
-erillisiin dokumentteihin.
-
-Tänne kirjataan myös lopuksi järjestelmän tunnetut ongelmat, joita ei ole korjattu.
+Ohjelmistolle on tehty yksikkötestejä sekä integraatiotestejä Junitilla. Ohjelmisto on testattu myös Robot Frameworkilla, jolla tehtiin End-to-End-testausta. Tarkempi kuvaus testeistä, testisuunnitelmista ja -tulokista löytyy Testidokumentaatiosta.
 
 [Testausdokumentti](restapidocs/testit/ticketguru_testit.md)
+
+Järjestelmässä on tällä hetkellä yksi ongelma, jota ei ole korjattu. Back-endiin kirjauduttaessa ohjelma ei siirrä käyttäjää suoraan sisäänkirjauksesta eteenpäin, vaan jää kirjautumissivulle White Label -tilaan.
 
 ## Asennustiedot
 
@@ -391,13 +388,40 @@ Asennusohjeesta tulisi ainakin käydä ilmi, miten käytettävä tietokanta ja
 käyttäjät tulee ohjelmistoa asentaessa määritellä (käytettävä tietokanta,
 käyttäjätunnus, salasana, tietokannan luonti yms.).
 
+**Järjestelmän kehitysympäristön siirtäminen toiselle koneelle:**
+
+-   Ohjelmointiympäristön asentaminen (esim. Visual Studio Code tai Eclipse)
+-   MariaDB:n asentaminen valitulle serverille. Halutessaan voi käyttää myös väliaikaista H2-tietokantaa, jonne ei tallennu pysyvästi mitään tietoa. H2 soveltuu paikalliseen kehitykseen projektin alkuvaiheessa.
+-   GitHub-repositorion kloonaaminen osoitteesta https://github.com/goluart/Projekti/tree/main
+-   Varmista, että kehitysympäristössä on käytössä Java-17. Uudemmat versiot saattavat myös toimia, mutta tästä ei ole takeita.
+-   Kehitysympäristössä on käytetty Spring Bootin versiota 3.2.3. Kuten edellä uudemmat versiot voivat myös toimia, mutta tästä ei ole takeita.
+-   Jos käytössä on pysyvä tietokanta, varmista, että tietokanta on käynnissä. Käynnistä myös Spring Boot sovellus ohjelmointiympäristöstä. H2-tietokantaa käytettäessä, täytyy pitää huoli, että projektiin on asennettu oikeat riippuvuudet pom.xml-tiedostoon, sekä oikeat asetukset dokumentaatiosta löytyvään application.properties -tiedostoon.
+
+**Järjestelmän siirtäminen tuotantoympäristöön**
+
+-   Pysyvän tietokantapalvelun julkaisu vaatii palvelimen, jolle tietokantapalvelu voidaan asentaa Tämä lippujärjestelmä käyttää MariaDB-tietokantapalvelua. Palvelinympäristö on tuettava Javaa, joten siellä on oltava asennettuna Java Developement Kit.
+-   Luotavalle MariaDB-tietokannalle pitää luoda:
+    - Nimi
+    - Käyttäjätunnus SQL-palvelimelle kirjautumista varten
+    - Salasana käyttäjätunnusta varten
+    - Tietokannan nimi
+-   Spring Boot -palvelimen julkaisu Dockerfilen avulla. Toimiva Dockerfile löytyy projektista
+-   GitHub-repositorion sisältämän koodin siirtäminen palvelimelle
+-   Buidin käynnistäminen
+-   Buildin automatisointi. Aina kun päivitetty koodi siirtyy GitHubin palvelin ottaa päivitetyn koodin käyttöön eikä uutta buildia tarvitse käynnistää manuaalisesti
+-   Turvatun HTTPS-yhteyden konfigurointi
+-   CORS-kofiguraatio. Salli valitut yhteydet WebSecurityConfig.java -tiedostossa, jotta Clientin yhteys Spring Boot -sovellukseen onnistuu.
+
 ## Käynnistys- ja käyttöohje
 
 Ohjelmiston client-toteutus käynnistyy osoitteessa https://goluart.github.io/Projekti/. Käynnistys ei vaadi erityisiä toimenpiteitä, mutta ohjelma vaatii kirjautumisen.
 
-Ohjelmiston back-endin REST API löytyy osoitteesta https://projekti-ticketguru-tiimi4.rahtiapp.fi/login. Kun kirjautuminen on suoritettu, voi osoiterivillä siirtyä valitsemaansa end-pointiin, esim. https://projekti-ticketguru-tiimi4.rahtiapp.fi/tapahtumat.
-
 Client pitää sisällään lipun myymisen tapahtumaan, lipun haun tarkistuskoodin perusteella, sekä lipun tarkistamisen.
+Lipun haku tarkistuskoodin perusteella palauttaa tapahtuman nimen, tapahtumapaikan sekä lipputyypin.
+
+Lipun tarkistuksessa pitää syöttää Tapahtuman nimi ja lipun tarkistuskoodi. Tämän jälkeen järjestelmä merkkaa lipun käytetyksi ja ilmoittaa siitä sivulla.
+
+Ohjelmiston back-endin REST API löytyy osoitteesta https://projekti-ticketguru-tiimi4.rahtiapp.fi/login. Kun kirjautuminen on suoritettu, voi osoiterivillä siirtyä valitsemaansa end-pointiin, esim. https://projekti-ticketguru-tiimi4.rahtiapp.fi/tapahtumat.
 
 Tällä hetkellä kirjautumistiedot on luotu seuraaville käyttäjille sekä back-endiin, että clientiin.
 
