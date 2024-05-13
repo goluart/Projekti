@@ -19,7 +19,7 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
 ### Onnistunut Vastaus
 
-**Ehto**: Jos ID:n avulla löytyy yhteyshenkilö, jota ei ole kiinnitetty järjestäjään
+**Ehto**: Jos ID:n avulla löytyy yhteyshenkilö
 
 **Koodi**: `204 No Content`
 
@@ -43,21 +43,5 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 }
 ```
 
-#### TAI
-
-**Ehto**: Jos yhteyshenkilö on kiinnitetty järjestäjään
-
-**Koodi**: `409 Conflict`
-
-**Sisällön esimerkki**: 
-```json
-{
-    "timestamp": "2024-05-05T09:57:46.826+00:00",
-    "status": 409,
-    "error": "Conflict",
-    "message": "Yhteyshenkilöä 1 ei voi poistaa",
-    "path": "/yhteyshenkilot/1"
-}
-```
-
 ## Huomautukset
+Yhteyshenkilön tiedot voi poistaa, vaikka tieto olisi liitettynä järjestäjän tai tapahtumapaikan tietoihin. 

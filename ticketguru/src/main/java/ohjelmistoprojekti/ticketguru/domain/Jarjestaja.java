@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -23,10 +24,13 @@ public class Jarjestaja {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "jarjestaja_id")
 	private Long jarjestajaId;
+	@Size(max = 50, message = "Nimi voi olla 50 merkkiä pitkä")
 	@NotEmpty(message = "Anna järjestäjän nimi")
 	private String nimi;
-	@Pattern(regexp = "^[0-9]{7}-[0-9]$", message = "Anna y-tunnus")
+	// @NotEmpty(message= "Anna jäjestäjän Y-tunnus")
+	@Pattern(regexp = "^[0-9]{7}-[0-9]$", message = "Anna y-tunnus muodossa 1234567-8")
 	private String ytunnus;
+	@Size(max = 20, message = "Osoite voi olla 100 merkkiä pitkä")
 	private String osoite;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "jarjestaja")
@@ -94,11 +98,11 @@ public class Jarjestaja {
 		this.osoite = osoite;
 	}
 
-	public List<Yhteyshenkilo> getyhteyshenkilo() {
+	public List<Yhteyshenkilo> getYhteyshenkilo() {
 		return yhteyshenkilo;
 	}
 
-	public void setyhteyshenkilo(List<Yhteyshenkilo> yhteyshenkilo) {
+	public void setYhteyshenkilo(List<Yhteyshenkilo> yhteyshenkilo) {
 		this.yhteyshenkilo = yhteyshenkilo;
 	}
 

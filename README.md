@@ -58,7 +58,7 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > nimi | varhcar(50) | Järjestäjän nimi
 > ytunnus | varchar(9) | Järjestävän yrityksen y-tunnus
 > osoite | varchar (100) | Järjestäjän osoite
-> postinro | int | Osoitteen oikeaan alueeseen liittävä identifioiva tunnus
+> postitoimipaikka_id | int | Osoitteen oikeaan alueeseen liittävä identifioiva tunnus, viittaus [postoimipaikka](#Postitoimipaikka)-tauluun
 > yht_hlo_id | int FK |Järjestäjän yhteyshenkilö, viittaus [yhteyshenkilo](#Yhteyshenkilo)-tauluun
 >
 >
@@ -134,11 +134,13 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > yht_hlo_id | int PK | Yhteyshenkilön yksilöivä tunniste
-> snimi | varchar (50) | Yhteyshenkilön sukunimi
-> enimi | varchar (20) | Yhteyshenkilön etunimi
-> sposti | varchar (100) | Yhteyshenkilön sähköpostiosoite
+> sukunimi | varchar (50) | Yhteyshenkilön sukunimi
+> etunimi | varchar (20) | Yhteyshenkilön etunimi
+> sahkoposti | varchar (100) | Yhteyshenkilön sähköpostiosoite
 > puhelin | varchar (20) | Yhteyshenkilön puhelinnumero
 > lisatieto | varchar (700) | Yleisiä muistiinpanoja liittyen yhteyshenkilöön
+> jarjestaja_id | int FK | Tapahtuman järjestäjä, viittaus [jarjestaja](#Jarjestaja)-tauluun
+> tapaikka_id | int FK | Tapahtuman järjestämispaikka, viittaus [tapahtumapaikka](#Tapahtumapaikka)-tauluun
 >
 >
 >### _Lippu_
@@ -194,6 +196,33 @@ Rajapinnan nimeämiskäytännössä käytettiin apuna GitHub-käyttäjä _jameco
 
 Tällä hetkellä käytämme Base-URL:na http://localhost:8080
 Tulevaisuudessa kun tuote etenee tuotantovaiheeseen muuttu Base-URL muotoon https://ticketguru.fi
+
+#### Endpoint Jarjestaja-luokalla on muotoa: /jarjestajat
+
+Method: `GET`
+
+- URL: "/jarjestajat". Hakee kaikki järjestelmän tapahtumajärjestäjät.
+- URL: "/jarjestajat/{id}". Hakee valitun id:n mukaisen tapahtumajärjestäjän tiedot.
+
+[Tarkempi kuvaus GET-pyynnöistä](restapidocs/jarjestajat/get.md)
+
+Method: `POST`
+
+- URL: "/jarjestajat". Luo uuden järjestäjän ja siihen liittyvät yhteyshenkilöt. Palauttaa tallennetun järjestäjän ja yhteyshenkiöiden tiedot. 
+
+[Tarkempi kuvaus POST-pyynnöistä](restapidocs/jarjestajat/post.md)
+
+Method: `PUT`
+
+- URL: "/jarjestajat/{id}". Muokkaa olemassa olevan id:n mukaisen järjestäjän tietoja. Palauttaa tallennetut järjestäjän ja yhteyshenkilöiden tiedot. 
+
+[Tarkempi kuvaus PUT-pyynnöistä](restapidocs/jarjestajat/put.md)
+
+Method: `DELETE`
+
+- URL: "/jarjestajat/{id}". Poistaa id:n mukaisen jarjestajan tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/jarjestajat/delete.md)
 
 #### Endpoint Tapahtuma-luokalla on muotoa: /tapahtumat
 
@@ -290,6 +319,33 @@ Method: `DELETE`
  - URL: "/roolit/{id}". Poistaa id:n mukaisen roolin tiedot pysyvästi.
 
 [Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/roolit/delete.md)
+
+#### Endpoint Yhteyshenkilo-luokalla on muotoa: /yhteyshenkilot
+
+Method: `GET`
+
+- URL: "/yhteyshenkilot". Hakee kaikki järjestelmän yhteyshenkilöt.
+- URL: "/yhteyshenkilot/{id}". Hakee valitun id:n mukaisen yhteyshenkilön tiedot.
+
+[Tarkempi kuvaus GET-pyynnöistä](restapidocs/yhteyshenkilot/get.md)
+
+Method: `POST`
+
+- URL: "/yhteyshenkilot". Luo uuden yhteyshenkilön ja liittää sen tapahtumapaikan tai järjestäjän yhteyshenkilöksi. Palauttaa tallennetun yhteyshenkilön tiedot. 
+
+[Tarkempi kuvaus POST-pyynnöistä](restapidocs/yhteyshenkilot/post.md)
+
+Method: `PUT`
+
+- URL: "/yhteyshenkilot/{id}". Muokkaa olemassa olevan id:n mukaisen yhteyshenkilön tietoja. Palauttaa tallennetun yhteyshenkilön tiedot. 
+
+[Tarkempi kuvaus PUT-pyynnöistä](restapidocs/yhteyshenkilot/put.md)
+
+Method: `DELETE`
+
+- URL: "/yhteyshenkilot/{id}". Poistaa id:n mukaisen yhteyshenkilön tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/yhteyshenkilot/delete.md)
 
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
 ratkaisut, esim.

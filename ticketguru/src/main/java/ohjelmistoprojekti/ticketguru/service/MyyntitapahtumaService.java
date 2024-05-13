@@ -32,7 +32,6 @@ public class MyyntitapahtumaService {
     @Autowired private LippuRepository lippuRepository;
     @Autowired private MyyntitapahtumaRepository myyntitapahtumaRepository;
 
-    // @SuppressWarnings("null")
     @Transactional
     public MyyntitapahtumaDTO luoMyyntitapahtuma(LuoMyyntitapahtumaDTO lmDto) {
 
@@ -44,7 +43,7 @@ public class MyyntitapahtumaService {
             .mapToInt(LuoMyyntitapahtumaDTO.LippuTyyppiMaaraDTO::getLippuMaara)
             .sum();            
 
-        // Tarkistetaan, onko riittävästi lippuja jäljellä haluttu määrä
+        // Tarkistetaan, onko lippuja jäljellä haluttu määrä
             if (tapahtuma.getLippujaJaljella() < lippujaYht) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lippujen määrä ylittää jäljellä olevien lippujen määrän (" + tapahtuma.getLippujaJaljella() +")");
             }
@@ -92,6 +91,7 @@ public class MyyntitapahtumaService {
 
     }
 
+    // Muuntaa liput DTO-muotoon
     private List<MyyntitapahtumaDTO.LippuDto> muunnaLiputDto(List<Lippu> liput) {
 
         return liput.stream().map(lippu -> new MyyntitapahtumaDTO.LippuDto(
@@ -105,6 +105,7 @@ public class MyyntitapahtumaService {
         ).collect(Collectors.toList());
     }
 
+    // Tarkistetaan ennen myyntitapahtuman poistamista, onko lippuja käytetty
     public Boolean kaytettyjaLippuja(Myyntitapahtuma myyntitapahtuma) {
 
         Boolean kaytettyjaLippuja = myyntitapahtuma.getLiput().stream()
