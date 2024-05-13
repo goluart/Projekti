@@ -27,27 +27,26 @@ public class TarkastusRestController {
     @Autowired
     private LippuRepository lippuRepository;
 
-    @PreAuthorize("hasAnyAuthority('lipuntarkastaja','myyja')")
+    @PreAuthorize("hasAnyAuthority('lipuntarkastaja','myyja', 'hallinto')")
     @GetMapping("/tarkastukset")
     public List<TarkastusDTO> haeKaikkiTarkastukset() {
         return tarkastusService.haeKaikkiTarkastukset();
     }
 
-    @PreAuthorize("hasAnyAuthority('lipuntarkastaja','myyja')")
+    @PreAuthorize("hasAnyAuthority('lipuntarkastaja','myyja', 'hallinto')")
     @GetMapping("/tarkastukset/{tarkistuskoodi}")
     public TarkastusDTO haeTarkistuskoodilla(@PathVariable("tarkistuskoodi") String tarkistuskoodi) {
         return tarkastusService.haeLippuTarkistuskoodilla(tarkistuskoodi);
     }
 
-    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
+    @PreAuthorize("hasAnyAuthority('lipuntarkastaja', 'myyja', 'hallinto')")
     @PostMapping("/tarkastukset")
     public ResponseEntity<?> tarkastaLippu2(@RequestBody TarkastusDTO tarkastusDTO) {
         Lippu lippu = lippuRepository.findByTarkistuskoodi(tarkastusDTO.getTarkistuskoodi());
         if (lippu != null) {
-            TarkastusDTO vastausDto = tarkastusService.tarkastaLippu(tarkastusDTO);
+            TarkastusDTO vastausDto = tarkastusService.tarkastaLippu(tarkastusDTO); // jos lippu käytetty, palauttaa 409
             if (vastausDto.getResponse() == false) {
-                return ResponseEntity.badRequest()
-                        .body(Map.of("response", vastausDto.getResponse(), "reason", "lippu on jo käytetty"));
+            	return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("response", vastausDto.getResponse(), "reason", "lippu on jo käytetty"));
             }
             return ResponseEntity.ok(vastausDto);
         } else {

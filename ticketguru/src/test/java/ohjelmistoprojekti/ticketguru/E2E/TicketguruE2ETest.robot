@@ -9,7 +9,7 @@ ${Chrome1}        Chrome
 ${Chrome2}        Chrome
 ${URL}            http://localhost:5173
 ${Sleep}          2
-${Dialog}         Get Webelement /html/body/div[4]/div/div/form/div[1]/label/input
+
 
 *** Test Cases ***
 Open Two Browsers

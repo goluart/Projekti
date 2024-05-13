@@ -4,7 +4,7 @@ Tämä dokumentaatio kuvaa, miten lippu tarkistetaan.
 ## API Endpoint
 Merkitse lippu käytetyksi
 
-**URL**: /tarkastukset/:tarkistuskoodi
+**URL**: /liput?tarkistuskoodi=:tarkistuskoodi
 
 **URL-parametrit**: tarkistuskoodi=[String], missä `tarkistuskoodi` on lipun yksilöllinen tunniste.
 
@@ -12,7 +12,7 @@ Merkitse lippu käytetyksi
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Käyttäjäroolit**: `myyja`, `lipuntarkastaja`
+**Käyttäjäroolit**: `myyja`, `lipuntarkastaja`, `hallinto`
 
 
 ## Onnistunut Vastaus
@@ -24,21 +24,32 @@ Merkitse lippu käytetyksi
 **Sisällön esimerkki**
 ```json
 {
-    "response": true
+    "tapahtumaId": "1",
+    "tapahtumanNimi": "Rock Festivaali",
+    "tapahtumaAika": "2025-03-22T17:00Z",
+    "tapahtumaPaikka": "Kulttuuritalo",
+    "lipputyyppiId": "1",
+    "lipputyyppi": "Aikuinen",
+    "hinta": "60.00",
+    "tarkistuskoodi": "49c47d62-f016-4669-b521-b76c9378adf7"
 }
 ```
 ### TAI
 
-**Ehto**: Jos tarkistuskoodilla ei löydy lippua tai lippu on jo käytetty
+**Ehto**: Jos tarkistuskoodilla ei löydy lippua
 
-**Koodi**: `200 OK`
+**Koodi**: `404 Not found`
 
 **Sisällön esimerkki**
 ```json
 {
-    "response": false
+    "timestamp": "2024-05-01T14:27:59.955+00:00",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Lippua ei löytynyt.",
+    "path": "/liput"
 }
 ```
 
 ## Huomautukset
-Varmista, että käytät oikeita attribuuttien arvoja lipun tarkistuksessa. Tämä metodi tarkistaa vain, että kyseisellä tarkistuskoodilla löytyy käyttämätön lippu. Se ei tarkista, mihin tapahtumaan lippu käytetään. Lippu on validi silloin kuin tarkistus palauttaa `true`. Lippua ei voi enää tämän jälkeen käyttää ja kyselyn vastaus on `false`.
+Varmista, että käytät oikeita attribuuttien arvoja lipun tarkistuksessa. Tämä metodi tarkistaa vain, että kyseisellä tarkistuskoodilla löytyy lippu.

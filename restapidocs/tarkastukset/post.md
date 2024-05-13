@@ -10,7 +10,7 @@ Merkitse lippu käytetyksi
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Käyttäjäroolit**: `myyja`, `lipuntarkastaja`
+**Käyttäjäroolit**: `myyja`, `lipuntarkastaja`, `hallinto`
 
 ## Pyyntö
 
@@ -51,7 +51,7 @@ Merkitse lippu käytetyksi
 
 **Ehto**: Jos lippu on jo käytetty eli kayttoPvm on muu kuin null
 
-**Koodi**: `400 Bad Request`
+**Koodi**: `409 Conflict`
 
 **Sisällön esimerkki**
 ```json
