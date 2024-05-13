@@ -347,6 +347,56 @@ Method: `DELETE`
 
 [Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/yhteyshenkilot/delete.md)
 
+#### Endpoint Lippu-luokalla on muotoa: /lippu
+
+Method: `GET`
+
+- URL: "/lippu". Hakee kaikki järjestelmän liput.
+- URL: "/lippu/{id}". Hakee valitun id:n mukaisen lipun tiedot.
+- URL: "/liput?tarkistuskoodi=TARKISTUSKOODI". Tarkistetaan lippu tarkistuskoodilla
+
+[Tarkempi kuvaus GET-pyynnöistä,](restapidocs/liput/get.md)
+[ GET-Tarkistuskoodi](restapidocs/liput/getTarkistuskoodi.md)
+
+Method: `POST`
+
+- URL: "/lippu". Luo uuden lipun ja liittää sen tapahtumaan. Palauttaa tallennetun lipun tiedot.
+
+[Tarkempi kuvaus POST-pyynnöistä,](restapidocs/liput/post.md)
+
+Method: `DELETE`
+
+- URL: "/lippu/{id}". Poistaa id:n mukaisen lipun tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/liput/delete.md)
+
+#### Endpoint Lipputyyppi-luokalla on muotoa: /lipputyyppi
+
+Method: `GET`
+
+- URL: "/lipputyyppi". Hakee kaikki järjestelmän lipputyypit.
+- URL: "/lipputyyppi/{id}". Hakee valitun id:n mukaisen lipputyypin tiedot.
+
+[Tarkempi kuvaus GET-pyynnöistä,](restapidocs/lipputyypit/get.md)
+
+Method: `POST`
+
+- URL: "/lipputyyppi". Luo uuden lipputyypin ja palauttaa tallennetun lipputyypin tiedot.
+
+[Tarkempi kuvaus POST-pyynnöistä,](restapidocs/lipputyypit/post.md)
+
+Method: `PUT`
+
+- URL: "/lipputyyppi/{id}". Hakee lipputyypin id:n perusteella ja tallentaa tehdyt muutokset. Palauttaa muokatun lipputyypin.
+
+[Tarkempi kuvaus PUT-pyynnöistä,](restapidocs/lipputyypit/put.md)
+
+Method: `DELETE`
+
+- URL: "/lipputyyppi/{id}". Poistaa id:n mukaisen lipputyypin tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/lipputyypit/delete.md)
+
 Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
 ratkaisut, esim.
 
