@@ -3,6 +3,9 @@ package ohjelmistoprojekti.ticketguru.dto;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO.JarjestajaNimiDTO;
+
+
 public class TapahtumaDto {
 
     private Long tapahtumaId;
@@ -10,13 +13,13 @@ public class TapahtumaDto {
     private ZonedDateTime alkaaPvm, loppuuPvm;
     private int maxLippuja, lippujaJaljella;
     private PaikkaDTO tapahtumapaikka;
-    private JarjestajaDTO jarjestaja;
+    private JarjestajaNimiDTO jarjestaja;
     private Double perushinta;
     private List<LipputyyppiDto> lipputyypit;    
 
     public TapahtumaDto(Long tapahtumaId, String tapahtumaNimi, String kuvaus, ZonedDateTime alkaaPvm,
             ZonedDateTime loppuuPvm, int maxLippuja, int lippujaJaljella, PaikkaDTO tapahtumapaikka,
-            JarjestajaDTO jarjestaja, Double perushinta, List<LipputyyppiDto> lipputyypit) {
+            JarjestajaNimiDTO jarjestaja, Double perushinta, List<LipputyyppiDto> lipputyypit) {
         this.tapahtumaId = tapahtumaId;
         this.tapahtumaNimi = tapahtumaNimi;
         this.kuvaus = kuvaus;
@@ -78,10 +81,10 @@ public class TapahtumaDto {
     public void setTapahtumapaikka(PaikkaDTO tapahtumapaikka) {
         this.tapahtumapaikka = tapahtumapaikka;
     }
-    public JarjestajaDTO getJarjestaja() {
+    public JarjestajaNimiDTO getJarjestaja() {
         return jarjestaja;
     }
-    public void setJarjestaja(JarjestajaDTO jarjestaja) {
+    public void setJarjestaja(JarjestajaNimiDTO jarjestaja) {
         this.jarjestaja = jarjestaja;
     }
     public Double getPerushinta() {
@@ -95,34 +98,6 @@ public class TapahtumaDto {
     }
     public void setLipputyypit(List<LipputyyppiDto> lipputyypit) {
         this.lipputyypit = lipputyypit;
-    }
-
-    public static class JarjestajaDTO {
-
-        private Long jarjestajaId;
-        private String jarjestajaNimi;
-    
-        public JarjestajaDTO(Long jarjestajaId, String jarjestajaNimi) {
-            this.jarjestajaId = jarjestajaId;
-            this.jarjestajaNimi = jarjestajaNimi;
-        }
-    
-        public Long getJarjestajaId() {
-            return jarjestajaId;
-        }
-    
-        public void setJarjestajaId(Long jarjestajaId) {
-            this.jarjestajaId = jarjestajaId;
-        }
-    
-        public String getJarjestajaNimi() {
-            return jarjestajaNimi;
-        }
-    
-        public void setJarjestajaNimi(String jarjestajaNimi) {
-            this.jarjestajaNimi = jarjestajaNimi;
-        }         
-    
     }
 
     public static class LipputyyppiDto {

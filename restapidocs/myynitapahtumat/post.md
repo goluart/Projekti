@@ -10,7 +10,7 @@ Luo uusi myyntitapahtuja ja tapahtumassa myydyt liput
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Käyttäjäroolit**: `myyja`
+**Käyttäjäroolit**: `myyja`, `hallinto`
 
 ## Pyyntö
 ```json
@@ -28,13 +28,13 @@ Luo uusi myyntitapahtuja ja tapahtumassa myydyt liput
   ]
 }
 ```
-LippuTyyppiMaarat on lista on lista, joka sisältää lipputyyppien id:t ja määrät.
+LippuTyyppiMaarat on lista, joka sisältää lipputyyppien id:t ja määrät.
 
 ## Onnistunut Vastaus
 
 **Ehto**: Tapahtumaan on jäljellä haluttu määrä lippuja, `tapahtumaId` ja `lipputyyppiId` ovat olemassa
 
-**Koodi**: `200 OK`
+**Koodi**: `201 Crated`
 
 **Sisällön esimerkki**
 ```json

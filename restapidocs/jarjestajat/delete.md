@@ -11,7 +11,7 @@ Tämä dokumentaatio kuvaa, miten järjestäjän tiedot poistetaan tietokannasta
 
 **Käyttäjäroolit**: `hallinto`
 
-**URL-parametrit**: id=[integer], missä `id` on palvelimella olevan järjestäjän yksilöllinen tunniste.
+**URL-parametrit**: id = jarjestajaId = [integer], missä jarjestajaId on palvelimella olevan järjestäjän yksilöllinen tunniste.
 
 ### Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.

@@ -58,7 +58,7 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > nimi | varhcar(50) | Järjestäjän nimi
 > ytunnus | varchar(9) | Järjestävän yrityksen y-tunnus
 > osoite | varchar (100) | Järjestäjän osoite
-> postinro | int | Osoitteen oikeaan alueeseen liittävä identifioiva tunnus
+> postitoimipaikka_id | int | Osoitteen oikeaan alueeseen liittävä identifioiva tunnus, viittaus [postoimipaikka](#Postitoimipaikka)-tauluun
 > yht_hlo_id | int FK |Järjestäjän yhteyshenkilö, viittaus [yhteyshenkilo](#Yhteyshenkilo)-tauluun
 >
 >
@@ -134,11 +134,13 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
 > yht_hlo_id | int PK | Yhteyshenkilön yksilöivä tunniste
-> snimi | varchar (50) | Yhteyshenkilön sukunimi
-> enimi | varchar (20) | Yhteyshenkilön etunimi
-> sposti | varchar (100) | Yhteyshenkilön sähköpostiosoite
+> sukunimi | varchar (50) | Yhteyshenkilön sukunimi
+> etunimi | varchar (20) | Yhteyshenkilön etunimi
+> sahkoposti | varchar (100) | Yhteyshenkilön sähköpostiosoite
 > puhelin | varchar (20) | Yhteyshenkilön puhelinnumero
 > lisatieto | varchar (700) | Yleisiä muistiinpanoja liittyen yhteyshenkilöön
+> jarjestaja_id | int FK | Tapahtuman järjestäjä, viittaus [jarjestaja](#Jarjestaja)-tauluun
+> tapaikka_id | int FK | Tapahtuman järjestämispaikka, viittaus [tapahtumapaikka](#Tapahtumapaikka)-tauluun
 >
 >
 >### _Lippu_
@@ -190,10 +192,37 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 
 ### REST-rajapinnan ratkaisut
 Tapahtuma-luokan metodit on luotu REST-rajapinnalla. Ensimmäisessä vaihessa Tapahtuma-luokalle luotiin GET- , POST- , PUT- sekä DELETE-metodit.
-Rajapinnan nimeämiskäytännössä käytettiin apuna GitHub-käyttäjä _jamecook:n_ kokoamaa ohjetta REST-rajapintojen dokumentaatiosta.
+Rajapinnan nimeämiskäytännössä käytettiin apuna GitHub-käyttäjä _jamecook:n_ kokoamaa ohjetta REST-rajapintojen dokumentaatiosta. Tämän jälkeen kaikille luoduille controlleri-luokille on, luotu samat metodit.
 
 Tällä hetkellä käytämme Base-URL:na http://localhost:8080
 Tulevaisuudessa kun tuote etenee tuotantovaiheeseen muuttu Base-URL muotoon https://ticketguru.fi
+
+#### Endpoint Jarjestaja-luokalla on muotoa: /jarjestajat
+
+Method: `GET`
+
+- URL: "/jarjestajat". Hakee kaikki järjestelmän tapahtumajärjestäjät.
+- URL: "/jarjestajat/{id}". Hakee valitun id:n mukaisen tapahtumajärjestäjän tiedot.
+
+[Tarkempi kuvaus GET-pyynnöistä](restapidocs/jarjestajat/get.md)
+
+Method: `POST`
+
+- URL: "/jarjestajat". Luo uuden järjestäjän ja siihen liittyvät yhteyshenkilöt. Palauttaa tallennetun järjestäjän ja yhteyshenkiöiden tiedot. 
+
+[Tarkempi kuvaus POST-pyynnöistä](restapidocs/jarjestajat/post.md)
+
+Method: `PUT`
+
+- URL: "/jarjestajat/{id}". Muokkaa olemassa olevan id:n mukaisen järjestäjän tietoja. Palauttaa tallennetut järjestäjän ja yhteyshenkilöiden tiedot. 
+
+[Tarkempi kuvaus PUT-pyynnöistä](restapidocs/jarjestajat/put.md)
+
+Method: `DELETE`
+
+- URL: "/jarjestajat/{id}". Poistaa id:n mukaisen jarjestajan tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/jarjestajat/delete.md)
 
 #### Endpoint Tapahtuma-luokalla on muotoa: /tapahtumat
 
@@ -233,39 +262,154 @@ Method: `GET`
 
 Method: `POST`
 
-- URL: "/myyntitapahtumat" Luo uuden myyntitapahtuman. Palauttaa myyntipäivämäärän, loppusumman sekä listan lipuista.
+- URL: "/myyntitapahtumat". Luo uuden myyntitapahtuman. Palauttaa myyntipäivämäärän, loppusumman sekä listan lipuista.
 
 [Tarkempi kuvaus POST-pyynnöstä](restapidocs/myynitapahtumat/post.md)
 
-Teknisessä kuvauksessa esitetään järjestelmän toteutuksen suunnittelussa tehdyt tekniset
-ratkaisut, esim.
+Method: `DELETE`
 
--   Missä mikäkin järjestelmän komponentti ajetaan (tietokone, palvelinohjelma)
-    ja komponenttien väliset yhteydet (vaikkapa tähän tyyliin:
-    https://security.ufl.edu/it-workers/risk-assessment/creating-an-information-systemdata-flow-diagram/)
--   Palvelintoteutuksen yleiskuvaus: teknologiat, deployment-ratkaisut yms.
--   Keskeisten rajapintojen kuvaukset, esimerkit REST-rajapinta. Tarvittaessa voidaan rajapinnan käyttöä täsmentää
-    UML-sekvenssikaavioilla.
--   Toteutuksen yleisiä ratkaisuja, esim. turvallisuus.
+- URL: "/myyntitapahtumat/{id}". Poistaa  myyntitapahtuman, jos lippuja ei ole käytetty. 
 
-Tämän lisäksi
+[Tarkempi kuvaus DELETE-pyynnöstä](restapidocs/myynitapahtumat/delete.md)
 
--   ohjelmakoodin tulee olla kommentoitua
--   luokkien, metodien ja muuttujien tulee olla kuvaavasti nimettyjä ja noudattaa
-    johdonmukaisia nimeämiskäytäntöjä
--   ohjelmiston pitää olla organisoitu komponentteihin niin, että turhalta toistolta
-    vältytään
+#### Endpoint Kayttaja-luokalla on muotoa: /kayttajat
+
+Method: `GET`
+
+- URL: "/kayttajat". Hakee kaikki järjestelmän käyttäjät.
+- URL: "/kayttajat/{id}". Hakee valitun id:n mukaisen käyttäjän.
+
+[Tarkempi kuvaus GET-pyynnöistä](restapidocs/kayttajat/get.md)
+
+Method: `POST`
+
+- URL: "/kayttajat". Luo uuden käyttäjän. Palauttaa id:n, nimen ja tyhjän listan käyttäjistä.
+
+[Tarkempi kuvaus POST-pyynnöistä](restapidocs/kayttajat/post.md)
+
+Method: `PUT`
+
+- URL: "/kayttajat/{id}". Muokkaa olemassa olevan id:n mukaisen käyttäjän tietoja.
+
+[Tarkempi kuvaus PUT-pyynnöistä](restapidocs/kayttajat/put.md)
+
+Method: `DELETE`
+
+- URL: "/kayttajat/{id}". Poistaa id:n mukaisen käyttäjän tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/kayttajat/delete.md)
+
+#### Endpoint Rooli-luokalla on muotoa: /roolit
+
+Method: `GET`
+
+ - URL: "/roolit". Hakee kaikki järjestelmän roolit.
+ - URL: "/roolit/{id}". Hakee valitun id:n mukaisen roolin.
+
+ [Tarkempi kuvaus GET-pyynnöistä](restapidocs/roolit/get.md)
+
+Method: `POST`
+
+ - URL: "/roolit". Luo uuden roolin. Palauttaa id:n, nimen ja listauksen käyttäjistä jotka operoivat valitulla roolilla.
+
+ [Tarkempi kuvaus POST-pyynnöistä](restapidocs/roolit/post.md)
+
+Method: `PUT`
+ 
+ - URL: "/roolit/{id}". Muokkaa olemassa olevan id:n mukaisen roolin tietoja.
+
+ [Tarkempi kuvaus PUT-pyynnöistä](restapidocs/roolit/put.md)
+
+Method: `DELETE`
+
+ - URL: "/roolit/{id}". Poistaa id:n mukaisen roolin tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/roolit/delete.md)
+
+#### Endpoint Yhteyshenkilo-luokalla on muotoa: /yhteyshenkilot
+
+Method: `GET`
+
+- URL: "/yhteyshenkilot". Hakee kaikki järjestelmän yhteyshenkilöt.
+- URL: "/yhteyshenkilot/{id}". Hakee valitun id:n mukaisen yhteyshenkilön tiedot.
+
+[Tarkempi kuvaus GET-pyynnöistä](restapidocs/yhteyshenkilot/get.md)
+
+Method: `POST`
+
+- URL: "/yhteyshenkilot". Luo uuden yhteyshenkilön ja liittää sen tapahtumapaikan tai järjestäjän yhteyshenkilöksi. Palauttaa tallennetun yhteyshenkilön tiedot. 
+
+[Tarkempi kuvaus POST-pyynnöistä](restapidocs/yhteyshenkilot/post.md)
+
+Method: `PUT`
+
+- URL: "/yhteyshenkilot/{id}". Muokkaa olemassa olevan id:n mukaisen yhteyshenkilön tietoja. Palauttaa tallennetun yhteyshenkilön tiedot. 
+
+[Tarkempi kuvaus PUT-pyynnöistä](restapidocs/yhteyshenkilot/put.md)
+
+Method: `DELETE`
+
+- URL: "/yhteyshenkilot/{id}". Poistaa id:n mukaisen yhteyshenkilön tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/yhteyshenkilot/delete.md)
+
+#### Endpoint Lippu-luokalla on muotoa: /lippu
+
+Method: `GET`
+
+- URL: "/lippu". Hakee kaikki järjestelmän liput.
+- URL: "/lippu/{id}". Hakee valitun id:n mukaisen lipun tiedot.
+- URL: "/liput?tarkistuskoodi=TARKISTUSKOODI". Tarkistetaan lippu tarkistuskoodilla
+
+[Tarkempi kuvaus GET-pyynnöistä,](restapidocs/liput/get.md)
+[ GET-Tarkistuskoodi](restapidocs/liput/getTarkistuskoodi.md)
+
+Method: `POST`
+
+- URL: "/lippu". Luo uuden lipun ja liittää sen tapahtumaan. Palauttaa tallennetun lipun tiedot.
+
+[Tarkempi kuvaus POST-pyynnöistä,](restapidocs/liput/post.md)
+
+Method: `DELETE`
+
+- URL: "/lippu/{id}". Poistaa id:n mukaisen lipun tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/liput/delete.md)
+
+#### Endpoint Lipputyyppi-luokalla on muotoa: /lipputyyppi
+
+Method: `GET`
+
+- URL: "/lipputyyppi". Hakee kaikki järjestelmän lipputyypit.
+- URL: "/lipputyyppi/{id}". Hakee valitun id:n mukaisen lipputyypin tiedot.
+
+[Tarkempi kuvaus GET-pyynnöistä,](restapidocs/lipputyypit/get.md)
+
+Method: `POST`
+
+- URL: "/lipputyyppi". Luo uuden lipputyypin ja palauttaa tallennetun lipputyypin tiedot.
+
+[Tarkempi kuvaus POST-pyynnöistä,](restapidocs/lipputyypit/post.md)
+
+Method: `PUT`
+
+- URL: "/lipputyyppi/{id}". Hakee lipputyypin id:n perusteella ja tallentaa tehdyt muutokset. Palauttaa muokatun lipputyypin.
+
+[Tarkempi kuvaus PUT-pyynnöistä,](restapidocs/lipputyypit/put.md)
+
+Method: `DELETE`
+
+- URL: "/lipputyyppi/{id}". Poistaa id:n mukaisen lipputyypin tiedot pysyvästi.
+
+[Tarkempi kuvaus DELETE-pyynnöistä](restapidocs/lipputyypit/delete.md)
 
 ## Testaus
 
-Tässä kohdin selvitetään, miten ohjelmiston oikea toiminta varmistetaan
-testaamalla projektin aikana: millaisia testauksia tehdään ja missä vaiheessa.
-Testauksen tarkemmat sisällöt ja testisuoritusten tulosten raportit kirjataan
-erillisiin dokumentteihin.
+Ohjelmistolle on tehty yksikkötestejä sekä integraatiotestejä Junitilla. Ohjelmisto on testattu myös Robot Frameworkilla, jolla tehtiin End-to-End-testausta. Tarkempi kuvaus testeistä, testisuunnitelmista ja -tulokista löytyy Testidokumentaatiosta.
 
-Tänne kirjataan myös lopuksi järjestelmän tunnetut ongelmat, joita ei ole korjattu.
+[Testausdokumentti](restapidocs/testit/ticketguru_testit.md)
 
-![Testausdokumentti](../Projekti/restapidocs/testit/ticketguru_testit.md)
+Järjestelmässä on tällä hetkellä yksi ongelma, jota ei ole korjattu. Back-endiin kirjauduttaessa ohjelma ei siirrä käyttäjää suoraan sisäänkirjauksesta eteenpäin, vaan jää kirjautumissivulle White Label -tilaan.
 
 ## Asennustiedot
 
@@ -281,11 +425,56 @@ Asennusohjeesta tulisi ainakin käydä ilmi, miten käytettävä tietokanta ja
 käyttäjät tulee ohjelmistoa asentaessa määritellä (käytettävä tietokanta,
 käyttäjätunnus, salasana, tietokannan luonti yms.).
 
+**Järjestelmän kehitysympäristön siirtäminen toiselle koneelle:**
+
+-   Ohjelmointiympäristön asentaminen (esim. Visual Studio Code tai Eclipse)
+-   MariaDB:n asentaminen valitulle serverille. Halutessaan voi käyttää myös väliaikaista H2-tietokantaa, jonne ei tallennu pysyvästi mitään tietoa. H2 soveltuu paikalliseen kehitykseen projektin alkuvaiheessa.
+-   GitHub-repositorion kloonaaminen osoitteesta https://github.com/goluart/Projekti/tree/main
+-   Varmista, että kehitysympäristössä on käytössä Java-17. Uudemmat versiot saattavat myös toimia, mutta tästä ei ole takeita.
+-   Kehitysympäristössä on käytetty Spring Bootin versiota 3.2.3. Kuten edellä uudemmat versiot voivat myös toimia, mutta tästä ei ole takeita.
+-   Jos käytössä on pysyvä tietokanta, varmista, että tietokanta on käynnissä. Käynnistä myös Spring Boot sovellus ohjelmointiympäristöstä. H2-tietokantaa käytettäessä, täytyy pitää huoli, että projektiin on asennettu oikeat riippuvuudet pom.xml-tiedostoon, sekä oikeat asetukset dokumentaatiosta löytyvään application.properties -tiedostoon.
+
+**Järjestelmän siirtäminen tuotantoympäristöön**
+
+-   Pysyvän tietokantapalvelun julkaisu vaatii palvelimen, jolle tietokantapalvelu voidaan asentaa Tämä lippujärjestelmä käyttää MariaDB-tietokantapalvelua. Palvelinympäristö on tuettava Javaa, joten siellä on oltava asennettuna Java Developement Kit.
+-   Luotavalle MariaDB-tietokannalle pitää luoda:
+    - Nimi
+    - Käyttäjätunnus SQL-palvelimelle kirjautumista varten
+    - Salasana käyttäjätunnusta varten
+    - Tietokannan nimi
+-   Spring Boot -palvelimen julkaisu Dockerfilen avulla. Toimiva Dockerfile löytyy projektista
+-   GitHub-repositorion sisältämän koodin siirtäminen palvelimelle
+-   Buidin käynnistäminen
+-   Buildin automatisointi. Aina kun päivitetty koodi siirtyy GitHubin palvelin ottaa päivitetyn koodin käyttöön eikä uutta buildia tarvitse käynnistää manuaalisesti
+-   Turvatun HTTPS-yhteyden konfigurointi
+-   CORS-kofiguraatio. Salli valitut yhteydet WebSecurityConfig.java -tiedostossa, jotta Clientin yhteys Spring Boot -sovellukseen onnistuu.
+
 ## Käynnistys- ja käyttöohje
 
-Tyypillisesti tässä riittää kertoa ohjelman käynnistykseen tarvittava URL sekä
-mahdolliset kirjautumiseen tarvittavat tunnukset. Jos järjestelmän
-käynnistämiseen tai käyttöön liittyy joitain muita toimenpiteitä tai toimintajärjestykseen liittyviä asioita, nekin kerrotaan tässä yhteydessä.
+Ohjelmiston client-toteutus käynnistyy osoitteessa https://goluart.github.io/Projekti/. Käynnistys ei vaadi erityisiä toimenpiteitä, mutta ohjelma vaatii kirjautumisen.
 
-Usko tai älä, tulet tarvitsemaan tätä itsekin, kun tauon jälkeen palaat
-järjestelmän pariin !
+Client pitää sisällään lipun myymisen tapahtumaan, lipun haun tarkistuskoodin perusteella, sekä lipun tarkistamisen.
+Lipun haku tarkistuskoodin perusteella palauttaa tapahtuman nimen, tapahtumapaikan sekä lipputyypin.
+
+Lipun tarkistuksessa pitää syöttää Tapahtuman nimi ja lipun tarkistuskoodi. Tämän jälkeen järjestelmä merkkaa lipun käytetyksi ja ilmoittaa siitä sivulla.
+
+Tällä hetkellä QR-koodin generointia ei ole luotu projektiin. Mutta halutessaan sen voi luoda front-endissa, niin että yksilöllisen lipuntarkistuskoodin perusteella luodaan QR-koodi, jonka lipuntarkastaja voi lukea. QR-koodi palauttaa tapahtuman nimen, tapahtumapaikan sekä lipputyypin.
+
+Ohjelmiston back-endin REST API löytyy osoitteesta https://projekti-ticketguru-tiimi4.rahtiapp.fi/login. Kun kirjautuminen on suoritettu, voi osoiterivillä siirtyä valitsemaansa end-pointiin, esim. https://projekti-ticketguru-tiimi4.rahtiapp.fi/tapahtumat.
+
+Tällä hetkellä kirjautumistiedot on luotu seuraaville käyttäjille sekä back-endiin, että clientiin.
+
+### Hallinto
+**Käyttäjätunnus**: hallinto
+**Salasana**: hallinto
+**Muuta**: Kaikki oikeudet
+
+### Myyjä
+**Käyttäjätunnus**: myyja
+**Salasana**: myyja
+**Muuta**: Oikeudet lipun myyntiin
+
+### Lipuntarkastaja
+**Käyttäjätunnus**: lipuntarkastaja
+**Salasana**: lipuntarkastaja
+**Muuta**: Oikeudet lipun tarkastamiseen

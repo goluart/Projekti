@@ -6,7 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import ohjelmistoprojekti.ticketguru.domain.Lipputyyppi;
 import ohjelmistoprojekti.ticketguru.domain.LipputyyppiRepository;
-
+import ohjelmistoprojekti.ticketguru.domain.Myyntitapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.MyyntitapahtumaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Tapahtuma;
 import ohjelmistoprojekti.ticketguru.domain.TapahtumaRepository;
@@ -22,13 +22,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-// @CrossOrigin
+
 @RestController
 @RequestMapping("/myyntitapahtumat")
 public class MyyntitapahtumaRestController {
@@ -52,8 +53,8 @@ public class MyyntitapahtumaRestController {
         return ResponseEntity.ok(myyntitapahtumatDtot);
     }
 
+    // Hataan myyntitapahtuma ID:llä
     @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
-    //@SuppressWarnings("null")
     @GetMapping("/{id}")
     public ResponseEntity<MyyntitapahtumaDTO> haeYksiMyyntitapahtuma(@PathVariable("id") Long myyntitapahtumaId) {
         return myyntitapahtumaRepository.findById(myyntitapahtumaId)
@@ -62,16 +63,14 @@ public class MyyntitapahtumaRestController {
                 .orElse(ResponseEntity.notFound().build()); // Palauta 404 Not Found, jos Myyntitapahtumaa ei löydy
     }
 
-    // Lisätään tietokantaan myyntitapahtuma ja luodaan jokainen myyntitapahtumassa
-    // myyty lippu
-    @PreAuthorize("hasRole('myyja')")
+    // Lisätään tietokantaan myyntitapahtuma ja luodaan jokainen myyntitapahtumassa myyty lippu
+    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
     @PostMapping
     public ResponseEntity<?> luoMyyntitapahtuma(@RequestBody @NonNull LuoMyyntitapahtumaDTO mtDto) {
         /*
          * Hakee tapahtuman tietokannasta, käyttämällä tapahtumaId:tä POST-pyynnön
          * Body'sta. Jos tapahtumaId:tä ei löydy palautetaan poikkeus
          */
-        //@SuppressWarnings("null")
         Tapahtuma tapahtuma = tapahtumaRepository.findById(mtDto.getTapahtumaId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Tapahtumaa " + mtDto.getTapahtumaId() + " ei löydy"));
@@ -91,9 +90,8 @@ public class MyyntitapahtumaRestController {
              * määriteltyä lipputyyppiId:tä.
              * findById-metodi palauttaa Optional-objektin, joka voi sisältää
              * Lipputyyppi-objektin tai olla tyhjä, jos lipputyyppiä ei löydy annetulla
-             * ID:llä.
+             * ID:llä. Jos lipputyyppi puuttuu, aiheutetaan poikkeus.
              */
-            //@SuppressWarnings("null")
             Lipputyyppi lt = lipputyyppiRepository.findById(ltm.getLipputyyppiId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                             "Lipputyyppiä " + ltm.getLipputyyppiId() + " ei löytynyt"));
@@ -111,7 +109,26 @@ public class MyyntitapahtumaRestController {
 
         // Luodaan myyntitapahtuma, jos ei poikkeuksia
         MyyntitapahtumaDTO myyntitapahtumaDto = myyntitapahtumaService.luoMyyntitapahtuma(mtDto);
-        return ResponseEntity.ok(myyntitapahtumaDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(myyntitapahtumaDto);
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('myyja', 'hallinto')")
+    public ResponseEntity<?> poistaMyyntitapahtuma(@PathVariable("id") Long id) {
+
+        if (!myyntitapahtumaRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Myyntitapahtumaa " + id + " ei löytynyt");
+        } else {
+            Myyntitapahtuma myyntitapahtuma = myyntitapahtumaRepository.findById(id).orElse(null);
+            Boolean kaytettyjaLippuja = myyntitapahtumaService.kaytettyjaLippuja(myyntitapahtuma);
+            if (kaytettyjaLippuja) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Myyntitapahtumaa " + id + " ei voi poistaa käytettyjen lippujen takia"); 
+            } else {
+                myyntitapahtumaRepository.deleteById(id);
+                return ResponseEntity.noContent().build();
+            }
+        }
+    }
+
 
 }

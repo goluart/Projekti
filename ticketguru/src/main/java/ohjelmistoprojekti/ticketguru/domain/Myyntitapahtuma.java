@@ -29,6 +29,8 @@ public class Myyntitapahtuma {
 	private LocalDateTime myyntitapahtumaPvm;
 
 	@JsonIgnore
+	// CascadeType.ALL poistaa myös siihen liitetyt liput, kun myyntitapahtuma poistetaan. 
+	// Myyntitapahtuman voi poistaa, jos yhtään lippua ei ole käytetty
 	@OneToMany(mappedBy = "myyntitapahtuma", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@Column(name = "myyntitapahtuma_id")
 	private List<Lippu> liput = new ArrayList<>();

@@ -6,9 +6,9 @@ Hae tiedot tietyistä tai kaikista myyntitapahtumista.
 
 **Yksittäisen tapahtuman tiedot**
 
-**URL**: /myyntitapahtumat/:myyntitapahtumaId
+**URL**: /myyntitapahtumat/{id}
 
-**URL-parametrit**: myyntitapahtumaId=[integer], missä `myyntitapahtymaId` on palvelimella olevan myyntitapahtuman yksilöllinen tunniste.
+**URL-parametrit**: {id} = myyntitapahtumaId=[integer], missä `myyntitapahtymaId` on palvelimella olevan myyntitapahtuman yksilöllinen tunniste.
 
 **Kaikkien tapahtumien tiedot**
 

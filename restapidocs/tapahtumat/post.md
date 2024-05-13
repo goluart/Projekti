@@ -4,7 +4,7 @@ Tämä dokumentaatio kuvaa, miten järjestelmään voi luoda uuden tapahtuman
 ## API Endpoint
 Luo uusi tapahtuma
 
-**URL**: /tapahtumat
+**URL-polku**: /tapahtumat
 
 **Metodi**: `POST`
 
@@ -39,7 +39,7 @@ Luo uusi tapahtuma
 
 **Ehto**: Jos uusi tapahtuma on tallennettu onnistuneesti
 
-**Koodi**: `201 OK`
+**Koodi**: `201 Created`
 
 **Sisällön esimerkki**
 ```json

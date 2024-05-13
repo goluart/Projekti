@@ -60,4 +60,43 @@ public class LuoMyyntitapahtumaDTO {
             this.lippuMaara = lippuMaara;
         }
     }
+
+    public static class MuutaMyyntitapahtuma {
+        private Long myyntitapahtumaId, tapahtumaId;
+        private List<LippuTyyppiMaaraDTO> lippuTyyppiMaarat;
+        
+        public MuutaMyyntitapahtuma() {
+        }
+
+        public MuutaMyyntitapahtuma(Long myyntitapahtumaId, Long tapahtumaId,
+                List<LippuTyyppiMaaraDTO> lippuTyyppiMaarat) {
+            this.myyntitapahtumaId = myyntitapahtumaId;
+            this.tapahtumaId = tapahtumaId;
+            this.lippuTyyppiMaarat = lippuTyyppiMaarat;
+        }
+
+        public Long getMyyntitapahtumaId() {
+            return myyntitapahtumaId;
+        }
+
+        public void setMyyntitapahtumaId(Long myyntitapahtumaId) {
+            this.myyntitapahtumaId = myyntitapahtumaId;
+        }
+
+        public Long getTapahtumaId() {
+            return tapahtumaId;
+        }
+
+        public void setTapahtumaId(Long tapahtumaId) {
+            this.tapahtumaId = tapahtumaId;
+        }
+
+        public List<LippuTyyppiMaaraDTO> getLippuTyyppiMaarat() {
+            return lippuTyyppiMaarat;
+        }
+
+        public void setLippuTyyppiMaarat(List<LippuTyyppiMaaraDTO> lippuTyyppiMaarat) {
+            this.lippuTyyppiMaarat = lippuTyyppiMaarat;
+        }        
+    }
 }

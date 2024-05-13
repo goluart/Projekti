@@ -1,78 +1,113 @@
 package ohjelmistoprojekti.ticketguru.service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import ohjelmistoprojekti.ticketguru.domain.Jarjestaja;
 import ohjelmistoprojekti.ticketguru.domain.JarjestajaRepository;
 import ohjelmistoprojekti.ticketguru.domain.Postitoimipaikka;
 import ohjelmistoprojekti.ticketguru.domain.PostitoimipaikkaRepository;
-import ohjelmistoprojekti.ticketguru.dto.JarjestajaTiedotDTO;
+import ohjelmistoprojekti.ticketguru.domain.Yhteyshenkilo;
+import ohjelmistoprojekti.ticketguru.domain.YhteyshenkiloRepository;
+import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO;
+import ohjelmistoprojekti.ticketguru.dto.JarjestajaDTO.TallennaJarjestajaDTO;
+import ohjelmistoprojekti.ticketguru.dto.YhteyshenkiloDTO.YhteyshenkiloYhteystiedotDTO;
 
 @Service
 public class JarjestajaService {
 
     @Autowired
-    JarjestajaRepository jarjestajaRepository;
+    private JarjestajaRepository jarjestajaRepository;
     @Autowired
-    PostitoimipaikkaRepository postitoimipaikkaRepository;
+    private PostitoimipaikkaRepository postitoimipaikkaRepository;
+    @Autowired
+    private YhteyshenkiloService yhteyshenkiloService;
+    @Autowired
+    private YhteyshenkiloRepository yhteyshenkiloRepository;
 
-    public JarjestajaTiedotDTO muunnaJarjestajaDTO(Jarjestaja jarjestaja) {
+    // Muunnetaan jarjestaja-objekti DTO-malliksi
+    public JarjestajaDTO muunnaJarjestajaDTO(Jarjestaja jarjestaja) {
 
-        JarjestajaTiedotDTO jarjestajaDTO = new JarjestajaTiedotDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi(),
+        // alustetaan objektit/oliot
+        JarjestajaDTO jarjestajaDTO;
+        List<YhteyshenkiloYhteystiedotDTO> yhteystiedot;
+
+        // Tarkistetaan, löytyykö järjestäjän tiedoista yhteyshenkilöitä, jos löytyy haetaan ne yhteystiedot-listaan
+        if (jarjestaja.getYhteyshenkilo() == null || jarjestaja.getYhteyshenkilo().isEmpty()) {
+            yhteystiedot = null;
+        } else {
+            yhteystiedot = jarjestaja.getYhteyshenkilo().stream()    
+                .map(yhteyshenkilo -> yhteyshenkiloService.yhteystiedot(yhteyshenkilo))
+                .collect(Collectors.toList());          
+        }
+
+        // Muunnetaan objekti DTO-malliksi
+        jarjestajaDTO = new JarjestajaDTO(jarjestaja.getJarjestajaId(), jarjestaja.getNimi(),
                 jarjestaja.getYtunnus(), jarjestaja.getOsoite(), jarjestaja.getPostitoimipaikka().getPostinumero(),
                 jarjestaja.getPostitoimipaikka().getKaupunki());
+
+        // Lisätään malliin yhteyshenkilöt
+        jarjestajaDTO.setYhteyshenkilot(yhteystiedot);
+        
         return jarjestajaDTO;
     }
 
-    public Map<String, Object> tallennaJarjestaja(JarjestajaTiedotDTO jarjestajaDTO) {
+    public JarjestajaDTO tallennaJarjestaja(TallennaJarjestajaDTO tallennaJarjestajaDTO) {
 
-        System.out.println(jarjestajaDTO);
-
-        boolean uusiTieto = false;
-
+        // Alustetaan objektit
         Jarjestaja jarjestaja;
+        List<Yhteyshenkilo> yhteyshenkilot = null;
 
-        if (jarjestajaDTO.getJarjestajaId() != null
-                && jarjestajaRepository.existsById(jarjestajaDTO.getJarjestajaId())) {
-            jarjestaja = jarjestajaRepository.findById(jarjestajaDTO.getJarjestajaId()).orElse(new Jarjestaja());
+        // Tarkistetaan, onko jarjestaja jo olemassa
+        if (tallennaJarjestajaDTO.getJarjestajaId() != null) {
+            jarjestaja = jarjestajaRepository.findById(tallennaJarjestajaDTO.getJarjestajaId())
+            .orElseGet(Jarjestaja::new);
         } else {
             jarjestaja = new Jarjestaja();
-            uusiTieto = true;
         }
 
-        if (jarjestajaDTO.getNimi() == null || jarjestajaDTO.getNimi() == "") {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nimi on tyhjä");
-        }
-
-        jarjestaja.setNimi(jarjestajaDTO.getNimi());
-        jarjestaja.setOsoite(jarjestajaDTO.getOsoite());
-        jarjestaja.setYtunnus(jarjestajaDTO.getYtunnus());
-
-        if (postitoimipaikkaRepository.findByPostinumero(jarjestajaDTO.getPostinumero()) != null) {
+        // Muutetaan jarjestajan tiedot 
+        jarjestaja.setNimi(tallennaJarjestajaDTO.getNimi());
+        jarjestaja.setOsoite(tallennaJarjestajaDTO.getOsoite());
+        jarjestaja.setYtunnus(tallennaJarjestajaDTO.getYtunnus());
+        
+        // Tarkistetaan postitoimipaikka. Jos postitoimipaikkaa ei ole olemassa lisätään se ensin rekisteriin.
+        if (postitoimipaikkaRepository.findByPostinumero(tallennaJarjestajaDTO.getPostinumero()) != null) {
             Postitoimipaikka postitoimipaikka = postitoimipaikkaRepository
-                    .findByPostinumero(jarjestajaDTO.getPostinumero());
+            .findByPostinumero(tallennaJarjestajaDTO.getPostinumero());
             jarjestaja.setPostitoimipaikka(postitoimipaikka);
         } else {
-            Postitoimipaikka postitoimipaikka = new Postitoimipaikka(jarjestajaDTO.getPostinumero(),
-                    jarjestajaDTO.getKaupunki());
+            Postitoimipaikka postitoimipaikka = new Postitoimipaikka(tallennaJarjestajaDTO.getPostinumero(),
+            tallennaJarjestajaDTO.getKaupunki());
             jarjestaja.setPostitoimipaikka(postitoimipaikka);
         }
-
+        
+        jarjestajaRepository.save(jarjestaja);
+        
+        // Jos yhteyshenkilölista on muu kuin tyhjä, haetaan tiedot ja tallennetaan ne yhteyshenkilot-listaan
+        if (tallennaJarjestajaDTO.getYhteyshenkilot() != null && !tallennaJarjestajaDTO.getYhteyshenkilot().isEmpty()) {
+            yhteyshenkilot = tallennaJarjestajaDTO.getYhteyshenkilot().stream()
+                .map(yhteyshenkiloDTO -> {
+                    Yhteyshenkilo yhteyshenkilo = new Yhteyshenkilo(yhteyshenkiloDTO.getEtunimi(), yhteyshenkiloDTO.getSukunimi(), yhteyshenkiloDTO.getSahkoposti(), yhteyshenkiloDTO.getPuhelin(), yhteyshenkiloDTO.getLisatieto());
+                    if (yhteyshenkiloDTO.getYhtHloId() != null && yhteyshenkiloRepository.existsById(yhteyshenkiloDTO.getYhtHloId())) {
+                        yhteyshenkilo.setYhtHloId(yhteyshenkiloDTO.getYhtHloId());
+                    }                    
+                    // tarkistetaan, onko yhteyshenkilo jo olemassa, jos on, päivitetään olemassa olevan henkilon tiedot
+                    yhteyshenkilo.setJarjestaja(jarjestaja);
+                    return yhteyshenkilo;
+                })
+                .collect(Collectors.toList());
+            // Tallennetaan kaikki listan yhteyshenkilot tietokantaan
+            yhteyshenkiloRepository.saveAll(yhteyshenkilot); 
+            // Lisätään vielä tallennetut yhteyshenkilot järjestäjän tietoihin ja tallennetaan järjestäjä uudestaan           
+        } 
+        jarjestaja.setYhteyshenkilo(yhteyshenkilot);
         jarjestajaRepository.save(jarjestaja);
 
-        JarjestajaTiedotDTO jarjestajaTiedotDTO = muunnaJarjestajaDTO(jarjestaja);
-
-        Map<String, Object> vastaus = new HashMap<>();
-        vastaus.put("Status", uusiTieto);
-        vastaus.put("DTO", jarjestajaTiedotDTO);
-
-        return vastaus;
+        JarjestajaDTO jarjestajaTiedotDTO = muunnaJarjestajaDTO(jarjestaja);
+        
+        return jarjestajaTiedotDTO;
     }
 }

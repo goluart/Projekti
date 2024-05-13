@@ -1,12 +1,12 @@
 # Näytä yksittäinen tapahtuma tai kaikki tapahtumat
-Tämä dokumentaatio kuvaa, miten voit hakea tietoja yksittäisestä tapahtumasta.
+Tämä dokumentaatio kuvaa, miten voit hakea tietoja kaikista tapahtumista tai yksittäisestä tapahtumasta.
 
 ## API Endpoint
-Hae tietoja yksittäisestä tapahtumasta.
+Hae tietoja tapahtumista tai tapahtumasta
 
 **Yksittäisen tapahtuman tiedot**
 
-**URL**: /tapahtumat/:tapahtumaId
+**URL**: /tapahtumat/{id}
 
 **Kaikkien tapahtumien tiedot**
 
@@ -23,7 +23,7 @@ Hae tietoja yksittäisestä tapahtumasta.
 ## Pyyntö
 Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
-## Onnistunut Vastaus
+## Onnistunut vastaus
 **Ehto**: Kaikki tapahtumat löytyvät tai löytyy yksi tapahtuma annetulla id:llä
 
 **Koodi**: `200 OK`
@@ -129,7 +129,7 @@ Pyynnön runkoa ei vaadita, sillä tieto haetaan URL-parametrin avulla.
 
 ### Tai
 
-**Ehto**: Jos tapahtumaa ei löydy annetulla ID:llä tai järjestlmästä ei löydy yhtäkään tapahtumaa.
+**Ehto**: Jos tapahtumaa ei löydy annetulla ID:llä tai järjestelmästä ei löydy yhtäkään tapahtumaa.
 
 **Koodi**: `404 Not Found`
 

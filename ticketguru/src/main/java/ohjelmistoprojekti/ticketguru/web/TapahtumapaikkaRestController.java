@@ -34,7 +34,7 @@ public class TapahtumapaikkaRestController {
     @GetMapping("/tapahtumapaikat") // Jos repository on tyhjä näytetään virheilmoitus
     public List<Tapahtumapaikka> haeKaikkiTapahtumapaikat() {
         if (tapahtumapaikkaRepository.findAll().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumapaikkoja, ei löytynyt");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tapahtumapaikkoja ei löytynyt");
         }
         return tapahtumapaikkaRepository.findAll();
     }
@@ -82,7 +82,7 @@ public class TapahtumapaikkaRestController {
         editTapahtumapaikka.setTapaikkaId(uusiTapahtumapaikka.getTapaikkaId());
         tapahtumapaikkaRepository.save(uusiTapahtumapaikka);
 
-        return ResponseEntity.ok(editTapahtumapaikka);
+        return ResponseEntity.ok(uusiTapahtumapaikka);
     }
 
     @PreAuthorize("hasAuthority('hallinto')") // Luodaan uusi tapahtumapaikka
