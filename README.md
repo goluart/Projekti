@@ -421,6 +421,8 @@ Lipun haku tarkistuskoodin perusteella palauttaa tapahtuman nimen, tapahtumapaik
 
 Lipun tarkistuksessa pitää syöttää Tapahtuman nimi ja lipun tarkistuskoodi. Tämän jälkeen järjestelmä merkkaa lipun käytetyksi ja ilmoittaa siitä sivulla.
 
+Tällä hetkellä QR-koodin generointia ei ole luotu projektiin. Mutta halutessaan sen voi luoda front-endissa, niin että yksilöllisen lipuntarkistuskoodin perusteella luodaan QR-koodi, jonka lipuntarkastaja voi lukea. QR-koodi palauttaa tapahtuman nimen, tapahtumapaikan sekä lipputyypin.
+
 Ohjelmiston back-endin REST API löytyy osoitteesta https://projekti-ticketguru-tiimi4.rahtiapp.fi/login. Kun kirjautuminen on suoritettu, voi osoiterivillä siirtyä valitsemaansa end-pointiin, esim. https://projekti-ticketguru-tiimi4.rahtiapp.fi/tapahtumat.
 
 Tällä hetkellä kirjautumistiedot on luotu seuraaville käyttäjille sekä back-endiin, että clientiin.
