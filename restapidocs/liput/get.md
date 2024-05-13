@@ -1,27 +1,33 @@
-# Hae lipun tiedot
-Tämä dokumentaatio kuvaa, miten lippu tarkistetaan.
+# Hae lipputyypit
+Tämä dokumentaatio kuvaa, miten lippujen tiedot haetaan.
 
 ## API Endpoint
-Merkitse lippu käytetyksi
+Hae lippu tai liput.
 
-**URL**: /liput/:tarkistuskoodi
+**Yksittäisen lipun tiedot**
 
-**URL-parametrit**: tarkistuskoodi=[String], missä `tarkistuskoodi` on lipun yksilöllinen tunniste.
+**URL**: /lippu/{id}
+
+**Kaikkien lipputyyppien tiedot**
+
+**URL**: /lippu
 
 **Metodi**: `GET`
 
 **Autentikointi vaaditaan**: Kyllä
 
-**Käyttäjäroolit**: `myyja`, `lipuntarkastaja`
+**Käyttäjäroolit**: `lipuntarkastaja`, `myyja`, `hallinto`
 
+## Pyyntö
+Pyynnön runkoa ei vaadita, sillä tieto haetaan URL:n avulla.
 
 ## Onnistunut Vastaus
 
-**Ehto**: Jos tarkistuskoodi löytyy tietokannasta
+**Ehto**: Kaikki lipputyypit löytyvät tai vaihtoehtoisesti yksi id:n mukainen lipputyyppi löytyy.
 
 **Koodi**: `200 OK`
 
-**Sisällön esimerkki**
+**Sisällön esimerkki /lippu/{id}**
 ```json
 {
     "tapahtumaId": "1",
@@ -31,24 +37,66 @@ Merkitse lippu käytetyksi
     "lipputyyppiId": "1",
     "lipputyyppi": "Aikuinen",
     "hinta": "60,00",
-    "tarkistuskoodi": "2399fd1d-a044-497b-89de-d33e5b98c7ce"
+    "tarkistuskoodi": "25880729-ae4b-49a4-abc6-f4cb7beb50a1"
 }
 ```
-### TAI
 
-**Ehto**: Jos tarkistuskoodilla ei löydy lippua 
+**Sisällön esimerkki /lippu**
+```json
+[
+    {
+        "tapahtumaId": "1",
+        "tapahtumanNimi": "Rock Festivaali",
+        "tapahtumaAika": "2025-03-22T19:00+02:00",
+        "tapahtumaPaikka": "Kulttuuritalo",
+        "lipputyyppiId": "1",
+        "lipputyyppi": "Aikuinen",
+        "hinta": "60,00",
+        "tarkistuskoodi": "25880729-ae4b-49a4-abc6-f4cb7beb50a1"
+    },
+    {
+        "tapahtumaId": "1",
+        "tapahtumanNimi": "Rock Festivaali",
+        "tapahtumaAika": "2025-03-22T19:00+02:00",
+        "tapahtumaPaikka": "Kulttuuritalo",
+        "lipputyyppiId": "2",
+        "lipputyyppi": "Lapsi",
+        "hinta": "30,00",
+        "tarkistuskoodi": "8de3a2cb-ea51-4adb-980f-d57a67e32f05"
+    },
+    {
+        "tapahtumaId": "1",
+        "tapahtumanNimi": "Rock Festivaali",
+        "tapahtumaAika": "2025-03-22T19:00+02:00",
+        "tapahtumaPaikka": "Kulttuuritalo",
+        "lipputyyppiId": "3",
+        "lipputyyppi": "Eläkeläinen",
+        "hinta": "45,00",
+        "tarkistuskoodi": "866c3601-b093-4144-b20f-7d2a0b15d5c5"
+    }
+]
+```
+## Virhevastaukset
+
+**Ehto**: Jos autentikointi on virheellinen
+
+**Koodi**: `401 Unauthorized`
+
+**Sisältö**: 
+
+## Tai 
+
+**Ehto**: Jos järjestelmä on tyhjä tai annetulla id:llä ei löydy käyttäjää.
 
 **Koodi**: `404 Not Found`
 
-**Sisällön esimerkki**
+**Sisältö**:
 ```json
 {
-    "timestamp": "2024-04-14T13:58:10.992+00:00",
+    "timestamp": "2024-05-13T11:38:41.813+00:00",
     "status": 404,
     "error": "Not Found",
-    "message": "Lippua ei löytynyt.",
-    "path": "/liput"
+    "message": "Lippua 6 ei löytynyt.",
+    "path": "/lippu/6"
 }
 ```
-
-## Huomautukset
