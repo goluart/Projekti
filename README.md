@@ -4,10 +4,9 @@ Tiimi 4: Golubev Artur, Huovinen Mia, Tuomela Jouni, Varpanen Hilda-Maija.
 
 ## Johdanto
 
-Asiakkaanamme toimii lipputoimisto, joka haluaa uudistaa lippujärjestelmänsä vastaamaan nykypäivän vaatimuksia ja tarpeita. TicketGuru-järjestelmän tavoitteena on mahdollistaa lippujen myynti myyntipisteessä sekä myöhemmin myös verkkokaupassa. Lippujen myynti tapahtuu ensisijaisesti myyntipisteessä, jossa lipunmyyjä myy ja tulostaa liput asiakkaille. Kun ennakkomyynti päättyy, jäljellä jäävät liput tulostetaan myyntipisteen sijaan ovella myytäväksi. Jokaisessa lipussa on selkeästi tarkastettava koodi, joka mahdollistaa nopean ja vaivattoman pääsyn tapahtumaan.
+Asiakkaanamme toimii lipputoimisto, joka haluaa uudistaa lipunmyyntijärjestelmänsä vastaamaan nykypäivän vaatimuksia ja tarpeita. TicketGuru-järjestelmän tavoitteena on mahdollistaa lippujen myynti myyntipisteessä sekä myöhemmin myös verkkokaupassa. Lippujen myynti tapahtuu ensisijaisesti myyntipisteessä, jossa lipunmyyjä myy ja tulostaa liput asiakkaille. Kun ennakkomyynti päättyy, jäljellä jäävät liput tulostetaan myyntipisteen sijaan ovella myytäväksi. Jokaisessa lipussa on selkeästi tarkastettava koodi, joka mahdollistaa nopean ja vaivattoman pääsyn tapahtumaan.
 
-Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena, joka on optimoitu käytettäväksi läppärillä tai pöytäkoneella.
-
+Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena, joka on optimoitu käytettäväksi kannettavalla tai pöytäkoneella.
 
 ## Järjestelmän määrittely
 
@@ -23,14 +22,11 @@ Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena, jok
 
 ### Käyttötapauskaavio
 
--   Käyttäjäroolit ja roolien tarvitsemat toiminnot, esim. käyttötapauskaaviona
-    (use case diagram) tai käyttäjätarinoina.
-
     ![Käyttötapauskaavio](pictures/ticketguru_usecase_final.png)
 
 ## Käyttöliittymä
 
-Käyttöliittymä tarkoitus toteuttaa alustavasti Reactilla. Käyttöliittymäsivu aukeaa kirjautumissivulle, jonka kautta pääsee käyttäjän oikeuksien mukaiselle työpöydälle.
+Käyttöliittymä on tarkoitus toteuttaa alustavasti Reactilla. Käyttöliittymäsivu aukeaa kirjautumissivulle, jonka kautta pääsee käyttäjän oikeuksien mukaiselle työpöydälle.
 
 - Pääkäyttäjälle avautuu listaus tapahtumista nykyhetkestä eteenpäin ja valinnat mm. lisätä ja muokata tapahtumia.
 - Myyjälle avautuu listaus tapahtumista nykyhetkestä eteenpäin ja mahdollisuus hakea ja myydä tapahtumia.
@@ -63,7 +59,7 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 >
 >
 > ### _Kayttaja_
-> _Kayttaja-taulu sisältää käyttäjien kirjautumistiedot ja yhdellä käyttäjällä voi olla vain yksi käyttäjä._
+> _Kayttaja-taulu sisältää käyttäjien kirjautumistiedot ja yhdellä käyttäjällä voi olla vain yksi rooli._
 >
 > Kenttä | Tyyppi | Kuvaus
 > ------ | ------ | ------
@@ -72,7 +68,7 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 > snimi | VARCHAR(50) | Käyttäjän sukunimi
 > enimi | VARCHAR(20) | Käyttäjän etunimi
 > lisatiedot | VARCHAR(700) | Mahdollisia lisätietoja käyttäjästä
-> rooli_id | INT FK | Viittaus käyttäjän rooliin rooli-taulussa
+> rooli_id | INT FK | Viittaus käyttäjän rooliin [rooli](#Rooli)-tauluun
 >
 >
 > ### _Postitoimipaikka_
@@ -192,10 +188,12 @@ Kappaleessa kuvataan järjestelmässä käytettävän tietokannan rakennetta. Ti
 
 ### REST-rajapinnan ratkaisut
 Tapahtuma-luokan metodit on luotu REST-rajapinnalla. Ensimmäisessä vaihessa Tapahtuma-luokalle luotiin GET- , POST- , PUT- sekä DELETE-metodit.
-Rajapinnan nimeämiskäytännössä käytettiin apuna GitHub-käyttäjä _jamecook:n_ kokoamaa ohjetta REST-rajapintojen dokumentaatiosta. Tämän jälkeen kaikille luoduille controlleri-luokille on, luotu samat metodit.
+Rajapinnan nimeämiskäytännössä käytettiin apuna GitHub-käyttäjä _jamecook:n_ kokoamaa ohjetta REST-rajapintojen dokumentaatiosta. Tämän jälkeen kaikille luoduille controller-luokille on luotu samat CRUD-metodit.
 
-Tällä hetkellä käytämme Base-URL:na http://localhost:8080
-Tulevaisuudessa kun tuote etenee tuotantovaiheeseen muuttu Base-URL muotoon https://ticketguru.fi
+Projektin alkuvaiheessa kehitystyötä tehtiin vain lokaalisti osoitteessa http://localhost:8080.
+Ensimmäisen vaiheen julkaisu tehtiin CSC:n Rahti-ympäristössä. Rahti pyrkii simuloimaan tuotanoympäristön kaltaista ympäristöä. Julkaisun jälkeen tuottetta on voinut käyttää myös osoitteessa https://projekti-ticketguru-tiimi4.rahtiapp.fi/.
+
+Tulevaisuudessa kun tuote etenee tuotantovaiheeseen kannattaa Base-URL:n muuttaa vielä yksinkertaisempaan muotoon, esim. https://ticketguru.fi.
 
 #### Endpoint Jarjestaja-luokalla on muotoa: /jarjestajat
 
@@ -413,17 +411,9 @@ Järjestelmässä on tällä hetkellä yksi ongelma, jota ei ole korjattu. Back-
 
 ## Asennustiedot
 
-Järjestelmän asennus on syytä dokumentoida kahdesta näkökulmasta:
+Tässä kappaleessa esitellään miten ohjelman voi ottaa käyttöön kehitysympäristössä sekä tuotantoympäristössä.
 
--   järjestelmän kehitysympäristö: miten järjestelmän kehitysympäristön saisi
-    rakennettua johonkin toiseen koneeseen
-
--   järjestelmän asentaminen tuotantoympäristöön: miten järjestelmän saisi
-    asennettua johonkin uuteen ympäristöön.
-
-Asennusohjeesta tulisi ainakin käydä ilmi, miten käytettävä tietokanta ja
-käyttäjät tulee ohjelmistoa asentaessa määritellä (käytettävä tietokanta,
-käyttäjätunnus, salasana, tietokannan luonti yms.).
+Suurin ero kehitysympäristön ja tuotantoympäristön välillä on tiedon pysyvyys. Kehitysympäristössä tieto katoaa heti, kun lokaali sovellus sammutetaan. Tuotantoympäristössä käytetään pysyvää tietokantaa tietokantapalvelimella, joka mahdollistaa persistentin tiedon käsittelyn. Näin pystytään jäljittelemään oikeaa tuotantoympäristöä, ja tuoteen testaamisesta voidaan suorittaa monipuolisemmin.
 
 **Järjestelmän kehitysympäristön siirtäminen toiselle koneelle:**
 
@@ -465,16 +455,16 @@ Ohjelmiston back-endin REST API löytyy osoitteesta https://projekti-ticketguru-
 Tällä hetkellä kirjautumistiedot on luotu seuraaville käyttäjille sekä back-endiin, että clientiin.
 
 ### Hallinto
-**Käyttäjätunnus**: hallinto
-**Salasana**: hallinto
-**Muuta**: Kaikki oikeudet
+-   **Käyttäjätunnus**: hallinto
+-   **Salasana**: hallinto
+-   **Muuta**: Kaikki oikeudet
 
 ### Myyjä
-**Käyttäjätunnus**: myyja
-**Salasana**: myyja
-**Muuta**: Oikeudet lipun myyntiin
+-   **Käyttäjätunnus**: myyja
+-   **Salasana**: myyja
+-   **Muuta**: Oikeudet lipun myyntiin
 
 ### Lipuntarkastaja
-**Käyttäjätunnus**: lipuntarkastaja
-**Salasana**: lipuntarkastaja
-**Muuta**: Oikeudet lipun tarkastamiseen
+-   **Käyttäjätunnus**: lipuntarkastaja
+-   **Salasana**: lipuntarkastaja
+-   **Muuta**: Oikeudet lipun tarkastamiseen
