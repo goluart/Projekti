@@ -22,7 +22,7 @@ Järjestelmä suunnitellaan ensisijaisesti käytettäväksi websovelluksena, jok
 
 ### Käyttötapauskaavio
 
-    ![Käyttötapauskaavio](pictures/ticketguru_usecase_final.png)
+![Käyttötapauskaavio](pictures/ticketguru_usecase_final.png)
 
 ## Käyttöliittymä
 
